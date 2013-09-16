@@ -101,7 +101,9 @@
 							</div></td>
 					</tr>
 					<tr>
+					
 						<td align="right" valign="middle"><span class="cart_txt">Welcome
+						<!-- condition here -->
 								<sec:authentication property="principal.username" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
 						</span></td>
 					</tr>

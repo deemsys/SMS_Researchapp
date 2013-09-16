@@ -14,18 +14,22 @@
 		</tr>
 		<tr>
         	<td valign="top" align="left" style="padding:5px 0 10px 0;">
+        	<c:if test="${success==true }">
 				<div class="status success">
             		<p class="closestatus"><a title="Close" href="">x</a></p>
             		<p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.adduser_new</AJDF:output></span> .</p>
           		</div>
+          		</c:if>
+          		<c:if test="${success==true }">
 				<div class="status error">
             		<p class="closestatus"><a title="Close" href="">x</a></p>
             		<p><img alt="Error" src="images/icons/icon_error.png"><span><AJDF:output>$smarty.session.deletepart</AJDF:output></span> .</p>
           		</div>
-				<div class="status success">
+          		</c:if>
+				<!-- <div class="status success">
             		<p class="closestatus"><a title="Close" href="">x</a></p>
             		<p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.upuser_new</AJDF:output></span> .</p>
-          		</div>
+          		</div> -->
 			</td>
       	</tr>
       	<tr>
@@ -45,7 +49,21 @@
 	                  			<td valign="top" align="left" width="15%">Education</td>
 	                  			<td valign="top" align="left" width="25%">Action</td>
 	                		</tr>
+	                		<c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
+							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
+							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="checkall"></td>
+							       		     	<td valign="top" align="left"  width="10%">${participantGroups.group_name}</td>
+											<td valign="top" align="left" width="15%">${participantGroups.group_decs}</td>
+											<td valign="top" align="left" width="10%">${participantGroups.local_dojfrom}</td>
+											<td valign="top" align="left" width="10%">${participantGroups.local_dojto}</td>
+											<td valign="top" align="left" width="15%">${participantGroups.local_educations}</td>
+											<%-- <td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
+											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="#" style="padding-right:10px;">Remove</a></td>
+						<%-- 					<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
+							 --%>			</tr>
+							    	</c:forEach>
 						</table>
+						
 					</div>
 				</div>
 			</td>

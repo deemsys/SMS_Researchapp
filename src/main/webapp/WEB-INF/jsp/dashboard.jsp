@@ -32,9 +32,9 @@
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="15%">${participantsDetails.age}</td>
+											<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
 											<td valign="top" align="left" width="15%">${participantsDetails.education}</td>
-											<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
+											<td valign="top" align="left" width="16%">${participantsDetails.date_of_join}</td>
 										</tr>
 							    	</c:forEach>
 						    	

@@ -3,6 +3,9 @@ package bephit.controllers;
  
 
 import java.security.Principal;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -10,27 +13,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import javax.validation.Valid;
 
-import bephit.dao.MainDAO;
-import bephit.forms.ParticipantsDetailsForm;
+
+import bephit.dao.*;
+import bephit.forms.*;
 import bephit.model.*;
+import bephit.Validation.*;
 
  
  
 @Controller
-@SessionAttributes
+@SessionAttributes("success")
 public class MainController {
 	
 	@Autowired  
 	MainDAO mainDAO; 
+	
+   @Autowired
+   UserDAO userDAO;
+    
+    @Autowired    
+    ParticipantGroupDAO partDAO;
  
 	@RequestMapping(value={"/", "/welcome"}, method = RequestMethod.GET)
 	public String printWelcome(ModelMap model, Principal principal ) {
 		
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-		
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);		
 		return "dashboard";
  
 	}
@@ -60,31 +71,155 @@ public class MainController {
 	return "edit";
 	}
 	
+	
+	@RequestMapping(value="/forgotpwd", method=RequestMethod.GET)
+	public String showForgotpassword(Model model) {
+	//	model.addAttribute(new UserProfile());
+	return "forgotpwd";
+	}
+	
+	
+	
+	
+	
 	@RequestMapping(value="/submituser", method=RequestMethod.POST)
-	public String addUserProfileFromForm(UserProfile userProfile) {
-		
+	public String addUserProfileFromForm(@ModelAttribute("userProfile") @Valid UserProfile userProfile,
+			BindingResult result,ModelMap model) {
+		if (result.hasErrors())
+		{
+			model.addAttribute("userProfile", userProfile);
+			 return "/edit";
+		}
 		System.out.println("Save User" + userProfile.getFullName());
-		return "/welcome";
+		userDAO.setUser(userProfile);
+		model.put("success", "Registration Successfull");
+		return "/edit";
 	}
 	
 	@RequestMapping(value="/showaddparticipants", method=RequestMethod.GET)
 	public String showAddParticipants(ModelMap model) {
-		//model.addAttribute(new UserProfile());
-		return "addparticipants";
-	}
-	@RequestMapping(value="/viewparticipants", method=RequestMethod.GET)
-	public String viewParticipants(ModelMap model) {
 		
+		model.put("success", "false");
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+	     return "addparticipants";
+	}
+	
+	@RequestMapping(value="/addparticipants",method=RequestMethod.GET)
+	public String showAddpart(ModelMap model)
+	{
+		model.addAttribute("success","false");
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+		
+		return "/addparticipants";
+	}
+	
+	@RequestMapping(value="/addparticipants", method=RequestMethod.POST)
+	public String showAddParticipants(@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+			BindingResult result,ModelMap model) {		
+		if (result.hasErrors())
+		{
+			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());
+	        model.addAttribute("participantGroupForm", participantGroupForm);
+	       return "addparticipants";
+		}
+		model.put("participant", participant);		
+		validation valid=new validation();
+		String[] errmsges=new String[50];
+		errmsges=valid.checkParticipant(participant);	
+		model.put("errmsg",errmsges[0]);
+		model.addAttribute("participantsDetailsForm", participant);
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);			
+		int a=mainDAO.setParticipants(participant);
+				model.put("success","true");
+		return "/addparticipants";
+
+		
+	}
+		
+	@RequestMapping(value="/viewparticipants", method=RequestMethod.GET)
+	public String viewParticipants(ModelMap model, Principal principal) {
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		return "viewparticipants";
 	}
+	
+	
+	
+	//Groups
+	
 	@RequestMapping(value="/showaddparticipantgroups", method=RequestMethod.GET)
-	public String showAddParticipantGroups(ModelMap model) {
-		
+	public String showAddParticipantGroups(ParticipantGroups pgroups,ModelMap model) {		
+	
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);        
+		//partDAO.setParticipantGroup(pgroups);	
+        model.addAttribute("success","false");
 		return "addparticipantgroups";
 	}
+	
+	
+	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.POST)
+	public String NewParticipantGroups(@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
+			BindingResult result,ModelMap model) {
+		if(pgroups.getgroup_scope()=="1")
+		{
+		if (result.hasErrors())
+		{
+			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());
+	        model.addAttribute("participantGroupForm", participantGroupForm);
+	       return "addparticipantgroups";
+		}
+		}
+		else
+		{
+			if(result.hasFieldErrors("group_decs"))
+			{
+				ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+				participantGroupForm.setParticipantGroups(partDAO.getGroups());
+		        model.addAttribute("participantGroupForm", participantGroupForm);
+		        return "addparticipantgroups";
+			}
+		}
+		
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+        model.addAttribute("success","true");
+		partDAO.setParticipantGroup(pgroups);
+		return "addparticipantgroups";
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.GET)
+	public String AddParticipantGroups(ParticipantGroups pgroups,ModelMap model) {
+		model.addAttribute("success","false");
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+		//partDAO.setParticipantGroup(pgroups);
+		return "addparticipantgroups";
+	}
+	
+	
+	
 	@RequestMapping(value="/viewparticipantgroups", method=RequestMethod.GET)
 	public String viewParticipantGroups(ModelMap model) {
-		
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm); 
 		return "viewparticipantgroups";
 	}
 	

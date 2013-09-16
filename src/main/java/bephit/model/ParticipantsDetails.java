@@ -1,20 +1,59 @@
 package bephit.model;
 
+
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+
+
+
 public class ParticipantsDetails {
 	private String participants_id;
+	
+	
+	@NotEmpty
 	private String fname;
+	
+	@NotEmpty
 	private String lname;
+	
+	@NotEmpty
+	@Pattern(regexp="^(\\d)++$",message="Should be a number")
 	private String mobile_num;
+	
 	private String gender;
+	
+	@NotEmpty
 	private String city;
+	
+	@NotEmpty
 	private String education;
+	
+	@NotEmpty
 	private String note;
+	
+	@NotEmpty
 	private String medical_details;
+	
+	@NotEmpty
 	private String messaging_frequency;
+	
+	@NotEmpty
 	private String group_name;
+	
+	@NotEmpty
+	@Pattern(regexp="^(\\d)++$",message="Should be a number")
 	private String age;
+	
+	//@NotEmpty
 	private String date_of_join;
+	
+	@NotEmpty
+	@Email
 	private String email_id;
+	
 	private String created_by;
 	
 	public ParticipantsDetails() {

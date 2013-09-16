@@ -1,12 +1,28 @@
 package bephit.model;
 
+
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserProfile {
 	private static final long serialVersionUID = 1L;
 	private Long id;
+	
+	@NotEmpty
 	private String fullName;
+	
+	@NotEmpty
 	private String username;
+	
+	@NotEmpty
 	private String password;
+	
+	@NotEmpty
+	@Email
 	private String email;
+	
+	
 	private boolean updateByEmail;
 	
 	public Long getId() {

@@ -14,20 +14,20 @@
 				</td>
 			</tr>
 			<tr>
-	        	<td valign="top" align="left" style="padding:5px 0 10px 0;">
+	        	<!--td valign="top" align="left" style="padding:5px 0 10px 0;">
 					<div class="status success">
 			            <p class="closestatus"><a title="Close" href="">x</a></p>
-			            <p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.adduser_new</AJDF:output></span> .</p>
+			            <p><img alt="Success" src="images/icons/icon_success.png"><span></span></p>
 			          </div>
 					<div class="status success">
 			            <p class="closestatus"><a title="Close" href="">x</a></p>
-			            <p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output>$smarty.session.deletepart</AJDF:output></span> .</p>
+			            <p><img alt="Success" src="images/icons/icon_success.png"><span></span></p>
 			          </div>
 					<div class="status success">
 			            <p class="closestatus"><a title="Close" href="">x</a></p>
-			            <p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.upuser_new</AJDF:output></span> .</p>
+			            <p><img alt="Success" src="images/icons/icon_success.png"><span></span></p>
 	          		</div>
-				</td>
+				</td>-->
       		</tr>
       		<tr>
         		<td valign="top" align="left">
@@ -41,7 +41,7 @@
 							    <td align="left" valign="middle" width="10%">Mobile No:</td>
 							    <td align="left" valign="middle" width="10%"><input type="text" name="moblie" class="input_txtbx1" id="moblie"></td>
 							    <td align="left" valign="middle" width="15%">&nbsp;&nbsp;Group Name:</td>
-							    <td align="left" valign="middle" width="10%"><AJDF:output>$group</AJDF:output></td>
+							    <td align="left" valign="middle" width="10%"></td>
 							    <td align="left" valign="middle" width="8%">&nbsp;&nbsp;City:</td>
 							    <td align="left" valign="middle" width="10%"><input type="text" name="city" id="city" class="input_txtbx1"></td>
 							    <td align="center" valign="middle" width="38%"><input type="button" class="submit_btn" value="Find" name="find" onclick="findpart()"></td>
@@ -58,7 +58,21 @@
           						<td valign="top" align="left" width="15%">Associated&nbsp;Streams</td>
           						<td valign="top" align="left" width="25%">Action</td>
         					</tr>
+        					<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
+							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
+							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="checkall"></td>
+							       		     	<td valign="top" align="left"  width="10%">${participantsDetails.fname}</td>
+											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
+											<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
+											<%-- <td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
+											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="#" style="padding-right:10px;">Remove</a></td>
+						<%-- 					<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
+							 --%>			</tr>
+							    	</c:forEach>
 						</table>
+						
 					</div>
 				</td>
 			</tr>
@@ -68,7 +82,7 @@
 
 <script>
 function confirmation(val) {
-	var answer = confirm("Are you Sure You Want to Delete Participant ?")
+	var answer = confirm("Are you Sure You Want to Delete Participant ?");
 	if (answer){
 		window.location = "?do=deleteparticipant&id="+val;
 	}

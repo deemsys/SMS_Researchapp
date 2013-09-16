@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
 
@@ -17,6 +21,44 @@ public class MainDAO {
 		this.dataSource = dataSource;
 	}
 	
+	public int setParticipants(ParticipantsDetails participant)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	    	 Date date = new Date();
+	    	 //System.out.println(dateFormat.format(date));
+	    	String cmd="INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`note`,`medical_details`,`messaging_frequency`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"+participant.getFname()+"','"+participant.getLname()+"','"+participant.getMobile_num()+"',0,'"+participant.getCity()+"','"+participant.getEducation()+"','"+participant.getNote()+"','"+participant.getMedical_details()+"','"+participant.getMessaging_frequency()+"','"+participant.getGroup_name()+"','"+participant.getAge()+"','"+dateFormat.format(date)+"','"+participant.getEmail_id()+"','0')";
+	    	System.out.println(cmd);
+			statement.execute(cmd);
+			flag=1;
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	//return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	if(flag==1)
+	    		return 1;
+	    	else
+	    		return 0;
+	    }
+	    
+	}
 	public List<ParticipantsDetails> getParticipants(){
 		Connection con = null;
 		Statement statement = null;
