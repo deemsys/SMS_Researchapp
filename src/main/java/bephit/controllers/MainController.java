@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import bephit.dao.*;
 import bephit.forms.*;
 import bephit.model.*;
-import bephit.Validation.*;
+//import bephit.Validation.*;
 
  
  
@@ -128,9 +128,9 @@ public class MainController {
 	       return "addparticipants";
 		}
 		model.put("participant", participant);		
-		validation valid=new validation();
+		//validation valid=new validation();
 		String[] errmsges=new String[50];
-		errmsges=valid.checkParticipant(participant);	
+	//errmsges=valid.checkParticipant(participant);	
 		model.put("errmsg",errmsges[0]);
 		model.addAttribute("participantsDetailsForm", participant);
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
