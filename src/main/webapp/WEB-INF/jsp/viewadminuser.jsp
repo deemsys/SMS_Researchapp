@@ -12,7 +12,7 @@
 				</td>
 		   	</tr>
 			<tr>
-        		<td valign="top" align="left" style="padding:5px 0 10px 0;">
+        		<!-- <td valign="top" align="left" style="padding:5px 0 10px 0;">
 					<div class="status success">
             			<p class="closestatus"><a title="Close" href="">x</a></p>
             			<p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.adduser</AJDF:output></span> .</p>
@@ -33,7 +33,7 @@
             			<p class="closestatus"><a title="Close" href="">x</a></p>
             			<p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.suspend</AJDF:output></span> </p>
           			</div>
-				</td>
+				</td> -->
       		</tr>
       		<tr>
 	        	<td valign="top" align="left">
@@ -51,6 +51,17 @@
 	                  				<td valign="top" align="left" width="25%">Address</td>
 									<td valign="top" align="left" width="24%">Action</td>
 								</tr>
+								<c:forEach items="${adminuserForm.adminuser}" var="adminuser" varStatus="status">
+							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
+							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="checkall"></td>
+							       		  	<td valign="top" align="left"  width="10%">${adminuser.admin_username}</td>
+											<td valign="top" align="left" width="15%">${adminuser.admin_email}</td>
+											<td valign="top" align="left" width="10%">${adminuser.admin_mobile}</td>
+											<td valign="top" align="left" width="10%">${adminuser.admin_address}</td>
+									<%-- 		<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
+									    --%>  	<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="#" style="padding-right:10px;">Remove</a></td>
+									</tr>
+							    	</c:forEach>
 							</table>
 						</div>
 					</div>
