@@ -38,7 +38,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`note`,`medical_details`,`messaging_frequency`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"+participant.getFname()+"','"+participant.getLname()+"','"+participant.getMobile_num()+"',0,'"+participant.getCity()+"','"+participant.getEducation()+"','"+participant.getNote()+"','"+participant.getMedical_details()+"','"+participant.getMessaging_frequency()+"','"+participant.getGroup_name()+"','"+participant.getAge()+"','"+dateFormat.format(date)+"','"+participant.getEmail_id()+"','0')";
+	    	String cmd="INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`note`,`medical_details`,`messaging_frequency`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"+participant.getFname()+"','"+participant.getLname()+"','"+participant.getMobile_num()+"','"+participant.getGender()+"','"+participant.getCity()+"','"+participant.getEducation()+"','"+participant.getNote()+"','"+participant.getMedical_details()+"','"+participant.getMessaging_frequency()+"','"+participant.getGroup_name()+"','"+participant.getAge()+"','"+dateFormat.format(date)+"','"+participant.getEmail_id()+"','0')";
 	    	System.out.println(cmd);
 			statement.execute(cmd);
 			flag=1;
@@ -52,11 +52,12 @@ public class MainDAO {
 	    }finally{
 	     	releaseStatement(statement);
 	    	releaseConnection(con);	    
-	    	if(flag==1)
-	    		return 1;
-	    	else
-	    		return 0;
+	    	
 	    }
+	    if(flag==1)
+    		return 1;
+    	else
+    		return 0;
 	    
 	}
 	public List<ParticipantsDetails> getParticipants(){
