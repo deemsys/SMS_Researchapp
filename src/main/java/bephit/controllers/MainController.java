@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -257,4 +258,21 @@ public class MainController {
 		
 		return "textmsg";
 	}
+	
+	
+	
+	@RequestMapping(value="/findParticipant",method=RequestMethod.GET)
+	public String findparticipant(@RequestParam("mobile") String mobile,@RequestParam("groupname") String groupname,@RequestParam("city") String city,ModelMap model)
+	{
+		System.out.println(mobile);
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(mobile,groupname,city));
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		return "viewparticipants";
+		//return "viewparticipants";
+	}
+	
+	
+	
+	
   }

@@ -23,7 +23,7 @@ public class AdminUserController
 	@Autowired
 	AdminUserDAO adminuserDAO;
 	
-	@RequestMapping(value="/addnewadminuser", method=RequestMethod.POST)
+	@RequestMapping(value="/adminuser/new", method=RequestMethod.POST)
 	public String addnewadminuser(@ModelAttribute("adminuser") @Valid AdminUser adminuser,
 			BindingResult result,ModelMap model)
 	{
