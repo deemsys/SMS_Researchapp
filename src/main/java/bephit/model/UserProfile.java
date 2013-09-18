@@ -2,6 +2,9 @@ package bephit.model;
 
 
 
+
+
+import org.apache.commons.logging.Log;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
