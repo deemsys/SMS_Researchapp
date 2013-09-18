@@ -1,7 +1,5 @@
 package bephit.controllers;
  
- 
-
 import java.security.Principal;
 
 import org.springframework.validation.BindingResult;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import javax.validation.Valid;
-
 
 import bephit.dao.*;
 import bephit.forms.*;
@@ -30,12 +27,27 @@ public class MainController {
 	@Autowired  
 	MainDAO mainDAO; 
 	
-   @Autowired
-   UserDAO userDAO;
+    @Autowired
+    UserDAO userDAO;
     
     @Autowired    
     ParticipantGroupDAO partDAO;
  
+    /*
+    @Autowired 
+    AdminUserDAO adminuserdao;
+	
+	@RequestMapping(value="/addnewadminuser", method = RequestMethod.GET)
+	public String addnewAdminUser(ModelMap model)
+	{
+		return "addadminuser"; 
+	}
+		
+    
+    */
+    
+    
+    
 	@RequestMapping(value={"/", "/welcome"}, method = RequestMethod.GET)
 	public String printWelcome(ModelMap model, Principal principal ) {
 		
@@ -228,11 +240,11 @@ public class MainController {
 		
 		return "addadminuser";
 	}
-	@RequestMapping(value="/viewadminuser", method=RequestMethod.GET)
+	/*@RequestMapping(value="/viewadminuser", method=RequestMethod.GET)
 	public String viewAdminUser(ModelMap model) {
 		
 		return "viewadminuser";
-	}
+	}*/
 	
 	@RequestMapping(value="/activityofadmin", method=RequestMethod.GET)
 	public String activityOfAdmin(ModelMap model) {
