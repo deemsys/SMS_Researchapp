@@ -103,6 +103,57 @@ public class MainDAO {
 		
 	}
 	
+	
+	//Select only ParticularGroup
+	
+	public List<ParticipantsDetails> getParticipants(String mobile,String groupname,String city){
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	String cmd="select * from participants_table where mobile_num='"+mobile+"' or group_name='"+groupname+"' or city='"+city+"'";
+			resultSet = statement.executeQuery(cmd);
+			System.out.println(cmd);			
+			while(resultSet.next()){
+				participants.add(new ParticipantsDetails(resultSet.getString("participants_id"),
+			    		resultSet.getString("fname"),
+			    		resultSet.getString("lname"),
+			    		resultSet.getString("mobile_num"),
+			    		resultSet.getString("gender"),
+			    		resultSet.getString("city"),
+			    		resultSet.getString("education"),
+			    		resultSet.getString("note"),
+			    		resultSet.getString("medical_details"),
+			    		resultSet.getString("messaging_frequency"),
+			    		resultSet.getString("group_name"),
+			    		resultSet.getString("age"),
+			    		resultSet.getString("date_of_join"),
+			    		resultSet.getString("email_id"),
+			    		resultSet.getString("created_by")));
+			}
+	    }catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    }finally{
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	    	
+	    }
+	    return participants;
+		
+	}
+	
+	
+	
 	public void releaseConnection(Connection con){
 		try{if(con != null)
 			con.close();
