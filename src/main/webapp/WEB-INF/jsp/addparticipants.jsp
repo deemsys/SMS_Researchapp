@@ -81,11 +81,13 @@
 				                 	<td valign="middle" align="left" class="input_txt"><span class="err">*</span> Education :</td>
 				                  	<td valign="top" align="left" class="input_txt">
 				                  		<select name="education" class="input_cmbbx1">
-						                    <option selected="selected" value="School" id="edu" >School</option>
+				                  		<option selected="selected" value="">--select--</option>
+						                    <option value="School" id="edu" >School</option>
 											<option value="Some Collage" id="edu" >Some College</option>
 											<option value="Professional Degree" id="edu" >Professional Degree</option>
 											<option value="Master Degree" id="edu" >Master Degree</option>
 				                   		</select>
+				                   		<br/>
 				                   		<font color="Red" size="+1"><span id="spnedu" ><form:errors path="participant.education"></form:errors> </span></font>
 				                   	</td>
 				                   	
@@ -122,12 +124,14 @@
                   				<td valign="middle" align="left" class="input_txt"><span class="err">*</span> Messaging Frequency:</td>
                   				<td valign="top" align="left" class="input_txt">
                   					<select name="messaging_frequency" class="input_cmbbx1" id="msg">
-                   						<option value="Daily Twice" selected="selected" id="msg">Daily Twice</option>
+                  					<option selected="selected" value="">--Select--</option>
+                   						<option value="Daily Twice" id="msg">Daily Twice</option>
 										<option value="Once a Day" id="msg">Once a Day</option>
 										<option value="Once in a week" id="msg">Once in a week</option>
 										<option value="No Preference" id="msg">No Preference</option>
 							      	</select>
-							    </td><span id="spnmsg" ><form:errors path="participant.messaging_frequency"></form:errors> </span>
+							    </td>
+							    </br><font color="Red" size="+1"><span id="spnmsg" ><form:errors path="participant.messaging_frequency"></form:errors> </span>
                 			</tr>
 
 							<tr><td><p class="quck-txt">Group</p></td></tr>
