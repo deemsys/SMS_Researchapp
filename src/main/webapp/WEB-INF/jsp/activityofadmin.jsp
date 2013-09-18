@@ -1,6 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="header.jsp"></jsp:include>
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <div id="right_content">
 	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
@@ -18,7 +19,12 @@
 							<tr>
 								<td width="30%" align="right"><b>User Name</b></td>
 								<td width="10%" align="center"><b>:</b></td> 
-								<td align="left" width="60%"><b><AJDF:output>$ad_name</AJDF:output></b></td>
+								<td align="left" width="60%"><b>
+								
+								<sec:authentication property="principal.username" />
+								
+								
+								</b></td>
 							</tr>
 							<tr><td width="30%" align="right" colspan="3">&nbsp;</td>
 							</tr>

@@ -4,8 +4,8 @@
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
 
 <div id="right_content">
-	<form name="grid" onSubmit="return validate(this)" action="" method="POST">
-    	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+	<!-- <form name="grid" action="" method="GET">
+    --> 	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
       		<tr>
 				<td valign="top" align="left" style="padding:5px 0 10px 0;">
 					<div class="del_div">
@@ -37,15 +37,17 @@
 			        <div class="contentbox">
 						<div style="border:#ccc 2px solid; padding:15px; margin-bottom:15px;">
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<form action="findParticipant" method="GET">
 							  <tr>
 							    <td align="left" valign="middle" width="10%">Mobile No:</td>
-							    <td align="left" valign="middle" width="10%"><input type="text" name="moblie" class="input_txtbx1" id="moblie"></td>
-							    <td align="left" valign="middle" width="15%">&nbsp;&nbsp;Group Name:</td>
-							    <td align="left" valign="middle" width="10%"></td>
-							    <td align="left" valign="middle" width="8%">&nbsp;&nbsp;City:</td>
-							    <td align="left" valign="middle" width="10%"><input type="text" name="city" id="city" class="input_txtbx1"></td>
-							    <td align="center" valign="middle" width="38%"><input type="button" class="submit_btn" value="Find" name="find" onclick="findpart()"></td>
+							    <td align="left" valign="middle" width="15%"><input type="text" name="mobile" class="input_txtbx1" id="mobile"></td>
+							     <td align="left" valign="middle" width="10%">&nbsp;&nbsp;Group Name:</td>
+							    <td align="left" valign="middle" width="15%"><input type="text" name="groupname" class="input_txtbx1" id="groupname"></td>
+							    <td align="left" valign="middle" width="5%">&nbsp;&nbsp;City:</td>
+							    <td align="left" valign="middle" width="15%"><input type="text" name="city" id="city" class="input_txtbx1"></td>
+							     <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Find"></td>
 							  </tr>
+							  </form>
 							</table>
 						</div>
 				        <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -59,7 +61,7 @@
           						<td valign="top" align="left" width="25%">Action</td>
         					</tr>
         					<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
-							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
+							       		<tr class="row1"> <!--  onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">-->
 							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="checkall"></td>
 							       		     	<td valign="top" align="left"  width="10%">${participantsDetails.fname}</td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
@@ -77,10 +79,10 @@
 				</td>
 			</tr>
 		</table> 
-	</form>
+<!-- 	</form> -->
 </div>
 
-<script>
+<script language="javascript">
 function confirmation(val) {
 	var answer = confirm("Are you Sure You Want to Delete Participant ?");
 	if (answer){
@@ -93,7 +95,6 @@ function confirmation(val) {
 </script>
 
 <script language="javascript">
-
 function selectall(field)
 {
 	//field.getElementByTagName('checkbox');
@@ -108,7 +109,27 @@ function selectall(field)
 			field[i].checked = false;
 	}
 }
+function validate(fname)
+{
+// alert(fname);
+var chks = document.getElementsByName('checkbox[]');
 
+var hasChecked = false;
+for (var i = 0; i < chks.length; i++)
+{
+if (chks[i].checked)
+{
+hasChecked = true;
+break;
+}
+}
+if (hasChecked == false)
+{
+alert("Please select at least one.");
+return false;
+}
+return true;
+}
 function validate(fname)
 {
 // alert(fname);
@@ -133,9 +154,13 @@ return true;
 
 function findpart()
 {
-// alert(document.getElementById("moblie").value);
-// alert(document.getElementById("group").value);
-// alert(document.getElementById("city").value);
+ alert("sdasdasdas");
+	
+	alert(document.getElementById("moblie").value);
+ alert(document.getElementById("group").value);
+ alert(document.getElementById("city").value);
+ 
+ 
 window.location="?do=viewparticipants&moblie="+document.getElementById("moblie").value+"&group="+document.getElementById("group").value+"&city="+document.getElementById("city").value;
 }
 </script>
