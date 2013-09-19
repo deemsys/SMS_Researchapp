@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class AdminUserController
 	@Autowired
 	AdminUserDAO adminuserDAO;
 	
-	@RequestMapping(value="/adminuser/new", method=RequestMethod.POST)
+	@RequestMapping(value="/addadminuser", method=RequestMethod.POST)
 	public String addnewadminuser(@ModelAttribute("adminuser") @Valid AdminUser adminuser,
 			BindingResult result,ModelMap model)
 	{
@@ -39,7 +40,7 @@ public class AdminUserController
 		return "addadminuser";
 	}
 	
-	@RequestMapping(value="/addnewadminuser", method=RequestMethod.GET)
+	@RequestMapping(value="/addadminuser", method=RequestMethod.GET)
 	public String showaddnewadminuser(ModelMap model)
 	{
 		model.put("success", "false");
@@ -51,6 +52,7 @@ public class AdminUserController
 	@RequestMapping(value="/viewadminuser",method=RequestMethod.GET)
 	public String viewadminusers(ModelMap model)
 	{
+		model.addAttribute("success","false");
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm", adminuserForm);		
@@ -58,6 +60,19 @@ public class AdminUserController
 	}
 	
 	
+	@RequestMapping(value="/deleteadminuser", method=RequestMethod.GET)
+	public String removeParticipants(@RequestParam("id") String admin_id,ModelMap model, Principal principal) {
+	
+		int status=adminuserDAO.deleteAdminUser(admin_id);//.deleteParticipant(participant_id);
+		if(status==1)
+		{
+        model.addAttribute("success","true");
+		AdminUserForm adminuserForm = new AdminUserForm();
+		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
+        model.addAttribute("adminuserForm",adminuserForm);
+		}
+		return "viewadminuser";
+	}
 	
 	
 }

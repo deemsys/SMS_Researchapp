@@ -158,12 +158,27 @@ public class MainController {
 		
 	@RequestMapping(value="/viewparticipants", method=RequestMethod.GET)
 	public String viewParticipants(ModelMap model, Principal principal) {
+		 model.addAttribute("success","false");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		return "viewparticipants";
 	}
 	
+	
+	@RequestMapping(value="/deleteparticipants", method=RequestMethod.GET)
+	public String removeParticipants(@RequestParam("id") String participant_id,ModelMap model, Principal principal) {
+	
+		int status=mainDAO.deleteParticipant(participant_id);
+		if(status==1)
+		{
+        model.addAttribute("success","true");
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		}
+		return "viewparticipants";
+	}
 	
 	
 	//Groups
@@ -271,6 +286,56 @@ public class MainController {
 		return "viewparticipants";
 		//return "viewparticipants";
 	}
+	
+	
+	//editparticipants
+	
+	
+	
+	@RequestMapping(value="/editparticipant", method=RequestMethod.GET)
+	public String editParticipant(@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	{
+	
+		
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
+		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);	
+		return "edit_participants";
+	}
+	
+	
+	
+	@RequestMapping(value="/updateparticipant", method=RequestMethod.POST)
+	public String updateParticipant(@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+			BindingResult result,ModelMap model)
+	{
+		
+		if (result.hasErrors())
+		{
+			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+	        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));
+	        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+			    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+				participantGroupForm.setParticipantGroups(partDAO.getGroups());
+		        model.addAttribute("participantGroupForm", participantGroupForm);	
+		        return "edit_participants";
+		}
+		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id());
+		System.out.println(status);
+
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());
+	        model.addAttribute("participantGroupForm", participantGroupForm);
+      
+		return "edit_participants";
+	}
+	
 	
 	
 	
