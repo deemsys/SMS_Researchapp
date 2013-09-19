@@ -2,10 +2,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="header.jsp"></jsp:include>
-<script type="text/javascript" src="js/calendar/calendar.js"></script>
-<script type="text/javascript" src="js/calendar/calendar-en.js"></script>
-<script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
-<link href="css/calendar_styles.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="resources/css/jquery-ui.css" />
+  <script src="resources/js/jquery-1.9.1.js" type="text/javascript"></script>
+  <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
+  <script>
+  $(function() {
+    $( "#dateofjoinfrom" ).datepicker();
+  });
+  $(function() {
+	    $( "#dateofjointo" ).datepicker();
+	  });
+  </script>
 <div id="right_content">
 
 <form action="addparticipantgroups" method="post" >
@@ -63,6 +70,7 @@
 			                  <td valign="top" align="right" class="input_txt" width=30% ><span class="err">*</span> Select Group :</td>
 			                   <td valign="top" align="left"  class="input_txt" width=70%>
 			                   <select name="select_local_group">
+			                   <option value="">--Select--</option>
 			                   <c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
 			                   <option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
 			                   </c:forEach>
@@ -75,11 +83,11 @@
 			                </tr>
 					<tr class="row4">
 			                  <td valign="middle" align="right" class="input_txt" width="30%" ><span class="err">*</span> Date Of Join From :</td>
-			                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_dojfrom" class="input_txtbx" id="startdate"  value="" />&nbsp;&nbsp;<input type="button" id="startdatea" style="background:url(images/calendar.gif) left top no-repeat;  width:25px;outline:none; border:0;"> </br><span class="err"><form:errors path="pgroups.local_dojfrom"></form:errors></span></td>
+			                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_dojfrom" class="input_txtbx" id="dateofjoinfrom"  value=""  />&nbsp;&nbsp; </br><span class="err"><form:errors path="pgroups.local_dojfrom"></form:errors></span></td>
 			                </tr>
 							<tr class="row4">
 							                  <td valign="middle" align="right" class="input_txt" width="30%" ><span class="err">*</span> Date Of Join To :</td>
-							                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_dojto" class="input_txtbx" id="enddate"  value="" />&nbsp;&nbsp;<input type="button" id="enddatea" style="background:url(images/calendar.gif) left top no-repeat;  width:25px;outline:none; border:0;"></br><span class="err"><form:errors path="pgroups.local_dojto"></form:errors></span></td>
+							                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_dojto" class="input_txtbx" id="dateofjointo"  value=""" />&nbsp;&nbsp;</br><span class="err"><form:errors path="pgroups.local_dojto"></form:errors></span></td>
 							                </tr>
 							<tr class="row4">
 							                  <td valign="middle" align="right" class="input_txt" width="30%" ><span class="err">*</span> Age :</td>
@@ -90,7 +98,8 @@
 							                 
 							                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Education :</td>
 							                  <td valign="top" align="left" class="input_txt" ><select name="local_educations" class="input_cmbbx1">
-							                    <option selected value="School">School</option>
+							                    <option value="">--Select--</option>
+							                    <option value="School">School</option>
 										<option   value="Some Collage">Some College</option>
 										<option value="Professional Degree">Professional Degree</option>
 										<option value="Master Degree">Master Degree</option>
@@ -140,7 +149,7 @@ function closelocal()
 	
 }
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	Calendar.setup({
 	  inputField    : "startdate",
 	  button        : "startdatea",
@@ -153,5 +162,5 @@ function closelocal()
 	   button        : "enddatea",
 	   align         : "Tr"
 	 });
-</script>
+</script> -->
 <jsp:include page="footer.jsp"></jsp:include>
