@@ -60,6 +60,51 @@ public class MainDAO {
     		return 0;
 	    
 	}
+	
+	
+	
+	public int updateParticipants(ParticipantsDetails participant,String participants_id)
+	{
+		Connection con = null;
+		Statement statement = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	    	 Date date = new Date();
+	    	 //System.out.println(dateFormat.format(date));
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',lname ='"+participant.getLname()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',note = '"+participant.getNote()+"',medical_details = '"+participant.getMedical_details()+"',messaging_frequency = '"+participant.getMessaging_frequency()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
+	    	System.out.println(cmd);
+			statement.execute(cmd);
+			flag=1;
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	//return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    if(flag==1)
+    		return 1;
+    	else
+    		return 0;
+	    
+	}
+	
+	
+	
+	
 	public List<ParticipantsDetails> getParticipants(){
 		Connection con = null;
 		Statement statement = null;
@@ -102,7 +147,38 @@ public class MainDAO {
 	    return participants;
 		
 	}
-	
+	public int deleteParticipant(String participant_id){
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try{
+			statement.execute("delete from participants_table where participants_id='"+participant_id+"'");
+			flag=1;
+			
+	    }catch(Exception e){
+	    	System.out.println(e.toString());
+	    	flag=0;
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    }finally{
+	    	
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	    	
+	    }
+	   		if(flag==1)
+	   			return 1;
+	   		else
+	   			return 0;
+	}
 	
 	//Select only ParticularGroup
 	
@@ -152,7 +228,51 @@ public class MainDAO {
 		
 	}
 	
-	
+	public List<ParticipantsDetails> getParticipants(String participants_id){
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	String cmd="select * from participants_table where participants_id='"+participants_id+"'";
+			resultSet = statement.executeQuery(cmd);
+			System.out.println(cmd);			
+			while(resultSet.next()){
+				participants.add(new ParticipantsDetails(resultSet.getString("participants_id"),
+			    		resultSet.getString("fname"),
+			    		resultSet.getString("lname"),
+			    		resultSet.getString("mobile_num"),
+			    		resultSet.getString("gender"),
+			    		resultSet.getString("city"),
+			    		resultSet.getString("education"),
+			    		resultSet.getString("note"),
+			    		resultSet.getString("medical_details"),
+			    		resultSet.getString("messaging_frequency"),
+			    		resultSet.getString("group_name"),
+			    		resultSet.getString("age"),
+			    		resultSet.getString("date_of_join"),
+			    		resultSet.getString("email_id"),
+			    		resultSet.getString("created_by")));
+			}
+	    }catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    }finally{
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	    	
+	    }
+	    return participants;
+		
+	}
 	
 	public void releaseConnection(Connection con){
 		try{if(con != null)

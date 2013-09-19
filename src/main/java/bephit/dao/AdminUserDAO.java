@@ -129,6 +129,52 @@ public class AdminUserDAO {
 
 		return adminuser;
 	}
+	
+	
+	public int deleteAdminUser(String admin_id) {
+
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try
+		{
+			statement.execute("delete from admin_log_table where admin_id='"+admin_id+"'");
+			flag=1;
+		} 
+		catch (Exception ex) 
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+		} 
+		finally 
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	
+	    	
+		}
+
+		if(flag==1)
+			return 1;
+		else
+			return 0;
+	}
+	
+	
+	
+	
+	
+	
 	public void releaseConnection(Connection con){
 		try{if(con != null)
 			con.close();
