@@ -12,6 +12,17 @@
 				</td>
 		   	</tr>
 			<tr>
+			
+			<c:if test="${success==true}">
+        <tr>
+        <td valign="top" align="left" style="padding:5px 0 10px 0;">&nbsp;
+            <div id="success_statusbar" class="status success">
+            <p class="closestatus"><a title="Close" href="viewadminuser">x</a></p>
+            <p><img alt="Success" src="resources/images/icons/icon_success.png"><span>Success!</span>.</p>
+          </div>
+      </tr>
+    </c:if>  
+			
         		<!-- <td valign="top" align="left" style="padding:5px 0 10px 0;">
 					<div class="status success">
             			<p class="closestatus"><a title="Close" href="">x</a></p>
@@ -59,7 +70,7 @@
 											<td valign="top" align="left" width="10%">${adminuser.admin_mobile}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_address}</td>
 									<%-- 		<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
-									    --%>  	<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="#" style="padding-right:10px;">Remove</a></td>
+									    --%>  	<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a></td>
 									</tr>
 							    	</c:forEach>
 							</table>
@@ -105,6 +116,17 @@ function myActive(str,sta) {
 </script>
 
 <script language="javascript">
+
+function confirmation() {
+	var answer = confirm("Are you Sure You Want to Delete Participant ?")
+	if (answer){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 
 function selectall(field)
 {

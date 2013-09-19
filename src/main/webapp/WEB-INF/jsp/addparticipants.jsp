@@ -141,7 +141,7 @@
 			                  <td valign="top" align="left" class="input_txt">
 			                  <select name="group_name">
 			                  <c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
-			                   <option value="${participantGroups.group_id}">${participantGroups.group_name}</option>
+			                   <option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
 			                   </c:forEach>
 			                  
 			                  </select>
