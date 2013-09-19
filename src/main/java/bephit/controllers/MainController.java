@@ -274,7 +274,11 @@ public class MainController {
 		return "textmsg";
 	}
 	
-	
+	@RequestMapping(value="/changepassword",method=RequestMethod.GET)
+	public String changemypassword(ModelMap model)
+	{
+		return "changepwd";
+	}
 	
 	@RequestMapping(value="/findParticipant",method=RequestMethod.GET)
 	public String findparticipant(@RequestParam("mobile") String mobile,@RequestParam("groupname") String groupname,@RequestParam("city") String city,ModelMap model)
