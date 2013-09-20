@@ -69,8 +69,8 @@
 											<td valign="top" align="left" width="15%">${adminuser.admin_email}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_mobile}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_address}</td>
-									<%-- 		<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
-									    --%>  	<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a></td>
+											<td><a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editadminuser?id=${adminuser.admin_id}"/>" style="padding-right:10px;">Edit</a>
+									     	<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a></td>
 									</tr>
 							    	</c:forEach>
 							</table>
@@ -118,7 +118,7 @@ function myActive(str,sta) {
 <script language="javascript">
 
 function confirmation() {
-	var answer = confirm("Are you Sure You Want to Delete Participant ?")
+	var answer = confirm("Are you Sure You Want to Delete this user ?")
 	if (answer){
 		return true;
 	}

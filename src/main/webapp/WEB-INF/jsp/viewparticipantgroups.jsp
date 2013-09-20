@@ -16,16 +16,16 @@
         	<td valign="top" align="left" style="padding:5px 0 10px 0;">
         	<c:if test="${success==true }">
 				<div class="status success">
-            		<p class="closestatus"><a title="Close" href="">x</a></p>
-            		<p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.adduser_new</AJDF:output></span> .</p>
+            		<p class="closestatus"><a title="Close" href="viewparticipantgroups">x</a></p>
+            		<p><img alt="Success" src="resources/images/icons/icon_success.png"><span>Success</span> .</p>
           		</div>
           		</c:if>
-          		<c:if test="${success==true }">
+          		<%-- <c:if test="${success==true }">
 				<div class="status error">
             		<p class="closestatus"><a title="Close" href="">x</a></p>
             		<p><img alt="Error" src="images/icons/icon_error.png"><span><AJDF:output>$smarty.session.deletepart</AJDF:output></span> .</p>
           		</div>
-          		</c:if>
+          		</c:if> --%>
 				<!-- <div class="status success">
             		<p class="closestatus"><a title="Close" href="">x</a></p>
             		<p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.upuser_new</AJDF:output></span> .</p>
@@ -58,7 +58,7 @@
 											<td valign="top" align="left" width="10%">${participantGroups.local_dojto}</td>
 											<td valign="top" align="left" width="15%">${participantGroups.local_educations}</td>
 											<%-- <td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
-											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="#" style="padding-right:10px;">Remove</a></td>
+											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipantgroup?id=${participantGroups.group_id}"/>" style="padding-right:10px;">Remove</a></td>
 						<%-- 					<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
 							 --%>			</tr>
 							    	</c:forEach>

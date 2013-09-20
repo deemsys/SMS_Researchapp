@@ -75,4 +75,36 @@ public class AdminUserController
 	}
 	
 	
+	@RequestMapping(value="/editadminuser", method=RequestMethod.GET)
+	public String editadminuser(@RequestParam("id") String admin_id,ModelMap model, Principal principal) {
+	
+		AdminUserForm adminuserForm = new AdminUserForm();
+		adminuserForm.setAdminuser(adminuserDAO.getAdminUser(admin_id));
+        model.addAttribute("adminuserForm",adminuserForm);
+        return "editadminuser";
+	}
+	
+	
+	@RequestMapping(value="/updateadminuser", method=RequestMethod.POST)
+	public String updateParticipants(@ModelAttribute("adminuser") @Valid AdminUser adminuser,BindingResult result,ModelMap model, Principal principal) {
+	
+		int status=adminuserDAO.updateAdminUser(adminuser, adminuser.getAdmin_id());//.deleteParticipant(participant_id);
+		if (result.hasErrors())
+		{
+			AdminUserForm adminuserForm = new AdminUserForm();
+			adminuserForm.setAdminuser(adminuserDAO.getAdminUser(adminuser.getAdmin_id()));
+	        model.addAttribute("adminuserForm",adminuserForm);
+	        return "editadminuser";
+		}
+		System.out.println(status);
+		model.addAttribute("success","true");
+		AdminUserForm adminuserForm = new AdminUserForm();
+		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
+        model.addAttribute("adminuserForm",adminuserForm);
+		return "viewadminuser";
+	}
+	
+	
+	
+	
 }

@@ -131,6 +131,82 @@ public class AdminUserDAO {
 	}
 	
 	
+	
+	
+	//get particular user
+	
+	public List<AdminUser> getAdminUser(String admin_id) {
+
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<AdminUser> adminuser = new ArrayList<AdminUser>();
+
+		try
+		{
+			resultSet = statement.
+					executeQuery("select * from admin_log_table where admin_id='"+admin_id+"'");
+			while (resultSet.next()) {
+				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
+						resultSet.getString("admin_username"), resultSet
+								.getString("admin_password"), resultSet
+								.getString("admin_email"), resultSet
+								.getString("admin_mobile"), resultSet
+								.getString("admin_address"), resultSet
+								.getString("previlages"), resultSet
+								.getString("date"), resultSet
+								.getString("status"),
+								resultSet.getString("addstream"),
+								resultSet.getString("editstream"),
+								resultSet.getString("deletestream"),
+								resultSet.getString("broadcaststream"),
+								resultSet.getString("addparticipant"),
+								resultSet.getString("editparticipant"),
+								resultSet.getString("deleteparticipant"),
+								resultSet.getString("addadminuser"),
+								resultSet.getString("edituser"),
+							    resultSet.getString("deleteuser"),
+								resultSet.getString("modifysettings"),
+								resultSet.getString("mailtemplate")
+								));
+			
+		                  }
+		} 
+		catch (Exception ex) 
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+		} 
+		finally 
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	
+	    	
+		}
+
+		return adminuser;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public int deleteAdminUser(String admin_id) {
 
 		Connection con = null;
@@ -150,7 +226,7 @@ public class AdminUserDAO {
 		} 
 		catch (Exception ex) 
 		{
-			System.out.println(ex.toString());
+			System.out.println("user"+ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -169,6 +245,69 @@ public class AdminUserDAO {
 		else
 			return 0;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public int updateAdminUser(AdminUser adminuser,String admin_id)
+	{
+
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<AdminUser> adminuser = new ArrayList<AdminUser>();
+
+		try
+		{
+			String cmd="UPDATE admin_log_table SET admin_username= '"+adminuser.getAdmin_username()+"',admin_password='"+adminuser.getAdmin_password()+"' ,admin_email='"+adminuser.getAdmin_email()+"' ,admin_mobile='"+adminuser.getAdmin_mobile()+"' ,admin_address ='"+adminuser.getAdmin_address()+"' ,previlages='"+adminuser.getPrevilages()+"' ,addstream ='"+adminuser.getAddstream()+"' ,editstream= '"+adminuser.getEditstream()+"',deletestream ='"+adminuser.getDeletestream()+"' ,broadcaststream ='"+adminuser.getBroadcaststream()+"',addparticipant ='"+adminuser.getAddparticipant()+"' ,editparticipant ='"+adminuser.getEditparticipant()+"' ,deleteparticipant ='"+adminuser.getDeleteparticipant()+"' ,addadminuser ='"+adminuser.getAddadminuser()+"' ,edituser ='"+adminuser.getEdituser()+"' ,deleteuser ='"+adminuser.getDeleteuser()+"' ,modifysettings ='"+adminuser.getModifysettings()+"' ,mailtemplate = '"+adminuser.getMailtemplate()+"' WHERE admin_id='"+admin_id+"'";
+			
+			statement.execute(cmd);
+            System.out.println(cmd); 
+            flag=1;
+			
+		} 
+		catch (Exception ex) 
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+		} 
+		finally 
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	
+	    	//flag=0;
+	    	
+		}
+
+		if(flag==1)
+			return 1;
+		else
+			return 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

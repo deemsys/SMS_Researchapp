@@ -68,6 +68,55 @@ public class ParticipantGroupDAO {
 	    
 	}
 	
+	
+	public int deleteParticipantgroup(String group_id)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	    	int local_age;
+	    	/*if(Integer.parseInt(pgroups.getgroup_scope())==0)
+	    	local_age=0;
+	    	else
+	    		local_age=Integer.parseInt(pgroups.getlocal_age());*/
+	    	 //System.out.println(dateFormat.format(date));
+	    	//String cmd="INSERT INTO users(`FULLNAME`,`USERNAME`,`PASSWORD`,`ENABLED`,`EMAIL`,`PROFILE_IMAGE`,`UPDATEBYEMAIL`) VALUES('"+user.getFullName()+"','"+user.getUsername()+"','"+user.getPassword()+"','"+enabled+"','"+user.getEmail()+"','empty','"+updateemail+"')";
+          String cmd_pgroups="delete from participant_group_table where group_id='"+group_id+"'";
+          System.out.println(cmd_pgroups);
+			statement.execute(cmd_pgroups);
+			flag=1;
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	     }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    if(flag==1)
+    		return 1;
+    	else
+    		return 0;
+	}
+	
+	
+	
+	
+	
 	public  List<ParticipantGroups> getGroups()
 	{
 		Connection con = null;

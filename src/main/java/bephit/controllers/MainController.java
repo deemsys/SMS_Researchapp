@@ -54,7 +54,8 @@ public class MainController {
 		
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-        model.addAttribute("participantsDetailsForm", participantsDetailsForm);		
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
+        model.addAttribute("menu","dashboard");
 		return "dashboard";
  
 	}
@@ -245,6 +246,7 @@ public class MainController {
 	
 	@RequestMapping(value="/viewparticipantgroups", method=RequestMethod.GET)
 	public String viewParticipantGroups(ModelMap model) {
+		model.addAttribute("success","false");
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm); 
@@ -341,7 +343,22 @@ public class MainController {
 	}
 	
 	
+	//Delete ParticipantGroups
 	
+	@RequestMapping(value="/deleteparticipantgroup", method=RequestMethod.GET)
+	public String deleteParticipantgroup(@RequestParam("id") String group_id,ModelMap model, Principal principal)
+	{
+	
+		int status=partDAO.deleteParticipantgroup(group_id);
+		if(status==1)
+		{
+	    model.addAttribute("success","true");
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm); 
+		}
+		return "viewparticipantgroups";
+	}
 	
 	
   }
