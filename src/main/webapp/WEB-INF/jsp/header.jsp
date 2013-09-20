@@ -103,8 +103,11 @@
 					<tr>
 					
 						<td align="right" valign="middle"><span class="cart_txt">Welcome
-						<!-- condition here -->
+						<c:set var="user_name" value="principal.username"/>
+					<%-- 	<c:if $user_name="""> --%>
 								<sec:authentication property="principal.username" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
+							<%-- 	</c:if> --%>
+								
 						</span></td>
 					</tr>
 				</table>
@@ -123,27 +126,32 @@
 	<AJDF:output>/php</AJDF:output>	 Suresh-->
 						<ul class="menu">
 							<li>
-								<a href="welcome" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>">
+								<a href="welcome" class="<c:choose>
+								<c:when test="${menu=='dashboard'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>">
 									<span><img src="<c:url value="/resources/images/icon_01.png" />" alt="" style="padding:5px 5px 0 0;" />Dashboard</span>
 								</a>
 							</li>
 				            <li>
-				            	<a href="#" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>" rel="ddsubmenu1">
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='message'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu1">
 				            		<span><img src="<c:url value="/resources/images/email.png" />" alt="" style="padding:5px 5px 0 0;" />Message Stream</span>
 				            	</a>
 				            </li>
 				            <li>
-				            	<a href="#" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>" rel="ddsubmenu2">
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='participants'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu2">
 				            		<span><img src="<c:url value="/resources/images/icon_03.png" />" alt="" style="padding:5px 5px 0 0;" />Participants</span>
 				            	</a>
 				            </li>
 				            <li>
-				            	<a href="#" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>" rel="ddsubmenu3">
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='adminuser'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu3">
 				            		<span><img src="<c:url value="/resources/images/icon_06.png" />" alt="" style="padding:5px 5px 0 0;" />Admin User</span>
 				            	</a>
 				            </li>
 				            <li>
-				            	<a href="#" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>" rel="ddsubmenu4">
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu4">
 				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Settings</span>
 				            	</a>
 				            </li>
