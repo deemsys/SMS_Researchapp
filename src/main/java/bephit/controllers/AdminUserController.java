@@ -24,6 +24,7 @@ public class AdminUserController
 	@Autowired
 	AdminUserDAO adminuserDAO;
 	
+	
 	@RequestMapping(value="/addadminuser", method=RequestMethod.POST)
 	public String addnewadminuser(@ModelAttribute("adminuser") @Valid AdminUser adminuser,
 			BindingResult result,ModelMap model)
@@ -37,6 +38,7 @@ public class AdminUserController
 		System.out.println("Add AdminUser");
 		model.put("success", "true");
 		adminuserDAO.setAdminUser(adminuser);
+		model.addAttribute("menu","adminuser");
 		return "addadminuser";
 	}
 	
@@ -44,6 +46,7 @@ public class AdminUserController
 	public String showaddnewadminuser(ModelMap model)
 	{
 		model.put("success", "false");
+		  model.addAttribute("menu","adminuser");
 		return "addadminuser";
 	}
 	
@@ -55,7 +58,8 @@ public class AdminUserController
 		model.addAttribute("success","false");
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
-        model.addAttribute("adminuserForm", adminuserForm);		
+        model.addAttribute("adminuserForm", adminuserForm);	
+        model.addAttribute("menu","adminuser");
 		return "viewadminuser";
 	}
 	
@@ -70,7 +74,9 @@ public class AdminUserController
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm",adminuserForm);
+        model.addAttribute("menu","adminuser");
 		}
+		  model.addAttribute("menu","adminuser");
 		return "viewadminuser";
 	}
 	
@@ -81,6 +87,7 @@ public class AdminUserController
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser(admin_id));
         model.addAttribute("adminuserForm",adminuserForm);
+        model.addAttribute("menu","adminuser");
         return "editadminuser";
 	}
 	
@@ -94,6 +101,7 @@ public class AdminUserController
 			AdminUserForm adminuserForm = new AdminUserForm();
 			adminuserForm.setAdminuser(adminuserDAO.getAdminUser(adminuser.getAdmin_id()));
 	        model.addAttribute("adminuserForm",adminuserForm);
+	        model.addAttribute("menu","adminuser");
 	        return "editadminuser";
 		}
 		System.out.println(status);
@@ -101,6 +109,7 @@ public class AdminUserController
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm",adminuserForm);
+        model.addAttribute("menu","adminuser");
 		return "viewadminuser";
 	}
 	
