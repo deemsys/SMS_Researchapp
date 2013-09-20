@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>:: Medical SMS ::</title>
-<link href="resources/css/style.css"  rel="stylesheet" type="text/css" />
-<link href="resources/css/home.css" rel="stylesheet" type="text/css" />
+<title>Change password</title>
+
 </head>
 <body>
-<div id="right_content">
+
 <form method="post" action="?do=updatepassword">
   <div id="right_content">
     <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
@@ -56,4 +55,4 @@
 </form>
   </body>
   </html>
-      
+   <jsp:include page="footer.jsp"></jsp:include>   
