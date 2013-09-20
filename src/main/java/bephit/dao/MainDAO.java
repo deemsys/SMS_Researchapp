@@ -147,6 +147,77 @@ public class MainDAO {
 	    return participants;
 		
 	}
+	
+	
+	public List<ParticipantsDetails> getlimitedParticipants(int page){
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	        
+	    	String cmd;	
+	    	int offset=5*(page-1);
+	    	int limit=5;  	
+	    	
+	    	cmd="select * from participants_table limit "+offset+","+limit;
+	    	System.out.println(cmd);
+			resultSet=statement.executeQuery(cmd);
+			while(resultSet.next()){
+				participants.add(new ParticipantsDetails(resultSet.getString("participants_id"),
+			    		resultSet.getString("fname"),
+			    		resultSet.getString("lname"),
+			    		resultSet.getString("mobile_num"),
+			    		resultSet.getString("gender"),
+			    		resultSet.getString("city"),
+			    		resultSet.getString("education"),
+			    		resultSet.getString("note"),
+			    		resultSet.getString("medical_details"),
+			    		resultSet.getString("messaging_frequency"),
+			    		resultSet.getString("group_name"),
+			    		resultSet.getString("age"),
+			    		resultSet.getString("date_of_join"),
+			    		resultSet.getString("email_id"),
+			    		resultSet.getString("created_by")));
+			}
+	    }catch(Exception e){
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    }finally{
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	    	
+	    }
+	    return participants;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public int deleteParticipant(String participant_id){
 		Connection con = null;
 		Statement statement = null;
