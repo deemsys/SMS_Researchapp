@@ -6,6 +6,37 @@
   <script src="resources/js/jquery-1.9.1.js" type="text/javascript"></script>
   <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
   <script>
+ /*  $(document).ready(function() {
+      $('#group_name').keyup(function(){
+
+          var group_name= $('#group_name').val();
+        
+          /* alert(group_name);
+          $.post("dashboard",{ rrr: group_name },function(data){
+//alert("fdgd123"); */
+
+//alert(n);/* 
+             //if(n>0)
+              //{
+               //    $('#notavai').show(data);
+                 // $('#notavai').html(data);
+
+              //}
+              //else
+              //{
+//alert(n);
+                //  $('#notavai').hide(data);
+
+              //}
+
+      //    });
+
+
+    //  });
+
+  //});
+  
+  
   $(function() {
     $( "#dateofjoinfrom" ).datepicker();
   });
@@ -39,7 +70,7 @@
 	                
 	                <tr class="row1">
 	                  <td valign="middle" align="right" class="input_txt" width=30% ><span class="err">*</span> Group Name :</td>
-	                  <td valign="top" align="left" class="input_txt" width=70%><input type="text" name="group_name" class="input_txtbx" style="width:200px;"  id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /></br><span class="err"><form:errors path="pgroups.group_name"></form:errors> </span></td>
+	                  <td valign="top" align="left" class="input_txt" width=70%><input type="text" name="group_name" class="input_txtbx" style="width:200px;"  id="group_name" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /><br/><span class="err"> <c:if test="${username_exist==true}"><c:out value="Group Name already exist"/></c:if><form:errors path="pgroups.group_name"></form:errors> </span></td>
 	                </tr>
 	
 	                <tr class="row2">

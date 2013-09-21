@@ -111,6 +111,15 @@ function validate(form)
 		<div id="login_div">
 		  <div class="login-top"></div>
 		  <div class="login-center">
+		  <c:if test="${Regsuccess==true}">
+        <tr>
+        <td valign="top" align="left" style="padding:5px 0 10px 0;">&nbsp;
+            <div id="success_statusbar" class="status success">
+            <p class="closestatus"><a title="Close" href="login">x</a></p>
+            <p><img alt="Success" src="resources/images/icons/icon_success.png"><span>Registration Successful!!</span>.</p>
+          </div>
+      </tr>
+    </c:if> 
 		  <c:if test="${not empty error}">
 		<div class="errorblock">
 			Your login attempt was not successful, try again.<br /> Caused :

@@ -33,6 +33,7 @@ public class AdminUserController
 		if (result.hasErrors())
 		{
 			//model.addAttribute("userProfile", userProfile);
+			model.addAttribute("menu","adminuser");
 			 return "addadminuser";
 		}
 		System.out.println("Add AdminUser");

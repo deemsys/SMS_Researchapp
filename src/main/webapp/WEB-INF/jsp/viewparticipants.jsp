@@ -59,7 +59,8 @@
 							    <td align="left" valign="middle" width="5%">&nbsp;&nbsp;City:</td>
 							    <td align="left" valign="middle" width="15%"><input type="text" name="city" id="city" class="input_txtbx1"></td>
 							     <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Find"></td>
-							  </tr>
+						<!-- 	      <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Clear"></td>
+						 -->	  </tr>
 							  </form>
 							</table>
 						</div>
@@ -95,7 +96,7 @@
 							    	<td colspan="7" width="100%"><center><b>No Participants Found!!!</b></center></td>
 							    	</tr>
 							    	</c:if>
-							   
+							  
 						</table>
 						
 						

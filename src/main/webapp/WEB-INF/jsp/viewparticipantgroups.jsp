@@ -58,7 +58,7 @@
 											<td valign="top" align="left" width="10%">${participantGroups.local_dojto}</td>
 											<td valign="top" align="left" width="15%">${participantGroups.local_educations}</td>
 											<%-- <td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
-											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipantgroup?id=${participantGroups.group_id}"/>" style="padding-right:10px;">Remove</a></td>
+											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipantgroup?id=${participantGroups.group_id}"/>" style="padding-right:10px;"  onclick="return confirmation();">Remove</a></td>
 						<%-- 					<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
 							 --%>			</tr>
 							    	</c:forEach>
@@ -72,14 +72,14 @@
 	</form>
 </div>
 <script>
-function confirmation(val) {
+function confirmation() {
 
 	var answer = confirm("Are You Sure Want To Delete Group")
 	if (answer){
-		window.location = "?do=deletegroup&id="+val; 
+		return true;
 	}
 	else{
-		
+		return false;
 	}
 }
 </script>

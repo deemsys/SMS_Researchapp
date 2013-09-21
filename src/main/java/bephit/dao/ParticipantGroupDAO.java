@@ -165,6 +165,56 @@ public class ParticipantGroupDAO {
 	
 	
 	
+	public  int checkGroupname(ParticipantGroups pgroups)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	      String cmd_groupslist="Select count(*) as counting from `deemsyspro_deem`.`participant_group_table` where group_name='"+pgroups.getgroup_name()+"'";
+          resultSet=statement.executeQuery(cmd_groupslist);
+          resultSet.next();
+          int count=Integer.parseInt(resultSet.getString("counting"));
+          System.out.println(count);
+          if(count>0)
+          {
+        	  return 0;
+          }
+          else
+          {
+              return 1;
+          }
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    
+	}
+	
+	
+	
+	
+	
+	
+	
 	public void releaseConnection(Connection con){
 		try{if(con != null)
 			con.close();

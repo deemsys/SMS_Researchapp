@@ -103,11 +103,9 @@
 					<tr>
 					
 						<td align="right" valign="middle"><span class="cart_txt">Welcome
-						<c:set var="user_name" value="principal.username"/>
-					<%-- 	<c:if $user_name="""> --%>
+					
 								<sec:authentication property="principal.username" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
-							<%-- 	</c:if> --%>
-								
+							
 						</span></td>
 					</tr>
 				</table>

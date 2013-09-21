@@ -1,6 +1,6 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="register.jsp"></jsp:include>
 
 <div id="right_content">
 <sf:form action="submituser" method="POST" modelAttribute="userProfile">         
@@ -30,7 +30,7 @@
       <tr class="row2">
          <td  valign="middle" align="left" class="input_txt"><sf:label path="username">Username:</sf:label></td>
          <td valign="top" align="left" class="input_txt"><sf:input path="username" size="30" maxlength="15" /><br/>
-         <font color="Red" size="+1"><span id="spnusername" ><sf:errors path="username"></sf:errors> </span></font>
+         <font color="Red" size="+1"><span id="spnusername" ><c:if test="${username_exist==true}"><c:out value="User Name already exist"/></c:if><sf:errors path="username"></sf:errors> </span></font>
              <!--  <small id="username_msg">No spaces, please.</small><br/>
              
  -->
