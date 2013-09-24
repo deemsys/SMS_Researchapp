@@ -152,6 +152,8 @@ public class AdminUserDAO {
 		{
 			resultSet = statement.
 					executeQuery("select * from admin_log_table where admin_id='"+admin_id+"'");
+			
+			System.out.println("select * from admin_log_table where admin_id='"+admin_id+"'");
 			while (resultSet.next()) {
 				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
 						resultSet.getString("admin_username"), resultSet

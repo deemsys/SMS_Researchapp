@@ -115,13 +115,7 @@
 				<div class="menu_container">
 					<div class="menu_l"></div>
 					<div class="menu_c">
-						<!-- <AJDF:output>php</AJDF:output>
-		$obj=new Bin_Query();
-		$sql="SELECT previlages FROM admin_log_table WHERE admin_id = '".$_SESSION['admin']['id']."'";
-		$obj->executeQuery($sql);
-		$rec=$obj->records[0]['previlages'];
-		$previ=explode(",",$rec);
-	<AJDF:output>/php</AJDF:output>	 Suresh-->
+					
 						<ul class="menu">
 							<li>
 								<a href="welcome" class="<c:choose>
@@ -159,6 +153,7 @@
 							ddlevelsmenu.setup("ddtopmenubar", "topbar")
 						</script>
 						<ul id="ddsubmenu1" class="ddsubmenustyle">
+						
 							<li><a href="createstream">Create Message Stream</a></li>
 							<li><a href="viewstream">View Stream</a></li>
 							<li><a href="broadcast">Send Stream</a></li>

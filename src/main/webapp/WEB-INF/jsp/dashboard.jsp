@@ -41,7 +41,7 @@
 								<!-- Display Admin Userd here  Suresh--> 
 									<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
 							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
-								           	<td valign="top" align="left"  width="10%">${participantsDetails.fname}</td>
+								          <td valign="top" align="left"  width="10%"> <a href="participantdetails?id=${participantsDetails.participants_id}">${participantsDetails.fname}</a></td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
@@ -53,25 +53,27 @@
 						    	
 <tr><td colspan="7">  <div class="extrabottom">
               <ul class="pagination">
-              <% int i=1;int j=0;
-             /* String value=request.getParameter("page");
-             int prev=Integer.parseInt(value);
-             int next=prev+1; */
-              %> 
-               <li class="page"><a href="viewparticipant_page?page=3" class="paging_unselect">Prev</a></li> 
-             <c:forEach var="count" begin="1" end="${noofrows}"> 
-                 <%if(i%5==0)
-            	  {%>
-                                       
-                <li><li class="page"><a href="viewparticipant_page?page=<%=j+1%>" class="paging_select"><%=j+1%></a></li>
-                
-              <%
-              j=j+1;
-            	  }
-            
-              i=i+1;%>
-               </c:forEach> 
-               <li class="page"><a href="viewparticipant_page?page=4" class="paging_unselect">Next</a></li> 
+         <%--      <% int i=1;int j=0;%> 
+              
+         --%>
+              <c:if test="${currentpage!=1&&currentpage!=null}">
+               <li class="page_unselect"><a href="viewparticipant_page?page=${currentpage - 1}" >Prev</a></li> 
+               </c:if>
+              
+             <%-- <c:forEach var="count" begin="1" end="${noofrows}">  --%>
+               <c:forEach begin="1" end="${noofpages}" var="i">
+                <c:choose>
+                    <c:when test="${currentpage eq i}">
+                      <li class="page"><a class="paging_select"><c:out value="${i}"></c:out></a></li>
+                     </c:when>
+                    <c:otherwise>
+                        <li class="page_unselect"><a href="viewparticipant_page?page=${i}"><c:out value="${i}"></c:out></a></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>          
+            <c:if test="${currentpage!=noofpages}">
+              <li class="page_unselect"><a href="viewparticipant_page?page=${currentpage+1}">Next</a></li> 
+                 </c:if>
                
              <li class="page"><a href="viewall" class="paging_select">ViewAll</a></li> 
                 </ul></div></td></tr>

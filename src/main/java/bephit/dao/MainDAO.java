@@ -205,6 +205,43 @@ public class MainDAO {
 	
 	
 	
+	public int getnoofParticipants(){
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int noofRecords=0;
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	        
+	    	String cmd;	
+	    	cmd="select count(*) as noofrecords from participants_table";
+	    	System.out.println(cmd);
+			resultSet=statement.executeQuery(cmd);
+			if(resultSet.next())
+				noofRecords=resultSet.getInt("noofrecords");
+			
+	    }catch(Exception e){
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    }finally{
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	    	
+	    }
+	    return noofRecords;
+		
+	}
+	
+	
+	
 	
 	
 	

@@ -23,7 +23,7 @@ import bephit.model.*;
  
  
 @Controller
-@SessionAttributes("success")
+@SessionAttributes("currentuser")
 public class MainController {
 	
 	@Autowired  
@@ -35,21 +35,12 @@ public class MainController {
     @Autowired    
     ParticipantGroupDAO partDAO;
  
-    /*
+    
     @Autowired 
     AdminUserDAO adminuserdao;
 	
-	@RequestMapping(value="/addnewadminuser", method = RequestMethod.GET)
-	public String addnewAdminUser(ModelMap model)
-	{
-		return "addadminuser"; 
-	}
-		
     
-    */
-    
-    
-    
+	
 	@RequestMapping(value={"/", "/welcome"}, method = RequestMethod.GET)
 	public String printWelcome(ModelMap model, Principal principal ) {
 		
@@ -59,9 +50,19 @@ public class MainController {
         ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+        model.addAttribute("currentpage",1);
        
+        
+        AdminUserForm adminUserForm=new AdminUserForm();
+        adminUserForm.setAdminuser(adminuserdao.getAdminUser("7"));
+        
+       //session start
+        model.addAttribute("currentuser",adminUserForm);
+       //session end
+           
         model.addAttribute("noofrows",participantsDetailsForm1.getParticipantsDetails().size());       
-        System.out.println(participantsDetailsForm1.getParticipantsDetails().size());
+        participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
+		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));	 
         model.addAttribute("menu","dashboard");
         model.addAttribute("success","false");
 		return "dashboard";
@@ -75,7 +76,7 @@ public class MainController {
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
        
         model.addAttribute("noofrows",mainDAO.getParticipants().size());       
-       // System.out.println(participantsDetailsForm1.getParticipantsDetails().size());
+        //System.out.println(participantsDetailsForm1.getParticipantsDetails().size());
         model.addAttribute("menu","dashboard");
         model.addAttribute("success","false");
 		return "dashboard";
@@ -408,7 +409,7 @@ public class MainController {
         model.addAttribute("menu","participants");
 		return "viewparticipants";
 		}
-		//return "viewparticipants";
+		
 	}
 	
 	
@@ -446,7 +447,6 @@ public class MainController {
 			    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 				participantGroupForm.setParticipantGroups(partDAO.getGroups());
 		        model.addAttribute("participantGroupForm", participantGroupForm);	
-		       // model.addAttribute("success","true");
 		        model.addAttribute("menu","participants");
 		        return "edit_participants";
 		}
@@ -488,6 +488,25 @@ public class MainController {
 	
 	
 	
+	@RequestMapping(value="/participantdetails", method=RequestMethod.GET)
+	public String participantdetails(@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	{
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
+		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		/*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);	*/
+        model.addAttribute("menu","dashboard");
+		return "participantdetails";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -498,12 +517,19 @@ public class MainController {
 		
 			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(page));
-        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));
+	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("noofrows",mainDAO.getParticipants().size());
+        model.addAttribute("currentpage",page);
         model.addAttribute("menu","dashboard");
 		return "dashboard";
-		//return "viewparticipantgroups";
+		
 	}	
+	
+	
+	
+	
+	
 	
 	
 	
