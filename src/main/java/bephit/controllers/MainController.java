@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,7 +22,7 @@ import bephit.model.*;
  
  
 @Controller
-@SessionAttributes("currentuser")
+@SessionAttributes("success")
 public class MainController {
 	
 	@Autowired  
@@ -35,53 +34,32 @@ public class MainController {
     @Autowired    
     ParticipantGroupDAO partDAO;
  
-    
+    /*
     @Autowired 
     AdminUserDAO adminuserdao;
 	
+	@RequestMapping(value="/addnewadminuser", method = RequestMethod.GET)
+	public String addnewAdminUser(ModelMap model)
+	{
+		return "addadminuser"; 
+	}
+		
     
-	
+    */
+    
+    
+    
 	@RequestMapping(value={"/", "/welcome"}, method = RequestMethod.GET)
 	public String printWelcome(ModelMap model, Principal principal ) {
 		
-		ParticipantsDetailsForm participantsDetailsForm1 = new ParticipantsDetailsForm();
-		participantsDetailsForm1.setParticipantsDetails(mainDAO.getParticipants());
-         
-        ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
-        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-        model.addAttribute("currentpage",1);
-       
-        
-        AdminUserForm adminUserForm=new AdminUserForm();
-        adminUserForm.setAdminuser(adminuserdao.getAdminUser("7"));
-        
-       //session start
-        model.addAttribute("currentuser",adminUserForm);
-       //session end
-           
-        model.addAttribute("noofrows",participantsDetailsForm1.getParticipantsDetails().size());       
-        participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
-		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));	 
-        model.addAttribute("menu","dashboard");
-        model.addAttribute("success","false");
-		return "dashboard";
- 
-	}
-	@RequestMapping(value={"/", "/viewall"}, method = RequestMethod.GET)
-	public String viewallpart(ModelMap model, Principal principal ) {
-		
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-       
-        model.addAttribute("noofrows",mainDAO.getParticipants().size());       
-        //System.out.println(participantsDetailsForm1.getParticipantsDetails().size());
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
         model.addAttribute("menu","dashboard");
-        model.addAttribute("success","false");
 		return "dashboard";
  
 	}
+	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(ModelMap model) {
 		return "login";
@@ -102,12 +80,9 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/createuser", method=RequestMethod.GET)
-	public String createSpitterProfile(Model model,Principal principal) {
-     model.addAttribute(new UserProfile());
-     model.addAttribute("Regsuccess", "false");
-    	  return "edit";
-    
-    
+	public String createSpitterProfile(Model model) {
+		model.addAttribute(new UserProfile());
+	return "edit";
 	}
 	
 	
@@ -123,39 +98,16 @@ public class MainController {
 	
 	@RequestMapping(value="/submituser", method=RequestMethod.POST)
 	public String addUserProfileFromForm(@ModelAttribute("userProfile") @Valid UserProfile userProfile,
-			BindingResult result,ModelMap model,Principal principal) {
+			BindingResult result,ModelMap model) {
 		if (result.hasErrors())
 		{
-			if(userDAO.checkUsername(userProfile.getUsername())==1)
-			{
-				model.addAttribute("userProfile", userProfile);
-				 return "/edit";
-			}
-			else
-			{
-				model.addAttribute("username_exist","true");
-				model.addAttribute("userProfile", userProfile);
-				return "/edit";
-			}
-			
+			model.addAttribute("userProfile", userProfile);
+			 return "/edit";
 		}
-		else
-		{
-			if(userDAO.checkUsername(userProfile.getUsername())==1)
-			{
 		System.out.println("Save User" + userProfile.getFullName());
 		userDAO.setUser(userProfile);
-		model.addAttribute("Regsuccess", "true");
-		return "login";
-		}
-			else
-			{
-				model.addAttribute("username_exist","true");
-				model.addAttribute("userProfile", userProfile);
-				 return "/edit";
-			}
-		}
-			
+		model.put("success", "Registration Successfull");
+		return "/edit";
 	}
 	
 	@RequestMapping(value="/showaddparticipants", method=RequestMethod.GET)
@@ -177,7 +129,6 @@ public class MainController {
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
         model.addAttribute("menu","participants");
-        model.addAttribute("noofrows",mainDAO.getParticipants().size());
 		return "/addparticipants";
 	}
 	
@@ -204,15 +155,8 @@ public class MainController {
 		int a=mainDAO.setParticipants(participant);
 				model.put("success","true");
 				 model.addAttribute("menu","participants");
-				 
-				 
-				 
-				 ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-					participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
-			        model.addAttribute("menu","dashboard");
-			        model.addAttribute("noofrows",mainDAO.getParticipants().size());
-					return "dashboard";
+		return "/addparticipants";
+
 		
 	}
 		
@@ -221,6 +165,10 @@ public class MainController {
 		 model.addAttribute("success","false");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+		 ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());
+	        model.addAttribute("participantGroupForm", participantGroupForm);	
+	      
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("menu","participants");
 		return "viewparticipants";
@@ -262,75 +210,39 @@ public class MainController {
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.POST)
 	public String NewParticipantGroups(@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
 			BindingResult result,ModelMap model) {
-		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		if(pgroups.getgroup_scope()=="1")
 		{
-		  if (result.hasErrors())
-		   {
-			    if(partDAO.checkGroupname(pgroups)==1)
-			     {
-			              if(result.hasFieldErrors("group_decs"))
-			                {
-			                participantGroupForm.setParticipantGroups(partDAO.getGroups());
-	                        model.addAttribute("participantGroupForm", participantGroupForm);
-	                        model.addAttribute("menu","participants");
-	                        return "addparticipantgroups";
-			               }
-			     }
-	             else
-		         {
-	            	 if(result.hasFieldErrors("group_decs"))
-		                {
-		                participantGroupForm.setParticipantGroups(partDAO.getGroups());
-                        model.addAttribute("participantGroupForm", participantGroupForm);
-                        model.addAttribute("username_exist","true");
-                        model.addAttribute("menu","participants");
-                        return "addparticipantgroups";
-		               }
-	                    	
-		         }
-		    }
+		if (result.hasErrors())
+		{
+			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());
+	        model.addAttribute("participantGroupForm", participantGroupForm);
+	        model.addAttribute("menu","participants");
+	        model.addAttribute("scope", "primary");
+	       return "addparticipantgroups";
+		}
 		}
 		else
 		{
-			if(partDAO.checkGroupname(pgroups)==1)
+			if(result.hasFieldErrors("group_decs"))
 			{
-			            if(result.hasFieldErrors("group_decs"))
-			      {
-				        participantGroupForm.setParticipantGroups(partDAO.getGroups());
-		                model.addAttribute("participantGroupForm", participantGroupForm);
-		                model.addAttribute("menu","participants");
-		                return "addparticipantgroups";
-			      }
+				ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+				participantGroupForm.setParticipantGroups(partDAO.getGroups());
+		        model.addAttribute("participantGroupForm", participantGroupForm);
+		        model.addAttribute("menu","participants");
+		        model.addAttribute("scope", "local");
+		        return "addparticipantgroups";
 			}
-			else
-			{
-				        participantGroupForm.setParticipantGroups(partDAO.getGroups());
-                        model.addAttribute("participantGroupForm", participantGroupForm);
-			            model.addAttribute("username_exist","true");
-			            model.addAttribute("menu","participants");
-			            return "addparticipantgroups";
-			}
+			 //model.addAttribute("menu","participants");
 		}
-			
-
-		if(partDAO.checkGroupname(pgroups)==1)
-		{	
+		
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
         model.addAttribute("success","true");
 		partDAO.setParticipantGroup(pgroups);
-		model.addAttribute("menu","participants");
+		 model.addAttribute("menu","participants");
 		return "addparticipantgroups";
-		}
-		else
-		{
-		model.addAttribute("username_exist","true");
-		model.addAttribute("menu","participants");
-		return "addparticipantgroups";
-		}
-		
-		 
 	}
 	
 	
@@ -389,27 +301,41 @@ public class MainController {
 		return "changepwd";
 	}
 	
+	@RequestMapping(value="/createstream",method=RequestMethod.GET)
+	public String createstream(ModelMap model)
+	{
+		return "createstream";
+	}
+	
+	@RequestMapping(value="/viewstream",method=RequestMethod.GET)
+	public String viewstream(ModelMap model)
+	{
+		return "viewstream";
+	}
+	@RequestMapping(value="/broadcast",method=RequestMethod.GET)
+	public String sendstream(ModelMap model)
+	{
+		return "sendstream";
+	}
+	
+	@RequestMapping(value="/viewreports",method=RequestMethod.GET)
+	public String viewreports(ModelMap model)
+	{
+		return "viewreports";
+	}
+	
 	@RequestMapping(value="/findParticipant",method=RequestMethod.GET)
 	public String findparticipant(@RequestParam("mobile") String mobile,@RequestParam("groupname") String groupname,@RequestParam("city") String city,ModelMap model)
 	{
-		if(mobile==""&&groupname==""&&city=="")
-		{
-			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-			participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-	        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-	        model.addAttribute("menu","participants");
-			return "viewparticipants";
-		}
-		else
-		{
-			System.out.println(mobile);
+		System.out.println(mobile);
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(mobile,groupname,city));
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("menu","participants");
 		return "viewparticipants";
-		}
-		
+	
 	}
 	
 	
@@ -432,6 +358,15 @@ public class MainController {
 		return "edit_participants";
 	}
 	
+	@RequestMapping(value="/participantdetails",method=RequestMethod.GET)
+	public String participantdetails(@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	{
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
+		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		return "participantdetails";
+		
+	}
 	
 	
 	@RequestMapping(value="/updateparticipant", method=RequestMethod.POST)
@@ -454,14 +389,13 @@ public class MainController {
 		System.out.println(status);
 
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 			participantGroupForm.setParticipantGroups(partDAO.getGroups());
 	        model.addAttribute("participantGroupForm", participantGroupForm);
 	        model.addAttribute("menu","participants");
-	        model.addAttribute("success","true");
-		return "viewparticipants";
+		return "edit_participants";
 	}
 	
 	
@@ -485,20 +419,15 @@ public class MainController {
 	}
 	
 	
-	
-	
-	
-	@RequestMapping(value="/participantdetails", method=RequestMethod.GET)
-	public String participantdetails(@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
-	{
+	@RequestMapping(value="/viewparticipant_page", method=RequestMethod.GET)
+	public String pageParticipants(@RequestParam("page") int page,ModelMap model) {	
+		
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
-		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-		/*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-		participantGroupForm.setParticipantGroups(partDAO.getGroups());
-        model.addAttribute("participantGroupForm", participantGroupForm);	*/
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(page));
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("menu","dashboard");
-		return "participantdetails";
+		return "dashboard";
+		//return "viewparticipantgroups";
 	}
 	
 	
@@ -512,19 +441,9 @@ public class MainController {
 	
 	
 	
-	@RequestMapping(value="/viewparticipant_page", method=RequestMethod.GET)
-	public String pageParticipants(@RequestParam("page") int page,ModelMap model) {	
-		
-			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(page));
-		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));
-	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-        model.addAttribute("noofrows",mainDAO.getParticipants().size());
-        model.addAttribute("currentpage",page);
-        model.addAttribute("menu","dashboard");
-		return "dashboard";
-		
-	}	
+	
+	
+	
 	
 	
 	
