@@ -1,5 +1,6 @@
 package bephit.controllers;
  
+import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.validation.BindingResult;
@@ -9,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.util.RedirectUrlBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import bephit.dao.*;
@@ -114,6 +119,19 @@ public class AdminUserController
 		return "viewadminuser";
 	}
 	
+	
+	
+	@RequestMapping(value="/permission", method=RequestMethod.GET)
+	public void permitadminuser(HttpServletRequest request,HttpServletResponse response,@RequestParam("id") String admin_id,@RequestParam("status") String status,ModelMap model) throws IOException 
+	{	
+		AdminUserForm adminuserForm = new AdminUserForm();
+		adminuserForm.setAdminuser(adminuserDAO.getAdminUser(admin_id));
+        model.addAttribute("adminuserForm",adminuserForm);
+        model.addAttribute("menu","adminuser");
+        System.out.println(request.getRequestURL());
+        adminuserDAO.setPermission_adminUser(admin_id,status);        
+        response.sendRedirect("viewadminuser");
+	}
 	
 	
 	
