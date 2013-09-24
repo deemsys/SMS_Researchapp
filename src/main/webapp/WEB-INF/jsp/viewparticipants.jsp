@@ -55,7 +55,13 @@
 							    <td align="left" valign="middle" width="10%">Mobile No:</td>
 							    <td align="left" valign="middle" width="15%"><input type="text" name="mobile" class="input_txtbx1" id="mobile"></td>
 							     <td align="left" valign="middle" width="10%">&nbsp;&nbsp;Group Name:</td>
-							    <td align="left" valign="middle" width="15%"><input type="text" name="groupname" class="input_txtbx1" id="groupname"></td>
+							    <td align="left" valign="middle" width="15%">
+							    <select name="groupname">
+							    <option value = "">Select Groups</option>
+			                  <c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
+			                   <option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
+			                   </c:forEach>
+			                 </select><span class="err"><form:errors path="participant.groupname"></form:errors></span></td>
 							    <td align="left" valign="middle" width="5%">&nbsp;&nbsp;City:</td>
 							    <td align="left" valign="middle" width="15%"><input type="text" name="city" id="city" class="input_txtbx1"></td>
 							     <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Find"></td>

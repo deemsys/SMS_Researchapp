@@ -5,7 +5,7 @@
 <title>Login Page</title> 
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"  type="text/css" />
 <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet"  type="text/css" />
-<style>
+<!-- <style>
 .errorblock {
 	color: #ff0000;
 	background-color: #ffEEEE;
@@ -13,7 +13,7 @@
 	padding: 8px;
 	margin: 16px;
 }
-</style>
+</style> -->
 
 
 </head>
@@ -57,20 +57,20 @@ function validate(form)
 		if(UserName == "" && PassWord == "")
 		{
 		document.getElementById("spnsub").value="submit";
-		 document.getElementById("spnuser").innerHTML = "*User name is required";
-		 document.getElementById("spnpass").innerHTML = "*password is required";
+		 document.getElementById("spnuser").innerHTML = "*Required Field cannot be blank";
+		 document.getElementById("spnpass").innerHTML = "*Required Field cannot be blank";
        // document.getElementById("spnsub").innerHTML = "*Required Field cannot be blank";
         return false;
 		}
 		else if (UserName == null || UserName == "") {
 	          document.getElementById("spnuser").value="user name";
-	          document.getElementById("spnuser").innerHTML = "*User name is required";
+	          document.getElementById("spnuser").innerHTML = "*Required Field cannot be blank";
 	        return false;
 	    }
 	 
 		else if (PassWord == "" || PassWord == null ) {
 			document.getElementById("spnpass").value="password";
-	        document.getElementById("spnpass").innerHTML = "*password is required";
+	        document.getElementById("spnpass").innerHTML = "*Required Field cannot be blank";
 	    	
 	        return false;
 		}
@@ -121,13 +121,14 @@ function validate(form)
       </tr>
     </c:if> 
 		  <c:if test="${not empty error}">
-		<div class="errorblock">
-			Your login attempt was not successful, try again.<br /> Caused :
-			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-		</div>
+		<!-- <div class="errorblock"> -->
+		<center><font color="red"><img alt="invalid login" src="resources/images/Close.png"><span>	${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span></font></center></img>
+
+			
+		
 	</c:if>
 		    <ul class="login-list">
-		      <li>
+		      <li><br>
 		        <p>Enter Your Email-Id</p>
 		      </li>
 		      <li>
