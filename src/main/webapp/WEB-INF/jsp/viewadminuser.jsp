@@ -63,14 +63,23 @@
 									<td valign="top" align="left" width="24%">Action</td>
 								</tr>
 								<c:forEach items="${adminuserForm.adminuser}" var="adminuser" varStatus="status">
-							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
+							       		<tr class="row1">
 							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="checkall"></td>
 							       		  	<td valign="top" align="left"  width="10%">${adminuser.admin_username}</td>
 											<td valign="top" align="left" width="15%">${adminuser.admin_email}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_mobile}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_address}</td>
 											<td><a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editadminuser?id=${adminuser.admin_id}"/>" style="padding-right:10px;">Edit</a>
-									     	<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a></td>
+									     	
+									     	<c:choose>
+									     	<c:when test="${adminuser.status==0}">
+									     	<a href="viewparticipants" title=""><img src="resources/images/icons/icon_approve.png" alt="Active" /></a><a href="#"  style="padding-right:20px;" onclick="myActive(${adminuser.admin_id},1)">Activate</a>
+										 	</c:when>
+										 	<c:when test="${adminuser.status==1}">
+										 	<a href="viewparticipants" title=""><img src="resources/images/icons/icon_unapprove.png" alt="Suspend" /></a><a href="#" style="padding-right:10px;" onclick="myActive(${adminuser.admin_id},0)">Suspend</a>
+										 	</c:when>										 	
+										 	</c:choose>
+										 	<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a></td>
 									</tr>
 							    	</c:forEach>
 							</table>
@@ -94,20 +103,20 @@ function myFunction(str) {
 	}
 }
 
-function myActive(str,sta) {
+function myActive(adminid,sta) {
 
 	
 	if(sta==1)
 	{
-		var answer = confirm("Are you sure want to Suspend this User?")
+		var answer = confirm("Are you sure want to Active this User?");
 	}
 	else
 	{
-		var answer = confirm("Are you sure want to Active this User?")
+		var answer = confirm("Are you sure want to Suspend this User?");
 	}
 	if (answer){
 // 		alert("?do=activeuser&userid="+str+"&status="+sta);
-		window.location = "?do=activeuser&userid="+str+"&status="+sta;
+		window.location = "permission?id="+adminid+"&status="+sta;
 	}
 	else{
 // 		alert("Thanks for sticking around!")
