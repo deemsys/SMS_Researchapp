@@ -63,7 +63,44 @@ public class AdminUserDAO {
 		return 1;
 	}
 	
+	public int setPermission_adminUser(String admin_id,String Status)
+	{
+		Connection con = null;
+		Statement statement = null;		 
+		ResultSet resultSet = null;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}	
+		try
+		{
+			 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			 Date date = new Date();		 
+			 
+			 
+	String cmd="Update admin_log_table set status='"+Status+"' where admin_id='"+admin_id+"'";	
+	System.out.println(cmd);
+	statement.executeUpdate(cmd);
 	
+	
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+		}
+		finally
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	   
+		}
+		return 1;
+	}
 	
 	
 	
