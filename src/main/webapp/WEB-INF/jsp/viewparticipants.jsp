@@ -2,17 +2,11 @@
 <jsp:include page="header.jsp"></jsp:include>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
-
+<script src="resources/js/jquery_checkbox.js" type="text/javascript"></script>
 <div id="right_content">
-	<!-- <form name="grid" action="" method="GET">
-    --> 	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
-      		<tr>
-				<td valign="top" align="left" style="padding:5px 0 10px 0;">
-					<div class="del_div">
-						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" onclick="form.action='?do=deleteparticipant'" /></label></p>
-	          		</div>
-				</td>
-			</tr>
+	
+    	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+      		
 			<tr>
 			<c:if test="${success==true}">
         <tr>
@@ -70,21 +64,30 @@
 							  </form>
 							</table>
 						</div>
-						
+						 <form name="grid" onSubmit="return validate(this)" action="deleteSelectedparticipants" method="POST">
 				        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+				     <tr><td colspan="7" valign="top" align="left" style="padding:5px 0 10px 0;">
+					<div class="del_div">
+						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" /></label></p>
+	          		</div>
+				</td></tr>
 							<tr class="title">
-								<td valign="center" align="left" width="5%"><input type="checkbox" onclick="selectall(this.form)" value="" name="checkall"></td>
+								
+								<td valign="center" align="right" width="10%"><input type="checkbox" value="" name="chkAll"></td>
          						<td valign="top" align="left" width="10%">First&nbsp;Name</td>
 					         	<td valign="top" align="left" width="15%">Mobile Number</td>
 					         	<td valign="top" align="left" width="10%">City</td>
 								<td valign="top" align="left" width="10%">Age</td>
           						<td valign="top" align="left" width="15%">Associated&nbsp;Streams</td>
           						<td valign="top" align="left" width="25%">Action</td>
+          						
+				
+		
         					</tr>
         					<c:if test="${fn:length(participantsDetailsForm.participantsDetails) gt 0}">
         					<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
-        				       					<tr class="row1"> <!--  onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">-->
-							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="check"></td>
+        				       					<tr class="row1">
+							       		<td valign="center" align="right" width="10%"><input type="checkbox" value="${participantsDetails.participants_id}" name="chkUser"></td>
 					     		     	<td valign="top" align="left"  width="10%">${participantsDetails.fname}</td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
@@ -110,11 +113,39 @@
 				</td>
 			</tr>
 		</table> 
-<!-- 	</form> -->
+		</form>
+	
 </div>
 
+
+<script type="text/javascript">
+$(function () {
+$('input[name="chkUser"]').click(function () {
+if ($('input[name="chkUser"]').length == $('input[name="chkUser"]:checked').length) {
+$('input:checkbox[name="chkAll"]').attr("checked", "checked");
+}
+else {
+$('input:checkbox[name="chkAll"]').removeAttr("checked");
+}
+});
+$('input:checkbox[name="chkAll"]').click(function () {
+var slvals = []
+if ($(this).is(':checked')) {
+$('input[name="chkUser"]').attr("checked", true);
+}
+else {
+$('input[name="chkUser"]').attr("checked", false);
+slvals = null;
+}
+});
+})
+</script>
+
+
+
+
 <script language="javascript">
-function selectall(field)
+/* function selectall(field)
 {
 	field.getElementByTagName('checkbox');
 	if(document.grid.checkall.checked==true)
@@ -129,7 +160,7 @@ function selectall(field)
 	}
 }
 
-
+ */ 
 function confirmation() {
 	var answer = confirm("Are you Sure You Want to Delete Participant ?")
 	if (answer){
@@ -141,11 +172,11 @@ function confirmation() {
 }
 
 
-function validate(fname)
+////////////////////////---------------------------
+function validate()
 {
-// alert(fname);
-var chks = document.getElementsByName('checkbox[]');
-
+//alert(fname);
+var chks = document.getElementsByName('chkUser');
 var hasChecked = false;
 for (var i = 0; i < chks.length; i++)
 {
@@ -160,30 +191,15 @@ if (hasChecked == false)
 alert("Please select at least one.");
 return false;
 }
+var result=confirm("Are you sure.You want to delete the User(s)?");
+if(result)
+	{
 return true;
+	}
+else
+	return false;
 }
-function validate(fname)
-{
-// alert(fname);
-var chks = document.getElementsByName('checkbox[]');
-
-var hasChecked = false;
-for (var i = 0; i < chks.length; i++)
-{
-if (chks[i].checked)
-{
-hasChecked = true;
-break;
-}
-}
-if (hasChecked == false)
-{
-alert("Please select at least one.");
-return false;
-}
-return true;
-}
-
+/////////////////////////----------------------------
 
 function findpart()
 {

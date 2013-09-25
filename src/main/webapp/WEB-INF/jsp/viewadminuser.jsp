@@ -1,13 +1,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="header.jsp"></jsp:include>
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
-<form name="grid" onSubmit="return validate(this)" action="" method="POST">
+<script src="resources/js/jquery_checkbox.js" type="text/javascript"></script>
+<form name="grid" onSubmit="return validate(this)" action="deleteSelectedadminuser" method="POST">
 	<div id="right_content">
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
 			<tr>
         		<td valign="top" align="left" style="padding:5px 0 10px 0;">
         			<div class="del_div">
-						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" onclick="form.action='?do=deleteuser'" /></label></p>
+						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1"  /></label></p>
 					</div>
 				</td>
 		   	</tr>
@@ -55,7 +56,7 @@
 	            		<div class="contentbox">
 	              			<table cellpadding="0" cellspacing="0" border="0" width="100%">
 	                			<tr class="title">
-									<td valign="center" align="left" width="5%"><input type="checkbox" onclick="selectall(this.form)" value="" name="checkall"></td>
+									<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="chkAll"></td>
 	                  				<td valign="top" align="left" width="16%">Name</td>
 	                  				<td valign="top" align="left" width="20%">E-mail</td>
 	                  				<td valign="top" align="left" width="10%">Mobile</td>
@@ -64,7 +65,7 @@
 								</tr>
 								<c:forEach items="${adminuserForm.adminuser}" var="adminuser" varStatus="status">
 							       		<tr class="row1">
-							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="checkall"></td>
+							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="${adminuser.admin_id}" name="chkUser"></td>
 							       		  	<td valign="top" align="left"  width="10%">${adminuser.admin_username}</td>
 											<td valign="top" align="left" width="15%">${adminuser.admin_email}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_mobile}</td>
@@ -123,6 +124,28 @@ function myActive(adminid,sta) {
 	}
 }
 </script>
+<script type="text/javascript">
+$(function () {
+$('input[name="chkUser"]').click(function () {
+if ($('input[name="chkUser"]').length == $('input[name="chkUser"]:checked').length) {
+$('input:checkbox[name="chkAll"]').attr("checked", "checked");
+}
+else {
+$('input:checkbox[name="chkAll"]').removeAttr("checked");
+}
+});
+$('input:checkbox[name="chkAll"]').click(function () {
+var slvals = []
+if ($(this).is(':checked')) {
+$('input[name="chkUser"]').attr("checked", true);
+}
+else {
+$('input[name="chkUser"]').attr("checked", false);
+slvals = null;
+}
+});
+})
+</script>
 
 <script language="javascript">
 
@@ -137,25 +160,12 @@ function confirmation() {
 }
 
 
-function selectall(field)
-{
-	//field.getElementByTagName('checkbox');
-	if(document.grid.checkall.checked==true)
-	{
-		for (i = 0; i < field.length; i++)
-			field[i].checked = true ;
-	}
-	else
-	{
-		for(i = 0; i < field.length; i++)
-			field[i].checked = false;
-	}
-}
 
-function validate(fname)
+
+function validate()
 {
-alert(fname);
-var chks = document.getElementsByName('checkbox[]');
+//alert(fname);
+var chks = document.getElementsByName('chkUser');
 
 var hasChecked = false;
 for (var i = 0; i < chks.length; i++)
@@ -171,7 +181,13 @@ if (hasChecked == false)
 alert("Please select at least one.");
 return false;
 }
+var result=Confirm("Are you sure?You want to delete the User(s)?");
+if(result)
+	{
 return true;
+	}
+else
+	return false;
 }
 </script>
 
