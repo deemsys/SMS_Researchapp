@@ -228,6 +228,9 @@ public class MainController {
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("menu","participants");
+        ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
 		return "viewparticipants";
 	}
 	
@@ -403,6 +406,9 @@ public class MainController {
 			participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
 	        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 	        model.addAttribute("menu","participants");
+	        ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());
+	        model.addAttribute("participantGroupForm", participantGroupForm);
 			return "viewparticipants";
 		}
 		else
@@ -412,6 +418,9 @@ public class MainController {
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(mobile,groupname,city));
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("menu","participants");
+        ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
 		return "viewparticipants";
 		}
 		
