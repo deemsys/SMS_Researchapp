@@ -135,4 +135,42 @@ public class AdminUserController
 	
 	
 	
+	
+	@RequestMapping(value="/deleteSelectedadminuser", method=RequestMethod.POST)
+	public String deleteSelectedadminuser(HttpServletRequest request,ModelMap model)
+	{	
+		String[] SelectedIDs=new String[100];
+		SelectedIDs=request.getParameterValues("chkUser");
+		for(String id:SelectedIDs)
+		{
+		System.out.println(id);
+		adminuserDAO.deleteAdminUser(id);
+		}
+		AdminUserForm adminuserForm = new AdminUserForm();
+		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
+        model.addAttribute("adminuserForm",adminuserForm);
+        model.addAttribute("menu","adminuser");
+        System.out.println(request.getRequestURL());       
+		
+		return "viewadminuser";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
