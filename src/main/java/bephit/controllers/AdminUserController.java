@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.validation.BindingResult;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import bephit.forms.*;
 import bephit.model.*;
 
 @Controller
+@SessionAttributes("currentuser")
 public class AdminUserController
 {
 	@Autowired
@@ -31,41 +33,43 @@ public class AdminUserController
 	
 	
 	@RequestMapping(value="/addadminuser", method=RequestMethod.POST)
-	public String addnewadminuser(@ModelAttribute("adminuser") @Valid AdminUser adminuser,
+	public String addnewadminuser(HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
 			BindingResult result,ModelMap model)
 	{
 		
 		if (result.hasErrors())
 		{
-			//model.addAttribute("userProfile", userProfile);
-			model.addAttribute("menu","adminuser");
+		   model.addAttribute("menu","adminuser");
 			 return "addadminuser";
 		}
 		System.out.println("Add AdminUser");
 		model.put("success", "true");
+		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		adminuserDAO.setAdminUser(adminuser);
 		model.addAttribute("menu","adminuser");
 		return "addadminuser";
 	}
 	
 	@RequestMapping(value="/addadminuser", method=RequestMethod.GET)
-	public String showaddnewadminuser(ModelMap model)
+	public String showaddnewadminuser(HttpServletRequest request,ModelMap model)
 	{
 		model.put("success", "false");
 		  model.addAttribute("menu","adminuser");
+		  model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		return "addadminuser";
 	}
 	
 	
 	
 	@RequestMapping(value="/viewadminuser",method=RequestMethod.GET)
-	public String viewadminusers(ModelMap model)
+	public String viewadminusers(HttpServletRequest request,ModelMap model)
 	{
 		model.addAttribute("success","false");
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm", adminuserForm);	
         model.addAttribute("menu","adminuser");
+        model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		return "viewadminuser";
 	}
 	
@@ -88,12 +92,13 @@ public class AdminUserController
 	
 	
 	@RequestMapping(value="/editadminuser", method=RequestMethod.GET)
-	public String editadminuser(@RequestParam("id") String admin_id,ModelMap model, Principal principal) {
+	public String editadminuser(HttpServletRequest request,@RequestParam("id") String admin_id,ModelMap model, Principal principal) {
 	
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser(admin_id));
         model.addAttribute("adminuserForm",adminuserForm);
         model.addAttribute("menu","adminuser");
+       
         return "editadminuser";
 	}
 	
@@ -116,6 +121,11 @@ public class AdminUserController
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm",adminuserForm);
         model.addAttribute("menu","adminuser");
+        
+        
+        AdminUserForm adminuserForm1 = new AdminUserForm();
+		adminuserForm1.setAdminuser(adminuserDAO.getAdminUser("7"));
+        model.addAttribute("currentuser",adminuserForm1);
 		return "viewadminuser";
 	}
 	
@@ -150,25 +160,11 @@ public class AdminUserController
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm",adminuserForm);
         model.addAttribute("menu","adminuser");
-        System.out.println(request.getRequestURL());       
-		
-		return "viewadminuser";
+        System.out.println(request.getRequestURL());
+        return "viewadminuser";
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	
 	

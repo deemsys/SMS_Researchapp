@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -45,58 +47,52 @@ public class MainController {
     
 	
 	@RequestMapping(value={"/", "/welcome"}, method = RequestMethod.GET)
-	public String printWelcome(HttpServletRequest request,ModelMap model, Principal principal ) {
+	public ModelAndView printWelcome(HttpServletRequest request,ModelMap model, Principal principal ) {
 		
 		
-        HttpSession session=request.getSession();
-		
-		ParticipantsDetailsForm participantsDetailsForm1 = new ParticipantsDetailsForm();
-		participantsDetailsForm1.setParticipantsDetails(mainDAO.getParticipants());
-         
+       	ParticipantsDetailsForm participantsDetailsForm1 = new ParticipantsDetailsForm();
+		participantsDetailsForm1.setParticipantsDetails(mainDAO.getParticipants());         
         ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-        model.addAttribute("currentpage",1);
-       
-        
-        AdminUserForm adminUserForm=new AdminUserForm();
-        adminUserForm.setAdminuser(adminuserdao.getAdminUser("7"));
-        
-       //session start
-       // model.addAttribute("currentuser",adminUserForm);
-       //session end
-        session.setAttribute("currentuser", adminUserForm) ;
-        
+        model.addAttribute("currentpage",1);      
         model.addAttribute("noofrows",participantsDetailsForm1.getParticipantsDetails().size());       
         participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
 		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));	 
         model.addAttribute("menu","dashboard");
         model.addAttribute("success","false");
-		return "dashboard";
+        ModelAndView mav = new ModelAndView("dashboard");
+        
+         //session start       
+        AdminUserForm adminUserForm=new AdminUserForm();
+        adminUserForm.setAdminuser(adminuserdao.getAdminUserby_username(principal.getName()));      
+        mav.addObject("currentuser", adminUserForm);
+        //session stop
+       
+        
+		return mav;
  
 	}
 	@RequestMapping(value={"/", "/viewall"}, method = RequestMethod.GET)
-	public String viewallpart(ModelMap model, Principal principal ) {
+	public String viewallpart(HttpServletRequest request,ModelMap model, Principal principal ) {
 		
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-       
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);       
         model.addAttribute("noofrows",mainDAO.getParticipants().size());       
-        //System.out.println(participantsDetailsForm1.getParticipantsDetails().size());
         model.addAttribute("menu","dashboard");
         model.addAttribute("success","false");
 		return "dashboard";
  
 	}
 	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public String login(ModelMap model) {
+	public String login(HttpServletRequest request,ModelMap model) {
 		return "login";
  
 	}
 	
 	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
-	public String loginerror(ModelMap model) {
+	public String loginerror(HttpServletRequest request,ModelMap model) {
 		model.addAttribute("error", "true");
 		return "login";
  
@@ -109,7 +105,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/createuser", method=RequestMethod.GET)
-	public String createSpitterProfile(Model model,Principal principal) {
+	public String createSpitterProfile(HttpServletRequest request,Model model,Principal principal) {
      model.addAttribute(new UserProfile());
      model.addAttribute("Regsuccess", "false");
     	  return "edit";
@@ -119,7 +115,7 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/forgotpwd", method=RequestMethod.GET)
-	public String showForgotpassword(Model model) {
+	public String showForgotpassword(HttpServletRequest request,Model model) {
 	//	model.addAttribute(new UserProfile());
 	return "forgotpwd";
 	}
@@ -127,14 +123,14 @@ public class MainController {
 
 	
 	@RequestMapping(value="/submituser", method=RequestMethod.POST)
-	public String addUserProfileFromForm(@ModelAttribute("userProfile") @Valid UserProfile userProfile,
+	public String addUserProfileFromForm(HttpServletRequest request,@ModelAttribute("userProfile") @Valid UserProfile userProfile,
 			BindingResult result,ModelMap model,Principal principal) {
 		if (result.hasErrors())
 		{
 			if(userDAO.checkUsername(userProfile.getUsername())==1)
 			{
 				model.addAttribute("userProfile", userProfile);
-				 return "/edit";
+				return "/edit";
 			}
 			else
 			{
@@ -146,25 +142,25 @@ public class MainController {
 		}
 		else
 		{
-			if(userDAO.checkUsername(userProfile.getUsername())==1)
-			{
+		if(userDAO.checkUsername(userProfile.getUsername())==1)
+		{
 		System.out.println("Save User" + userProfile.getFullName());
 		userDAO.setUser(userProfile);
 		model.addAttribute("Regsuccess", "true");
 		return "login";
 		}
-			else
-			{
-				model.addAttribute("username_exist","true");
-				model.addAttribute("userProfile", userProfile);
-				 return "/edit";
-			}
+		else
+		{
+			model.addAttribute("username_exist","true");
+	     	model.addAttribute("userProfile", userProfile);
+		    return "/edit";
+		}
 		}
 			
 	}
 	
 	@RequestMapping(value="/showaddparticipants", method=RequestMethod.GET)
-	public String showAddParticipants(ModelMap model) {
+	public String showAddParticipants(HttpServletRequest request,ModelMap model) {
 		
 		model.put("success", "false");
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
@@ -175,7 +171,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/addparticipants",method=RequestMethod.GET)
-	public String showAddpart(ModelMap model)
+	public String showAddpart(HttpServletRequest request,ModelMap model)
 	{
 		model.addAttribute("success","false");
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
@@ -187,7 +183,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/addparticipants", method=RequestMethod.POST)
-	public String showAddParticipants(@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+	public String showAddParticipants(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model) {		
 		if (result.hasErrors())
 		{
@@ -200,7 +196,7 @@ public class MainController {
 		model.put("participant", participant);		
 		//validation valid=new validation();
 		String[] errmsges=new String[50];
-	//errmsges=valid.checkParticipant(participant);	
+	    //errmsges=valid.checkParticipant(participant);	
 		model.put("errmsg",errmsges[0]);
 		model.addAttribute("participantsDetailsForm", participant);
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
@@ -212,7 +208,7 @@ public class MainController {
 				 
 				 
 				 
-				 ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+				    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 					participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
 			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
 			        model.addAttribute("menu","dashboard");
@@ -222,7 +218,7 @@ public class MainController {
 	}
 		
 	@RequestMapping(value="/viewparticipants", method=RequestMethod.GET)
-	public String viewParticipants(ModelMap model, Principal principal) {
+	public String viewParticipants(HttpServletRequest request,ModelMap model, Principal principal) {
 		 model.addAttribute("success","false");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
@@ -231,6 +227,7 @@ public class MainController {
         ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
+        model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		return "viewparticipants";
 	}
 	
@@ -255,7 +252,7 @@ public class MainController {
 	//Groups
 	
 	@RequestMapping(value="/showaddparticipantgroups", method=RequestMethod.GET)
-	public String showAddParticipantGroups(ParticipantGroups pgroups,ModelMap model) {		
+	public String showAddParticipantGroups(HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {		
 	
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
@@ -268,7 +265,7 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.POST)
-	public String NewParticipantGroups(@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
+	public String NewParticipantGroups(HttpServletRequest request,@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
 			BindingResult result,ModelMap model) {
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		if(pgroups.getgroup_scope()=="1")
@@ -346,7 +343,7 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.GET)
-	public String AddParticipantGroups(ParticipantGroups pgroups,ModelMap model) {
+	public String AddParticipantGroups(HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {
 		model.addAttribute("success","false");
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
@@ -359,7 +356,7 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/viewparticipantgroups", method=RequestMethod.GET)
-	public String viewParticipantGroups(ModelMap model) {
+	public String viewParticipantGroups(HttpServletRequest request,ModelMap model) {
 		model.addAttribute("success","false");
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
@@ -369,7 +366,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/showaddadminuser", method=RequestMethod.GET)
-	public String showAddadminUser(ModelMap model) {
+	public String showAddadminUser(HttpServletRequest request,ModelMap model) {
 		 model.addAttribute("menu","adminuser");
 		return "addadminuser";
 	}
@@ -380,25 +377,25 @@ public class MainController {
 	}*/
 	
 	@RequestMapping(value="/activityofadmin", method=RequestMethod.GET)
-	public String activityOfAdmin(ModelMap model) {
+	public String activityOfAdmin(HttpServletRequest request,ModelMap model) {
 		
 		return "activityofadmin";
 	}
 	
 	@RequestMapping(value="/textmsgsettings", method=RequestMethod.GET)
-	public String textMsgSettings(ModelMap model) {
+	public String textMsgSettings(HttpServletRequest request,ModelMap model) {
 		
 		return "textmsg";
 	}
 	
 	@RequestMapping(value="/changepassword",method=RequestMethod.GET)
-	public String changemypassword(ModelMap model)
+	public String changemypassword(HttpServletRequest request,ModelMap model)
 	{
 		return "changepwd";
 	}
 	
 	@RequestMapping(value="/findParticipant",method=RequestMethod.GET)
-	public String findparticipant(@RequestParam("mobile") String mobile,@RequestParam("groupname") String groupname,@RequestParam("city") String city,ModelMap model)
+	public String findparticipant(HttpServletRequest request,@RequestParam("mobile") String mobile,@RequestParam("groupname") String groupname,@RequestParam("city") String city,ModelMap model)
 	{
 		if(mobile==""&&groupname==""&&city=="")
 		{
@@ -432,7 +429,7 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/editparticipant", method=RequestMethod.GET)
-	public String editParticipant(@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	public String editParticipant(HttpServletRequest request,@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
 	{
 	
 		
@@ -449,7 +446,7 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/updateparticipant", method=RequestMethod.POST)
-	public String updateParticipant(@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+	public String updateParticipant(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model)
 	{
 		
@@ -482,7 +479,7 @@ public class MainController {
 	//Delete ParticipantGroups
 	
 	@RequestMapping(value="/deleteparticipantgroup", method=RequestMethod.GET)
-	public String deleteParticipantgroup(@RequestParam("id") String group_id,ModelMap model, Principal principal)
+	public String deleteParticipantgroup(HttpServletRequest request,@RequestParam("id") String group_id,ModelMap model, Principal principal)
 	{
 	
 		int status=partDAO.deleteParticipantgroup(group_id);
@@ -503,11 +500,13 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/participantdetails", method=RequestMethod.GET)
-	public String participantdetails(@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	public String participantdetails(HttpServletRequest request,@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
 	{
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
         participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		
+		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		/*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);	*/
@@ -521,13 +520,8 @@ public class MainController {
 	
 	
 	
-	
-	
-	
-	
-	
 	@RequestMapping(value="/viewparticipant_page", method=RequestMethod.GET)
-	public String pageParticipants(@RequestParam("page") int page,ModelMap model) {	
+	public String pageParticipants(HttpServletRequest request,@RequestParam("page") int page,ModelMap model) {	
 		
 	    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(page));
