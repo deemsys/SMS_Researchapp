@@ -37,9 +37,7 @@ public class AdminUserDAO {
 		try
 		{
 			 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			 Date date = new Date();		 
-			 
-			 
+			 Date date = new Date();			 
 	String cmd="INSERT INTO admin_log_table(admin_username,admin_password,admin_email,admin_mobile,admin_address,previlages,date,status,addstream,editstream,deletestream,broadcaststream,addparticipant,editparticipant,deleteparticipant,addadminuser,edituser,deleteuser,modifysettings,mailtemplate) VALUES('"+adminuser.getAdmin_username()+"','"+adminuser.getAdmin_password()+"','"+adminuser.getAdmin_email()+"','"+adminuser.getAdmin_mobile()+"','"+adminuser.getAdmin_address()+"','empty','"+dateFormat.format(date)+"',0,'"+adminuser.getAddstream()+"','"+adminuser.getEditstream()+"','"+adminuser.getDeletestream()+"','"+adminuser.getBroadcaststream()+"','"+adminuser.getAddparticipant()+"','"+adminuser.getEditparticipant()+"','"+adminuser.getDeleteparticipant()+"','"+adminuser.getAddadminuser()+"','"+adminuser.getEdituser()+"','"+adminuser.getDeleteuser()+"','"+adminuser.getModifysettings()+"','"+adminuser.getMailtemplate()+"')";
 	System.out.println(cmd);
 	statement.execute(cmd);
@@ -286,7 +284,68 @@ public class AdminUserDAO {
 	}
 	
 	
-	
+	public List<AdminUser> getAdminUserby_username(String admin_username) {
+
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<AdminUser> adminuser = new ArrayList<AdminUser>();
+
+		try
+		{
+			resultSet = statement.
+					executeQuery("select * from admin_log_table where admin_username='"+admin_username+"'");
+			
+			System.out.println("select * from admin_log_table where admin_username='"+admin_username+"'");
+			while (resultSet.next()) {
+				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
+						resultSet.getString("admin_username"), resultSet
+								.getString("admin_password"), resultSet
+								.getString("admin_email"), resultSet
+								.getString("admin_mobile"), resultSet
+								.getString("admin_address"), resultSet
+								.getString("previlages"), resultSet
+								.getString("date"), resultSet
+								.getString("status"),
+								resultSet.getString("addstream"),
+								resultSet.getString("editstream"),
+								resultSet.getString("deletestream"),
+								resultSet.getString("broadcaststream"),
+								resultSet.getString("addparticipant"),
+								resultSet.getString("editparticipant"),
+								resultSet.getString("deleteparticipant"),
+								resultSet.getString("addadminuser"),
+								resultSet.getString("edituser"),
+							    resultSet.getString("deleteuser"),
+								resultSet.getString("modifysettings"),
+								resultSet.getString("mailtemplate")
+								));
+			
+		                  }
+		} 
+		catch (Exception ex) 
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+		} 
+		finally 
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	
+	    	
+		}
+
+		return adminuser;
+	}
 	
 	
 	
