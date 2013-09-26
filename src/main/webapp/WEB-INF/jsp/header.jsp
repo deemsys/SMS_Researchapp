@@ -153,26 +153,38 @@
 							ddlevelsmenu.setup("ddtopmenubar", "topbar")
 						</script>
 						<ul id="ddsubmenu1" class="ddsubmenustyle">
-						
+						<c:if test="${currentuser.adminuser[0].addstream eq 1}">
 							<li><a href="createstream">Create Message Stream</a></li>
-							<li><a href="viewstream">View Stream</a></li>
+							</c:if>
+						  <li><a href="viewstream">View Stream</a></li>
 							<li><a href="broadcast">Send Stream</a></li>
-            				<li><a href="viewreports">Report</a></li>
-          				</ul>
+						<li><a href="viewreports">Report</a></li>
+            		</ul>
 						<ul id="ddsubmenu2" class="ddsubmenustyle">
-							<li><a href="showaddparticipants">Add Participants</a></li>
-				            <li><a href="viewparticipants">View participants</a></li>
-				            <li><a href="showaddparticipantgroups">Add Participant Groups</a></li>
+					<%-- 	<c:if test="${currentuser.adminuser[0].addparticipant eq 1}">
+					 --%>		
+					 
+					 <c:if test="${currentuser.adminuser[0].addparticipant eq 1}">
+					 <li><a href="showaddparticipants">Add Participants</a></li>
+							</c:if>
+						    <li><a href="viewparticipants">View participants</a></li>
+						    <li><a href="showaddparticipantgroups">Add Participant Groups</a></li>
 							<li><a href="viewparticipantgroups">View Participant Groups</a></li>
 						</ul>
 						<ul id="ddsubmenu3" class="ddsubmenustyle">
-							<li><a href="showaddadminuser">Add Admin User</a></li>        
+					<c:if test="${currentuser.adminuser[0].addadminuser eq 1}">
+				     	<li><a href="showaddadminuser">Add Admin User</a></li> 
+							</c:if>       
 				            <li><a href="viewadminuser">View Admin User</a></li>
 				            <li><a href="activityofadmin">User Activity Logs</a></li>
 				         </ul>
 						<ul id="ddsubmenu4" class="ddsubmenustyle">
+						<c:if test="${currentuser.adminuser[0].modifysettings eq 1}">
 							<li><a href="textmsgsettings">Text Message API settings</a></li>
+							</c:if>
+							<c:if test="${currentuser.adminuser[0].mailtemplate eq 1}">
 							<li><a href="addmailtemplate">Mail Templates</a></li>
+							</c:if>
 							<li><a href="changepassword">Change My Password</a></li>
 						</ul>
 					</div>
