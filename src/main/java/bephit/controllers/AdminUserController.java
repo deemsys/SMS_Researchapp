@@ -124,7 +124,7 @@ public class AdminUserController
         
         
         AdminUserForm adminuserForm1 = new AdminUserForm();
-		adminuserForm1.setAdminuser(adminuserDAO.getAdminUser("7"));
+		adminuserForm1.setAdminuser(adminuserDAO.getAdminUserby_username(principal.getName()));
         model.addAttribute("currentuser",adminuserForm1);
 		return "viewadminuser";
 	}
