@@ -374,12 +374,12 @@ public class MainController {
 		
 		return "viewadminuser";
 	}*/
-	
+	/*
 	@RequestMapping(value="/activityofadmin", method=RequestMethod.GET)
 	public String activityOfAdmin(HttpServletRequest request,ModelMap model) {
 		
 		return "activityofadmin";
-	}
+	}*/
 	
 	@RequestMapping(value="/textmsgsettings", method=RequestMethod.GET)
 	public String textMsgSettings(HttpServletRequest request,ModelMap model) {
