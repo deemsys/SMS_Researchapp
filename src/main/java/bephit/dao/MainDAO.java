@@ -288,9 +288,7 @@ public class MainDAO {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 String cmd_getparticipant_name="select fname from participants_table where participants_id='"+participant_id+"'";
-				String Desc="Delete participant ";
-	    	 
-			
+				String Desc="Delete participant ";		
 			
 			resultSet=statement.executeQuery(cmd_getparticipant_name);
 			String cmd_activity;
