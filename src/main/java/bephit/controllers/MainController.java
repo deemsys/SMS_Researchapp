@@ -1,6 +1,7 @@
 package bephit.controllers;
  
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -235,7 +236,7 @@ public class MainController {
 	@RequestMapping(value="/deleteparticipants", method=RequestMethod.GET)
 	public String removeParticipants(@RequestParam("id") String participant_id,ModelMap model, Principal principal) {
 	
-		int status=mainDAO.deleteParticipant(participant_id);
+		int status=mainDAO.deleteParticipant(participant_id,principal.getName());
 		if(status==1)
 		{
         model.addAttribute("success","true");
@@ -447,7 +448,7 @@ public class MainController {
 	
 	@RequestMapping(value="/updateparticipant", method=RequestMethod.POST)
 	public String updateParticipant(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
-			BindingResult result,ModelMap model)
+			BindingResult result,ModelMap model,Principal principal)
 	{
 		
 		if (result.hasErrors())
@@ -461,7 +462,7 @@ public class MainController {
 		        model.addAttribute("menu","participants");
 		        return "edit_participants";
 		}
-		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id());
+		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName());
 		System.out.println(status);
 
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
@@ -496,6 +497,30 @@ public class MainController {
 	}
 	
 	
+	@RequestMapping(value="/deleteparticipantgroup", method=RequestMethod.POST)
+	public String deleteParticipantgroup(HttpServletRequest request,ModelMap model, Principal principal)
+	{
+	
+		int status = 0;
+		String[] SelectedIDs=new String[100];
+		SelectedIDs=request.getParameterValues("chkUser");
+		for(String id:SelectedIDs)
+		{
+		System.out.println(id);
+		status=partDAO.deleteParticipantgroup(id);
+		}
+		
+		if(status==1)
+		{
+	    model.addAttribute("success","true");
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm); 
+        model.addAttribute("menu","participants");
+		}
+		 model.addAttribute("menu","participants");
+		return "viewparticipantgroups";
+	}
 	
 	
 	
@@ -537,14 +562,14 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/deleteSelectedparticipants", method=RequestMethod.POST)
-	public String deleteSelectedParticipants(HttpServletRequest request,ModelMap model) 
+	public String deleteSelectedParticipants(HttpServletRequest request,ModelMap model,Principal principal) 
 	{	
 		String[] SelectedIDs=new String[100];
 		SelectedIDs=request.getParameterValues("chkUser");
 		for(String id:SelectedIDs)
 		{
 		System.out.println(id);
-		mainDAO.deleteParticipant(id);
+		mainDAO.deleteParticipant(id,principal.getName());
 		}
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
