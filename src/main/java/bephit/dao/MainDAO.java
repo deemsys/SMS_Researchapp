@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
 
+import bephit.model.AdminUser;
 import bephit.model.ParticipantsDetails;
 
 public class MainDAO {
@@ -63,7 +64,7 @@ public class MainDAO {
 	
 	
 	
-	public int updateParticipants(ParticipantsDetails participant,String participants_id)
+	public int updateParticipants(ParticipantsDetails participant,String participants_id,String admin)
 	{
 		Connection con = null;
 		Statement statement = null;
@@ -79,9 +80,18 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',lname ='"+participant.getLname()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',note = '"+participant.getNote()+"',medical_details = '"+participant.getMedical_details()+"',messaging_frequency = '"+participant.getMessaging_frequency()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',lname ='"+participant.getLname()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',note = '"+participant.getNote()+"',medical_details = '"+participant.getMedical_details()+"',messaging_frequency = '"+participant.getMessaging_frequency()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
+	    	String Desc="Update participant "+participant.getFname();
+	    	
+	    	
+	    	
+	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+	    	    	
 	    	System.out.println(cmd);
-			statement.execute(cmd);
+	    	System.out.println(cmd_activity);
+			
+	    	statement.execute(cmd);
+			statement.execute(cmd_activity);
 			flag=1;
 	 }
 	    catch(Exception e){
@@ -255,7 +265,7 @@ public class MainDAO {
 	
 	
 	
-	public int deleteParticipant(String participant_id){
+	public int deleteParticipant(String participant_id,String admin){
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
@@ -267,7 +277,20 @@ public class MainDAO {
 			e1.printStackTrace();
 		}
 		try{
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	    	 Date date = new Date();
+	    	 String cmd_getparticipant_name="select fname from participants_table where participants_id='"+participant_id+"'";
+				String Desc="Delete participant ";
+	    	 
+			
+			
+			resultSet=statement.executeQuery(cmd_getparticipant_name);
+			String cmd_activity;
+			if(resultSet.next())
+				Desc=Desc+resultSet.getString(1);
 			statement.execute("delete from participants_table where participants_id='"+participant_id+"'");
+			cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+			statement.execute(cmd_activity);
 			flag=1;
 			
 	    }catch(Exception e){
