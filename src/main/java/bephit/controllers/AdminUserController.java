@@ -34,7 +34,7 @@ public class AdminUserController
 	
 	@RequestMapping(value="/addadminuser", method=RequestMethod.POST)
 	public String addnewadminuser(HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
-			BindingResult result,ModelMap model)
+			BindingResult result,ModelMap model,Principal principal)
 	{
 		
 		if (result.hasErrors())
@@ -45,7 +45,7 @@ public class AdminUserController
 		System.out.println("Add AdminUser");
 		model.put("success", "true");
 		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
-		adminuserDAO.setAdminUser(adminuser);
+		adminuserDAO.setAdminUser(adminuser,principal.getName());
 		model.addAttribute("menu","adminuser");
 		return "addadminuser";
 	}
@@ -75,9 +75,9 @@ public class AdminUserController
 	
 	
 	@RequestMapping(value="/deleteadminuser", method=RequestMethod.GET)
-	public String removeParticipants(@RequestParam("id") String admin_id,ModelMap model, Principal principal) {
+	public String removeParticipants(@RequestParam("id") String admin_id,ModelMap model, Principal principal,AdminUser adminuser ) {
 	
-		int status=adminuserDAO.deleteAdminUser(admin_id);//.deleteParticipant(participant_id);
+		int status=adminuserDAO.deleteAdminUser(adminuser,principal.getName());//.deleteParticipant(participant_id);
 		if(status==1)
 		{
         model.addAttribute("success","true");
@@ -147,14 +147,14 @@ public class AdminUserController
 	
 	
 	@RequestMapping(value="/deleteSelectedadminuser", method=RequestMethod.POST)
-	public String deleteSelectedadminuser(HttpServletRequest request,ModelMap model)
+	public String deleteSelectedadminuser(HttpServletRequest request,ModelMap model,AdminUser adminuser)
 	{	
 		String[] SelectedIDs=new String[100];
 		SelectedIDs=request.getParameterValues("chkUser");
 		for(String id:SelectedIDs)
 		{
 		System.out.println(id);
-		adminuserDAO.deleteAdminUser(id);
+		adminuserDAO.deleteAdminUser(adminuser,id);
 		}
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());

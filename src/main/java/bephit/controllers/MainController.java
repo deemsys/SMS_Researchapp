@@ -185,7 +185,7 @@ public class MainController {
 	
 	@RequestMapping(value="/addparticipants", method=RequestMethod.POST)
 	public String showAddParticipants(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
-			BindingResult result,ModelMap model) {		
+			BindingResult result,ModelMap model,Principal principal) {		
 		if (result.hasErrors())
 		{
 			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
@@ -203,12 +203,10 @@ public class MainController {
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);			
-		int a=mainDAO.setParticipants(participant);
+		int a=mainDAO.setParticipants(participant,principal.getName());
 				model.put("success","true");
+				
 				 model.addAttribute("menu","participants");
-				 
-				 
-				 
 				    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 					participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
 			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
