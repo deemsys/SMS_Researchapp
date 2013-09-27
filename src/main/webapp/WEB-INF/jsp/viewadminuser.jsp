@@ -2,6 +2,24 @@
 <jsp:include page="header.jsp"></jsp:include>
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
 <script src="resources/js/jquery_checkbox.js" type="text/javascript"></script>
+
+
+<!-- Java script for confirm dialog -->
+
+<script type='text/javascript' src='resources/js/jquery.js'></script>
+<script type='text/javascript' src='resources/js/jquery.simplemodal.js'></script>
+<script type='text/javascript' src='resources/js/confirm.js'></script>
+<link type='text/css' href='resources/css/confirm.css' rel='stylesheet' media='screen' />
+
+<!-- End Java script -->
+
+
+
+
+
+
+
+
 <form name="grid" onSubmit="return validate(this)" action="deleteSelectedadminuser" method="POST">
 	<div id="right_content">
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
@@ -83,11 +101,34 @@
 										 	</c:when>										 	
 										 	</c:choose>
 										 	<c:if test="${currentuser.adminuser[0].deleteuser==1 }">
-										 	<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a>
-										 	</c:if></td>
+										 	
+										 	<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a  href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation() ">Remove</a>
+												
+									<%-- 	<!-- modal content -->
+													<div id='confirm'>
+													<div class='header'><span>Confirm</span></div>
+													<div class='message'>Are you sure?You want to delete the user?</div>
+													<div class="url">/deleteadminuser?id=${adminuser.admin_id}</div>
+													<div class='buttons'>
+													<div class='no simplemodal-close'>No</div><div class='yes'>Yes</div>
+													</div>
+													</div>
+										<!-- preload the images -->
+													<div style='display:none'>
+														<img src='img/confirm/header.gif' alt='' />
+														<img src='img/confirm/button.gif' alt='' />
+													</div>
+													</div>
+</div>
+	
+										<!-- End Confirm dialog --> --%>
+										 	</c:if>
+										 	
+										 	</td>
 									</tr>
 							    	</c:forEach>
 							</table>
+													
 						</div>
 					</div>
 				</td>
@@ -150,7 +191,6 @@ slvals = null;
 });
 })
 </script>
-
 <script language="javascript">
 
 function confirmation() {
@@ -162,7 +202,6 @@ function confirmation() {
 		return false;
 	}
 }
-
 
 
 

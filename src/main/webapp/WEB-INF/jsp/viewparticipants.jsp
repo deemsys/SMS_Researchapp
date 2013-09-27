@@ -94,9 +94,13 @@
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
 											<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
 											<td>
+											<c:if test="${currentuser.adminuser[0].editparticipant==1}">
 												<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editparticipant?id=${participantsDetails.participants_id}"/>" style="padding-right:10px;">Edit</a>
-											<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipants?id=${participantsDetails.participants_id}"/>" onclick="return confirmation()">Remove</a></td>
-											
+												</c:if>
+												<c:if test="${currentuser.adminuser[0].deleteparticipant==1}">
+											<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipants?id=${participantsDetails.participants_id}"/>" onclick="return confirmation()">Remove</a>
+											</c:if>
+											</td>
 								</tr>
 							    	</c:forEach>
 							    	</c:if>
