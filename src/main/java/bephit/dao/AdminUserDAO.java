@@ -23,7 +23,7 @@ public class AdminUserDAO {
 		this.dataSource = dataSource;
 	}
 
-	public int setAdminUser(AdminUser adminuser)
+	public int setAdminUser(AdminUser adminuser,String admin_id)
 	{
 		Connection con = null;
 		Statement statement = null;		 
@@ -41,9 +41,10 @@ public class AdminUserDAO {
 	String cmd="INSERT INTO admin_log_table(admin_username,admin_password,admin_email,admin_mobile,admin_address,previlages,date,status,addstream,editstream,deletestream,broadcaststream,addparticipant,editparticipant,deleteparticipant,addadminuser,edituser,deleteuser,modifysettings,mailtemplate) VALUES('"+adminuser.getAdmin_username()+"','"+adminuser.getAdmin_password()+"','"+adminuser.getAdmin_email()+"','"+adminuser.getAdmin_mobile()+"','"+adminuser.getAdmin_address()+"','empty','"+dateFormat.format(date)+"',0,'"+adminuser.getAddstream()+"','"+adminuser.getEditstream()+"','"+adminuser.getDeletestream()+"','"+adminuser.getBroadcaststream()+"','"+adminuser.getAddparticipant()+"','"+adminuser.getEditparticipant()+"','"+adminuser.getDeleteparticipant()+"','"+adminuser.getAddadminuser()+"','"+adminuser.getEdituser()+"','"+adminuser.getDeleteuser()+"','"+adminuser.getModifysettings()+"','"+adminuser.getMailtemplate()+"')";
 	System.out.println(cmd);
 	statement.execute(cmd);
-	
-	
-	
+	String Desc="added adminuser"+adminuser.getAdmin_username();
+	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+	System.out.println(cmd_activity);
+	statement.execute(cmd_activity);
 		}
 		catch(Exception ex)
 		{
@@ -244,7 +245,7 @@ public class AdminUserDAO {
 	
 	
 	
-	public int deleteAdminUser(String admin_id) {
+	public int deleteAdminUser(AdminUser adminuser,String admin_id) {
 
 		Connection con = null;
 		Statement statement = null;
@@ -258,7 +259,20 @@ public class AdminUserDAO {
 		}
 		try
 		{
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			 Date date = new Date();
+			
+			String cmd_getadmin_name="select admin_username from admin_log_table where admin_id='"+admin_id+"'";
+			String Desc="Delete adminuser "+adminuser.getAdmin_username();
 			statement.execute("delete from admin_log_table where admin_id='"+admin_id+"'");
+			resultSet=statement.executeQuery(cmd_getadmin_name);
+			String cmd_activity;
+			if(resultSet.next())
+				Desc=Desc+resultSet.getString(1);
+			statement.execute("delete from admin_log_table where admin_id='"+admin_id+"'");
+			cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+			System.out.println(cmd_activity);
+			statement.execute(cmd_activity);
 			flag=1;
 		} 
 		catch (Exception ex) 
@@ -368,10 +382,18 @@ public class AdminUserDAO {
 
 		try
 		{
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			 Date date = new Date();		 
+			 
 			String cmd="UPDATE admin_log_table SET admin_username= '"+adminuser.getAdmin_username()+"',admin_password='"+adminuser.getAdmin_password()+"' ,admin_email='"+adminuser.getAdmin_email()+"' ,admin_mobile='"+adminuser.getAdmin_mobile()+"' ,admin_address ='"+adminuser.getAdmin_address()+"' ,previlages='"+adminuser.getPrevilages()+"' ,addstream ='"+adminuser.getAddstream()+"' ,editstream= '"+adminuser.getEditstream()+"',deletestream ='"+adminuser.getDeletestream()+"' ,broadcaststream ='"+adminuser.getBroadcaststream()+"',addparticipant ='"+adminuser.getAddparticipant()+"' ,editparticipant ='"+adminuser.getEditparticipant()+"' ,deleteparticipant ='"+adminuser.getDeleteparticipant()+"' ,addadminuser ='"+adminuser.getAddadminuser()+"' ,edituser ='"+adminuser.getEdituser()+"' ,deleteuser ='"+adminuser.getDeleteuser()+"' ,modifysettings ='"+adminuser.getModifysettings()+"' ,mailtemplate = '"+adminuser.getMailtemplate()+"' WHERE admin_id='"+admin_id+"'";
 			
 			statement.execute(cmd);
             System.out.println(cmd); 
+            String Desc="Update adminuser "+adminuser.getAdmin_username();
+            String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+            System.out.println(cmd_activity);
+            statement.execute(cmd_activity);
             flag=1;
 			
 		} 
@@ -401,17 +423,6 @@ public class AdminUserDAO {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public void releaseConnection(Connection con){
 		try{if(con != null)
 			con.close();
@@ -428,3 +439,6 @@ public class AdminUserDAO {
 	}catch(Exception e){}
 	}
 }
+
+
+

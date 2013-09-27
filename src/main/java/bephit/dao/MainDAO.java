@@ -22,7 +22,7 @@ public class MainDAO {
 		this.dataSource = dataSource;
 	}
 	
-	public int setParticipants(ParticipantsDetails participant)
+	public int setParticipants(ParticipantsDetails participant,String admin_id)
 	{
 		Connection con = null;
 		Statement statement = null;
@@ -39,9 +39,17 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`note`,`medical_details`,`messaging_frequency`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"+participant.getFname()+"','"+participant.getLname()+"','"+participant.getMobile_num()+"','"+participant.getGender()+"','"+participant.getCity()+"','"+participant.getEducation()+"','"+participant.getNote()+"','"+participant.getMedical_details()+"','"+participant.getMessaging_frequency()+"','"+participant.getGroup_name()+"','"+participant.getAge()+"','"+dateFormat.format(date)+"','"+participant.getEmail_id()+"','0')";
-	    	System.out.println(cmd);
-			statement.execute(cmd);
+	    	 String cmd="INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`note`,`medical_details`,`messaging_frequency`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"+participant.getFname()+"','"+participant.getLname()+"','"+participant.getMobile_num()+"','"+participant.getGender()+"','"+participant.getCity()+"','"+participant.getEducation()+"','"+participant.getNote()+"','"+participant.getMedical_details()+"','"+participant.getMessaging_frequency()+"','"+participant.getGroup_name()+"','"+participant.getAge()+"','"+dateFormat.format(date)+"','"+participant.getEmail_id()+"','0')";
+	    	 System.out.println(cmd);
+	    	 statement.execute(cmd);
+	    	/* String cmd_getparticipantname="select fname from participants_table where participants_id='"+participant_id+"'";
+	    	 resultSet=statement.executeQuery(cmd_getparticipantname);
+	    	*/ String Desc="added participants"+participant.getFname();
+	    	 /*if(resultSet.next())
+			Desc=Desc+resultSet.getString(1);
+	    */	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+	    	System.out.println(cmd_activity);
+	    	statement.execute(cmd_activity);
 			flag=1;
 	 }
 	    catch(Exception e){
