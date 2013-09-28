@@ -106,7 +106,7 @@ public class AdminUserController
 	@RequestMapping(value="/updateadminuser", method=RequestMethod.POST)
 	public String updateParticipants(@ModelAttribute("adminuser") @Valid AdminUser adminuser,BindingResult result,ModelMap model, Principal principal) {
 	
-		int status=adminuserDAO.updateAdminUser(adminuser, adminuser.getAdmin_id());//.deleteParticipant(participant_id);
+		int status=adminuserDAO.updateAdminUser(adminuser,principal.getName());//.deleteParticipant(participant_id);
 		if (result.hasErrors())
 		{
 			AdminUserForm adminuserForm = new AdminUserForm();

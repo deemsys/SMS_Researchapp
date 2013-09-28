@@ -62,6 +62,7 @@ public class MainController {
 		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));	 
         model.addAttribute("menu","dashboard");
         model.addAttribute("success","false");
+        model.addAttribute("button","viewall");
         ModelAndView mav = new ModelAndView("dashboard");
         
          //session start       
@@ -83,6 +84,7 @@ public class MainController {
         model.addAttribute("noofrows",mainDAO.getParticipants().size());       
         model.addAttribute("menu","dashboard");
         model.addAttribute("success","false");
+        model.addAttribute("button","close");
 		return "dashboard";
  
 	}
@@ -227,6 +229,7 @@ public class MainController {
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
         model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
+        
 		return "viewparticipants";
 	}
 	
@@ -553,6 +556,7 @@ public class MainController {
         model.addAttribute("noofrows",mainDAO.getParticipants().size());
         model.addAttribute("currentpage",page);
         model.addAttribute("menu","dashboard");
+        model.addAttribute("button","viewall");
 		return "dashboard";
 		
 	}	

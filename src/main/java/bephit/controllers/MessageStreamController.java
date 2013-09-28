@@ -1,5 +1,5 @@
 package bephit.controllers;
- 
+
 import java.io.IOException;
 import java.security.Principal;
 
@@ -24,30 +24,56 @@ import bephit.forms.*;
 import bephit.model.*;
 
 @Controller
-public class MessageStreamController
-{
-	
+public class MessageStreamController {
 
-	@RequestMapping(value="/createstream",method=RequestMethod.GET)
-		public String createstream(ModelMap model)
-		{
-			return "createstream";
-		}
-		
-		@RequestMapping(value="/viewstream",method=RequestMethod.GET)
-		public String viewstream(ModelMap model)
-		{
-			return "viewstream";
-		}
-		@RequestMapping(value="/broadcast",method=RequestMethod.GET)
-		public String sendstream(ModelMap model)
-		{
-			return "sendstream";
-		}
-		
-		@RequestMapping(value="/viewreports",method=RequestMethod.GET)
-		public String viewreports(ModelMap model)
-		{
-			return "viewreports";
-		}
+	@Autowired
+	StreamDetailsDAO streamDAO;
+
+	@RequestMapping(value = "/createstream", method = RequestMethod.GET)
+	public String createstream(ModelMap model) {
+		String StreamID = streamDAO.getMaxStreamID();
+		model.addAttribute("currentstream", StreamID);
+		return "createstream";
+	}
+
+	@RequestMapping(value = "/insertstream", method = RequestMethod.POST)
+	public String insertstream(
+			HttpServletRequest request,
+			ModelMap model,
+			Principal principal,
+			@ModelAttribute("streamdetails") @Valid StreamDetails streamdetails,
+			BindingResult result) {
+		/*
+		 * if(result != null) { return "createstream"; } else {
+		 */
+		String[] Messages = new String[100];
+		Messages = request.getParameterValues("message[]");
+		streamDAO.insertNewstream(streamdetails, principal.getName(), Messages);
+		model.addAttribute("success", "true");
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream());
+		model.addAttribute("streamForm", streamForm);
+		return "viewstream";
+
+		/* } */
+	}
+
+	@RequestMapping(value = "/viewstream", method = RequestMethod.GET)
+	public String viewstream(ModelMap model) {
+		model.addAttribute("success", "false");
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream());
+		model.addAttribute("streamForm", streamForm);
+		return "viewstream";
+	}
+
+	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
+	public String sendstream(ModelMap model) {
+		return "sendstream";
+	}
+
+	@RequestMapping(value = "/viewreports", method = RequestMethod.GET)
+	public String viewreports(ModelMap model) {
+		return "viewreports";
+	}
 }
