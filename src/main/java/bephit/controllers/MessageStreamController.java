@@ -67,13 +67,5 @@ public class MessageStreamController {
 		return "viewstream";
 	}
 
-	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
-	public String sendstream(ModelMap model) {
-		return "sendstream";
-	}
-
-	@RequestMapping(value = "/viewreports", method = RequestMethod.GET)
-	public String viewreports(ModelMap model) {
-		return "viewreports";
-	}
+	
 }

@@ -26,7 +26,8 @@ import bephit.forms.*;
 import bephit.model.*;
 //import bephit.Validation.*;
 
- 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory; 
  
 @Controller
 @SessionAttributes("currentuser")
@@ -41,15 +42,25 @@ public class MainController {
     @Autowired    
     ParticipantGroupDAO partDAO;
  
+    @Autowired  
+	EmailSender emailSender;
     
     @Autowired 
     AdminUserDAO adminuserdao;
+    
+    @Autowired  
+	TwilioSMS messageSender;
 	
     
+    
+	
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class); //Logger
 	
 	@RequestMapping(value={"/", "/welcome"}, method = RequestMethod.GET)
 	public ModelAndView printWelcome(HttpServletRequest request,ModelMap model, Principal principal ) {
 		
+
+        
 		
        	ParticipantsDetailsForm participantsDetailsForm1 = new ParticipantsDetailsForm();
 		participantsDetailsForm1.setParticipantsDetails(mainDAO.getParticipants());         
@@ -120,6 +131,10 @@ public class MainController {
 	@RequestMapping(value="/forgotpwd", method=RequestMethod.GET)
 	public String showForgotpassword(HttpServletRequest request,Model model) {
 	//	model.addAttribute(new UserProfile());
+		
+		
+		
+		
 	return "forgotpwd";
 	}
 	
@@ -580,6 +595,38 @@ public class MainController {
 		return "viewparticipants";
 		
 	}	
+	
+	
+	
+	@RequestMapping(value="/sendforgotpassword", method=RequestMethod.POST)
+	public String sendforgot_password(HttpServletRequest request,ModelMap model) 
+	{	
+		//------------------------------------------------------------------------//
+		
+		String mail=request.getParameter("email_id").toString();
+	    System.out.println(mail);
+		logger.info("--Before Sending--"); //Logger Test
+        //Email Test
+        emailSender.sendEmail(mail, "learnguild@gmail.com", "Hi");
+        logger.info("--After Sent--");
+      /*  model.addAttribute("success","true");
+       */ 
+        try{
+        	messageSender.sendSMS("6144670389", "Deemsys test");
+        }catch(Exception e){e.printStackTrace();}
+        
+        
+      //------------------------------------------------------------------------//
+        
+        
+        return "login";
+		
+		
+		
+	}	
+	
+	
+	
 	
 	
   }

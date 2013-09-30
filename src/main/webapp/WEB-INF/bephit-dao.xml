@@ -23,5 +23,7 @@
 	<bean id="streamDAO" class="bephit.dao.StreamDetailsDAO">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+	<bean id="broadDAO" class="bephit.dao.BroadCastDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 </beans>

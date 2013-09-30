@@ -4,6 +4,23 @@
 
 <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
 
+<link rel="stylesheet" href="resources/css/jquery-ui.css" />
+  <script src="resources/js/jquery-1.9.1.js" type="text/javascript"></script>
+  <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
+
+
+<script>
+  
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  $(function() {
+	    $( "#dateofjointo" ).datepicker();
+	  });
+  </script>
+
+
+
 <script type="text/javascript" src="js/ui.datepicker.js"></script>
 <link type="text/css" href="css/demos.css" rel="stylesheet" />
 <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
@@ -13,7 +30,7 @@
 	});
 	</script>
   <div id="right_content">
-<form name="updatebroadcast" action="?do=updatebroadcast" method="POST">
+<form name="updatebroadcast" action="insertsendstream" method="POST">
 
     <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
       <tr>
@@ -38,19 +55,38 @@
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="200">Broadcast Id :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="hidden" name="br_id" value=""></td>
+                  <td valign="top" align="left" class="input_txt">${currentbroad}</td><input type="hidden" name="broad_id" value="${currentbroad}">
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt">Stream Name :</td>
-                  <td valign="top" align="left" class="input_txt"></br><span class="err"></span></td>
+                  <td valign="top" align="left" class="input_txt">
+                   <select name="stream_id">
+							    <option value = "">Select Stream</option>
+                  <c:forEach items="${streamForm.streamDetails}" var="streamDetails" varStatus="status">
+			                   <option value="${streamDetails.streamId}">${streamDetails.streamName}</option>
+			                   </c:forEach>             
+                  </select>
+                  
+                  </br><span class="err"></span></td>
                 </tr>
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt">Group Name :</td>
-                  <td valign="top" align="left" class="input_txt"></br><span class="err"></span></td>
+                  <td valign="top" align="left" class="input_txt">
+                  <select name="group_id">
+							    <option value = "">Select Groups</option>
+			                  <c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
+			                   <option value="${participantGroups.group_id}">${participantGroups.group_name}</option>
+			                   </c:forEach>
+			                 </select>
+                  
+                  
+                  
+                  
+                  </br><span class="err"></span></td>
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt">Frequency :</td>
-                  <td valign="top" align="left" class="input_txt"><select name="fre" class="input_cmbbx2" onchange="openNewDiv(this.value)">
+                  <td valign="top" align="left" class="input_txt"><select name="frequency" class="input_cmbbx2" onchange="openNewDiv(this.value)">
 		      <option value="0" selected="selected">One Per Day</option>
 	              <option value="1">Two Per Day</option>
         	      <option value="2">One Per Week</option>
@@ -60,14 +96,14 @@
 
 		  <tr class="row1">
                   <td valign="middle" align="right" class="input_txt">Start Date :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" name="st_date" id="datepicker" class="input_txtbx1" value=""></br><span class="err"></span></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" name="start_date" id="datepicker" class="input_txtbx1" value=""></br><span class="err"></span></td>
                 </tr></table>
 
 
 <table cellpadding="0" cellspacing="0" border="0" width="100%" id="one" style="display:block;"  style="display:none;">
   <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="52%">Start Time :</td>
-                 <td valign="top" align="left" class="input_txt"><select name="ftime_one" class="input_cmbbx2" onchange="openNewDiv(this.value)">
+                 <td valign="top" align="left" class="input_txt"><select name="fstream_time" class="input_cmbbx2">
 		      <option value="12AM" selected="selected">12&nbsp;AM</option>
 		      <option value="01AM" >01&nbsp;AM</option>
 	              <option value="02AM">02&nbsp;AM</option>
@@ -102,7 +138,7 @@
 
   <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="52%">First Message sending Time :</td>
-                 <td valign="top" align="left" class="input_txt"><select name="ftime_two" class="input_cmbbx2" >
+                 <td valign="top" align="left" class="input_txt"><select name="sstream_time" class="input_cmbbx2" >
 		     <option value="12AM" selected="selected">12&nbsp;AM</option>
 		      <option value="01AM" >01&nbsp;AM</option>
 	              <option value="02AM">02&nbsp;AM</option>
@@ -202,7 +238,7 @@
 
 	 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="52%"> Message sending Day :</td>
-                 <td valign="top" align="left" class="input_txt"><select name="day_name_three" class="input_cmbbx2" >
+                 <td valign="top" align="left" class="input_txt"><select name="stream_week_day" class="input_cmbbx2" >
 		      <option value="Sun" selected="selected">Sunday</option>
 	              <option value="Mon">Monday</option>
 	              <option value="Tue">Tuesday</option>

@@ -1,7 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="header.jsp"></jsp:include>
-<form action="?do=insertstream" method="post">
+<form action="insertstream" method="post">
   <div id="right_content">
     <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
       <tr>
@@ -16,15 +16,15 @@
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="200" width="30%">Stream Id :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="hidden" name="st_id" value=""></td>
+                  <td valign="top" align="left" class="input_txt" width="70%">${currentstream}<input type="hidden" name="streamId" value="${currentstream}"></td>
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Stream Name :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="sname" class="input_txtbx" id="inp_id3" value=" " /></br> <span class="err"></span></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="streamName" class="input_txtbx" id="inp_id3" value=" " /></br> <span class="err"></span></td>
                 </tr>
                  <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Description :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><textarea name="sdes" class="input_txtarea"  rows="5" cols="" id="inp_id5"/></textarea></br><span class="err"></span></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><textarea name="description" class="input_txtarea"  rows="5" cols="" id="inp_id5"/></textarea></br><span class="err"></span></td>
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Message 1 :</td>

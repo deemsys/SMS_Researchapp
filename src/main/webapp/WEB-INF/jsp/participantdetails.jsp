@@ -23,11 +23,11 @@
             
             
    <%--            <c:forEach items="${currentuser.participantsDetails}" var="currentuser" varStatus="status">
-   --%>          <%--   <tr class="row2">
+   --%>          <%--  <tr class="row2">
                   <td width="15%" valign="middle" align="left" > Current User: </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                  <td width="84%" valign="top" align="left" >${currentuser.adminuser[0].admin_username}</td>
-                </tr> --%>
+                </tr>  --%>
           <%--   </c:forEach>  
           --%>      
              <c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
@@ -108,7 +108,7 @@
                 </tr>   
               
               
-                      
+                       
               
               
               

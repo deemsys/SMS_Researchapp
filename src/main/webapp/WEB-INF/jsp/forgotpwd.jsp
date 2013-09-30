@@ -8,7 +8,7 @@
 <link href="resources/css/home.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<form name="login" action="?do=validforgetpassword" method="post">
+<form name="login" action="sendforgotpassword" method="post">
 
 <div id="login_div">
   <div class="login-top"></div>
@@ -32,7 +32,7 @@
         <p>Enter Your Email Id</p>
       </li>
       <li>
-        <input type="text" class="inputbx" name="email" />
+        <input type="text" class="inputbx" name="email_id" />
 	 <p><font color="Red"></font></p>
       </li>
       

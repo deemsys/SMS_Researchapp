@@ -74,8 +74,17 @@
             <c:if test="${currentpage!=noofpages}">
               <li class="page_unselect"><a href="viewparticipant_page?page=${currentpage+1}">Next</a></li> 
                  </c:if>
-               
-             <li class="page"><a href="viewall" class="paging_select">ViewAll</a></li> 
+              <c:choose>
+              <c:when test="${button=='viewall'}">
+                  <li class="page"><a href="viewall" class="paging_select">ViewAll</a></li>
+             </c:when>
+                <c:otherwise>
+                  <li class="page"><a href="welcome" class="paging_select">Back</a></li>
+              </c:otherwise>
+              
+              </c:choose>
+         
+          
                 </ul></div></td></tr>
 
 								<!-- <tr><td colspan="7">  <div class="extrabottom">

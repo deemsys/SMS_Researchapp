@@ -103,10 +103,10 @@
 					<tr>
 					
 						<td align="right" valign="middle"><span class="cart_txt">Welcome
-					
-								<sec:authentication property="principal.username" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
+					<%-- 
+								<sec:authentication property="principal.username" />&nbsp;&nbsp;|&nbsp;&nbsp;--%><a href="<c:url value="/j_spring_security_logout" />">Logout</a>
 							
-						</span></td>
+						 </span></td>
 					</tr>
 				</table>
 			</div>
@@ -161,10 +161,7 @@
 						<li><a href="viewreports">Report</a></li>
             		</ul>
 						<ul id="ddsubmenu2" class="ddsubmenustyle">
-					<%-- 	<c:if test="${currentuser.adminuser[0].addparticipant eq 1}">
-					 --%>		
-					 
-					 <c:if test="${currentuser.adminuser[0].addparticipant eq 1}">
+					<c:if test="${currentuser.adminuser[0].addparticipant eq 1}">
 					 <li><a href="showaddparticipants">Add Participants</a></li>
 							</c:if>
 						    <li><a href="viewparticipants">View participants</a></li>

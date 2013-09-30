@@ -35,4 +35,32 @@
 			</list>
 		</property>
 	</bean>
+	
+	
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+	
+	
+	
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="javaMailProperties">
+        <!-- Gmail setup for from acct -->
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+              <!--   <prop key="mail.smtp.starttls.enable">true</prop> -->
+                <prop key="mail.smtp.host">smtp.gmail.com</prop>
+                <prop key="mail.smtp.port">587</prop>
+            </props>
+        </property>
+        <property name="username" value="learnguild@gmail.com" />
+        <property name="password" value="deemsys@123" />
+    </bean>
+	
 </beans>
