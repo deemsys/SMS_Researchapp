@@ -26,7 +26,7 @@ public class BroadCast {
 			String sstream_time,
 			String stream_week_day,
 			String status) {
-		super();
+		/*super();*/
 		/*this.br_id = br_id;*/
 		this.broad_id = broad_id;
 		this.stream_id = stream_id;

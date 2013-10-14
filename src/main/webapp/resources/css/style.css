@@ -630,6 +630,12 @@ ul.prev li{margin-right:50px; float:left; margin-bottom:20px;}
 	background:#f8fbfd;
 	border:1px solid #9fb7cd;
 }
+.input_cmbbx2 {
+	width:177px;
+	padding:3px;
+	background:#f8fbfd;
+	border:1px solid #9fb7cd;
+}
 .input_txtarea1 {
 	width:220px;
 	padding:3px;

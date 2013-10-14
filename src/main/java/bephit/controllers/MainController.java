@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -24,7 +23,6 @@ import javax.validation.Valid;
 import bephit.dao.*;
 import bephit.forms.*;
 import bephit.model.*;
-//import bephit.Validation.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; 
@@ -35,6 +33,9 @@ public class MainController {
 	
 	@Autowired  
 	MainDAO mainDAO; 
+	@Autowired
+	MailTemplateDAO mailTemplateDAO;
+
 	
     @Autowired
     UserDAO userDAO;
@@ -50,8 +51,6 @@ public class MainController {
     
     @Autowired  
 	TwilioSMS messageSender;
-	
-    
     
 	
     private static final Logger logger = LoggerFactory.getLogger(MainController.class); //Logger
@@ -85,6 +84,7 @@ public class MainController {
         
 		return mav;
  
+        
 	}
 	@RequestMapping(value={"/", "/viewall"}, method = RequestMethod.GET)
 	public String viewallpart(HttpServletRequest request,ModelMap model, Principal principal ) {
@@ -400,15 +400,26 @@ public class MainController {
 	}*/
 	
 	@RequestMapping(value="/textmsgsettings", method=RequestMethod.GET)
-	public String textMsgSettings(HttpServletRequest request,ModelMap model) {
-		
+	public String textMsgSettings(HttpServletRequest request,ModelMap map) {
+		TextMsgSettingsForm form=new TextMsgSettingsForm();
+		form.setTextMsgSettings(mailTemplateDAO.getMsgSettings());
+		map.addAttribute("form", form);
+
 		return "textmsg";
+	}
+	@RequestMapping(value="/addmailtemplate",method=RequestMethod.GET)
+	public String mailTemplates(HttpServletRequest request, ModelMap map){
+		MailTemplateForm mailTemplateForm=new MailTemplateForm();
+		mailTemplateForm.setMailTemplateDetails(mailTemplateDAO.getTemplates());
+		map.addAttribute("mailTemplateForm", mailTemplateForm);
+		return "mailtemplates";
 	}
 	
 	@RequestMapping(value="/changepassword",method=RequestMethod.GET)
-	public String changemypassword(HttpServletRequest request,ModelMap model)
+	public String changemypassword(HttpServletRequest request,ModelMap map)
 	{
-		return "changepwd";
+		
+		return "forgotpwd";
 	}
 	
 	@RequestMapping(value="/findParticipant",method=RequestMethod.GET)
@@ -613,6 +624,9 @@ public class MainController {
        */ 
         try{
         	messageSender.sendSMS("6144670389", "Deemsys test");
+        	messageSender.sendSMS("9209312567", "Deemsys test again");
+
+        	
         }catch(Exception e){e.printStackTrace();}
         
         

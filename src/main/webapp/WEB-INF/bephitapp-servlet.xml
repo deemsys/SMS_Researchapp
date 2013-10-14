@@ -62,5 +62,5 @@
         <property name="username" value="learnguild@gmail.com" />
         <property name="password" value="deemsys@123" />
     </bean>
-	
-</beans>
+<!-- 	<import resource="spring-scheduler.xml"/>  
+ --></beans>

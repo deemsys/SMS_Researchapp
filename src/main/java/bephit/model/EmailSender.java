@@ -49,8 +49,10 @@ public class EmailSender {
                 message.setSubject(subject);
                 //Pass values to Template
                 Map<String, String> model = new HashMap<String, String>();
-                model.put("toName", "Deemsys");
-                model.put("fromName", "Suresh");
+                String participantName = "Deemsys"; //select from databse
+                String fromName = "Suresh"; //get from Mail settings Table
+                model.put("toName", participantName);
+                model.put("fromName", fromName);
               //Pass values to Template End
                 String body = VelocityEngineUtils.mergeTemplateIntoString(
                         velocityEngine, "templates/" + TEMPLATE_NAME, "UTF-8", model);

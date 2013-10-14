@@ -382,7 +382,6 @@
               
 
             </div></form>
- --%>
 <AJDF:output>/if</AJDF:output>
 
           </div>
@@ -393,6 +392,8 @@
 
 
       </tr>
+       --%>
+      
 
 <script language="JavaScript">
 function CreateGroup()

@@ -37,7 +37,7 @@ public class StreamDetailsDAO
 		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 		String StreamID="1001";
 	    try{
-			resultSet = statement.executeQuery("select Max(stream_id) as streamid from stream");
+			resultSet = statement.executeQuery("select Max(stream_id) as streamid from message_stream");
 			int stream_id=0;
 			if(resultSet.next())
 			{

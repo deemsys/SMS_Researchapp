@@ -113,13 +113,15 @@ public class UserDAO {
 	    }finally{
 	     	releaseStatement(statement);
 	    	releaseConnection(con);	    
+	    	releaseResultSet(resultSet);
+	    }
 	    	if(flag==1)
 	    		return 1;
 	    	else
 	    		return 0;
 	    }
 	    
-	}
+	
 	public void releaseConnection(Connection con){
 		try{if(con != null)
 			con.close();
