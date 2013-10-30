@@ -235,17 +235,7 @@ public class AdminUserDAO {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public int deleteAdminUser(AdminUser adminuser,String admin_id) {
+	public int deleteAdminUser(String admin_id,String adminuser) {
 
 		Connection con = null;
 		Statement statement = null;
@@ -263,8 +253,8 @@ public class AdminUserDAO {
 			 Date date = new Date();
 			
 			String cmd_getadmin_name="select admin_username from admin_log_table where admin_id='"+admin_id+"'";
-			String Desc="Delete adminuser "+adminuser.getAdmin_username();
-			statement.execute("delete from admin_log_table where admin_id='"+admin_id+"'");
+			String Desc="Delete adminuser ";
+			
 			resultSet=statement.executeQuery(cmd_getadmin_name);
 			String cmd_activity;
 			if(resultSet.next())
@@ -385,19 +375,21 @@ public class AdminUserDAO {
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			 Date date = new Date();		 
-			 
-			 System.out.println(admin_id); 
-			 
-			String cmd="UPDATE admin_log_table SET admin_username= '"+adminuser.getAdmin_username()+"',admin_password='"+adminuser.getAdmin_password()+"' ,admin_email='"+adminuser.getAdmin_email()+"' ,admin_mobile='"+adminuser.getAdmin_mobile()+"' ,admin_address ='"+adminuser.getAdmin_address()+"' ,previlages='"+adminuser.getPrevilages()+"' ,addstream ='"+adminuser.getAddstream()+"' ,editstream= '"+adminuser.getEditstream()+"',deletestream ='"+adminuser.getDeletestream()+"' ,broadcaststream ='"+adminuser.getBroadcaststream()+"',addparticipant ='"+adminuser.getAddparticipant()+"' ,editparticipant ='"+adminuser.getEditparticipant()+"' ,deleteparticipant ='"+adminuser.getDeleteparticipant()+"' ,addadminuser ='"+adminuser.getAddadminuser()+"' ,edituser ='"+adminuser.getEdituser()+"' ,deleteuser ='"+adminuser.getDeleteuser()+"' ,modifysettings ='"+adminuser.getModifysettings()+"' ,mailtemplate = '"+adminuser.getMailtemplate()+"' WHERE admin_username='"+admin_id+"'";
+		
+			 String cmd_getadmin_name="select admin_username from admin_log_table where admin_id='"+admin_id+"'";
+			String cmd="UPDATE admin_log_table SET admin_username= '"+adminuser.getAdmin_username()+"',admin_password='"+adminuser.getAdmin_password()+"' ,admin_email='"+adminuser.getAdmin_email()+"' ,admin_mobile='"+adminuser.getAdmin_mobile()+"' ,admin_address ='"+adminuser.getAdmin_address()+"' ,previlages='"+adminuser.getPrevilages()+"' ,addstream ='"+adminuser.getAddstream()+"' ,editstream= '"+adminuser.getEditstream()+"',deletestream ='"+adminuser.getDeletestream()+"' ,broadcaststream ='"+adminuser.getBroadcaststream()+"',addparticipant ='"+adminuser.getAddparticipant()+"' ,editparticipant ='"+adminuser.getEditparticipant()+"' ,deleteparticipant ='"+adminuser.getDeleteparticipant()+"' ,addadminuser ='"+adminuser.getAddadminuser()+"' ,edituser ='"+adminuser.getEdituser()+"' ,deleteuser ='"+adminuser.getDeleteuser()+"' ,modifysettings ='"+adminuser.getModifysettings()+"' ,mailtemplate = '"+adminuser.getMailtemplate()+"' where admin_id='"+admin_id+"';";
 			
-			statement.execute(cmd);
-            System.out.println(cmd); 
+			resultSet=statement.executeQuery(cmd_getadmin_name);
             String Desc="Update adminuser "+adminuser.getAdmin_username();
             String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+            statement.execute(cmd);
+            
             System.out.println(cmd_activity);
+            
             statement.execute(cmd_activity);
+            System.out.println(cmd); 
             flag=1;
-			
+            
 		} 
 		catch (Exception ex) 
 		{
