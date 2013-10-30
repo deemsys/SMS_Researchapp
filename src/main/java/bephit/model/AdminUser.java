@@ -10,12 +10,18 @@ public class AdminUser
 	@NotEmpty
 	private String admin_username;
 	
-	@NotEmpty
-	private String admin_password;
+	
+	
+	
 	
 	@NotEmpty
 	@Email
 	private String admin_email;
+	
+	@NotEmpty
+	private String admin_password;
+	
+ 
 	
 	@NotEmpty
 	@Pattern(regexp="(^$|[0-9]{10})",message="Not a valid Mobile number")
@@ -257,11 +263,13 @@ public class AdminUser
 	
 	}
 	
-	public AdminUser(String admin_id,String admin_username,String admin_password,String admin_email,String admin_mobile,String admin_address,String previlages,String date,String status,String addstream,String editstream,String deletestream,String broadcaststream,String addparticipant,String editparticipant,String deleteparticipant,String addadminuser,String edituser,String deleteuser,String modifysettings,String mailtemplate)
+	public AdminUser(String admin_id,String admin_username,String admin_email,String admin_password,String admin_mobile,String admin_address,String previlages,String date,String status,String addstream,String editstream,String deletestream,String broadcaststream,String addparticipant,String editparticipant,String deleteparticipant,String addadminuser,String edituser,String deleteuser,String modifysettings,String mailtemplate)
 	{
 		this.admin_id=admin_id;
 		this.admin_username=admin_username;
 		this.admin_password=admin_password;
+		
+		
 		this.admin_email=admin_email;
 		this.admin_mobile=admin_mobile;
 		this.admin_address=admin_address;
@@ -281,5 +289,9 @@ public class AdminUser
 		this.modifysettings=modifysettings;
 		this.mailtemplate=mailtemplate;
 	}
+
+	
+
+	
 	
 }
