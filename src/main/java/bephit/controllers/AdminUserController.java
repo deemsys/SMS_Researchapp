@@ -164,9 +164,5 @@ public class AdminUserController
         return "viewadminuser";
 		
 	}
-		
-	
-	
-	
 	
 }
