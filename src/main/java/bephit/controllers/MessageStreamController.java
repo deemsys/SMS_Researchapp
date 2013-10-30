@@ -33,29 +33,38 @@ public class MessageStreamController {
 	public String createstream(ModelMap model) {
 		String StreamID = streamDAO.getMaxStreamID();
 		model.addAttribute("currentstream", StreamID);
+		 model.addAttribute("menu","message");
 		return "createstream";
 	}
 
 	@RequestMapping(value = "/insertstream", method = RequestMethod.POST)
 	public String insertstream(
-			HttpServletRequest request,
-			ModelMap model,
-			Principal principal,
-			@ModelAttribute("streamdetails") @Valid StreamDetails streamdetails,
-			BindingResult result) {
+			HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamDetails,BindingResult result,ModelMap model,Principal principal) {
 		/*
 		 * if(result != null) { return "createstream"; } else {
 		 */
+		if (result.hasErrors())
+		{
+			/*StreamDetailsForm streamForm = new StreamDetailsForm();
+			streamForm.setStreamDetails(streamDAO.getStream());
+			model.addAttribute("streamForm", streamForm);*/
+			model.addAttribute("menu","message");
+			return "createstream";
+		}
+		else
+		{
 		String[] Messages = new String[100];
 		Messages = request.getParameterValues("message[]");
-		streamDAO.insertNewstream(streamdetails, principal.getName(), Messages);
+		streamDAO.insertNewstream(streamDetails, principal.getName(), Messages);
 		model.addAttribute("success", "true");
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
+		model.addAttribute("menu","message");
 		return "viewstream";
+		}
 
-		/* } */
+		
 	}
 
 	@RequestMapping(value = "/viewstream", method = RequestMethod.GET)
@@ -64,6 +73,7 @@ public class MessageStreamController {
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
+		model.addAttribute("menu","message");
 		return "viewstream";
 	}
 
