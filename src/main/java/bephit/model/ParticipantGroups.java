@@ -29,7 +29,7 @@ public class ParticipantGroups {
 	
 	@NotEmpty
 	private String local_dojto;
-	
+	@NotEmpty
 	private String local_age;
 	
 	@NotEmpty
