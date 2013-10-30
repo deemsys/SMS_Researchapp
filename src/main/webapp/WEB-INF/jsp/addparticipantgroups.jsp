@@ -122,8 +122,8 @@
 							                </tr>
 							<tr class="row4">
 							                  <td valign="middle" align="right" class="input_txt" width="30%" ><span class="err">*</span> Age :</td>
-							                  <td valign="top" align="left"  class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_age" class="input_txtbx" id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /><br/>
-							                   <span class="err"><form:errors path="pgroups.local_age"></form:errors></span></td>
+							                  <td valign="top" align="left"  class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_age" class="input_txtbx" id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /> <br><span class="err"><form:errors path="pgroups.local_age"></form:errors></span></td>
+							                  
 							                </tr>
 							<tr class="row4">
 							                 
