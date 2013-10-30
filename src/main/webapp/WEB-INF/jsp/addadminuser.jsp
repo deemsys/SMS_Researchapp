@@ -71,11 +71,11 @@ else {
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Password :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="password" name="admin_password" class="input_txtbx" id="pass1" value="" /><span class="err"><form:errors path="adminuser.admin_password"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt"><input type="password" name="admin_password" class="input_txtbx" id="pass1" value="" /><br/><span class="err"><form:errors path="adminuser.admin_password"></form:errors></span></td>
                 </tr>
 		<tr class="row1">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Retype password :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="password" name="repassword" class="input_txtbx" id="pass2" value="" /><span class="err" id="spnsub_pass"></span></td>
+                  <td valign="top" align="left" class="input_txt"><input type="password" name="repassword" class="input_txtbx" id="pass2" value="" /><span class="err" id="spnsub_pass"><form:errors path="adminuser.repassword"></form:errors></span></td>
                 </tr>
 		<tr class="row2">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Mobile :</td>
