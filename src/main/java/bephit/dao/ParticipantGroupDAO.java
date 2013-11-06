@@ -46,7 +46,7 @@ public class ParticipantGroupDAO {
 	    		local_age=Integer.parseInt(pgroups.getlocal_age());
 	    	 //System.out.println(dateFormat.format(date));
 	    	//String cmd="INSERT INTO users(`FULLNAME`,`USERNAME`,`PASSWORD`,`ENABLED`,`EMAIL`,`PROFILE_IMAGE`,`UPDATEBYEMAIL`) VALUES('"+user.getFullName()+"','"+user.getUsername()+"','"+user.getPassword()+"','"+enabled+"','"+user.getEmail()+"','empty','"+updateemail+"')";
-          String cmd_pgroups="INSERT INTO `deemsyspro_deem`.`participant_group_table`(`group_name`,`group_scope`,`group_decs`,`select_local_group`,`local_city`,`local_dojfrom`,`local_dojto`,`local_age`,`local_educations`) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_scope()+"','"+pgroups.getgroup_decs()+"','"+pgroups.getselect_local_group()+"','"+pgroups.getlocal_city()+"','"+pgroups.getlocal_dojfrom()+"','"+pgroups.getlocal_dojto()+"','"+local_age+"','"+pgroups.getlocal_educations()+"')";
+          String cmd_pgroups="INSERT INTO `deemspro_deem`.`participant_group_table`(`group_name`,`group_scope`,`group_decs`,`select_local_group`,`local_city`,`local_dojfrom`,`local_dojto`,`local_age`,`local_educations`) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_scope()+"','"+pgroups.getgroup_decs()+"','"+pgroups.getselect_local_group()+"','"+pgroups.getlocal_city()+"','"+pgroups.getlocal_dojfrom()+"','"+pgroups.getlocal_dojto()+"','"+local_age+"','"+pgroups.getlocal_educations()+"')";
           System.out.println(cmd_pgroups);
 			statement.execute(cmd_pgroups);
 			flag=1;
@@ -134,7 +134,7 @@ public class ParticipantGroupDAO {
 	    try{
 	    	int enabled=1;
 	    	int updateemail=1;
-	      String cmd_groupslist="Select * from `deemsyspro_deem`.`participant_group_table`";
+	      String cmd_groupslist="Select * from `deemspro_deem`.`participant_group_table`";
           System.out.println(cmd_groupslist);
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
@@ -181,7 +181,7 @@ public class ParticipantGroupDAO {
 		try{
 	    	int enabled=1;
 	    	int updateemail=1;
-	      String cmd_groupslist="Select count(*) as counting from `deemsyspro_deem`.`participant_group_table` where group_name='"+pgroups.getgroup_name()+"'";
+	      String cmd_groupslist="Select count(*) as counting from `deemspro_deem`.`participant_group_table` where group_name='"+pgroups.getgroup_name()+"'";
           resultSet=statement.executeQuery(cmd_groupslist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
@@ -225,7 +225,7 @@ public class ParticipantGroupDAO {
 	//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 	   try{
 	   	
-	     String cmd_group="Select group_name from `deemsyspro_deem`.`participant_group_table` where group_id="+group_id;
+	     String cmd_group="Select group_name from `deemspro_deem`.`participant_group_table` where group_id="+group_id;
 	          System.out.println(cmd_group);
 	resultSet=statement.executeQuery(cmd_group);
 	          while(resultSet.next())
