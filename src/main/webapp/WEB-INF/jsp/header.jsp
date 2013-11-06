@@ -101,9 +101,12 @@
 							</div></td>
 					</tr>
 					<tr>
+					
 						<td align="right" valign="middle"><span class="cart_txt">Welcome
+					
 								<sec:authentication property="principal.username" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
-						</span></td>
+							
+						 </span></td>
 					</tr>
 				</table>
 			</div>
@@ -112,36 +115,35 @@
 				<div class="menu_container">
 					<div class="menu_l"></div>
 					<div class="menu_c">
-						<!-- <AJDF:output>php</AJDF:output>
-		$obj=new Bin_Query();
-		$sql="SELECT previlages FROM admin_log_table WHERE admin_id = '".$_SESSION['admin']['id']."'";
-		$obj->executeQuery($sql);
-		$rec=$obj->records[0]['previlages'];
-		$previ=explode(",",$rec);
-	<AJDF:output>/php</AJDF:output>	 Suresh-->
+					
 						<ul class="menu">
 							<li>
-								<a href="welcome" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>">
+								<a href="welcome" class="<c:choose>
+								<c:when test="${menu=='dashboard'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>">
 									<span><img src="<c:url value="/resources/images/icon_01.png" />" alt="" style="padding:5px 5px 0 0;" />Dashboard</span>
 								</a>
 							</li>
 				            <li>
-				            	<a href="#" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>" rel="ddsubmenu1">
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='message'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu1">
 				            		<span><img src="<c:url value="/resources/images/email.png" />" alt="" style="padding:5px 5px 0 0;" />Message Stream</span>
 				            	</a>
 				            </li>
 				            <li>
-				            	<a href="#" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>" rel="ddsubmenu2">
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='participants'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu2">
 				            		<span><img src="<c:url value="/resources/images/icon_03.png" />" alt="" style="padding:5px 5px 0 0;" />Participants</span>
 				            	</a>
 				            </li>
 				            <li>
-				            	<a href="#" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>" rel="ddsubmenu3">
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='adminuser'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu3">
 				            		<span><img src="<c:url value="/resources/images/icon_06.png" />" alt="" style="padding:5px 5px 0 0;" />Admin User</span>
 				            	</a>
 				            </li>
 				            <li>
-				            	<a href="#" class="<c:choose><c:when test="${true}">select</c:when><c:otherwise></c:otherwise></c:choose>" rel="ddsubmenu4">
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu4">
 				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Settings</span>
 				            	</a>
 				            </li>
@@ -151,25 +153,35 @@
 							ddlevelsmenu.setup("ddtopmenubar", "topbar")
 						</script>
 						<ul id="ddsubmenu1" class="ddsubmenustyle">
+						<c:if test="${currentuser.adminuser[0].addstream eq 1}">
 							<li><a href="createstream">Create Message Stream</a></li>
-							<li><a href="viewstream">View Stream</a></li>
+							</c:if>
+						  <li><a href="viewstream">View Stream</a></li>
 							<li><a href="broadcast">Send Stream</a></li>
-            				<li><a href="viewreports">Report</a></li>
-          				</ul>
+						<li><a href="viewreports">Report</a></li>
+            		</ul>
 						<ul id="ddsubmenu2" class="ddsubmenustyle">
-							<li><a href="showaddparticipants">Add Participants</a></li>
-				            <li><a href="viewparticipants">View participants</a></li>
-				            <li><a href="showaddparticipantgroups">Add Participant Groups</a></li>
+					<c:if test="${currentuser.adminuser[0].addparticipant eq 1}">
+					 <li><a href="showaddparticipants">Add Participants</a></li>
+							</c:if>
+						    <li><a href="viewparticipants">View participants</a></li>
+						    <li><a href="showaddparticipantgroups">Add Participant Groups</a></li>
 							<li><a href="viewparticipantgroups">View Participant Groups</a></li>
 						</ul>
 						<ul id="ddsubmenu3" class="ddsubmenustyle">
-							<li><a href="showaddadminuser">Add Admin User</a></li>        
+					<c:if test="${currentuser.adminuser[0].addadminuser eq 1}">
+				     	<li><a href="showaddadminuser">Add Admin User</a></li> 
+							</c:if>       
 				            <li><a href="viewadminuser">View Admin User</a></li>
 				            <li><a href="activityofadmin">User Activity Logs</a></li>
 				         </ul>
 						<ul id="ddsubmenu4" class="ddsubmenustyle">
+						<c:if test="${currentuser.adminuser[0].modifysettings eq 1}">
 							<li><a href="textmsgsettings">Text Message API settings</a></li>
-							<li><a href="addmailtemplate">Mail Templates</a></li>
+							</c:if>
+							<c:if test="${currentuser.adminuser[0].mailtemplate eq 1}">
+							<li><a href="addmailtemplate" hidden="">Mail Settings</a></li>
+							</c:if>
 							<li><a href="changepassword">Change My Password</a></li>
 						</ul>
 					</div>

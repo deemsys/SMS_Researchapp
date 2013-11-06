@@ -1,31 +1,36 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="header.jsp"></jsp:include>
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
+<script src="resources/js/jquery_checkbox.js" type="text/javascript"></script>
 
 <div id="right_content">
-	<form name="grid" onSubmit="return validate(this)" action="" method="POST">
+	<form name="grid" onSubmit="return validate(this)" action="deleteparticipantgroup" method="POST">
 	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
     	<tr>
 			<td valign="top" align="left" style="padding:5px 0 10px 0;">
 				<div class="del_div">
-					<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" onclick="form.action='?do=deletegroup'" /></label></p>
+					<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" /></label></p>
           		</div>
 			</td>
 		</tr>
 		<tr>
         	<td valign="top" align="left" style="padding:5px 0 10px 0;">
+        	<c:if test="${success==true }">
 				<div class="status success">
-            		<p class="closestatus"><a title="Close" href="">x</a></p>
-            		<p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.adduser_new</AJDF:output></span> .</p>
+            		<p class="closestatus"><a title="Close" href="viewparticipantgroups">x</a></p>
+            		<p><img alt="Success" src="resources/images/icons/icon_success.png"><span>Success</span> .</p>
           		</div>
+          		</c:if>
+          		<%-- <c:if test="${success==true }">
 				<div class="status error">
             		<p class="closestatus"><a title="Close" href="">x</a></p>
             		<p><img alt="Error" src="images/icons/icon_error.png"><span><AJDF:output>$smarty.session.deletepart</AJDF:output></span> .</p>
           		</div>
-				<div class="status success">
+          		</c:if> --%>
+				<!-- <div class="status success">
             		<p class="closestatus"><a title="Close" href="">x</a></p>
             		<p><img alt="Success" src="images/icons/icon_success.png"><span><AJDF:output> $smarty.session.upuser_new</AJDF:output></span> .</p>
-          		</div>
+          		</div> -->
 			</td>
       	</tr>
       	<tr>
@@ -37,7 +42,7 @@
 	            	<div class="contentbox">
 	            		<table cellpadding="0" cellspacing="0" border="0" width="100%">
 	                		<tr class="title">
-								<td valign="center" align="left" width="5%"><input type="checkbox" onclick="selectall(this.form)" value="" name="checkall"></td>
+								<td valign="center" align="left" width="5%"><input type="checkbox" onclick="selectall(this.form)" value="" name="chkAll"></td>
 	                  			<td valign="top" align="left" width="10%">Group&nbsp;Name</td>
 	                  			<td valign="top" align="left" width="15%">Description</td>
 	                  			<td valign="top" align="left" width="10%">DOF</td>
@@ -45,7 +50,21 @@
 	                  			<td valign="top" align="left" width="15%">Education</td>
 	                  			<td valign="top" align="left" width="25%">Action</td>
 	                		</tr>
+	                		<c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
+							       		<tr class="row1">
+							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="${participantGroups.group_id}" name="chkUser"></td>
+							       		     	<td valign="top" align="left"  width="10%">${participantGroups.group_name}</td>
+											<td valign="top" align="left" width="15%">${participantGroups.group_decs}</td>
+											<td valign="top" align="left" width="10%">${participantGroups.local_dojfrom}</td>
+											<td valign="top" align="left" width="10%">${participantGroups.local_dojto}</td>
+											<td valign="top" align="left" width="15%">${participantGroups.local_educations}</td>
+											<%-- <td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
+											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipantgroup?id=${participantGroups.group_id}"/>" style="padding-right:10px;"  onclick="return confirmation();">Remove</a></td>
+						<%-- 					<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
+							 --%>			</tr>
+							    	</c:forEach>
 						</table>
+						
 					</div>
 				</div>
 			</td>
@@ -54,16 +73,38 @@
 	</form>
 </div>
 <script>
-function confirmation(val) {
+function confirmation() {
 
 	var answer = confirm("Are You Sure Want To Delete Group")
 	if (answer){
-		window.location = "?do=deletegroup&id="+val; 
+		return true;
 	}
 	else{
-		
+		return false;
 	}
 }
+</script>
+<script type="text/javascript">
+$(function () {
+$('input[name="chkUser"]').click(function () {
+if ($('input[name="chkUser"]').length == $('input[name="chkUser"]:checked').length) {
+$('input:checkbox[name="chkAll"]').attr("checked", "checked");
+}
+else {
+$('input:checkbox[name="chkAll"]').removeAttr("checked");
+}
+});
+$('input:checkbox[name="chkAll"]').click(function () {
+var slvals = []
+if ($(this).is(':checked')) {
+$('input[name="chkUser"]').attr("checked", true);
+}
+else {
+$('input[name="chkUser"]').attr("checked", false);
+slvals = null;
+}
+});
+})
 </script>
 
 <script language="javascript">
@@ -83,11 +124,10 @@ function selectall(field)
 	}
 }
 
-function validate(fname)
+function validate()
 {
-// alert(fname);
-var chks = document.getElementsByName('checkbox[]');
-
+//alert(fname);
+var chks = document.getElementsByName('chkUser');
 var hasChecked = false;
 for (var i = 0; i < chks.length; i++)
 {
@@ -102,7 +142,13 @@ if (hasChecked == false)
 alert("Please select at least one.");
 return false;
 }
+var result=confirm("Are you sure?You want to delete the User(s)?");
+if(result)
+	{
 return true;
+	}
+else
+	return false;
 }
 </script>
 <jsp:include page="footer.jsp"></jsp:include>

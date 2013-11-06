@@ -36,19 +36,19 @@ function startTime()
  // add a zero in front of numbers<10
   m=checkTime(m);
   s=checkTime(s);
-  var month=new Array(12)
-		month[0]="Jan"
-		month[1]="Feb"
-		month[2]="Mar"
-		month[3]="Apr"
-		month[4]="May"
-		month[5]="June"
-		month[6]="July"
-		month[7]="Aug"
-		month[8]="Sep"
-		month[9]="Oct"
-		month[10]="Nov"
-		month[11]="Dec"
+  var month=new Array(12);
+		month[0]="Jan";
+		month[1]="Feb";
+		month[2]="Mar";
+		month[3]="Apr";
+		month[4]="May";
+		month[5]="June";
+		month[6]="July";
+		month[7]="Aug";
+		month[8]="Sep";
+		month[9]="Oct";
+		month[10]="Nov";
+		month[11]="Dec";
   
   document.getElementById('time').innerHTML=month[mo]+" "+d+","+y+" "+h+":"+m+":"+s;
  t=setTimeout('startTime()',500);

@@ -128,7 +128,8 @@ ul.login-list li p {
 	margin:auto;
 }
 #header {
-	height:120px;
+/* 	clear:both;
+ */	height:120px;
 }
 /* New CSS */
 #right_content {
@@ -625,6 +626,12 @@ ul.prev li{margin-right:50px; float:left; margin-bottom:20px;}
 	border:1px solid #9fb7cd;
 }
 .input_cmbbx1 {
+	width:177px;
+	padding:3px;
+	background:#f8fbfd;
+	border:1px solid #9fb7cd;
+}
+.input_cmbbx2 {
 	width:177px;
 	padding:3px;
 	background:#f8fbfd;
