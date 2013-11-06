@@ -6,16 +6,8 @@
   <div id="right_content">
     <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
       <tr>
-        <td valign="top" align="left" style="padding:5px 0 10px 0;"><!--<div class="info_div">
-            <label><img src="images/icons/icon_edit.png" alt="Edit" /> Edit</label>
-            <label><img src="images/icons/icon_approve.png" alt="Approve" /> Approve</label>
-            <label><img src="images/icons/icon_unapprove.png" alt="Unapprove" /> Unapprove</label>
-            <label><img src="images/icons/icon_delete.png" alt="Delete" /> Remove</label>
-          </div>
-		<div class="status error">
-            <p class="closestatus"><AJDF:output>foreach name=err item=err from=$errmsg</AJDF:output><a href="" title="Close">x</a></p>
-            <p><img src="images/icons/icon_error.png" alt="Error" /><span>Error!</span> 
-                      </div></td>-->
+        <td valign="top" align="left" style="padding:5px 0 10px 0;">
+            
                       
                       
                       <c:if test="${success==true}">
