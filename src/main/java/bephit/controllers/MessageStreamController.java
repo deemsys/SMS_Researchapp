@@ -1,21 +1,27 @@
 package bephit.controllers;
 
+import java.io.IOException;
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.util.RedirectUrlBuilder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 
-import bephit.dao.StreamDetailsDAO;
-import bephit.forms.StreamDetailsForm;
-import bephit.model.StreamDetails;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import bephit.dao.*;
+import bephit.forms.*;
+import bephit.model.*;
 
 @Controller
 public class MessageStreamController {
@@ -31,34 +37,17 @@ public class MessageStreamController {
 	}
 
 	@RequestMapping(value = "/insertstream", method = RequestMethod.POST)
-	public String insertstream(
-			HttpServletRequest request,
-			ModelMap model,
-			Principal principal,
-			@ModelAttribute("streamdetails") @Valid StreamDetails streamdetails,
-			BindingResult result) {
-		/*if (result.hasErrors()) {
-		StreamDetailsForm stForm=new StreamDetailsForm();
-		stForm.setStreamDetails(streamDAO.getStream());
-		model.addAttribute("menu", "streamdetails");
-		return "createstream";
-			
-		}*/
-		System.out.println("message stream created");
-		model.put("success", "true");
-		/*
-		 * if(result != null) { return "createstream"; } else {
-		 */
+	public String insertstream(HttpServletRequest request,@ModelAttribute("streamdetails") @Valid StreamDetails streamdetails,BindingResult result,ModelMap model,Principal principal) {
+		
 		String[] Messages = new String[100];
 		Messages = request.getParameterValues("message[]");
 		streamDAO.insertNewstream(streamdetails, principal.getName(), Messages);
-//		model.addAttribute("success", "true");
+		model.addAttribute("success", "true");
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
 		return "viewstream";
 
-		/* } */
 	}
 
 	@RequestMapping(value = "/viewstream", method = RequestMethod.GET)
@@ -69,6 +58,50 @@ public class MessageStreamController {
 		model.addAttribute("streamForm", streamForm);
 		return "viewstream";
 	}
-
+	
+	@RequestMapping(value="/edit_stream", method=RequestMethod.GET)
+	public String edit_stream(HttpServletRequest request,@RequestParam("id") String stream_id,ModelMap model, Principal principal) {
+	
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream(stream_id));
+		model.addAttribute("streamForm", streamForm);
+        return "edit_stream";
+	}
+	
+	@RequestMapping(value="/updatestream", method=RequestMethod.POST)
+	public String updatestream(HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamDetails,
+			BindingResult result,ModelMap model,Principal principal)
+	{
+		
+		if (result.hasErrors())
+		{
+			StreamDetailsForm streamForm = new StreamDetailsForm();
+			streamForm.setStreamDetails(streamDAO.getStream(streamDetails.getStreamId()));
+			model.addAttribute("streamForm", streamForm);
+			
+		        return "edit_stream";
+		}
+		
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream(streamDetails.getStreamId()));
+		model.addAttribute("streamForm", streamForm);
+		
+		return "viewstream";
+	}
+	
+	@RequestMapping(value="/deletestream", method=RequestMethod.GET)
+	public String removestream(@RequestParam("id") String stream_id,ModelMap model, Principal principal) {
+	
+		int status=streamDAO.deletestream(stream_id,principal.getName());
+		if(status==1)
+		{
+			StreamDetailsForm streamForm = new StreamDetailsForm();
+			streamForm.setStreamDetails(streamDAO.getStream());
+			model.addAttribute("streamForm", streamForm);
+        
+		}
+		
+		return "viewstream";
+	}
 	
 }
