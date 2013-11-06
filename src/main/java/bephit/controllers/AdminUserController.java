@@ -75,9 +75,9 @@ public class AdminUserController
 	
 	
 	@RequestMapping(value="/deleteadminuser", method=RequestMethod.GET)
-	public String removeParticipants(@RequestParam("id") String admin_id,ModelMap model, Principal principal,AdminUser adminuser ) {
+	public String removeadminuser(@RequestParam("id") String admin_id,ModelMap model, Principal principal) {
 	
-		int status=adminuserDAO.deleteAdminUser(adminuser,principal.getName());//.deleteParticipant(participant_id);
+		int status=adminuserDAO.deleteAdminUser(admin_id,principal.getName());//.deleteParticipant(participant_id);
 		if(status==1)
 		{
         model.addAttribute("success","true");
@@ -89,6 +89,16 @@ public class AdminUserController
 		  model.addAttribute("menu","adminuser");
 		return "viewadminuser";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	@RequestMapping(value="/editadminuser", method=RequestMethod.GET)
@@ -147,7 +157,7 @@ public class AdminUserController
 	
 	
 	@RequestMapping(value="/deleteSelectedadminuser", method=RequestMethod.POST)
-	public String deleteSelectedadminuser(HttpServletRequest request,ModelMap model,AdminUser adminuser)
+	public String deleteSelectedadminuser(HttpServletRequest request,ModelMap model,String adminuser,Principal principal)
 	{	
 		String[] SelectedIDs=new String[100];
 		SelectedIDs=request.getParameterValues("chkUser");
@@ -160,7 +170,7 @@ public class AdminUserController
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm",adminuserForm);
         model.addAttribute("menu","adminuser");
-        System.out.println(request.getRequestURL());
+       
         return "viewadminuser";
 		
 	}
