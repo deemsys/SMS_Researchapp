@@ -103,7 +103,7 @@
 					<tr>
 					
 						<td align="right" valign="middle"><span class="cart_txt">Welcome
-					
+					 
 								<sec:authentication property="principal.username" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
 							
 						 </span></td>
@@ -180,7 +180,7 @@
 							<li><a href="textmsgsettings">Text Message API settings</a></li>
 							</c:if>
 							<c:if test="${currentuser.adminuser[0].mailtemplate eq 1}">
-							<li><a href="addmailtemplate" hidden="">Mail Settings</a></li>
+							<li><a href="addmailtemplate">Mail Templates</a></li>
 							</c:if>
 							<li><a href="changepassword">Change My Password</a></li>
 						</ul>
