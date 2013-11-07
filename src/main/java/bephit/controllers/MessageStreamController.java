@@ -108,4 +108,39 @@ public class MessageStreamController {
 		return "viewstream";
 	}
 	
+	@RequestMapping(value="/streamdetails", method=RequestMethod.GET)
+	public String streamdetails(HttpServletRequest request,@RequestParam("id") String stream_id,ModelMap model,StreamDetails streamdetails)
+	{
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream(stream_id));
+		model.addAttribute("streamForm", streamForm);
+		
+		
+        model.addAttribute("menu","dashboard");
+		return "streamdetails";
+	}
+	
+	@RequestMapping(value="/deleteSelectedstream", method=RequestMethod.POST)
+	public String deleteSelectedstream(HttpServletRequest request,ModelMap model,Principal principal) 
+	{	
+		String[] SelectedIDs=new String[100];
+		SelectedIDs=request.getParameterValues("chkUser");
+		for(String id:SelectedIDs)
+		{
+		System.out.println(id);
+		streamDAO.deletestream(id,principal.getName());
+		
+		}
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream());
+		model.addAttribute("streamForm", streamForm);
+		return "viewstream";
+		
+	}	
+	
+	
+	
+	
+	
+	
 }
