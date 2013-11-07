@@ -172,8 +172,8 @@ public class StreamDetailsDAO
 	    	System.out.println(cmd);
 			resultSet=statement.executeQuery(cmd);
 			while(resultSet.next()){
-				stream.add(new StreamDetails(resultSet.getString("stream_id"),resultSet.getString("stream_name")
-						,resultSet.getString("admin_name")						
+				stream.add(new StreamDetails(resultSet.getString("stream_id"),resultSet.getString("admin_name")
+						,resultSet.getString("stream_name")						
 						,resultSet.getString("stream_description"),resultSet.getString("message_count")
 						));
 			}
@@ -191,6 +191,47 @@ public class StreamDetailsDAO
 	    return stream;
 		
 	}
+	public List<String> getMessages(String stream_id){
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+	
+		String cmd;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<String> strlist = new ArrayList<String>();
+	    try{
+	        
+	       cmd="select message_id,stream_id,stream_message from message_stream where stream_id='"+stream_id+"'";
+	    
+	    	System.out.println(cmd);
+			resultSet=statement.executeQuery(cmd);
+			int i=0;
+			while(resultSet.next())
+			{
+				strlist.add(i,resultSet.getString("stream_message"));
+				i++;
+			}
+			
+	    }catch(Exception e){
+	     System.out.println(e.toString());
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    }finally{
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	    	
+	    }
+	    return strlist;
+		
+	}
+	
+	
 	
 	public int updatestream(StreamDetails streamdetails,String stream_id)
 	{
