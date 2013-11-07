@@ -167,7 +167,7 @@ public class StreamDetailsDAO
 		List<StreamDetails> stream = new ArrayList<StreamDetails>();
 	    try{
 	        
-	       cmd="select * from stream";
+	       cmd="select * from stream where stream_id='"+stream_id+"'";
 	    
 	    	System.out.println(cmd);
 			resultSet=statement.executeQuery(cmd);
