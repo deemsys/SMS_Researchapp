@@ -4,7 +4,7 @@
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
 <script src="resources/js/jquery_checkbox.js" type="text/javascript"></script>
 
-  <form name="grid"  action="updatestream" onSubmit="return validate(this)" method="POST">
+ <form name="grid"  action="deleteSelectedstream" onSubmit="return validate(this)" method="POST">
 	<div id="right_content">
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
 			<tr>
@@ -33,6 +33,7 @@
               <h2>View Stream</h2>
             </div>
             <div class="contentbox">
+             
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr class="title">
 		          <td valign="center" align="left" width="5%"><input type="checkbox"  value="" name="chkAll"></td>
@@ -45,11 +46,12 @@
 
 
                 </tr>
+                
 		<c:forEach items="${streamForm.streamDetails}" var="streamDetails" varStatus="status">
         					
 		<tr class="row1">
-		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="chkUser"></td>
-        <td valign="top" align="left" width="10%">${streamDetails.streamId}</td>
+		<td valign="center" align="left" width="5%"><input type="checkbox" value="${streamDetails.streamId}" name="chkUser"></td>
+        <td valign="top" align="left" width="10%"><a href="streamdetails?id=${streamDetails.streamId}">${streamDetails.streamId}</a></td>
 		<td valign="top" align="left" width="15%">${streamDetails.streamName}</td>
 		<td valign="top" align="left" width="15%">${streamDetails.description}</td>
         <td valign="top" align="center" width="15%">${streamDetails.message_count}</td>
@@ -139,11 +141,10 @@ function selectall(field)
 	}
 }
 
-function validate(fname)
+function validate()
 {
-// alert(fname);
-var chks = document.getElementsByName('checkbox[]');
-
+//alert(fname);
+var chks = document.getElementsByName('chkUser');
 var hasChecked = false;
 for (var i = 0; i < chks.length; i++)
 {
@@ -158,8 +159,14 @@ if (hasChecked == false)
 alert("Please select at least one.");
 return false;
 }
+var result=confirm("Are you sure.You want to delete the User(s)?");
+if(result)
+	{
 return true;
-
+	}
+else
+	return false;
 }
+
 
 </script>

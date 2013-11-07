@@ -49,5 +49,32 @@
 </table>
 </div>
 </form>
+<script type="text/javascript">
+var $im=1;
+var flagm=1;
+function addMultichoice(divName)
+{
+var xx=document.getElementsByName('message[]').length;
+var $in = xx+1;
+
+	
+	var newdiv = document.createElement('div');
+
+	newdiv.innerHTML = '<table width="100%" border="0" cellspacing="0" cellpadding="0" id="newtbl'+$im+'"><tr class="row2"><td valign="middle" align="right" class="input_txt" width="30%">Message '+$in+' :</td><td valign="top" align="left" class="input_txt" width="70%"><textarea class="input_txtarea" name="message[]" rows="5" cols="" id="inp_id5" ></textarea></td></tr><tr class="row1"><td align="right" valign="top">&nbsp;</td><td align="left" valign="top"><a javascript:void(0);" onclick="removechoice('+$im+')" style="text-decoration:none;"><input type="submit" class="submit_btn" value="CANCEL"  /></a></td></tr></table>';
+	document.getElementById(divName).appendChild(newdiv);
+	$im++;
+	flagm++;
+
+	}
+	function removechoice(id)
+	{
+		id='newtbl'+id;
+		var child = document.getElementById(id)
+		var parentDiv = child.parentNode;
+		parentDiv.removeChild(child);
+
+	}
+
+</script>
 <jsp:include page="footer.jsp"></jsp:include>
 
