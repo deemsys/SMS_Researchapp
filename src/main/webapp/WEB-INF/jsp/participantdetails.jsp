@@ -113,24 +113,7 @@
               
               
               
-              <%-- 
-              
-              
-              
-              
-                 <tr>
-        				         		<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="check"></td>
-					     		     	<td valign="top" align="left"  width="10%">${participantsDetails.fname}</td>
-											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
-											<td>
-												<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editparticipant?id=${participantsDetails.participants_id}"/>" style="padding-right:10px;">Edit</a>
-											<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipants?id=${participantsDetails.participants_id}"/>" onclick="return confirmation()">Remove</a></td>
-											
-								</tr>
-							 --%>    	</c:forEach>
+             	</c:forEach>
                 
                 
                 

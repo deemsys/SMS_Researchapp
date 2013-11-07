@@ -53,7 +53,7 @@
 	                		<c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
 							       		<tr class="row1">
 							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="${participantGroups.group_id}" name="chkUser"></td>
-							       		     	<td valign="top" align="left"  width="10%">${participantGroups.group_name}</td>
+							       		     	<td valign="top" align="left"  width="10%"><a href="groupdetails?id=${participantGroups.group_id}">${participantGroups.group_name}</a></td>
 											<td valign="top" align="left" width="15%">${participantGroups.group_decs}</td>
 											<td valign="top" align="left" width="10%">${participantGroups.local_dojfrom}</td>
 											<td valign="top" align="left" width="10%">${participantGroups.local_dojto}</td>

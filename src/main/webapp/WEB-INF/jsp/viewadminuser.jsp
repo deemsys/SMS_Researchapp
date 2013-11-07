@@ -57,7 +57,7 @@
 								<c:forEach items="${adminuserForm.adminuser}" var="adminuser" varStatus="status">
 							       		<tr class="row1">
 							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="${adminuser.admin_id}" name="chkUser"></td>
-							       		  	<td valign="top" align="left"  width="10%">${adminuser.admin_username}</td>
+							       		  	<td valign="top" align="left"  width="10%"><a href="admindetails?id=${adminuser.admin_id}">${adminuser.admin_username}</a></td>
 											<td valign="top" align="left" width="15%">${adminuser.admin_email}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_mobile}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_address}</td>
