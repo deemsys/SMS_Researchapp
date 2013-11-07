@@ -555,6 +555,15 @@ public class MainController {
 		return "participantdetails";
 	}
 	
+	@RequestMapping(value="/groupdetails", method=RequestMethod.GET)
+	public String groupdetails(HttpServletRequest request,@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	{
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm); 
+        model.addAttribute("menu","participants");
+		return "groupdetails";
+	}
 	
 	
 	
