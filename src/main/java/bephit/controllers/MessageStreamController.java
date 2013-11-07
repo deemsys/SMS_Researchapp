@@ -2,6 +2,8 @@ package bephit.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -63,11 +65,15 @@ public class MessageStreamController {
 	}
 	
 	@RequestMapping(value="/edit_stream", method=RequestMethod.GET)
-	public String edit_stream(HttpServletRequest request,@RequestParam("id") String stream_id,ModelMap model, Principal principal) {
+	public String edit_stream(HttpServletRequest request,@RequestParam("id") String streamId,ModelMap model, Principal principal) {
 	
 		StreamDetailsForm streamForm = new StreamDetailsForm();
-		streamForm.setStreamDetails(streamDAO.getStream(stream_id));
+		streamForm.setStreamDetails(streamDAO.getStream(streamId));
+		List<String> messages=new ArrayList<String>();
+		messages=streamDAO.getMessages(streamId);
 		model.addAttribute("streamForm", streamForm);
+		model.addAttribute("messages",messages);
+		System.out.println("messages:"+messages);
 		 model.addAttribute("menu","message");
         return "edit_stream";
 	}
@@ -77,6 +83,7 @@ public class MessageStreamController {
 			BindingResult result,ModelMap model,Principal principal)
 	{
 		
+		
 		if (result.hasErrors())
 		{
 			StreamDetailsForm streamForm = new StreamDetailsForm();
@@ -85,7 +92,7 @@ public class MessageStreamController {
 			
 		        return "edit_stream";
 		}
-		
+		System.out.println("streamDetails.getStreamId()"+streamDetails.getStreamId());
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream(streamDetails.getStreamId()));
 		model.addAttribute("streamForm", streamForm);
