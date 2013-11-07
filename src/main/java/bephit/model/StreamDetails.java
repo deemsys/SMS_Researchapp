@@ -4,32 +4,37 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class StreamDetails {
 
-	public StreamDetails() {
-
+	public StreamDetails()
+	{
+		
 	}
+	
+	
 
 	private String streamId;
-
+	
+	
 	@NotEmpty
 	private String streamName;
-
+	
+	
 	@NotEmpty
 	private String description;
-
+	
+	
 	private String admin_username;
-    @NotEmpty
-	private String message_count;
-
-	public StreamDetails(String streamId, String streamName,
-			String admin_username, String description, String count) {
+	
+	private String message_count; 
+	public StreamDetails(String streamId, String streamName,String admin_username,String description,String count
+			) {
 		super();
 		this.streamId = streamId;
 		this.streamName = streamName;
 		this.description = description;
 		this.setAdmin_username(admin_username);
-		this.message_count = count;
+		this.message_count=count;
 	}
-
+	
 	public String getMessage_count() {
 		return message_count;
 	}
@@ -70,4 +75,5 @@ public class StreamDetails {
 		this.admin_username = admin_username;
 	}
 
+	
 }

@@ -1,16 +1,27 @@
 package bephit.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class BroadCast {
  
 	private String br_id;
+	@NotEmpty
 	private String broad_id;
+	@NotEmpty
 	private String stream_id;
+	@NotEmpty
 	private String group_id;
+	@NotEmpty
 	private String frequency;
+	@NotEmpty
 	private String start_date;
+	@NotEmpty
 	private String fstream_time;
+	@NotEmpty
 	private String sstream_time;
+	@NotEmpty
 	private String stream_week_day;
+
 	private String status;
 	
 	public BroadCast()
@@ -26,7 +37,7 @@ public class BroadCast {
 			String sstream_time,
 			String stream_week_day,
 			String status) {
-		/*super();*/
+		super();
 		/*this.br_id = br_id;*/
 		this.broad_id = broad_id;
 		this.stream_id = stream_id;
