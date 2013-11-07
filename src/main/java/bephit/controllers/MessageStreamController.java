@@ -33,6 +33,7 @@ public class MessageStreamController {
 	public String createstream(ModelMap model) {
 		String StreamID = streamDAO.getMaxStreamID();
 		model.addAttribute("currentstream", StreamID);
+		 model.addAttribute("menu","message");
 		return "createstream";
 	}
 
@@ -46,6 +47,7 @@ public class MessageStreamController {
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
+		 model.addAttribute("menu","message");
 		return "viewstream";
 
 	}
@@ -56,6 +58,7 @@ public class MessageStreamController {
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
+		 model.addAttribute("menu","message");
 		return "viewstream";
 	}
 	
@@ -65,6 +68,7 @@ public class MessageStreamController {
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream(stream_id));
 		model.addAttribute("streamForm", streamForm);
+		 model.addAttribute("menu","message");
         return "edit_stream";
 	}
 	
@@ -85,7 +89,7 @@ public class MessageStreamController {
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream(streamDetails.getStreamId()));
 		model.addAttribute("streamForm", streamForm);
-		
+		 model.addAttribute("menu","message");
 		return "viewstream";
 	}
 	
@@ -100,7 +104,7 @@ public class MessageStreamController {
 			model.addAttribute("streamForm", streamForm);
         
 		}
-		
+		 model.addAttribute("menu","message");
 		return "viewstream";
 	}
 	
