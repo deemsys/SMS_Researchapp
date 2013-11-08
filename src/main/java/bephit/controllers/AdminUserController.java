@@ -174,7 +174,14 @@ public class AdminUserController
         return "viewadminuser";
 		
 	}
-		
+
+	@RequestMapping(value="/admindetails", method=RequestMethod.GET)
+	public String streamdetails(HttpServletRequest request,@RequestParam("id") String admin_id,ModelMap model,StreamDetails streamdetails)
+	{AdminUserForm adminuserForm = new AdminUserForm();
+	adminuserForm.setAdminuser(adminuserDAO.getAdminUser(admin_id));
+    model.addAttribute("adminuserForm",adminuserForm);
+		return "admindetails";
+	}	
 	
 	
 	

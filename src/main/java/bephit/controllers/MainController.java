@@ -556,7 +556,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/groupdetails", method=RequestMethod.GET)
-	public String groupdetails(HttpServletRequest request,@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	public String groupdetails(HttpServletRequest request,@RequestParam("id") String group_id,ModelMap model,ParticipantsDetails participant)
 	{
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
