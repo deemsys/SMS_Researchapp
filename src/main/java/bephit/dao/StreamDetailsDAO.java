@@ -109,6 +109,108 @@ public class StreamDetailsDAO
 		else
 			return 0;
 	}
+	public int insertmessage(StreamDetails streamdetails,String admin_id,String[] sample)
+	{
+		Connection con = null;
+		Statement statement = null;		 
+		ResultSet resultSet = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}	
+		try
+		{
+						 
+			String cmd_mess="";
+			System.out.println("insert sample"+sample);
+			int count=1;
+			for(String message :sample)
+			{		
+			System.out.println(message);	
+			cmd_mess="insert into message_stream(stream_id,stream_message,msg_count) values('"+streamdetails.getStreamId()+"','"+message+"','"+count+"')";
+			count++;
+			statement.execute(cmd_mess);
+			}
+			String cmd="UPDATE stream SET stream_name='"+streamdetails.getStreamName()+"', stream_description='"+streamdetails.getDescription()+"',message_count='"+(count-1)+"' where stream_id='"+streamdetails.getStreamId()+"';";
+			System.out.println("update stream"+cmd);
+			statement.executeUpdate(cmd);
+		
+			
+			
+			flag=1;
+						
+		System.out.println("insertmessage cmd_mess"+cmd_mess);
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+		}
+		finally
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	   
+		}
+		if(flag==1)
+		return 1;
+		else
+			return 0;
+	}
+	public int deleltemessageid(List<String> sample)
+	{
+		Connection con = null;
+		Statement statement = null;		 
+		ResultSet resultSet = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}	
+		try
+		{
+						 
+			String cmd_mess="";
+			System.out.println("insert sample"+sample);
+			int count=1;
+			for(String message :sample)
+			{		
+			System.out.println(message);	
+			cmd_mess="delete from message_stream where message_id='"+message+"'";
+			count++;
+			statement.execute(cmd_mess);
+			}
+			flag=1;
+			System.out.println("deletemessage cmd_mess"+cmd_mess);
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+		}
+		finally
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	   
+		}
+		if(flag==1)
+		return 1;
+		else
+			return 0;
+	}
+	
 	
 	
 	public List<StreamDetails> getStream(){
@@ -132,8 +234,8 @@ public class StreamDetailsDAO
 			resultSet=statement.executeQuery(cmd);
 			while(resultSet.next()){
 				stream.add(new StreamDetails(resultSet.getString("stream_id"),
-						resultSet.getString("stream_name")
-						,resultSet.getString("admin_name")						
+						resultSet.getString("admin_name")
+						,resultSet.getString("stream_name")						
 						,resultSet.getString("stream_description"),resultSet.getString("message_count")
 						));
 			}
@@ -168,7 +270,7 @@ public class StreamDetailsDAO
 	    try{
 	        
 	       cmd="select * from stream where stream_id='"+stream_id+"'";
-	    
+	         
 	    	System.out.println(cmd);
 			resultSet=statement.executeQuery(cmd);
 			while(resultSet.next()){
@@ -230,64 +332,89 @@ public class StreamDetailsDAO
 	    return strlist;
 		
 	}
-	
-	
-	
-	public int updatestream(StreamDetails streamdetails,String stream_id)
-	{
-
+	public List<String> getMessage(List<String> messageid){
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		int flag=0;
+	
+		String cmd;
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		
-
-		try
-		{
+		List<String> strlist = new ArrayList<String>();
+		List<String> strlist1 = new ArrayList<String>();
+	    try{
+	        
+	       cmd="select message_id,stream_id,stream_message from message_stream where stream_id='"+messageid+"'";
+	    
+	    	System.out.println(cmd);
+			resultSet=statement.executeQuery(cmd);
+			int i=0;
+			while(resultSet.next())
+			{
+				strlist.add(i,resultSet.getString("stream_message"));
+			    i++;
+			}
+			System.out.println("strlist"+strlist);
 			
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			 Date date = new Date();		 
-			 
-			 System.out.println("Stream"+stream_id); 
-			 
-			String cmd="UPDATE stream SET stream_name='"+streamdetails.getStreamName()+"', stream_description='"+streamdetails.getDescription()+"',stream_count='"+streamdetails.getMessage_count()+"' where stream_id='"+streamdetails.getStreamId()+"';";
-              
-			statement.execute(cmd);
-            System.out.println(cmd); 
-           
-            flag=1;
-			
-		} 
-		catch (Exception ex) 
-		{
-			
-			System.out.println(ex.toString());
-			releaseResultSet(resultSet);
+	    }catch(Exception e){
+	     System.out.println(e.toString());
+	    	releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
-	    	flag=0;
-		} 
-		finally 
-		{
-			releaseResultSet(resultSet);
+	    }finally{
+	    	releaseResultSet(resultSet);
 	    	releaseStatement(statement);
-	    	releaseConnection(con);	
-	    	//flag=0;
-	    	
-		}
-
-		if(flag==1)
-			return 1;
-		else
-			return 0;
+	    	releaseConnection(con);	    	
+	    }
+	    return strlist;
+	 	
 	}
+	public List<String> getMessageid(String stream_id){
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
 	
+		String cmd;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<String> strlist = new ArrayList<String>();
+		List<String> strlist1 = new ArrayList<String>();
+	    try{
+	        
+	       cmd="select message_id,stream_id,stream_message from message_stream where stream_id='"+stream_id+"'";
+	    
+	    	System.out.println(cmd);
+			resultSet=statement.executeQuery(cmd);
+			int i=0;
+			while(resultSet.next())
+			{
+				strlist.add(i,resultSet.getString("message_id"));
+			    i++;
+			}
+			System.out.println("strlist"+strlist);
+			
+	    }catch(Exception e){
+	     System.out.println(e.toString());
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    }finally{
+	    	releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	    	
+	    }
+	    return strlist;
+	   
+		
+	}		
 	public int deletestream(String stream_id,String admin){
 		Connection con = null;
 		Statement statement = null;
