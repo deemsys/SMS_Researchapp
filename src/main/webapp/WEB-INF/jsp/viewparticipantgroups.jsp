@@ -45,9 +45,6 @@
 								<td valign="center" align="left" width="5%"><input type="checkbox" onclick="selectall(this.form)" value="" name="chkAll"></td>
 	                  			<td valign="top" align="left" width="10%">Group&nbsp;Name</td>
 	                  			<td valign="top" align="left" width="15%">Description</td>
-	                  			<td valign="top" align="left" width="10%">DOF</td>
-			  					<td valign="top" align="left" width="10%">DOT</td>
-	                  			<td valign="top" align="left" width="15%">Education</td>
 	                  			<td valign="top" align="left" width="25%">Action</td>
 	                		</tr>
 	                		<c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
@@ -55,9 +52,9 @@
 							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="${participantGroups.group_id}" name="chkUser"></td>
 							       		     	<td valign="top" align="left"  width="10%"><a href="groupdetails?id=${participantGroups.group_id}">${participantGroups.group_name}</a></td>
 											<td valign="top" align="left" width="15%">${participantGroups.group_decs}</td>
-											<td valign="top" align="left" width="10%">${participantGroups.local_dojfrom}</td>
+											<%-- <td valign="top" align="left" width="10%">${participantGroups.local_dojfrom}</td>
 											<td valign="top" align="left" width="10%">${participantGroups.local_dojto}</td>
-											<td valign="top" align="left" width="15%">${participantGroups.local_educations}</td>
+											<td valign="top" align="left" width="15%">${participantGroups.local_educations}</td> --%>
 											<%-- <td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
 											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipantgroup?id=${participantGroups.group_id}"/>" style="padding-right:10px;"  onclick="return confirmation();">Remove</a></td>
 						<%-- 					<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
