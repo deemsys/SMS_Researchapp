@@ -64,8 +64,10 @@
 					         	<td valign="top" align="left" width="15%">Mobile Number</td>
 					         	<td valign="top" align="left" width="10%">City</td>
 								<td valign="top" align="left" width="10%">Age</td>
-          						<td valign="top" align="left" width="15%">Associated&nbsp;Streams</td>
-          						<td valign="top" align="left" width="25%">Action</td>
+          						<td valign="top" align="left" width="10%">Time1</td>
+          						<td valign="top" align="left" width="10%">Time2</td>
+          						<td valign="top" align="left" width="10%">Time3</td>
+          						<td valign="top" align="left" width="10%">Action</td>
           						
 				
 		
@@ -78,7 +80,9 @@
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time1}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time2}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time3}</td>
 											<td>
 											<c:if test="${currentuser.adminuser[0].editparticipant==1}">
 												<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editparticipant?id=${participantsDetails.participants_id}"/>" style="padding-right:10px;">Edit</a>
