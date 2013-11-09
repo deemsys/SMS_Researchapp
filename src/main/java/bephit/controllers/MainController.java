@@ -284,23 +284,16 @@ public class MainController {
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.POST)
 	public String NewParticipantGroups(HttpServletRequest request,@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
 			BindingResult result,ModelMap model) {
-		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-		
+		if(result.hasErrors())
+		{
+			             ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 				        participantGroupForm.setParticipantGroups(partDAO.getGroups());
                         model.addAttribute("participantGroupForm", participantGroupForm);
-			          /*  model.addAttribute("username_exist","true");*/
 			            model.addAttribute("menu","participants");
 			            return "addparticipantgroups";
 			}
-		
-			
-
-		
-	
-	
-	
-	
-	
+		return "addparticipantgroups";
+	}
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.GET)
 	public String AddParticipantGroups(HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {
 		model.addAttribute("success","false");
