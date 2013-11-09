@@ -39,7 +39,7 @@ public class MainDAO {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
 			// System.out.println(dateFormat.format(date));
-			String cmd = "INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`note`,`medical_details`,`messaging_frequency`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
+			String cmd = "INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
 					+ participant.getFname()
 					+ "','"
 					+ participant.getLname()
@@ -52,12 +52,14 @@ public class MainDAO {
 					+ "','"
 					+ participant.getEducation()
 					+ "','"
-					+ participant.getNote()
-					+ "','"
 					+ participant.getMedical_details()
 					+ "','"
-					+ participant.getMessaging_frequency()
+					+ participant.getTime1()
 					+ "','"
+					+participant.getTime2()
+					+"','"
+					+participant.getTime3()
+					+"','"
 					+ participant.getGroup_name()
 					+ "','"
 					+ participant.getAge()
@@ -116,7 +118,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',lname ='"+participant.getLname()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',note = '"+participant.getNote()+"',medical_details = '"+participant.getMedical_details()+"',messaging_frequency = '"+participant.getMessaging_frequency()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',lname ='"+participant.getLname()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"','"+participant.getTime3()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
 	    	String Desc="Update participant "+participant.getFname();
 	    	
 	    	
@@ -169,11 +171,11 @@ public class MainDAO {
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
-								.getString("education"), resultSet
-								.getString("note"), resultSet
+								.getString("education"),resultSet
 								.getString("medical_details"), resultSet
-								.getString("messaging_frequency"), resultSet
-								.getString("group_name"), resultSet
+								.getString("time1"), resultSet.getString("time2"),
+								resultSet.getString("time3"),
+								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
@@ -221,11 +223,11 @@ public class MainDAO {
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
-								.getString("education"), resultSet
-								.getString("note"), resultSet
+								.getString("education"),resultSet
 								.getString("medical_details"), resultSet
-								.getString("messaging_frequency"), resultSet
-								.getString("group_name"), resultSet
+								.getString("time1"), resultSet.getString("time2"),
+								resultSet.getString("time3"),
+								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
@@ -357,11 +359,11 @@ public class MainDAO {
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
-								.getString("education"), resultSet
-								.getString("note"), resultSet
+								.getString("education"),resultSet
 								.getString("medical_details"), resultSet
-								.getString("messaging_frequency"), resultSet
-								.getString("group_name"), resultSet
+								.getString("time1"), resultSet.getString("time2"),
+								resultSet.getString("time3"),
+								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
@@ -404,11 +406,11 @@ public class MainDAO {
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
-								.getString("education"), resultSet
-								.getString("note"), resultSet
+								.getString("education"),resultSet
 								.getString("medical_details"), resultSet
-								.getString("messaging_frequency"), resultSet
-								.getString("group_name"), resultSet
+								.getString("time1"), resultSet.getString("time2"),
+								resultSet.getString("time3"),
+								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
@@ -445,21 +447,21 @@ public class MainDAO {
 			System.out.println(cmd);
 			while (resultSet.next()) {
 				ParticipantsDetails p = (new ParticipantsDetails(
-						resultSet.getString("participants_id"),
-						resultSet.getString("fname"),
-						resultSet.getString("lname"),
-						resultSet.getString("mobile_num"),
-						resultSet.getString("gender"),
-						resultSet.getString("city"),
-						resultSet.getString("education"),
-						resultSet.getString("note"),
-						resultSet.getString("medical_details"),
-						resultSet.getString("messaging_frequency"),
-						resultSet.getString("group_name"),
-						resultSet.getString("age"),
-						resultSet.getString("date_of_join"),
-						resultSet.getString("email_id"),
-						resultSet.getString("created_by")));
+						resultSet
+						.getString("participants_id"), resultSet
+						.getString("fname"), resultSet.getString("lname"),
+						resultSet.getString("mobile_num"), resultSet
+								.getString("gender"), resultSet
+								.getString("city"), resultSet
+								.getString("education"),resultSet
+								.getString("medical_details"), resultSet
+								.getString("time1"), resultSet.getString("time2"),
+								resultSet.getString("time3"),
+								resultSet.getString("group_name"), resultSet
+								.getString("age"), resultSet
+								.getString("date_of_join"), resultSet
+								.getString("email_id"), resultSet
+								.getString("created_by")));
 				if (ParticipantsMap.containsKey(p.getGroup_name())) {
 					ArrayList<ParticipantsDetails> participants = ParticipantsMap
 							.get(p.getGroup_name());
@@ -501,21 +503,21 @@ public class MainDAO {
 			System.out.println(cmd);
 			while (resultSet.next()) {
 				ParticipantsDetails p = (new ParticipantsDetails(
-						resultSet.getString("participants_id"),
-						resultSet.getString("fname"),
-						resultSet.getString("lname"),
-						resultSet.getString("mobile_num"),
-						resultSet.getString("gender"),
-						resultSet.getString("city"),
-						resultSet.getString("education"),
-						resultSet.getString("note"),
-						resultSet.getString("medical_details"),
-						resultSet.getString("messaging_frequency"),
-						resultSet.getString("group_name"),
-						resultSet.getString("age"),
-						resultSet.getString("date_of_join"),
-						resultSet.getString("email_id"),
-						resultSet.getString("created_by")));
+						resultSet
+						.getString("participants_id"), resultSet
+						.getString("fname"), resultSet.getString("lname"),
+						resultSet.getString("mobile_num"), resultSet
+								.getString("gender"), resultSet
+								.getString("city"), resultSet
+								.getString("education"),resultSet
+								.getString("medical_details"), resultSet
+								.getString("time1"), resultSet.getString("time2"),
+								resultSet.getString("time3"),
+								resultSet.getString("group_name"), resultSet
+								.getString("age"), resultSet
+								.getString("date_of_join"), resultSet
+								.getString("email_id"), resultSet
+								.getString("created_by")));
 				participants.add(p);
 			}
 		} catch (Exception e) {
