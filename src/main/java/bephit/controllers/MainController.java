@@ -285,75 +285,17 @@ public class MainController {
 	public String NewParticipantGroups(HttpServletRequest request,@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
 			BindingResult result,ModelMap model) {
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-		if(pgroups.getgroup_scope()=="1")
-		{
-		  if (result.hasErrors())
-		   {
-			    if(partDAO.checkGroupname(pgroups)==1)
-			     {
-			              if(result.hasFieldErrors("group_decs"))
-			                {
-			                participantGroupForm.setParticipantGroups(partDAO.getGroups());
-	                        model.addAttribute("participantGroupForm", participantGroupForm);
-	                        model.addAttribute("menu","participants");
-	                        return "addparticipantgroups";
-			               }
-			     }
-	             else
-		         {
-	            	 if(result.hasFieldErrors("group_decs"))
-		                {
-		                participantGroupForm.setParticipantGroups(partDAO.getGroups());
-                        model.addAttribute("participantGroupForm", participantGroupForm);
-                        model.addAttribute("username_exist","true");
-                        model.addAttribute("menu","participants");
-                        return "addparticipantgroups";
-		               }
-	                    	
-		         }
-		    }
-		}
-		else
-		{
-			if(partDAO.checkGroupname(pgroups)==1)
-			{
-			            if(result.hasFieldErrors("group_decs"))
-			      {
-				        participantGroupForm.setParticipantGroups(partDAO.getGroups());
-		                model.addAttribute("participantGroupForm", participantGroupForm);
-		                model.addAttribute("menu","participants");
-		                return "addparticipantgroups";
-			      }
-			}
-			else
-			{
+		
 				        participantGroupForm.setParticipantGroups(partDAO.getGroups());
                         model.addAttribute("participantGroupForm", participantGroupForm);
-			            model.addAttribute("username_exist","true");
+			          /*  model.addAttribute("username_exist","true");*/
 			            model.addAttribute("menu","participants");
 			            return "addparticipantgroups";
 			}
-		}
+		
 			
 
-		if(partDAO.checkGroupname(pgroups)==1)
-		{	
-		participantGroupForm.setParticipantGroups(partDAO.getGroups());
-        model.addAttribute("participantGroupForm", participantGroupForm);
-        model.addAttribute("success","true");
-		partDAO.setParticipantGroup(pgroups);
-		model.addAttribute("menu","participants");
-		return "addparticipantgroups";
-		}
-		else
-		{
-		model.addAttribute("username_exist","true");
-		model.addAttribute("menu","participants");
-		return "addparticipantgroups";
-		}
 		
-		 
-	}
 	
 	
 	
