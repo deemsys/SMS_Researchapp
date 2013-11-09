@@ -286,13 +286,21 @@ public class MainController {
 			BindingResult result,ModelMap model) {
 		if(result.hasErrors())
 		{
-			             ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			           /* ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 				        participantGroupForm.setParticipantGroups(partDAO.getGroups());
-                        model.addAttribute("participantGroupForm", participantGroupForm);
+                        model.addAttribute("participantGroupForm", participantGroupForm);*/
 			            model.addAttribute("menu","participants");
 			            return "addparticipantgroups";
 			}
-		return "addparticipantgroups";
+		else
+		{
+         partDAO.setParticipantGroup(pgroups);
+         ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+ 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+         model.addAttribute("participantGroupForm", participantGroupForm);
+         model.addAttribute("menu","participants");
+		return "viewparticipantgroups";
+		}
 	}
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.GET)
 	public String AddParticipantGroups(HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {
