@@ -53,7 +53,7 @@
 
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Last Name :</td>
+													class="err"></span> Last Name :</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="lname"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
@@ -84,16 +84,15 @@
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Gender :</td>
+													class="err"></span> Gender :</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="radio" name="gender" value="0" class="input_txt"
 													checked="true">Male&nbsp;&nbsp;&nbsp;<input
-													type="radio" name="gender" value="1" class="input_txt">Female&nbsp;&nbsp;&nbsp;<input
-													type="radio" name="gender" value="2" class="input_txt">Transgender</td>
+													type="radio" name="gender" value="1" class="input_txt">Female&nbsp;&nbsp;&nbsp;</td>
 											</tr>
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> <%--  Age :<c:forEach begin="1" end="100" var="i">
+													class="err"></span> <%--  Age :<c:forEach begin="1" end="100" var="i">
                                  <option value="${i}" <c:if test ="${participantsDetails.age == i}">select</c:if>>${i}</option>
                                                        </c:forEach>   --%>
 													Age:</td>
@@ -110,22 +109,7 @@
 														<option value="80-90 years" id="age">80-90 &#160 years</option>
 														<option value="90-100 years" id="age">90-100
 															years</option>
-														<!-- <option value="100-110 years" id="age">100-110
-															years</option>
-														<option value="110-120 years" id="age">110-120
-															years</option>
-														<option value="120-130 years" id="age">120-130
-															years</option>
-														<option value="130-140 years" id="age">130-140
-															years</option>
-														<option value="140-150 years" id="age">140-150
-															years</option> -->
-
-														<!-- <td valign="top" align="left" class="input_txt"><input
-													type="text" class="input_txtbx1" id="age"
-													onmouseover="showTooltip('tooltip_id','inp_id3');"
-													onmouseout="hideTooltip('tooltip_id');" name="age" /></br> <font
-													color="Red" size="+1"> -->
+														
 														<span id="spnage"><form:errors
 																path="participant.age"></form:errors> </span>
 														</font></td>
@@ -133,7 +117,7 @@
 
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> City :</td>
+													class="err"></span> City :</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="city"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
@@ -143,7 +127,7 @@
 											</tr>
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Education :</td>
+													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
 														<option selected="selected" value="">--select--</option>
@@ -161,24 +145,7 @@
 											</tr>
 											<tr class="row1">
 												<td valign="top" align="left" class="input_txt"><span
-													class="err">*</span> Note :</td>
-												<td valign="top" align="left" class="input_txt"><textarea
-														class="input_txtbx1" id="note"
-														onmouseover="showTooltip('tooltip_id','inp_id3');"
-														onmouseout="hideTooltip('tooltip_id');"
-														style="width: 177px; height: 89px;" name="note" /></textarea> <br />
-													<font color="Red" size="+1"><span id="spnnote"><form:errors
-																path="participant.note"></form:errors> </span></font></td>
-											</tr>
-
-										</table>
-									</td>
-									<td align="left" valign="top">
-										<h2 class="quck-txt">More Info</h2>
-										<table cellpadding="0" cellspacing="0" border="0" width="100%">
-											<tr class="row2">
-												<td valign="top" align="left" class="input_txt"><span
-													class="err">*</span> Medical
+													class="err"></span> Medical
 													Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt"><textarea
@@ -191,29 +158,122 @@
 
 											</tr>
 
+										</table>
+									</td>
+									<td align="left" valign="top">
+										
+										<table cellpadding="0" cellspacing="0" border="0" width="100%">
+											
 
-											<tr>
-												<td><p class="quck-txt">Texting&nbsp;Preference</p></td>
+
+											
+                                              <tr>
+												<td><p class="quck-txt">Preferred&nbsp;Timings</p></td>
 											</tr>
 
-
-
+                                            <tr class="row2">
+												<td valign="middle" align="left" class="input_txt"><span
+													class="err">*</span> Time1:</td>
+												<td valign="top" align="left" class="input_txt">
+												<select name="time1" class="input_cmbbx1" id="msg">
+														<option selected="selected" value="">--Select--</option>
+														
+														<option value="1-2" id="time">1-2</option>
+														<option value="2-3" id="time">2-3</option>
+														<option value="3-4" id="time">3-4</option>
+														<option value="4-5" id="time">4-5</option>
+														<option value="5-6" id="time">5-6</option>
+														<option value="6-7" id="time">6-7</option>
+														<option value="7-8" id="time">7-8</option>
+														<option value="8-9" id="time">8-9</option>
+														<option value="9-10" id="time">9-10</option>
+														<option value="10-11" id="time">10-11</option>
+														<option value="11-12" id="time">11-12</option>
+														<option value="12-13" id="time">12-13</option>
+														<option value="13-14" id="time">13-14</option>
+														<option value="14-15" id="time">14-15</option>
+														<option value="15-16" id="time">15-16</option>
+														<option value="16-17" id="time">16-17</option>
+														<option value="17-18" id="time">17-18</option>
+														<option value="18-19" id="time">18-19</option>
+														<option value="19-20" id="time">19-20</option>
+														<option value="21-22" id="time">21-22</option>
+														<option value="22-23" id="time">22-23</option>
+														<option value="23-00" id="time">23-00</option>
+														
+															
+												</select><br/>
+												</td>
+											</tr>
+                                               <tr class="row1">
+												<td valign="middle" align="left" class="input_txt"><span
+													class="err">*</span> Time2:</td>
+												<td valign="top" align="left" class="input_txt">
+												<select name="time2" class="input_cmbbx1" id="msg">
+														<option selected="selected" value="">--Select--</option>
+														
+														<option value="1-2" id="time">1-2</option>
+														<option value="2-3" id="time">2-3</option>
+														<option value="3-4" id="time">3-4</option>
+														<option value="4-5" id="time">4-5</option>
+														<option value="5-6" id="time">5-6</option>
+														<option value="6-7" id="time">6-7</option>
+														<option value="7-8" id="time">7-8</option>
+														<option value="8-9" id="time">8-9</option>
+														<option value="9-10" id="time">9-10</option>
+														<option value="10-11" id="time">10-11</option>
+														<option value="11-12" id="time">11-12</option>
+														<option value="12-13" id="time">12-13</option>
+														<option value="13-14" id="time">13-14</option>
+														<option value="14-15" id="time">14-15</option>
+														<option value="15-16" id="time">15-16</option>
+														<option value="16-17" id="time">16-17</option>
+														<option value="17-18" id="time">17-18</option>
+														<option value="18-19" id="time">18-19</option>
+														<option value="19-20" id="time">19-20</option>
+														<option value="21-22" id="time">21-22</option>
+														<option value="22-23" id="time">22-23</option>
+														<option value="23-00" id="time">23-00</option>
+														
+															
+												</select><br/>
+												</td>
+											</tr>
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Messaging Frequency:</td>
-												<td valign="top" align="left" class="input_txt"><select
-													name="messaging_frequency" class="input_cmbbx1" id="msg">
+													class="err">*</span> Time3:</td>
+												<td valign="top" align="left" class="input_txt">
+												<select name="time3" class="input_cmbbx1" id="msg">
 														<option selected="selected" value="">--Select--</option>
-														<option value="Daily Twice" id="msg">Daily Twice</option>
-														<option value="Once a Day" id="msg">Once a Day</option>
-														<option value="Once in a week" id="msg">Once in a
-															week</option>
-														<option value="No Preference" id="msg">No
-															Preference</option>
+														
+														<option value="1-2" id="time">1-2</option>
+														<option value="2-3" id="time">2-3</option>
+														<option value="3-4" id="time">3-4</option>
+														<option value="4-5" id="time">4-5</option>
+														<option value="5-6" id="time">5-6</option>
+														<option value="6-7" id="time">6-7</option>
+														<option value="7-8" id="time">7-8</option>
+														<option value="8-9" id="time">8-9</option>
+														<option value="9-10" id="time">9-10</option>
+														<option value="10-11" id="time">10-11</option>
+														<option value="11-12" id="time">11-12</option>
+														<option value="12-13" id="time">12-13</option>
+														<option value="13-14" id="time">13-14</option>
+														<option value="14-15" id="time">14-15</option>
+														<option value="15-16" id="time">15-16</option>
+														<option value="16-17" id="time">16-17</option>
+														<option value="17-18" id="time">17-18</option>
+														<option value="18-19" id="time">18-19</option>
+														<option value="19-20" id="time">19-20</option>
+														<option value="21-22" id="time">21-22</option>
+														<option value="22-23" id="time">22-23</option>
+														<option value="23-00" id="time">23-00</option>
+														
+															
 												</select><br/>
-												<font color="Red" size="+1"><span id="spnmsg"><form:errors
-															path="participant.messaging_frequency"></form:errors> </span></font></td>
+												</td>
 											</tr>
+
 
 											<tr>
 												<td><p class="quck-txt">Group</p></td>
