@@ -19,7 +19,7 @@ public class ParticipantsDetails {
 	@NotEmpty
 	private String fname;
 	
-	@NotEmpty
+	
 	private String lname;
 	
 	@NotEmpty
@@ -28,27 +28,22 @@ public class ParticipantsDetails {
 
 	private String gender;
 	
-	@NotEmpty
+	
 	private String city;
 	
-	@NotEmpty
+	
 	private String education;
 	
-	@NotEmpty
-	private String note;
-	
-	@NotEmpty
 	private String medical_details;
 	
-	@NotEmpty
-	private String messaging_frequency;
+	private String time1;
+	private String time2;
+	private String time3;
 	
 	@NotEmpty
 	private String group_name;
 	
-	@NotEmpty
-	@Max(150)
-	@Pattern(regexp="^(\\d)++$",message="**Should be a number")
+	
 	private String age;
 	
 	//@NotEmpty
@@ -70,9 +65,10 @@ public class ParticipantsDetails {
     		String gender,
     		String city,
     		String education,
-    		String note,
     		String medical_details,
-    		String messaging_frequency,
+    		String time1,
+    		String time2,
+    		String time3,
     		String group_name,
     		String age,
     		String date_of_join,
@@ -85,9 +81,11 @@ public class ParticipantsDetails {
 		this.gender = gender;
 		this.city = city;
 		this.education = education;
-		this.note = note;
+		
 		this.medical_details = medical_details;
-		this.messaging_frequency = messaging_frequency;
+		this.time1=time1;
+		this.time2=time2;
+		this.time3=time3;
 		this.group_name = group_name;
 		this.age = age;
 		this.date_of_join = date_of_join;
@@ -137,24 +135,14 @@ public class ParticipantsDetails {
 	public void setEducation(String education) {
 		this.education = education;
 	}
-	public String getNote() {
-		return note;
-	}
-	public void setNote(String note) {
-		this.note = note;
-	}
+	
 	public String getMedical_details() {
 		return medical_details;
 	}
 	public void setMedical_details(String medical_details) {
 		this.medical_details = medical_details;
 	}
-	public String getMessaging_frequency() {
-		return messaging_frequency;
-	}
-	public void setMessaging_frequency(String messaging_frequency) {
-		this.messaging_frequency = messaging_frequency;
-	}
+	
 	public String getGroup_name() {
 		return group_name;
 	}
@@ -184,6 +172,30 @@ public class ParticipantsDetails {
 	}
 	public void setCreated_by(String created_by) {
 		this.created_by = created_by;
+	}
+
+	public String getTime1() {
+		return time1;
+	}
+
+	public void setTime1(String time1) {
+		this.time1 = time1;
+	}
+
+	public String getTime2() {
+		return time2;
+	}
+
+	public void setTime2(String time2) {
+		this.time2 = time2;
+	}
+
+	public String getTime3() {
+		return time3;
+	}
+
+	public void setTime3(String time3) {
+		this.time3 = time3;
 	}
 
 }
