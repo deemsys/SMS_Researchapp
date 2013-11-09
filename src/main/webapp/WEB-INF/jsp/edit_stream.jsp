@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="Form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="header.jsp"></jsp:include>
 
 <form action="updatestream" method="POST">
@@ -19,21 +20,24 @@
              
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="200" width="30%">Stream Id :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="hidden" id="stream_id" value="${streamDetails.streamId}" name="stream_id"/> <c:out value="${streamDetails.streamId}"></c:out></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" id="stream_id" value="${streamDetails.streamId}" name="streamId"/> <c:out value="${streamDetails.streamId}"></c:out></td>
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Stream Name :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="stream_name" class="input_txtbx" id="inp_id3" value="${streamDetails.streamName}" />
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="hidden" name="admin_username" class="input_txtbx" id="admin_username" value="${streamDetails.admin_username}" /><input type="text" name="streamName" class="input_txtbx" id="stream_name" value="${streamDetails.streamName}" />
                   <span><Form:errors path="streamDetails.streamName"></Form:errors></span></td>
                 </tr>
                  <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Description :</td>
                   <td valign="top" align="left" class="input_txt" width="70%"><textarea name="description" class="input_txtarea"  rows="5" cols="" id="inp_id5"/>${streamDetails.description}</textarea></br><span class="err"><Form:errors path="streamDetails.description"></Form:errors></span></td>
                 </tr>
+                <% int i=1;%>
                  <c:forEach items="${messages}" var="message" varStatus="status">
-                 <tr class="row2">
-                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Message 1 :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><textarea class="input_txtarea" name="message[]" rows="5" cols="" id="inp_id5" />${message}</textarea> </br><span class="err"></span></td>
+                  <tr class="row2">
+                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Message <%=i%> :</td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><textarea class="input_txtarea" name="message[]" rows="5" cols="" id="inp_id5" />${message}</textarea>
+                  <% i=i+1; %>             
+                   </br><span class="err"></span></td>
                 </tr>
                 </c:forEach>
                 </table><div id="multichoice"></div><table width="100%" border="0" cellspacing="0" cellpadding="0"></table>
@@ -54,7 +58,7 @@
 </table>
 </div>
 </form>
-<<<<<<< .mine
+
 <script type="text/javascript">
 var $im=1;
 var flagm=1;
@@ -83,7 +87,7 @@ var $in = xx+1;
 
 </script>
 
-=======
+
 <script type="text/javascript">
 var $im=1;
 var flagm=1;
@@ -111,6 +115,6 @@ var $in = xx+1;
 	}
 
 </script>
->>>>>>> .r97
+
 <jsp:include page="footer.jsp"></jsp:include>
 
