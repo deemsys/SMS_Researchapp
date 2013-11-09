@@ -22,19 +22,34 @@ public class StreamDetails {
 	private String description;
 	
 	
-	private String admin_username;
-	
-	private String message_count; 
-	public StreamDetails(String streamId, String streamName,String admin_username,String description,String count
-			) {
-		super();
+	private String admin_username; 
+	private String message_count;
+    private String message_id;
+    private String stream_message;
+    
+     
+    public StreamDetails(String streamId,String admin_username, String streamName, String description, String count) {
+	    super();
 		this.streamId = streamId;
-		this.streamName = streamName;
+		this.admin_username=admin_username;
+		this.streamName = streamName;		
 		this.description = description;
-		this.setAdmin_username(admin_username);
 		this.message_count=count;
+    }	
+    public String getstream_message()
+    {
+    	return stream_message;
+    }
+    public void setstream_message()
+    {
+    	this.stream_message=stream_message;
+    }
+    public String getMessage_id() {
+		return message_id;
 	}
-	
+    public void setMessage_id(String message_id) {
+		this.message_id = message_id;
+	}
 	public String getMessage_count() {
 		return message_count;
 	}
