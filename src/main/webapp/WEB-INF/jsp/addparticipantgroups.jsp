@@ -72,82 +72,14 @@
 	                  <td valign="middle" align="right" class="input_txt" width=30% ><span class="err">*</span> Group Name :</td>
 	                  <td valign="top" align="left" class="input_txt" width=70%><input type="text" name="group_name" class="input_txtbx" style="width:200px;"  id="group_name" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /><br/><span class="err"> <c:if test="${username_exist==true}"><c:out value="Group Name already exist"/></c:if><form:errors path="pgroups.group_name"></form:errors> </span></td>
 	                </tr>
-	
-	                <tr class="row2">
-	                  <td valign="middle" align="right" class="input_txt" width=30%><span class="err">*</span> Group Scope :</td>
-	                  <td valign="middle" align="left"  width=70%>
-	                   <c:if test="${success==true}">
-	                    <input type="radio" name="group_scope" class="" id="scope_primary" checked onchange="closelocal();"  value="0"/>&nbsp;Primary&nbsp;&nbsp; 
-	                  <input type="radio" name="group_scope"  id="scope_local"  value="1" onclick="openlocal();"/>&nbsp;Local</br><span class="err"></span></td>
-	             
-	                  </c:if>
-	                  <input type="radio" name="group_scope" class="" id="scope_primary" onclick="closelocal();"  value="0"/>&nbsp;Primary&nbsp;&nbsp; 
-	                  <input type="radio" name="group_scope"  id="scope_local" checked value="1" onclick="openlocal();"/>&nbsp;Local</br><span class="err"></span></td>
-	                </tr>
-			
-			<tr class="row5" ><TD valign="middle" align="left" colspan="3">
-			<c:if test="${success==true}">
-			<div  id="local"  style="display:none;"> 
-			 </c:if>
-			 <c:if test="${success==false}">
-			 <div  id="local"  style="display:block;"> 
-			 </c:if>
-				<table cellpadding="0" cellspacing="0" border="0" width="100%">
-					<tr class="row4">
-			                  <td valign="top" align="right" class="input_txt" width=30% >&nbsp;<b> Local Group Criteria </b></td>
-			                  <td valign="top" align="left" class="input_txt" width=70%></br><span class="err"></span></td>
-			                </tr>
-					<tr class="row4">
-			                  <td valign="top" align="right" class="input_txt" width=30% ><span class="err">*</span> Select Group :</td>
-			                   <td valign="top" align="left"  class="input_txt" width=70%>
-			                   <select name="select_local_group">
-			                   <option value="">--Select--</option>
-			                   <c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
-			                   <option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
-			                   </c:forEach>
-			                   </select>
-			                   </br><span class="err"><form:errors path="pgroups.select_local_group"></form:errors></span></td>
-			                </tr>
-					<tr class="row4">
-			                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> City :</td>
-			                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_city" class="input_txtbx" id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /></br><span class="err"><form:errors path="pgroups.local_city"></form:errors></span></td>
-			                </tr>
-					<tr class="row4">
-			                  <td valign="middle" align="right" class="input_txt" width="30%" ><span class="err">*</span> Date Of Join From :</td>
-			                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_dojfrom" class="input_txtbx" id="dateofjoinfrom"  value=""  />&nbsp;&nbsp; </br><span class="err"><form:errors path="pgroups.local_dojfrom"></form:errors></span></td>
-			                </tr>
-							<tr class="row4">
-							                  <td valign="middle" align="right" class="input_txt" width="30%" ><span class="err">*</span> Date Of Join To :</td>
-							                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_dojto" class="input_txtbx" id="dateofjointo"  value=""" />&nbsp;&nbsp;</br><span class="err"><form:errors path="pgroups.local_dojto"></form:errors></span></td>
-							                </tr>
-							<%-- <tr class="row4">
-							                  <td valign="middle" align="right" class="input_txt" width="30%" ><span class="err">*</span> Age :</td>
-							                  <td valign="top" align="left"  class="input_txt" width="70%"><input style="width:200px;" type="text" name="local_age" class="input_txtbx" id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /><br/>
-							                   <span class="err"><form:errors path="pgroups.local_age"></form:errors></span></td>
-							                </tr> --%>
-							<tr class="row4">
-							                 
-							                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Education :</td>
-							                  <td valign="top" align="left" class="input_txt" ><select name="local_educations" class="input_cmbbx1">
-							                    <option value="">--Select--</option>
-							                    <option value="School">School</option>
-										<option   value="Some Collage">Some College</option>
-										<option value="Professional Degree">Professional Degree</option>
-										<option value="Master Degree">Master Degree</option>
-							                   </select><br/>
-							                   <span class="err"><form:errors path="pgroups.local_educations"></form:errors></span>
-							                   </td>
-		               
-		                	</tr>
-						</table>
-					</div>
-				</TD>
-			</tr>
-			
-			<tr class="row1">
+	<tr class="row1">
 	                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Group Description :</td>
 	                  <td valign="top" align="left" class="input_txt" width="70%"><textarea style="width:200px; height:100px;" name="group_decs" id="group_decs" class="input_txtbx" style="width: 301px; height: 109px;"></textarea></br><span class="err"><form:errors path="pgroups.group_decs"></form:errors></span></td>
 	                </tr>
+	               
+			</tr>
+			
+			
 	                 <tr class="row2">
 	                  <td valign="top" align="right">&nbsp;</td>
 	                  <td valign="top" align="left"><input type="submit" class="submit_btn1" value="Add Group"></td>
