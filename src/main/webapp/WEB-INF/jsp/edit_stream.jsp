@@ -20,7 +20,7 @@
              
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="200" width="30%">Stream Id :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" id="stream_id" value="${streamDetails.streamId}" name="streamId"/> <c:out value="${streamDetails.streamId}"></c:out></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="hidden" id="stream_id" value="${streamDetails.streamId}" name="streamId"/> <c:out value="${streamDetails.streamId}"></c:out></td>
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Stream Name :</td>
