@@ -437,6 +437,7 @@ public class StreamDetailsDAO
 			if(resultSet.next())
 				Desc=Desc+resultSet.getString(1);
 			statement.execute("delete from stream where stream_id='"+stream_id+"'");
+			statement.execute("delete from message_stream where stream_id='"+stream_id+"'");
 			
 			flag=1;
 			
