@@ -37,16 +37,9 @@ public class ParticipantGroupDAO {
 		}
 		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 	    try{
-	    	int enabled=1;
-	    	int updateemail=1;
-	    	int local_age;
-	    	if(Integer.parseInt(pgroups.getgroup_scope())==0)
-	    	local_age=0;
-	    	else
-	    		local_age=Integer.parseInt(pgroups.getlocal_age());
-	    	 //System.out.println(dateFormat.format(date));
+	    	
 	    	//String cmd="INSERT INTO users(`FULLNAME`,`USERNAME`,`PASSWORD`,`ENABLED`,`EMAIL`,`PROFILE_IMAGE`,`UPDATEBYEMAIL`) VALUES('"+user.getFullName()+"','"+user.getUsername()+"','"+user.getPassword()+"','"+enabled+"','"+user.getEmail()+"','empty','"+updateemail+"')";
-          String cmd_pgroups="INSERT INTO `deemspro_deem`.`participant_group_table`(`group_name`,`group_scope`,`group_decs`,`select_local_group`,`local_city`,`local_dojfrom`,`local_dojto`,`local_age`,`local_educations`) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_scope()+"','"+pgroups.getgroup_decs()+"','"+pgroups.getselect_local_group()+"','"+pgroups.getlocal_city()+"','"+pgroups.getlocal_dojfrom()+"','"+pgroups.getlocal_dojto()+"','"+local_age+"','"+pgroups.getlocal_educations()+"')";
+          String cmd_pgroups="INSERT INTO `deemspro_deem`.`participant_group_table`(`group_name`,`group_decs`) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"')";
           System.out.println(cmd_pgroups);
 			statement.execute(cmd_pgroups);
 			flag=1;
@@ -140,7 +133,7 @@ public class ParticipantGroupDAO {
           while(resultSet.next())
           {
         	  
-          participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_scope"),resultSet.getString("group_decs"),resultSet.getString("select_local_group"),resultSet.getString("local_city"),resultSet.getString("local_dojfrom"),resultSet.getString("local_dojto"),resultSet.getString("local_age"),resultSet.getString("local_educations")));
+          participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs")));
           
           }
            
