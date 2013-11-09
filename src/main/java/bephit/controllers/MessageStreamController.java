@@ -40,11 +40,13 @@ public class MessageStreamController {
 	}
 
 	@RequestMapping(value = "/insertstream", method = RequestMethod.POST)
-	public String insertstream(HttpServletRequest request,@ModelAttribute("streamdetails") @Valid StreamDetails streamdetails,BindingResult result,ModelMap model,Principal principal) {
+	public String insertstream(HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamdetails,BindingResult result,ModelMap model,Principal principal) {
 		
-		String[] Messages = new String[100];
+		System.out.println("insert stream id"+streamdetails.getStreamId());
+		String[] Messages = new String[1000];
 		Messages = request.getParameterValues("message[]");
 		streamDAO.insertNewstream(streamdetails, principal.getName(), Messages);
+		
 		model.addAttribute("success", "true");
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
@@ -53,6 +55,7 @@ public class MessageStreamController {
 		return "viewstream";
 
 	}
+	
 
 	@RequestMapping(value = "/viewstream", method = RequestMethod.GET)
 	public String viewstream(ModelMap model) {
@@ -78,12 +81,12 @@ public class MessageStreamController {
         return "edit_stream";
 	}
 	
-	@RequestMapping(value="/updatestream", method=RequestMethod.POST)
-	public String updatestream(HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamDetails,
-			BindingResult result,ModelMap model,Principal principal)
-	{
+	
+	/*@RequestMapping(value = "/updatemessage", method = RequestMethod.POST)
+	public String updatemessage(HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamDetails,BindingResult result,ModelMap model,Principal principal) {
 		
-		
+		System.out.println("update message id"+streamDetails.getStreamId());	
+		System.out.println("update message name"+streamDetails.getStreamName());
 		if (result.hasErrors())
 		{
 			StreamDetailsForm streamForm = new StreamDetailsForm();
@@ -98,7 +101,40 @@ public class MessageStreamController {
 		model.addAttribute("streamForm", streamForm);
 		 model.addAttribute("menu","message");
 		return "viewstream";
-	}
+
+	}*/
+
+	
+	@RequestMapping(value="/updatestream", method=RequestMethod.POST)
+	public String updatestream(HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamDetails,BindingResult result,ModelMap model,Principal principal)
+	 
+	{
+		
+		System.out.println("stream idddddddd"+streamDetails.getStreamId());
+		List<String> sample=streamDAO.getMessageid(streamDetails.getStreamId());
+		System.out.println(sample);
+		streamDAO.deleltemessageid(sample);
+		String[] Messages = new String[100];
+		Messages = request.getParameterValues("message[]");	
+		     
+		streamDAO.insertmessage(streamDetails, principal.getName(),Messages);
+		 	
+		if (result.hasErrors())
+		{
+			StreamDetailsForm streamForm = new StreamDetailsForm();
+			streamForm.setStreamDetails(streamDAO.getStream(streamDetails.getStreamId()));
+			model.addAttribute("streamForm", streamForm);
+			
+		        return "edit_stream";
+		}
+		
+		model.addAttribute("success","true");
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream());
+		model.addAttribute("streamForm", streamForm);		 
+		model.addAttribute("menu","message");
+	    return "viewstream";  
+        }
 	
 	@RequestMapping(value="/deletestream", method=RequestMethod.GET)
 	public String removestream(@RequestParam("id") String stream_id,ModelMap model, Principal principal) {
