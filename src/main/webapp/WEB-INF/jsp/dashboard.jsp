@@ -31,11 +31,14 @@
 								<tr class="title">
 									<td valign="top" align="left" width="10%">First&nbsp;Name</td>
 									<td valign="top" align="left" width="15%">Mobile Number</td>
-									<td valign="top" align="left" width="10%">City</td>
+									
 									<td valign="top" align="left" width="10%">Age</td>
-									<td valign="top" align="left" width="15%">Frequency&nbsp;Preference</td>
+									<td valign="top" align="left" width="10%">Time1</td>
+									<td valign="top" align="left" width="10%">Time2</td>
+									<td valign="top" align="left" width="10%">Time3</td>
+									
 									<td valign="top" align="left" width="15%">Education</td>
-									<td valign="top" align="left" width="15%">Date Of Join</td>
+									<td valign="top" align="left" width="10%">Date Of Join</td>
 								</tr>
 
 								<!-- Display Admin Userd here  Suresh--> 
@@ -43,11 +46,13 @@
 							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
 								          <td valign="top" align="left"  width="10%"> <a href="participantdetails?id=${participantsDetails.participants_id}">${participantsDetails.fname}</a></td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
+											
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="15%">${participantsDetails.messaging_frequency}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time1}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time2}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time3}</td>
 											<td valign="top" align="left" width="15%">${participantsDetails.education}</td>
-											<td valign="top" align="left" width="16%">${participantsDetails.date_of_join}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.date_of_join}</td>
 										</tr>
 							    	</c:forEach>
 						    	
