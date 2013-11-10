@@ -10,7 +10,7 @@
 			</div>
 <div id="right_content">
 
-	<form action="addparticipants" method="POST" name="update" id="update">
+	<form action="registerparticipants" method="POST" name="update" id="update">
 
 		<table cellpadding="0" cellspacing="0" border="0" width="98%"
 			class="margin_table" id="su">
@@ -279,27 +279,39 @@
 												</select><br/>
 												</td>
 											</tr>
+											
+											<tr>
+												<td><p class="quck-txt">Provider</p></td>
+											</tr>
+<tr class="row2">
+												<td valign="top" align="left" class="input_txt"><span
+													class="err">*</span> Provider Name
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													:</td>
+												<td valign="top" align="left" class="input_txt">
+												<select
+													name="Provider_name">
+														<c:forEach
+															items="${adminuserform.adminuser}"
+															var="adminuser" varStatus="status">
+															<option value="${adminuser.admin_username}">${adminuser.admin_username}</option>
+														</c:forEach>
 
-
+												</select>
+												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
+																path="participant.group_name"></form:errors> </span></font></td>
+											</tr>
 											<tr>
 												<td><p class="quck-txt">Group</p></td>
-											</tr>
-											<tr class="row1">
-												<td colspan="2"><p
-														style="line-height: 18px; padding: 1px 0pt; text-align: justify">
-														Group is the internal classification for the better
-														understanding of Participant's Demographics.<a
-															href="addparticipantgroups"
-															onclick="javascript:CreateGroup()">[Create New Group]</a>
-													</p></td>
-											</tr>
+											</tr>											
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err">*</span> Select
 													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
-												<td valign="top" align="left" class="input_txt"><select
-													name="group_name">
+												<td valign="top" align="left" class="input_txt">
+												<select
+													name="group_name" multiple>
 														<c:forEach
 															items="${participantGroupForm.participantGroups}"
 															var="participantGroups" varStatus="status">
