@@ -187,6 +187,18 @@ public class MainController {
         model.addAttribute("menu","participants");
 	     return "addparticipants";
 	}
+	@RequestMapping(value="/showRegisterParticipant", method=RequestMethod.GET)
+public String showRegisterParticipants(HttpServletRequest request,ModelMap model) {
+		
+		model.put("success", "false");
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+        AdminUserForm adminuserform=new AdminUserForm();
+        adminuserform.setAdminuser(adminuserdao.getAdminUser());
+        model.addAttribute("adminuserform",adminuserform);
+        return "registerparticipants";
+	}
 	
 	@RequestMapping(value="/addparticipants",method=RequestMethod.GET)
 	public String showAddpart(HttpServletRequest request,ModelMap model)
@@ -198,6 +210,20 @@ public class MainController {
         model.addAttribute("menu","participants");
         model.addAttribute("noofrows",mainDAO.getParticipants().size());
 		return "/addparticipants";
+	}
+	@RequestMapping(value="/registerparticipants",method=RequestMethod.GET)
+	public String showAddpart1(HttpServletRequest request,ModelMap model)
+	{
+		model.addAttribute("success","false");
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+        AdminUserForm adminuserform=new AdminUserForm();
+        adminuserform.setAdminuser(adminuserdao.getAdminUser());
+        model.addAttribute("adminuserform",adminuserform);
+        model.addAttribute("menu","participants");
+        model.addAttribute("noofrows",mainDAO.getParticipants().size());
+		return "/registerparticipants";
 	}
 	
 	@RequestMapping(value="/addparticipants", method=RequestMethod.POST)
@@ -221,6 +247,7 @@ public class MainController {
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);			
 		int a=mainDAO.setParticipants(participant,principal.getName());
+		System.out.println("a"+a);
 				model.put("success","true");
 				
 				 model.addAttribute("menu","participants");
@@ -232,6 +259,48 @@ public class MainController {
 					return "dashboard";
 		
 	}
+	@RequestMapping(value="/registerparticipants", method=RequestMethod.POST)
+	public String showAddParticipants1(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+			BindingResult result,ModelMap model,Principal principal) {		
+		
+		model.addAttribute("participantsDetailsForm", participant);
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+        AdminUserForm adminuserform=new AdminUserForm();
+        adminuserform.setAdminuser(adminuserdao.getAdminUser());
+        model.addAttribute("adminuserform",adminuserform);
+
+		 if (result.hasErrors())
+		{
+			ParticipantsGroupForm participantGroupForm1 = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());
+	        model.addAttribute("participantGroupForm1", participantGroupForm1);
+	        model.addAttribute("menu","participants");
+	       return "registerparticipants";
+		} 
+		
+		
+		model.put("participant", participant);		
+		//validation valid=new validation();
+		String[] errmsges=new String[50];
+	    //errmsges=valid.checkParticipant(participant);	
+		model.put("errmsg",errmsges[0]);
+		
+		int a=mainDAO.setParticipants(participant,principal.getName());
+		System.out.println("a"+a);
+				model.put("success","true");
+				
+				 model.addAttribute("menu","participants");
+				    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+					participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
+			        model.addAttribute("menu","dashboard");
+			        model.addAttribute("noofrows",mainDAO.getParticipants().size());
+					return "login";
+		
+	}
+	
 		
 	@RequestMapping(value="/viewparticipants", method=RequestMethod.GET)
 	public String viewParticipants(HttpServletRequest request,ModelMap model, Principal principal) {
