@@ -38,8 +38,9 @@ public class MainDAO {
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
+			System.out.println("providername"+participant.getProvider_name());
 			// System.out.println(dateFormat.format(date));
-			String cmd = "INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
+			String cmd = "INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
 					+ participant.getFname()
 					+ "','"
 					+ participant.getLname()
@@ -60,6 +61,8 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
+					+participant.getProvider_name()
+					+"','"
 					+ participant.getGroup_name()
 					+ "','"
 					+ participant.getAge()
@@ -67,7 +70,8 @@ public class MainDAO {
 					+ dateFormat.format(date)
 					+ "','" + participant.getEmail_id() + "','0')";
 			System.out.println(cmd);
-			statement.execute(cmd);
+			statement.executeUpdate(cmd);
+			System.out.println("insertcmd"+cmd);
 			/*
 			 * String cmd_getparticipantname=
 			 * "select fname from participants_table where participants_id='"
@@ -175,6 +179,7 @@ public class MainDAO {
 								.getString("medical_details"), resultSet
 								.getString("time1"), resultSet.getString("time2"),
 								resultSet.getString("time3"),
+								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
@@ -224,9 +229,10 @@ public class MainDAO {
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
 								.getString("education"),resultSet
-								.getString("medical_details"), resultSet
+								.getString("medical_details"),resultSet
 								.getString("time1"), resultSet.getString("time2"),
 								resultSet.getString("time3"),
+								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
@@ -360,9 +366,10 @@ public class MainDAO {
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
 								.getString("education"),resultSet
-								.getString("medical_details"), resultSet
+								.getString("medical_details"),resultSet
 								.getString("time1"), resultSet.getString("time2"),
 								resultSet.getString("time3"),
+								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
@@ -407,9 +414,10 @@ public class MainDAO {
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
 								.getString("education"),resultSet
-								.getString("medical_details"), resultSet
+								.getString("medical_details"),resultSet
 								.getString("time1"), resultSet.getString("time2"),
 								resultSet.getString("time3"),
+								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
@@ -454,9 +462,10 @@ public class MainDAO {
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
 								.getString("education"),resultSet
-								.getString("medical_details"), resultSet
+								.getString("medical_details"),resultSet
 								.getString("time1"), resultSet.getString("time2"),
 								resultSet.getString("time3"),
+								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
@@ -510,9 +519,10 @@ public class MainDAO {
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
 								.getString("education"),resultSet
-								.getString("medical_details"), resultSet
+								.getString("medical_details"),resultSet
 								.getString("time1"), resultSet.getString("time2"),
 								resultSet.getString("time3"),
+								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
