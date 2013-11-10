@@ -36,9 +36,14 @@ public class ParticipantsDetails {
 	
 	private String medical_details;
 	
+	@NotEmpty
 	private String time1;
+	@NotEmpty
 	private String time2;
+	@NotEmpty
 	private String time3;
+	
+	private String Provider_name;
 	
 	@NotEmpty
 	private String group_name;
@@ -69,6 +74,7 @@ public class ParticipantsDetails {
     		String time1,
     		String time2,
     		String time3,
+    		String Provider_name,
     		String group_name,
     		String age,
     		String date_of_join,
@@ -86,6 +92,7 @@ public class ParticipantsDetails {
 		this.time1=time1;
 		this.time2=time2;
 		this.time3=time3;
+		this.Provider_name=Provider_name;
 		this.group_name = group_name;
 		this.age = age;
 		this.date_of_join = date_of_join;
@@ -142,7 +149,13 @@ public class ParticipantsDetails {
 	public void setMedical_details(String medical_details) {
 		this.medical_details = medical_details;
 	}
-	
+	public String getProvider_name(){
+		return Provider_name;
+	}
+	public void setProvider_name(String Provider_name)
+	{
+	this.Provider_name=Provider_name;	
+	}
 	public String getGroup_name() {
 		return group_name;
 	}
