@@ -150,6 +150,15 @@ function validate(form)
 		        
 		        </a></li>
 		      <li><a href="forgotpwd" class="forgot-password"></a></li>
+		     <table>
+		     <tr><td>
+		     <li> <a href="showRegisterParticipant" font-color:"white" class="participant" style="text-decoration: none; border-bottom: 1px solid white">Register Participant</a>
+		     </li>
+		     </td><td width="100"></td>
+		     <td>
+		      <li> <a href="" font-color:"white" class="participant" style="text-decoration: none; border-bottom: 1px solid white">Register Provider</a>
+		    </li></td></tr>
+		     </table>
 		      <!-- <li><input name="reset" type="reset" Value="Reset" class="reset-btn" /></li>
 		      <li><a href="createuser">Register</a></li> -->
 		    </ul>
@@ -157,5 +166,10 @@ function validate(form)
 		  <div class="login-bottom"></div>
 		</div>
 	</form>
+	
+	 
+		      <input type="submit" value=""></form>
+	
+	
 </body>
 </html>
