@@ -63,9 +63,6 @@
                     <c:when test="${participantsDetails.gender==1}">
                      <td width="84%" valign="top" align="left" >Female</td>
                     </c:when>
-                    <c:otherwise>
-                     <td width="84%" valign="top" align="left" >Transgender</td>
-                    </c:otherwise>
                   </c:choose>
                   
                   
@@ -83,10 +80,6 @@
                   <td width="15%" valign="middle" align="left" > Medical Details </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.medical_details}</td>
-                </tr><tr class="row1">
-                  <td width="15%" valign="middle" align="left" > Messaging Frequency </td>
-                    <td width="1%" valign="middle" align="left" >  :</td>
-                  <td width="84%" valign="top" align="left" >${participantsDetails.messaging_frequency}</td>
                 </tr>
               <tr class="row2">
                   <td width="15%" valign="middle" align="left" > Group Name </td>
