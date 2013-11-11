@@ -103,6 +103,9 @@ ul.login-list li p {
 	height:61px;
 	display:block;
 }
+.participant{
+	color:white;
+}
 .error_div {
 	color:#ff0000;
 	font-size:12px;
@@ -479,6 +482,20 @@ ul.pagination li.page a:hover {
 .submit_btn2 {
 	background:url(../images/login_btn2.png) 0 0 no-repeat;
 	width:175px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	color:#d8ebff;
+	font-weight:bold;
+	font-size:14px;
+	cursor:pointer;
+	display:block;
+	border:0;
+	outline:none;
+}
+.submit_btn3{
+	background:url(../images/login_btn2.png) 0 0 no-repeat;
+	width:150px;
 	height:30px;
 	line-height:30px;
 	text-align:center;
