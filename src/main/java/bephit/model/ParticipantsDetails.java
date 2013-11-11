@@ -59,6 +59,8 @@ public class ParticipantsDetails {
 	private String email_id;
 	
 	private String created_by;
+	@NotEmpty
+	private String message;
 	
 	public ParticipantsDetails() {
     }
@@ -79,7 +81,8 @@ public class ParticipantsDetails {
     		String age,
     		String date_of_join,
     		String email_id,
-    		String created_by) {
+    		String created_by,
+    		String message) {
 		this.participants_id = participants_id;
 		this.fname = fname;
 		this.lname = lname;
@@ -98,8 +101,15 @@ public class ParticipantsDetails {
 		this.date_of_join = date_of_join;
 		this.email_id = email_id;
 		this.created_by = created_by;
+		this.message=message;
     }
-	
+    public String getmessage() {
+		return message;
+    }
+    public void setmessage(String message) {
+		this.message = message;
+	}
+    
 	public String getParticipants_id() {
 		return participants_id;
 	}
