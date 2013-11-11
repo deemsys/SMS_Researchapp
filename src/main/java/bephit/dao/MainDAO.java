@@ -21,6 +21,54 @@ public class MainDAO {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
+	public int updateparticipantmessage(ParticipantsDetails participant,String participants_id,String admin)
+	{
+		Connection con = null;
+		Statement statement = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	    	 Date date = new Date();
+	    	 //System.out.println(dateFormat.format(date));
+	    	String cmd="UPDATE participants_table SET message ='"+participant.getmessage()+"' WHERE participants_id='56'";
+	    	
+	    	String Desc="Update participant "+participant.getFname();
+	    	
+	    	
+	    	
+	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+	    	    	
+	    	System.out.println("update message"+cmd);
+	    	System.out.println(cmd_activity);
+			
+	    	statement.execute(cmd);
+			statement.execute(cmd_activity);
+			flag=1;
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	//return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    if(flag==1)
+    		return 1;
+    	else
+    		return 0;
+	
+	}
 
 	public int setParticipants(ParticipantsDetails participant, String admin_id) {
 		Connection con = null;
@@ -122,7 +170,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',lname ='"+participant.getLname()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"','"+participant.getTime3()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',lname ='"+participant.getLname()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name='"+participant.getProvider_name()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
 	    	String Desc="Update participant "+participant.getFname();
 	    	
 	    	
@@ -184,7 +232,7 @@ public class MainDAO {
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
-								.getString("created_by")));
+								.getString("created_by"),resultSet.getString("message")));
 			}
 		} catch (Exception e) {
 			releaseResultSet(resultSet);
@@ -237,7 +285,7 @@ public class MainDAO {
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
-								.getString("created_by")));
+								.getString("created_by"),resultSet.getString("message")));
 			}
 		} catch (Exception e) {
 			releaseResultSet(resultSet);
@@ -374,7 +422,7 @@ public class MainDAO {
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
-								.getString("created_by")));
+								.getString("created_by"),resultSet.getString("message")));
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -422,7 +470,7 @@ public class MainDAO {
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
-								.getString("created_by")));
+								.getString("created_by"),resultSet.getString("message")));
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -470,7 +518,7 @@ public class MainDAO {
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
-								.getString("created_by")));
+								.getString("created_by"),resultSet.getString("message")));
 				if (ParticipantsMap.containsKey(p.getGroup_name())) {
 					ArrayList<ParticipantsDetails> participants = ParticipantsMap
 							.get(p.getGroup_name());
@@ -527,7 +575,7 @@ public class MainDAO {
 								.getString("age"), resultSet
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
-								.getString("created_by")));
+								.getString("created_by"),resultSet.getString("message")));
 				participants.add(p);
 			}
 		} catch (Exception e) {
