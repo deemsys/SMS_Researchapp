@@ -1,38 +1,56 @@
 package bephit.model;
 
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class UpdatePwd {
+	
 	@NotEmpty
- private String PASSWORD;
+	@Size(min=3,max=12)
+ private String new_pwd;
+	
 	@NotEmpty
- private String old_pwd;
+ private String current_pwd;
+	
 	@NotEmpty
- private String retype_pwd;
+	@Size(min=3,max=12)
+ private String retype_new_pwd;
  
-public UpdatePwd(String new_pwd, String old_pwd, String retype_pwd) {
+public UpdatePwd() {
+		super();
+	}
+
+public UpdatePwd(String new_pwd, String current_pwd, String retype_new_pwd) {
 	super();
-	this.PASSWORD = new_pwd;
-	this.old_pwd = old_pwd;
-	this.retype_pwd = retype_pwd;
+	this.new_pwd = new_pwd;
+	this.current_pwd = current_pwd;
+	this.retype_new_pwd = retype_new_pwd;
 }
-public String getPASSWORD() {
-	return PASSWORD;
+
+public String getNew_pwd() {
+	return new_pwd;
 }
-public void setPASSWORD(String pASSWORD) {
-	PASSWORD = pASSWORD;
+
+public void setNew_pwd(String new_pwd) {
+	this.new_pwd = new_pwd;
 }
-public String getOld_pwd() {
-	return old_pwd;
+
+public String getCurrent_pwd() {
+	return current_pwd;
 }
-public void setOld_pwd(String old_pwd) {
-	this.old_pwd = old_pwd;
+
+public void setCurrent_pwd(String current_pwd) {
+	this.current_pwd = current_pwd;
 }
-public String getRetype_pwd() {
-	return retype_pwd;
+
+public String getRetype_new_pwd() {
+	return retype_new_pwd;
 }
-public void setRetype_pwd(String retype_pwd) {
-	this.retype_pwd = retype_pwd;
+
+public void setRetype_new_pwd(String retype_new_pwd) {
+	this.retype_new_pwd = retype_new_pwd;
 }
+
  
 }

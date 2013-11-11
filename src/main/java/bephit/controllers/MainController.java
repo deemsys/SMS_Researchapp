@@ -737,7 +737,35 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 	}	
 	
 	
-	
+	@RequestMapping(value ="/changePassword",method=RequestMethod.POST)
+	public String addNewPwd(HttpServletRequest request,@ModelAttribute("updatePwds") @Valid UpdatePwd updatePwds,BindingResult result,ModelMap model,Principal principal){
+		if(result.hasErrors()){
+			
+			return "changepwd";
+		}
+
+		model.put("updatePwds", "updatePwds");
+		UpdatePwdForm updatePwdForm=new UpdatePwdForm();
+		String s1=mailTemplateDAO.getCurrentPwd();
+		System.out.println("current password:"+s1);
+		System.out.println(updatePwds.getNew_pwd());
+		System.out.println(updatePwds.getCurrent_pwd());
+		
+		if(s1.equals(updatePwds.getCurrent_pwd()))
+		{
+			model.put("password_mismatch", "false");
+			System.out.println("password");
+			logger.debug("Password changed successfully");
+			mailTemplateDAO.updateoldPwd(updatePwds);
+		}
+		else
+		{
+			System.out.println("password");
+			logger.debug("Password change failed");
+			model.put("password_mismatch", "true");
+		}
+		return "dashboard";
+	}
 	
 	
   }

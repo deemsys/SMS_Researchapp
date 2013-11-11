@@ -9,7 +9,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import bephit.forms.TextMsgSettingsForm;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import bephit.model.MailTemplateDetails;
 import bephit.model.TextMsgSettings;
 import bephit.model.UpdatePwd;
@@ -144,10 +146,18 @@ public List<TextMsgSettings> getMsgSettings(){
    
 	return forms;
 }
-public String getOldPwd(String admin_id){
+public String getCurrentPwd(){
+	String userpwd="";
 	Connection con = null;
 	Statement statement = null;
 	ResultSet resultSet = null;
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	UserDetails userDetails = null;
+	if (principal instanceof UserDetails) {
+	  userDetails = (UserDetails) principal;
+	}
+	String userName = userDetails.getUsername();
+	System.out.println(userName);
 	try {
 		con = dataSource.getConnection();
 		statement = con.createStatement();
@@ -155,13 +165,16 @@ public String getOldPwd(String admin_id){
 		e1.printStackTrace();
 	}
 	try {
-		String cmd="select admin_password  from admin_log_table where  admin_id ='"+ admin_id +"'";
+		String cmd="select admin_password  from admin_log_table where  admin_username ='"+ userName +"'";
 		
 		resultSet=statement.executeQuery(cmd);
+		resultSet.next();
 		
-	String userpwd=resultSet.getString("admin_password");
+	userpwd=resultSet.getString("admin_password");
+	System.out.println(userpwd);
 	}
 	catch (Exception e) {
+		System.out.println(e.toString());
 		releaseResultSet(resultSet);
     	releaseStatement(statement);
     	releaseConnection(con);
@@ -171,7 +184,7 @@ public String getOldPwd(String admin_id){
     	releaseStatement(statement);
     	releaseConnection(con);	    	
     }
-	return "userpwd";
+	return userpwd;
 		
 	
 }
@@ -179,6 +192,12 @@ public int updateoldPwd(UpdatePwd updatePwds){
 	Connection con = null;
 	Statement statement = null;
 	int flag = 0;
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	UserDetails userDetails = null;
+	if (principal instanceof UserDetails) {
+	  userDetails = (UserDetails) principal;
+	}
+	String userName = userDetails.getUsername();
 	try {
 		con = dataSource.getConnection();
 		statement = con.createStatement();
@@ -186,7 +205,7 @@ public int updateoldPwd(UpdatePwd updatePwds){
 		e1.printStackTrace();
 	}
 	try {
-		String cmd="update admin_log_table set admin_password='" + updatePwds.getPASSWORD() + "';";
+		String cmd="update admin_log_table set admin_password='" + updatePwds.getNew_pwd() + "' where admin_username ='" + userName + "' ";
 		System.out.println(cmd);
 		statement.execute(cmd);
 		flag=1;
