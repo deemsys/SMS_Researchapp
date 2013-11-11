@@ -316,6 +316,38 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
         
 		return "viewparticipants";
 	}
+	@RequestMapping(value="/viewregisterparticipants", method=RequestMethod.GET)
+	public String viewregisterParticipants(HttpServletRequest request,ModelMap model, Principal principal) {
+		 model.addAttribute("success","false");
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		String participantid="54";
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participantid));
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+        model.addAttribute("menu","participants");
+        ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+        model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
+        
+		return "viewregisterparticipants";
+	}
+	
+	@RequestMapping(value="/updateparticipantmessage", method=RequestMethod.POST)
+	public String updateParticipantmessage(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+			BindingResult result,ModelMap model,Principal principal) {
+		 model.addAttribute("success","false");
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+		mainDAO.updateparticipantmessage(participant, participant.getParticipants_id(),principal.getName());
+		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+        model.addAttribute("menu","settings");
+        /*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+        model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));*/
+        
+		return "participantsettings";
+	}
 	
 	
 	@RequestMapping(value="/deleteparticipants", method=RequestMethod.GET)
@@ -410,6 +442,27 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 		
 		return "activityofadmin";
 	}*/
+	@RequestMapping(value="/editregisterparticipant", method=RequestMethod.GET)
+	public String editregisterparticipantsettings(HttpServletRequest request,ModelMap model) {
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		String participants_id="55";
+        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
+		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+		AdminUserForm adminuserform=new AdminUserForm();
+        adminuserform.setAdminuser(adminuserdao.getAdminUser());
+        model.addAttribute("adminuserform",adminuserform);
+		model.addAttribute("participantGroupForm", participantGroupForm);	
+        
+        model.addAttribute("menu","participants");		 
+		return "editregisterparticipant";
+	}
+	@RequestMapping(value="/participantsettings", method=RequestMethod.GET)
+	public String participantsettings(HttpServletRequest request,ModelMap model) {
+		
+		return "participantsettings";
+	}
 	
 	@RequestMapping(value="/textmsgsettings", method=RequestMethod.GET)
 	public String textMsgSettings(HttpServletRequest request,ModelMap model) {
@@ -503,6 +556,43 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 	        model.addAttribute("success","true");
 		return "viewparticipants";
 	}
+	@RequestMapping(value="/updateregisterparticipant", method=RequestMethod.POST)
+	public String updateregisterParticipant(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+			BindingResult result,ModelMap model,Principal principal)
+	{
+		
+		String participants="55";
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants));
+        AdminUserForm adminuserform=new AdminUserForm();
+        adminuserform.setAdminuser(adminuserdao.getAdminUser());    
+        
+		
+		
+		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName());
+		System.out.println("status"+status);
+		 model.addAttribute("adminuserform",adminuserform);	       
+		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());
+	        model.addAttribute("participantGroupForm", participantGroupForm);
+	        model.addAttribute("menu","participants");
+	        model.addAttribute("success","true");
+	       /* if (result.hasErrors())
+			{
+				ParticipantsDetailsForm participantsDetailsForm1 = new ParticipantsDetailsForm();
+		        participantsDetailsForm1.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));
+		        model.addAttribute("participantsDetailsForm1", participantsDetailsForm1);
+				   
+					participantGroupForm.setParticipantGroups(partDAO.getGroups());
+			        model.addAttribute("participantGroupForm", participantGroupForm);	
+			        model.addAttribute("menu","participants");
+			        return "edit_participants";
+			}*/
+		return "viewregisterparticipants";
+	}
+	
+
 	
 	
 	//Delete ParticipantGroups
