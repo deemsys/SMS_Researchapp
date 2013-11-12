@@ -51,7 +51,8 @@ public class MainController {
     @Autowired  
 	TwilioSMS messageSender;
 	
-    
+    @Autowired
+    MailTemplateDAO mailTemplateDAO;
     
 	
     private static final Logger logger = LoggerFactory.getLogger(MainController.class); //Logger
@@ -109,6 +110,7 @@ public class MainController {
 	public String loginerror(HttpServletRequest request,ModelMap model) {
 		model.addAttribute("error", "true");
 		return "login";
+		
  
 	}
 	

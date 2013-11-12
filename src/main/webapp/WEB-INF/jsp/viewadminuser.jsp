@@ -51,7 +51,7 @@
 	                  				<td valign="top" align="left" width="16%">Name</td>
 	                  				<td valign="top" align="left" width="20%">E-mail</td>
 	                  				<td valign="top" align="left" width="10%">Mobile</td>
-	                  				<td valign="top" align="left" width="25%">Address</td>
+	                  				
 									<td valign="top" align="left" width="24%">Action</td>
 								</tr>
 								<c:forEach items="${adminuserForm.adminuser}" var="adminuser" varStatus="status">
@@ -60,11 +60,11 @@
 							       		  	<td valign="top" align="left"  width="10%"><a href="admindetails?id=${adminuser.admin_id}">${adminuser.admin_username}</a></td>
 											<td valign="top" align="left" width="15%">${adminuser.admin_email}</td>
 											<td valign="top" align="left" width="10%">${adminuser.admin_mobile}</td>
-											<td valign="top" align="left" width="10%">${adminuser.admin_address}</td>
+											
 											<td>
-											<c:if test="${currentuser.adminuser[0].edituser==1 }">
+											
 											<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editadminuser?id=${adminuser.admin_id}"/>" style="padding-right:10px;">Edit</a>
-									     	</c:if>
+									     	
 									     	<c:choose>
 									     	<c:when test="${adminuser.status==0}">
 									     	<a href="viewparticipants" title=""><img src="resources/images/icons/icon_approve.png" alt="Active" /></a><a href="#"  style="padding-right:20px;" onclick="myActive(${adminuser.admin_id},1)">Activate</a>
@@ -73,12 +73,13 @@
 										 	<a href="viewparticipants" title=""><img src="resources/images/icons/icon_unapprove.png" alt="Suspend" /></a><a href="#" style="padding-right:10px;" onclick="myActive(${adminuser.admin_id},0)">Suspend</a>
 										 	</c:when>										 	
 										 	</c:choose>
-										 	<c:if test="${currentuser.adminuser[0].deleteuser==1 }">
+										 	
+										 	
 										 	
 										 	<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a  href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a>
 												
 									
-										 	</c:if>
+										 	
 										 	
 										 	</td>
 									</tr>

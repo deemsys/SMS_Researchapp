@@ -156,7 +156,7 @@ function validate(form)
 		     </li>
 		     </td><td width="100"></td>
 		     <td>
-		      <li> <a href="" font-color:"white" class="participant" style="text-decoration: none; border-bottom: 1px solid white">Register Provider</a>
+		      <li> <a href="showRegisterProvider" font-color:"white" class="participant" style="text-decoration: none; border-bottom: 1px solid white">Register Provider</a>
 		    </li></td></tr>
 		     </table>
 		      <!-- <li><input name="reset" type="reset" Value="Reset" class="reset-btn" /></li>

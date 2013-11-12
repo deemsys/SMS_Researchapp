@@ -57,41 +57,7 @@
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Mobile :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" name="admin_mobile" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${adminuser.admin_mobile }" /></br><span class="err"><form:errors path="adminuser.admin_mobile"></form:errors></span></td>
                 </tr>
-		<tr class="row1">
-                  <td align="right" valign="middle" class="input_txt"><span class="err">*</span> Address :</td>
-                  <td align="left" valign="top" class="input_txt"><textarea onmouseout="hideTooltip('tooltip_id');" onmouseover="showTooltip('tooltip_id','inp_id5');" id="inp_id5" cols="" rows="5" name="admin_address" class="input_txtarea">${adminuser.admin_address}</textarea></br><span class="err"><form:errors path="adminuser.admin_address"></form:errors></span></td>
-                </tr>
-                <tr class="row2">
-                  <td valign="top" align="right" class="input_txt"> Privileges  :</td>
-                  <td valign="top" align="left" class="input_txt">
-<table cellpadding="0" cellspacing="0" border="0" width="100%">
-<tr class="row3">
-<td><b>Stream</b></td>
-<td><input type="checkbox"  value="1" name="addstream" <c:if test="${adminuser.addstream==1}"><c:out value="Checked"/></c:if>   /> Add  </td>
-<td><input type="checkbox"  value="1" name="editstream" <c:if test="${adminuser.editstream==1}"><c:out value="Checked"/></c:if>   /> Edit</td>
-<td><input type="checkbox"  value="1" name="deletestream"  <c:if test="${adminuser.deletestream==1}"><c:out value="Checked"/></c:if> /> Delete</td>
-<td><input type="checkbox"  value="1" name="broadcaststream" <c:if test="${adminuser.broadcaststream==1}"><c:out value="Checked"/></c:if>   /> Broadcast</td>
-</tr>
-
-<tr class="row3">
-<td><b>Participant</b></td>
-<td><input type="checkbox"  value="1" name="addparticipant" <c:if test="${adminuser.addparticipant==1}"><c:out value="Checked"/></c:if>  /> Add  </td>
-<td><input type="checkbox"  value="1" name="editparticipant"  <c:if test="${adminuser.editparticipant==1}"><c:out value="Checked"/></c:if> /> Edit</td>
-<td colspan="2"><input type="checkbox"  value="1" name="deleteparticipant" <c:if test="${adminuser.deleteparticipant==1}"><c:out value="Checked"/></c:if>  /> Delete</td>
-</tr>
-
-<tr class="row3">
-<td><b>Admin user</b></td>
-<td ><input type="checkbox"  value="1" name="addadminuser" <c:if test="${adminuser.addadminuser==1}"><c:out value="Checked"/></c:if>  /> Add </td>
-<td ><input type="checkbox"  value="1" name="edituser"  <c:if test="${adminuser.edituser==1}"><c:out value="Checked"/></c:if>  />  Edit </td>
-<td colspan="2"><input type="checkbox"  value="1" name="deleteuser"  <c:if test="${adminuser.deleteuser==1}"><c:out value="Checked"/></c:if>  /> Delete </td>
-</tr>
-
-<tr class="row3">
-<td><b>Settings</b></td>
-<td colspan="2"><input type="checkbox"  value="1" name="modifysettings"  <c:if test="${adminuser.modifysettings==1}"><c:out value="Checked"/></c:if> /> Text Message API   </td>
-<td colspan="2"><input type="checkbox"  value="1" name="mailtemplate"  <c:if test="${adminuser.mailtemplate==1}"><c:out value="Checked"/></c:if>  /> Mail Template   </td>
-</tr>
+		
 </table>
 </td>
                 </tr>

@@ -2,6 +2,7 @@ package bephit.controllers;
  
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestHandler;
@@ -183,7 +184,127 @@ public class AdminUserController
 		return "admindetails";
 	}	
 	
+	@RequestMapping(value="/showRegisterProvider", method=RequestMethod.GET)
+	public String showRegisterProvider(HttpServletRequest request,ModelMap model) {
+			
+			model.put("success", "false");
+			
+			AdminUserForm adminuserForm = new AdminUserForm();
+			adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
+	        model.addAttribute("adminuserForm",adminuserForm);
+	        return "registerprovider";
+		}
+	@RequestMapping(value="/registerprovider",method=RequestMethod.GET)
+	public String showAddprovider(HttpServletRequest request,ModelMap model)
+	{
+		model.addAttribute("success","false");
+		
+        AdminUserForm adminuserform=new AdminUserForm();
+        adminuserform.setAdminuser(adminuserDAO.getAdminUser());
+        model.addAttribute("adminuserform",adminuserform);
+        model.addAttribute("menu","adminuser");
+     
+		return "/registerprovider";
+	}
+	/*@RequestMapping(value="/registerprovider", method=RequestMethod.POST)
+	public String showAddProvider(HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
+			BindingResult result,ModelMap model,Principal principal) {	
+
+		 if (result.hasErrors())
+		{
+			 AdminUserForm adminuserform=new AdminUserForm();
+		        adminuserform.setAdminuser(adminuserDAO.getAdminUser());
+		        model.addAttribute("adminuserform",adminuserform);
+		        model.addAttribute("menu","adminuser");
+	       return "registerprovider";
+		} 
+		    AdminUserForm adminuserform=new AdminUserForm();
+	        adminuserform.setAdminuser(adminuserDAO.getAdminUser());
+	        model.addAttribute("adminuserform",adminuserform);
+			adminuserDAO.setAdminUser(adminuser,principal.getName());
+			model.addAttribute("menu","adminuser");
+			return "login";
+		
 	
+	}	*/
 	
+	@RequestMapping(value="/registerprovider", method=RequestMethod.POST)
+	public String addproviderForm(HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
+			BindingResult result,ModelMap model,Principal principal) {
+		model.addAttribute("email_exist","false");
+		model.addAttribute("mobile_exists","false");
+		model.addAttribute("user_exists","false");
+		int email_count=adminuserDAO.checkemail(adminuser.getAdmin_email());
+		int mobile_count=adminuserDAO.checkmobile(adminuser.getAdmin_mobile());
+		int user_count=adminuserDAO.checkuser(adminuser.getAdmin_username());
+		if (result.hasErrors())
+		{
+			
+			System.out.println("if email count: "+email_count);
+			System.out.println(+user_count);
+			System.out.println("mobile: "+mobile_count);
+			
+			if(email_count==0)
+			{
+				System.out.println("email exists");
+				model.addAttribute("email_exist","true");
+				
+			}
+			if(mobile_count==0)
+			{ 
+				System.out.println("mobile exists");
+				model.addAttribute("mobile_exists","true");
+							
+			}
+			if(user_count==0)
+			{
+				System.out.println("user exists");
+				model.addAttribute("user_exists","true");
+							
+			}
+			model.addAttribute("adminuser", adminuser);
+			return "/registerprovider";
+		}
+		
+		else			
+		{
+			System.out.println("else email count: "+email_count);
+			System.out.println(+user_count);
+			System.out.println("else mobile: "+mobile_count);
+			
+			if(email_count==0)
+			{
+				System.out.println("email exists");
+				model.addAttribute("email_exist","true");
+				model.addAttribute("adminuser", adminuser);
+				return "/registerprovider";
+				
+			}
+			else if(mobile_count==0)
+			{ 
+				System.out.println("mobile exists");
+				model.addAttribute("mobile_exists","true");
+				model.addAttribute("adminuser", adminuser);
+				return "/registerprovider";
+							
+			}
+			else if(user_count==0)
+			{
+				System.out.println("user exists");
+				model.addAttribute("user_exists","true");
+				model.addAttribute("adminuser", adminuser);
+				return "/registerprovider";
+							
+			}
+			else
+			{
+				adminuserDAO.setAdminUser(adminuser,"personal");
+				return "/registerprovider";
+			}
+			}
+		
+			
+			
+		}
 	
-}
+	}

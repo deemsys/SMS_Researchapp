@@ -54,7 +54,7 @@
         <!-- Gmail setup for from acct -->
             <props>
                 <prop key="mail.smtp.auth">true</prop>
-              <!--   <prop key="mail.smtp.starttls.enable">true</prop> -->
+                <prop key="mail.smtp.starttls.enable">true</prop>
                 <prop key="mail.smtp.host">smtp.gmail.com</prop>
                 <prop key="mail.smtp.port">587</prop>
             </props>
