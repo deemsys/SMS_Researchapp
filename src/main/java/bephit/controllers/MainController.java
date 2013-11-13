@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; 
  
 @Controller
-@SessionAttributes("currentuser")
+@SessionAttributes({"currentuser","participants"})
 public class MainController {
 	
 	@Autowired  
@@ -43,6 +43,9 @@ public class MainController {
     @Autowired    
     ParticipantGroupDAO partDAO;
  
+    @Autowired
+    MailTemplateDAO mailTemplateDAO;
+    
     @Autowired  
 	EmailSender emailSender;
     
@@ -51,10 +54,7 @@ public class MainController {
     
     @Autowired  
 	TwilioSMS messageSender;
-	
-    @Autowired
-    MailTemplateDAO mailTemplateDAO;
-    
+
 	
     private static final Logger logger = LoggerFactory.getLogger(MainController.class); //Logger
 	
@@ -298,14 +298,29 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 		//validation valid=new validation();
 		String[] errmsges=new String[50];
 	    //errmsges=valid.checkParticipant(participant);	
+<<<<<<< .mine
+		model.put("errmsg",errmsges[0]);
+		
+		int a=mainDAO.setParticipants(participant,"personal");
+=======
 		model.put("errmsg",errmsges[0]);					
 		int a=mainDAO.setParticipants(participant,"personal",groups);
+>>>>>>> .r157
 		System.out.println("a"+a);
+<<<<<<< .mine
+				model.put("success","true");
+				
+				    model.addAttribute("menu","participants");
+				    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+					participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
+=======
 		model.put("success","true");
 		model.addAttribute("menu","participants");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
 	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
+>>>>>>> .r157
 			        model.addAttribute("menu","dashboard");
 			        model.addAttribute("noofrows",mainDAO.getParticipants().size());
 					return "login";
@@ -720,25 +735,41 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 	@RequestMapping(value="/sendforgotpassword", method=RequestMethod.POST)
 	public String sendforgot_password(HttpServletRequest request,ModelMap model) 
 	{	
-		//------------------------------------------------------------------------//
 		
+		int status=mainDAO.sendForgotpassword(request.getParameter("email_id"));
+		
+		if(status==1)
+		{
+			model.addAttribute("success","true");
+			
+			 return "login"; 
+		}
+		else
+		{
+			model.addAttribute("success","false");
+			model.addAttribute("error","Emailid not exists");
+			return "forgotpwd";
+		}
+		
+		//------------------------------------------------------------------------//
+	/*	
 		String mail=request.getParameter("email_id").toString();
 	    System.out.println(mail);
 		logger.info("--Before Sending--"); //Logger Test
         //Email Test
         emailSender.sendEmail(mail, "learnguild@gmail.com", "Hi");
         logger.info("--After Sent--");
-      /*  model.addAttribute("success","true");
-       */ 
-        try{
-        	/*messageSender.sendSMS("6144670389", "Deemsys test");*/
-        }catch(Exception e){e.printStackTrace();}
+        model.addAttribute("success","true");
         
+        try{
+        	messageSender.sendSMS("6144670389", "Deemsys test");
+        }catch(Exception e){e.printStackTrace();}
+        */
         
       //------------------------------------------------------------------------//
         
         
-        return "login";
+      
 		
 		
 		
