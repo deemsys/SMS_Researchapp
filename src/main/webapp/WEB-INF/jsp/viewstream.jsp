@@ -58,12 +58,12 @@
         <td valign="top" align="left" width="15%">${streamDetails.admin_username}</td>
 		<td valign="top" align="center" width="25%">
 		
-		<c:if test="${currentuser.adminuser[0].editstream==1}">
+		<%-- <c:if test="${currentuser.adminuser[0].editstream==1}"> --%>
 		<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="edit_stream?id=${streamDetails.streamId}"/>" style="padding-right:10px;">Edit</a>
-		</c:if>
-		<c:if test="${currentuser.adminuser[0].deletestream==1}">
+		<%-- </c:if>
+		<c:if test="${currentuser.adminuser[0].deletestream==1}"> --%>
 	    <a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deletestream?id=${streamDetails.streamId}"/>" onclick="return confirmation()">Remove</a>
-	    </c:if>
+	   <%--  </c:if> --%>
      </td>
         </tr>
         </c:forEach>

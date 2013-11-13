@@ -84,12 +84,12 @@
 											<td valign="top" align="left" width="10%">${participantsDetails.time2}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.time3}</td>
 											<td>
-											<c:if test="${currentuser.adminuser[0].editparticipant==1}">
+											<%-- <c:if test="${currentuser.adminuser[0].editparticipant==1}"> --%>
 												<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editparticipant?id=${participantsDetails.participants_id}"/>" style="padding-right:10px;">Edit</a>
-												</c:if>
-												<c:if test="${currentuser.adminuser[0].deleteparticipant==1}">
+												<%-- </c:if> --%>
+												<%-- <c:if test="${currentuser.adminuser[0].deleteparticipant==1}"> --%>
 											<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipants?id=${participantsDetails.participants_id}"/>" onclick="return confirmation()">Remove</a>
-											</c:if>
+										<%-- 	</c:if> --%>
 											</td>
 								</tr>
 							    	</c:forEach>
@@ -99,6 +99,47 @@
 							    	<td colspan="7" width="100%"><center><b>No Participants Found!!!</b></center></td>
 							    	</tr>
 							    	</c:if>
+							    	
+							    	<tr><td colspan="7">  <div class="extrabottom">
+              <ul class="pagination">
+         <%--      <% int i=1;int j=0;%> 
+              
+         --%>
+              <c:if test="${currentpage!=1&&currentpage!=null}">
+               <li class="page_unselect"><a href="viewparticipant_page?page=${currentpage - 1}" >Prev</a></li> 
+               </c:if>
+              
+             <%-- <c:forEach var="count" begin="1" end="${noofrows}">  --%>
+               <c:forEach begin="1" end="${noofpages}" var="i">
+                <c:choose>
+                    <c:when test="${currentpage eq i}">
+                      <li class="page"><a class="paging_select"><c:out value="${i}"></c:out></a></li>
+                     </c:when>
+                    <c:otherwise>
+                        <li class="page_unselect"><a href="viewparticipant_page?page=${i}"><c:out value="${i}"></c:out></a></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>          
+            <c:if test="${currentpage!=noofpages}">
+              <li class="page_unselect"><a href="viewparticipant_page?page=${currentpage+1}">Next</a></li> 
+                 </c:if>
+              <c:choose>
+              <c:when test="${button=='viewall'}">
+                  <li class="page"><a href="viewall" class="paging_select">ViewAll</a></li>
+             </c:when>
+                <c:otherwise>
+                  <li class="page"><a href="welcome" class="paging_select">Back</a></li>
+              </c:otherwise>
+              
+              </c:choose>
+         
+          
+                </ul></div></td></tr>
+							    	
+							    	
+							    	
+							    	
+							    	
 							  
 						</table>
 						
