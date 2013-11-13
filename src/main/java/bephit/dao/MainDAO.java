@@ -37,7 +37,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET message ='"+participant.getmessage()+"' WHERE participants_id='56'";
+	    	String cmd="UPDATE participants_table SET message ='"+participant.getmessage()+"' WHERE participants_id='65'";
 	    	
 	    	String Desc="Update participant "+participant.getFname();
 	    	
@@ -69,7 +69,129 @@ public class MainDAO {
     		return 0;
 	
 	}
+	
 
+	public int setParticipants(ParticipantsDetails participant, String admin_id,String[] groups) {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag = 0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		// List<ParticipantsDetails> participants = new
+		// ArrayList<ParticipantsDetails>();
+		try {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			System.out.println("providername"+participant.getProvider_name());
+			// System.out.println(dateFormat.format(date));
+			String cmd = "INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
+					+ participant.getFname()
+					+ "','"
+					+ participant.getLname()
+					+ "','"
+					+ participant.getMobile_num()
+					+ "','"
+					+ participant.getGender()
+					+ "','"
+					+ participant.getCity()
+					+ "','"
+					+ participant.getEducation()
+					+ "','"
+					+ participant.getMedical_details()
+					+ "','"
+					+ participant.getTime1()
+					+ "','"
+					+participant.getTime2()
+					+"','"
+					+participant.getTime3()
+					+"','"
+					+participant.getProvider_name()
+					+"','"
+					+ participant.getGroup_name()
+					+ "','"
+					+ participant.getAge()
+					+ "','"
+					+ dateFormat.format(date)
+					+ "','" + participant.getEmail_id() + "','0')";
+			System.out.println(cmd);
+			statement.executeUpdate(cmd);
+			System.out.println("insertcmd"+cmd);
+			
+			resultSet= statement.executeQuery("select  max(participants_id) as participant from participants_table;");
+			String participants="";
+			if(resultSet.next())
+				{
+				participants=resultSet.getString("participant");
+				}
+			System.out.println("participants........."+participants);			
+			List<String> strlist = new ArrayList<String>();
+			List<String> strlist1 = new ArrayList<String>();
+					
+			for(String group :groups)				
+				{	
+		    	resultSet= statement.executeQuery("select group_id,group_name from participant_group_table where group_name='"+group+"'");   
+			     int i=0;
+					while(resultSet.next())
+					{
+						strlist.add(i,resultSet.getString("group_id"));
+						strlist1.add(i,resultSet.getString("group_name"));
+						i++;
+					}
+				}
+		 int count=groups.length;
+		 System.out.println("count"+count);
+		
+			System.out.println("group_id"+strlist);
+			System.out.println("group_name"+strlist1);
+		for(int i=0;i<count;i++)
+		{	
+			String cmd_mess="insert into participant_group(group_id,group_name,participant_id) values('"+strlist.get(i)+"','"+strlist1.get(i)+"','"+participants+"')";
+			statement.execute(cmd_mess);
+			System.out.println("cmd_mess"+cmd_mess);
+	     }			
+			/*
+			 * String cmd_getparticipantname=
+			 * "select fname from participants_table where participants_id='"
+			 * +participant_id+"'";
+			 * resultSet=statement.executeQuery(cmd_getparticipantname);
+			 */
+		     String Desc = "added participants" + participant.getFname();
+			/*
+			 * if(resultSet.next()) Desc=Desc+resultSet.getString(1);
+			 */
+		     String cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"
+					+ admin_id
+					+ "','127.0.0.1','"
+					+ dateFormat.format(date)
+					+ "','" + Desc + "')";
+			System.out.println(cmd_activity);
+			statement.execute(cmd_activity);
+			flag = 1;
+		
+		}
+		catch (Exception e) {
+			System.out.println(e.toString());
+			releaseStatement(statement);
+			releaseConnection(con);
+			flag = 0;
+			// return 0;
+		} 
+		finally {
+			releaseStatement(statement);
+			releaseConnection(con);
+
+		}
+		if (flag == 1)
+			return 1;
+		else
+			return 0;
+}
+	
 	public int setParticipants(ParticipantsDetails participant, String admin_id) {
 		Connection con = null;
 		Statement statement = null;
@@ -120,6 +242,7 @@ public class MainDAO {
 			System.out.println(cmd);
 			statement.executeUpdate(cmd);
 			System.out.println("insertcmd"+cmd);
+			
 			/*
 			 * String cmd_getparticipantname=
 			 * "select fname from participants_table where participants_id='"
@@ -153,6 +276,7 @@ public class MainDAO {
 			return 0;
 
 	}
+
 
 	public int updateParticipants(ParticipantsDetails participant,String participants_id,String admin)
 	{
