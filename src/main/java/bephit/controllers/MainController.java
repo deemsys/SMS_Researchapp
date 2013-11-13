@@ -298,29 +298,18 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 		//validation valid=new validation();
 		String[] errmsges=new String[50];
 	    //errmsges=valid.checkParticipant(participant);	
-<<<<<<< .mine
 		model.put("errmsg",errmsges[0]);
 		
-		int a=mainDAO.setParticipants(participant,"personal");
-=======
-		model.put("errmsg",errmsges[0]);					
+				model.put("errmsg",errmsges[0]);					
 		int a=mainDAO.setParticipants(participant,"personal",groups);
->>>>>>> .r157
 		System.out.println("a"+a);
-<<<<<<< .mine
 				model.put("success","true");
 				
 				    model.addAttribute("menu","participants");
 				    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 					participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
-=======
-		model.put("success","true");
-		model.addAttribute("menu","participants");
-		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
->>>>>>> .r157
+			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		
 			        model.addAttribute("menu","dashboard");
 			        model.addAttribute("noofrows",mainDAO.getParticipants().size());
 					return "login";
