@@ -311,7 +311,7 @@
 													:</td>
 												<td valign="top" align="left" class="input_txt">
 												<select
-													name="group_name" multiple>
+													name="group_name" multiple="multiple">
 														<c:forEach
 															items="${participantGroupForm.participantGroups}"
 															var="participantGroups" varStatus="status">
@@ -332,7 +332,7 @@
 								</tr>
 							</table>
 							
-							<table align="right"><tr><td><input type="submit" class="submit_btn" value="Register" name="insert"></td></form>
+							<table align="right"><tr><td><input type="submit" class="submit_btn" value="Register" name="insert"></td>
 							<td width="50"></td><td><input type="reset" value="Reset" class="submit_btn"></td><td width="50">
 							<td><a href="login" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
 				<%-- </td>
