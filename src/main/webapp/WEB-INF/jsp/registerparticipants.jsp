@@ -42,30 +42,30 @@
 
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">
 								<tr>
-									<td align="left" valign="top" width="50%"
-										style="padding-right: 25px;">
+									<td align="left" valign="top" width="50%" style="padding-right: 25px;">
 										<h2 class="quck-txt">Quick Info</h2>
 										<table cellpadding="0" cellspacing="0" border="0" width="100%">
-											<tr class="row1">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> First Name :</td>
-												<td valign="top" align="left" class="input_txt"><input
-													type="text" class="input_txtbx1" id="fname" name="fname" /><br />
+											<tr class="row2">
+												<td valign="middle" align="left" class="input_txt"><span class="err">*</span> First Name :</td>
+												<td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="fname" onmouseover="showTooltip('tooltip_id','inp_id3');"
+													onmouseout="hideTooltip('tooltip_id');" name="fname" /><br />
 													<font color="Red" size="+1"> <span id="spnfname">
 															<form:errors path="participant.fname"></form:errors>
 													</span></font></td>
 
 											</tr>
 
+											
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Last Name :</td>
+													class="err">*</span><span
+													class="err"></span> User Name :</td>
 												<td valign="top" align="left" class="input_txt"><input
-													type="text" class="input_txtbx1" id="lname"
+													type="text" class="input_txtbx1" id="username"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
-													onmouseout="hideTooltip('tooltip_id');" name="lname" /> </br> <font
-													color="Red" size="+1"><span id="spnlname"></span> <form:errors
-															path="participant.lname"></form:errors> </font></td>
+													onmouseout="hideTooltip('tooltip_id');" name="username" /> </br>
+													 <c:if test="${user_exists ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>User name already exists  <form:errors
+															path="participant.username"></form:errors></c:if> </font></td>
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
@@ -74,7 +74,13 @@
 													type="text" class="input_txtbx1" id="mno"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');"
-													value="${mobile_num}" name="mobile_num" /></br> <font
+													value="${mobile_num}" name="mobile_num" /></br> 
+												<c:if test="${mobile_exists ==true}">
+													<font
+													color="Red" size="+1"><span id="spnlname"></span>Mobile name already exists </font>
+													</c:if>	
+															
+												<font
 													color="Red" size="+1"><span id="spnmno"><form:errors
 																path="participant.mobile_num"></form:errors> </span></font></td>
 											</tr>
@@ -85,6 +91,10 @@
 													type="text" class="input_txtbx1" id="eid"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="email_id" /></br>
+												<c:if test="${email_exist ==true}">
+													<font
+													color="Red" size="+1"><span id="spnlname"></span>Email id already exists </font>
+													</c:if>	
 													<font color="Red" size="+1"><span id="spneid"><form:errors
 																path="participant.email_id"></form:errors> </span></font></td>
 											</tr>
@@ -209,7 +219,10 @@
 														
 															
 												</select><br/>
-												</td>
+																								
+												<font color="Red" size="+1"><span
+														id="spnedu"><form:errors
+																path="participant.time1"></form:errors> </span></font></td>
 											</tr>
                                                <tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
@@ -243,7 +256,9 @@
 														
 															
 												</select><br/>
-												</td>
+																							<font color="Red" size="+1"><span
+														id="spnedu"><form:errors
+																path="participant.time2"></form:errors> </span></font></td>
 											</tr>
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
@@ -276,8 +291,10 @@
 														<option value="23-00" id="time">23-00</option>
 														
 															
-												</select><br/>
-												</td>
+												</select><br/>																						
+												<font color="Red" size="+1"><span
+														id="spnedu"><form:errors
+																path="participant.time3"></form:errors> </span></font></td>
 											</tr>
 											
 											<tr>
