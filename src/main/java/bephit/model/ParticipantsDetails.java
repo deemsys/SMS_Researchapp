@@ -19,8 +19,9 @@ public class ParticipantsDetails {
 	@NotEmpty
 	private String fname;
 	
-	
-	private String lname;
+		
+	@NotEmpty
+	private String username;
 	
 	@NotEmpty
 	@Length(max=10,min=10,message="Phone number is not valid. Should be of length 10.")
@@ -71,7 +72,7 @@ public class ParticipantsDetails {
  
     public ParticipantsDetails(String participants_id,
     		String fname,
-    		String lname,
+    		String username,
     		String mobile_num,
     		String gender,
     		String city,
@@ -89,7 +90,7 @@ public class ParticipantsDetails {
     		String message) {
 		this.participants_id = participants_id;
 		this.fname = fname;
-		this.lname = lname;
+		this.username=username;
 		this.mobile_num = mobile_num;
 		this.gender = gender;
 		this.city = city;
@@ -117,6 +118,12 @@ public class ParticipantsDetails {
     public void setmessage(String message) {
 		this.message = message;
 	}
+    public String getusername() {
+		return username;
+	}
+	public void setusername(String username) {
+		this.username = username;
+	}
     
 	public String getParticipants_id() {
 		return participants_id;
@@ -129,13 +136,7 @@ public class ParticipantsDetails {
 	}
 	public void setFname(String fname) {
 		this.fname = fname;
-	}
-	public String getLname() {
-		return lname;
-	}
-	public void setLname(String lname) {
-		this.lname = lname;
-	}
+	}	
 	public String getMobile_num() {
 		return mobile_num;
 	}
