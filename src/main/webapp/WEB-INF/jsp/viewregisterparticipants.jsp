@@ -1,14 +1,29 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="participantheader.jsp"></jsp:include>
+<%@include file="participantheader.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="right_content">
+<table cellpadding="0" cellspacing="0" border="0" width="98%"
+			class="margin_table" id="su">
 
+			<c:if test="${success==true}">
+				<tr>
+					<td valign="top" align="left" style="padding: 5px 0 10px 0;">&nbsp;
+						<div id="success_statusbar" class="status success">
+							<p class="closestatus">
+								<a title="Close" href="viewregisterparticipants">x</a>
+							</p>
+							<p>
+								<img alt="Success" src="resources/images/icons/icon_success.png"><span>Success!</span>.
+							</p>
+						</div>
+				</tr>
+			</c:if>
 
+		</table>
 
-<form method="post" action="">
-  <div id="right_content">
-    <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
       <tr>
         <td valign="top" align="left" style="padding:5px 0 10px 0;"></td>
       </tr>
@@ -18,18 +33,9 @@
               <h2>Participants Details</h2>
             </div>
             <div class="contentbox">
-              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">         
             
-            
-            
-   <%--            <c:forEach items="${currentuser.participantsDetails}" var="currentuser" varStatus="status">
-   --%>          <%--  <tr class="row2">
-                  <td width="15%" valign="middle" align="left" > Current User: </td>
-                    <td width="1%" valign="middle" align="left" >  :</td>
-                 <td width="84%" valign="top" align="left" >${currentuser.adminuser[0].admin_username}</td>
-                </tr>  --%>
-          <%--   </c:forEach>  
-          --%>      
+    
              <c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
                    <tr class="row2">
                   <td width="15%" valign="middle" align="left" > First Name </td>
@@ -94,47 +100,13 @@
                   <td width="15%" valign="middle" align="left" > Date Of Join </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.date_of_join}</td>
-                </tr>   
-              
-              
-                       
-              
-              
-              
-              
-             	</c:forEach>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-              </table>
-          
-            </div>
-          </div>
+                </tr>           
+</c:forEach> 
+</table>
+ </div>
+</div>
           </td>
       </tr>
       </table>
       </div>
-</form>
-
-
-
-
-
 <jsp:include page="footer.jsp"></jsp:include>
