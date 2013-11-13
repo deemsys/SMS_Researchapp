@@ -51,10 +51,11 @@
                   <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.email_id}" name="email_id" /></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.email_id"></form:errors></span> </font></td>
                 </tr> 
 
-	
 		<tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Gender :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="radio" name="gender" value="0" class="input_txt" checked/>Male&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="1" class="input_txt"/> Female&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="2" class="input_txt">Transgender</td>
+                  <td valign="top" align="left" class="input_txt">
+                  <input type="radio" name="gender" value="0"  class="input_txt" <c:if test="${participantsDetails.gender=='0'}"><c:out value="checked=checked"/></c:if>>Male&nbsp;&nbsp;&nbsp;  <c:out value="${participantDetails.gender}"/>
+                  <input type="radio" name="gender" value="1"  class="input_txt" <c:if test="${participantsDetails.gender=='1'}"><c:out value="checked=checked"/></c:if>> Female</td>
                 </tr>
 		 <tr class="row1">
                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Age :</td>
@@ -234,7 +235,7 @@
 				<option value="21-22" id="time">21-22</option> <c:if test="${participantsDetails.time1=='21-22'}"><c:out value="selected"/></c:if>21-22</option>
 				<option value="22-23" id="time">22-23</option><c:if test="${participantsDetails.time1=='22-23'}"><c:out value="selected"/></c:if>22-23</option>
 				<option value="23-00" id="time">23-00</option><c:if test="${participantsDetails.time1=='23-00'}"><c:out value="selected"/></c:if>23-00</option>
-                   
+                      
                    </select></td>
                 </tr>
                 
