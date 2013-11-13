@@ -6,7 +6,8 @@
 	type="text/css" />
 <link href="<c:url value="/resources/css/inner-clr.css" />"
 	rel="stylesheet" type="text/css" />
- 
+ <link href="<c:url value="/resources/css/switch.css" />"
+	rel="stylesheet" type="text/css" />
 <div id="right_content">
 
 	<form action="updateparticipantmessage" method="POST" name="update" id="update">
@@ -19,10 +20,10 @@
 					<td valign="top" align="left" style="padding: 5px 0 10px 0;">&nbsp;
 						<div id="success_statusbar" class="status success">
 							<p class="closestatus">
-								<a title="Close" href="">x</a>
+								<a title="Close" href="viewregisterparticipants">x</a>
 							</p>
 							<p>
-								<img alt="Success" src="resources/images/icons/icon_success.png"><span>Success!</span>.
+								<img alt="Success" src="resources/images/icons/icon_success.png"><span>Updated Successfully!</span>.
 							</p>
 						</div>
 				</tr>
@@ -47,10 +48,15 @@
 										<table align="center" cellpadding="0" cellspacing="0" border="0" width="1000">
 											<tr class="row1">
 												<td class="input_text"><span class="err">*</span> Receive Message :</td>
-												<td><input type="radio" name="message" value="1" checked="true"/> Start Message</td>
-												<td><input type="radio" name="message" value="0">Stop Message<font color="Red" size="+1"> <span id="spnfname">
-											  
-								</span></font></td>
+												<td> <div class="onoffswitch">
+    <input type="checkbox" name="message" value="1"   class="onoffswitch-checkbox" id="myonoffswitch" <c:if test="${participant.message==1}"><c:out value="Checked"/></c:if> > 
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <div class="onoffswitch-inner"></div>
+        <div class="onoffswitch-switch"></div></td>
+    </label>
+</div>
+											   
+								<!-- </span></font> -->
 
 											</tr>
 											<tr><td height="100"></td><tr>
@@ -69,7 +75,7 @@
 							
 							<table align="right"><tr><td><input type="submit" class="submit_btn" value="Submit" name="insert"></td></form>
 							<td width="50"></td><td><input type="reset" value="Reset" class="submit_btn"></td><td width="50">
-							<td><a href="login" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
+							<td><a href="viewregisterparticipants" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
 				<%-- </td>
 			</tr>
 		</table>
