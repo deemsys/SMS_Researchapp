@@ -19,50 +19,97 @@ import javax.mail.internet.MimeMessage;
 @Component("emailSender")
 public class EmailSender {
 
-    @Autowired
-    private JavaMailSender mailSender;
+	@Autowired
+	private JavaMailSender mailSender;
 
-    @Autowired
-    private VelocityEngine velocityEngine;
-    
-    public static final String TEMPLATE_NAME = "sample_template.vm";
+	@Autowired
+	private VelocityEngine velocityEngine;
 
+	public static final String TEMPLATE_NAME = "sample_template.vm";
 
-    public void sendEmail(final String toEmailAddresses, final String fromEmailAddress, final String subject) {
-        sendEmail(toEmailAddresses, fromEmailAddress, subject, null, null);
-    }
+	public void sendEmail(final String toEmailAddresses,
+			final String fromEmailAddress, final String subject) {
+		sendEmail(toEmailAddresses, fromEmailAddress, subject, null, null);
+	}
 
-    public void sendEmailWithAttachment(final String toEmailAddresses, final String fromEmailAddress,
-                                        final String subject, final String attachmentPath,
-                                        final String attachmentName) {
-        sendEmail(toEmailAddresses, fromEmailAddress, subject, attachmentPath, attachmentName);
-    }
+	public void sendEmailWithAttachment(final String toEmailAddresses,
+			final String fromEmailAddress, final String subject,
+			final String attachmentPath, final String attachmentName) {
+		sendEmail(toEmailAddresses, fromEmailAddress, subject, attachmentPath,
+				attachmentName);
+	}
 
-    private void sendEmail(final String toEmailAddresses, final String fromEmailAddress,
-                           final String subject, final String attachmentPath,
-                           final String attachmentName) {
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
-            public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
-                message.setTo(toEmailAddresses);
-                message.setFrom(new InternetAddress(fromEmailAddress));
-                message.setSubject(subject);
-                //Pass values to Template
-                Map<String, String> model = new HashMap<String, String>();
-                String participantName = "Deemsys"; //select from databse
-                String fromName = "Suresh"; //get from Mail settings Table
-                model.put("toName", participantName);
-                model.put("fromName", fromName);
-              //Pass values to Template End
-                String body = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, "templates/" + TEMPLATE_NAME, "UTF-8", model);
-                message.setText(body, true);
-                if (!StringUtils.isBlank(attachmentPath)) {
-                    FileSystemResource file = new FileSystemResource(attachmentPath);
-                    message.addAttachment(attachmentName, file);
-                }
-            }
-        };
-        this.mailSender.send(preparator);
-    }
+	private void sendEmail(final String toEmailAddresses,
+			final String fromEmailAddress, final String subject,
+			final String attachmentPath, final String attachmentName) {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage,
+						true);
+				message.setTo(toEmailAddresses);
+				message.setFrom(new InternetAddress(fromEmailAddress));
+				message.setSubject(subject);
+				// Pass values to Template
+				Map<String, String> model = new HashMap<String, String>();
+				String participantName = "Deemsys"; // select from databse
+				String fromName = "Suresh"; // get from Mail settings Table
+				model.put("toName", participantName);
+				model.put("fromName", fromName);
+				// Pass values to Template End
+				String body = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, "templates/" + TEMPLATE_NAME, "UTF-8",
+						model);
+				message.setText(body, true);
+				if (!StringUtils.isBlank(attachmentPath)) {
+					FileSystemResource file = new FileSystemResource(
+							attachmentPath);
+					message.addAttachment(attachmentName, file);
+				}
+			}
+		};
+		this.mailSender.send(preparator);
+	}
+
+	// Password Sending starts
+	public void password_sendEmail(final String toEmailAddresses,
+			final String fromEmailAddress, final String subject,
+			final String Firstname, final String Username, final String Password) {
+		pswd_sendEmail(toEmailAddresses, fromEmailAddress, subject, Firstname,
+				Username, Password);
+	}
+
+	private void pswd_sendEmail(final String toEmailAddresses,
+			final String fromEmailAddress, final String subject,
+			final String Firstname, final String Username, final String Password) {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() 
+		{
+			public void prepare(MimeMessage mimeMessage) throws Exception
+			{
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage,
+						true);
+				message.setTo(toEmailAddresses);
+				message.setFrom(new InternetAddress(fromEmailAddress));
+				message.setSubject(subject);
+				// Pass values to Template
+				Map<String, String> model = new HashMap<String, String>();
+				model.put("firstName", Firstname);
+				model.put("userName", Username);
+				model.put("password", Password);
+				model.put("fromName","Deemsys");
+				// Pass values to Template End
+				String body = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, "templates/" + TEMPLATE_NAME, "UTF-8",
+						model);
+				message.setText(body, true);
+				/*if (!StringUtils.isBlank(attachmentPath)) {
+					FileSystemResource file = new FileSystemResource(
+							attachmentPath);
+					message.addAttachment(attachmentName, file);*/
+			
+			}
+		};
+		this.mailSender.send(preparator);
+	}
+	// Password Sending ends
+
 }
