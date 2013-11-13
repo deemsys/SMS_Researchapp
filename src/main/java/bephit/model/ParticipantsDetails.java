@@ -38,8 +38,10 @@ public class ParticipantsDetails {
 	
 	@NotEmpty
 	private String time1;
+	
 	@NotEmpty
 	private String time2;
+	
 	@NotEmpty
 	private String time3;
 	
@@ -60,7 +62,8 @@ public class ParticipantsDetails {
 	private String email_id;
 	
 	private String created_by;
-	@NotEmpty
+	
+	 
 	private String message;
 	
 	public ParticipantsDetails() {
@@ -105,7 +108,11 @@ public class ParticipantsDetails {
 		this.message=message;
     }
     public String getmessage() {
-		return message;
+    	if(message==null)    	 
+    		return "0";    	 
+    	else
+    	return message;
+    	 
     }
     public void setmessage(String message) {
 		this.message = message;
