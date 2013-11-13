@@ -1,6 +1,7 @@
 package bephit.controllers;
  
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.validation.BindingResult;
@@ -261,13 +262,24 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 					return "dashboard";
 		
 	}
-	@RequestMapping(value="/registerparticipants", method=RequestMethod.POST)
+	
+	@RequestMapping(value="/registerparticipants", method=RequestMethod.POST)	
 	public String showAddParticipants1(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model,Principal principal) {		
-		
+		List<String> groupname=new ArrayList<String>();
+		String[] groups=new String[100];
+		groups=request.getParameterValues("group_name");		
+		int count=groups.length;
+		System.out.println("Message Count-------"+count);
+		for(int i=0;i<count;i++)
+		{
+			System.out.println("loop groupname"+groups[i]);
+		}		
 		model.addAttribute("participantsDetailsForm", participant);
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());	
+		/*List<String> groupname=partDAO.getGroupid(groups);
+		System.out.println("groupname--------"+groupname);*/
         model.addAttribute("participantGroupForm", participantGroupForm);
         AdminUserForm adminuserform=new AdminUserForm();
         adminuserform.setAdminuser(adminuserdao.getAdminUser());
@@ -280,27 +292,24 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 	        model.addAttribute("participantGroupForm1", participantGroupForm1);
 	        model.addAttribute("menu","participants");
 	       return "registerparticipants";
-		} 
-		
+		} 	
 		
 		model.put("participant", participant);		
 		//validation valid=new validation();
 		String[] errmsges=new String[50];
 	    //errmsges=valid.checkParticipant(participant);	
-		model.put("errmsg",errmsges[0]);
-		
-		int a=mainDAO.setParticipants(participant,principal.getName());
+		model.put("errmsg",errmsges[0]);					
+		int a=mainDAO.setParticipants(participant,"personal",groups);
 		System.out.println("a"+a);
-				model.put("success","true");
-				
-				 model.addAttribute("menu","participants");
-				    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-					participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
+		model.put("success","true");
+		model.addAttribute("menu","participants");
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);	
 			        model.addAttribute("menu","dashboard");
 			        model.addAttribute("noofrows",mainDAO.getParticipants().size());
 					return "login";
-		
+	
 	}
 	
 		
@@ -320,16 +329,16 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 	}
 	@RequestMapping(value="/viewregisterparticipants", method=RequestMethod.GET)
 	public String viewregisterParticipants(HttpServletRequest request,ModelMap model, Principal principal) {
-		 model.addAttribute("success","false");
+		model.addAttribute("success","false");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-		String participantid="54";
+		String participantid="65";
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participantid));
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("menu","participants");
         ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
-        model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
+        //model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
         
 		return "viewregisterparticipants";
 	}
@@ -339,10 +348,12 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 			BindingResult result,ModelMap model,Principal principal) {
 		 model.addAttribute("success","false");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
-		mainDAO.updateparticipantmessage(participant, participant.getParticipants_id(),principal.getName());
+		String Participantid="65";
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(Participantid));
+		mainDAO.updateparticipantmessage(participant, participant.getParticipants_id(),"personal");
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("menu","settings");
+        model.addAttribute("success","true");
         /*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
@@ -447,7 +458,7 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 	@RequestMapping(value="/editregisterparticipant", method=RequestMethod.GET)
 	public String editregisterparticipantsettings(HttpServletRequest request,ModelMap model) {
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-		String participants_id="55";
+		String participants_id="65";
         participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
@@ -541,8 +552,6 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 	        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 			    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 				participantGroupForm.setParticipantGroups(partDAO.getGroups());
-		        model.addAttribute("participantGroupForm", participantGroupForm);	
-		        model.addAttribute("menu","participants");
 		        return "edit_participants";
 		}
 		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName());
@@ -563,18 +572,16 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 			BindingResult result,ModelMap model,Principal principal)
 	{
 		
-		String participants="55";
-		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants));
+		String participants="65";
+		
         AdminUserForm adminuserform=new AdminUserForm();
-        adminuserform.setAdminuser(adminuserdao.getAdminUser());    
-        
-		
-		
-		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName());
+        adminuserform.setAdminuser(adminuserdao.getAdminUser());         
+		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),"participant");
 		System.out.println("status"+status);
-		 model.addAttribute("adminuserform",adminuserform);	       
-		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		 model.addAttribute("adminuserform",adminuserform);	  
+		 ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+	    participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants));
+		 model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 			participantGroupForm.setParticipantGroups(partDAO.getGroups());
 	        model.addAttribute("participantGroupForm", participantGroupForm);
@@ -593,7 +600,6 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 			}*/
 		return "viewregisterparticipants";
 	}
-	
 
 	
 	
