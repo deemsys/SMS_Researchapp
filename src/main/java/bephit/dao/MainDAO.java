@@ -13,6 +13,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import bephit.model.ParticipantsDetails;
 
 public class MainDAO {
@@ -110,7 +113,7 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
-					+participant.getProvider_name()
+					+admin_id
 					+"','"
 					+ participant.getGroup_name()
 					+ "','"
@@ -196,6 +199,12 @@ public class MainDAO {
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		int flag = 0;
 		try {
 			con = dataSource.getConnection();
@@ -231,14 +240,14 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
-					+admin_id
+					+userName
 					+"','"
 					+ participant.getGroup_name()
 					+ "','"
 					+ participant.getAge()
 					+ "','"
 					+ dateFormat.format(date)
-					+ "','" + participant.getEmail_id() + "','0')";
+					+ "','" + participant.getEmail_id() + "','"+userName+"')";
 			System.out.println(cmd);
 			statement.executeUpdate(cmd);
 			System.out.println("insertcmd"+cmd);
@@ -260,6 +269,7 @@ public class MainDAO {
 			statement.execute(cmd_activity);
 			flag = 1;
 		} catch (Exception e) {
+			
 			System.out.println(e.toString());
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -330,16 +340,28 @@ public class MainDAO {
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		
 		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 		try {
+			String cmd;
+			
+			cmd="select * from participants_table where created_by='"+userName+"'";
 			resultSet = statement
-					.executeQuery("select * from participants_table");
+					.executeQuery(cmd);
+			System.out.print("username"+userName);
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet

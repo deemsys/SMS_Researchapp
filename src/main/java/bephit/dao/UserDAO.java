@@ -98,7 +98,7 @@ public class UserDAO {
 	    	
 	    	
 	    	
-            String cmd_roles="INSERT INTO `deemsyspro_deem`.`user_roles`(`USER_ID`,`AUTHORITY`) VALUES('"+resultSet.getString("maxuser")+"','ROLE_USER')";
+            String cmd_roles="INSERT INTO `deemspro_deem`.`user_roles`(`USER_ID`,`AUTHORITY`) VALUES('"+resultSet.getString("maxuser")+"','ROLE_USER')";
 	    	System.out.println(cmd);
 	    	System.out.println(cmd_roles);
 			statement.execute(cmd_roles);
