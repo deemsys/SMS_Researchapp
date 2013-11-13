@@ -43,9 +43,9 @@
                   <td width="84%" valign="top" align="left" >${participantsDetails.fname}</td>
                 </tr>
               <tr class="row1">
-                  <td width="15%" valign="middle" align="left" > Last Name </td>
+                  <td width="15%" valign="middle" align="left" > User Name </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
-                  <td width="84%" valign="top" align="left" >${participantsDetails.lname}</td>
+                  <td width="84%" valign="top" align="left" >${participantsDetails.username}</td>
                 </tr>
 		
 		<tr class="row2">
