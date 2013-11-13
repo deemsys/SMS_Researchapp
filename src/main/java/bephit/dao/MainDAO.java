@@ -91,8 +91,169 @@ public class MainDAO {
     		return 0;
 	
 	}
+	public  int checkuser(String admin_username)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		//List<AdminUser> adminuser = new ArrayList<AdminUser>();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	   
+	      String cmd_userlist="Select count(*) as counting from participants_table where username='"+admin_username+"'";
+          resultSet=statement.executeQuery(cmd_userlist);
+          resultSet.next();
+          int counts=Integer.parseInt(resultSet.getString("counting"));
+          System.out.println(counts);
+          if(counts>0)
+          {
+        	  return 0;
+          }
+          else
+          {
+              return 1;
+          }
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	
+	    	return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    
+	}
+
+	public  int checkemail(String admin_email,int from,String participantid)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	    
+	      String cmd_emaillist="";
+	          
+	      if(from==0)
+	       	     cmd_emaillist="Select count(*) as counting from participants_table where email_id='"+admin_email+"'";
+	      else if(from==1)
+	    	  cmd_emaillist="Select count(*) as counting from participants_table where email_id='"+admin_email+"' && participants_id!='"+participantid+"'";
+	 	     	  
+          resultSet=statement.executeQuery(cmd_emaillist);
+          resultSet.next();
+          int count=Integer.parseInt(resultSet.getString("counting"));
+          System.out.println(count);
+         if(count>0)
+          {
+        	  return 0;
+          }
+          else
+          {
+              return 1;
+          }
+          
+          /*else
+          {
+        	  ResultSet rs=statement.executeQuery("Select count(*) as counting from participants_table where email_id='"+admin_email+"' and participant_id!='"+participantid+"'" );
+    		  rs.next();
+              int count1=Integer.parseInt(resultSet.getString("counting"));
+        	  if(count1>0)
+              {        		 
+        		  return 0;
+              }
+              else
+              {
+                 return 1; 
+              }
+          }*/
+          
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	
+	    return 0;	
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+		
+	    
+	}
+	
+	public  int checkmobile(String admin_mobile)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		//List<AdminUser> adminuser = new ArrayList<AdminUser>();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	   
+	      String cmd_mobilelist="Select count(*) as counting from participants_table where mobile_num='"+admin_mobile+"'";
+          resultSet=statement.executeQuery(cmd_mobilelist);
+          resultSet.next();
+          int counts=Integer.parseInt(resultSet.getString("counting"));
+          System.out.println(counts);
+          if(counts>0)
+          {
+        	  return 0;
+          }
+          else
+          {
+              return 1;
+          }
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	
+	    	return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    
+	}
 	
 
+	
 	public int setParticipants(ParticipantsDetails participant, String admin_id,String[] groups) {
 		Connection con = null;
 		Statement statement = null;
@@ -111,10 +272,10 @@ public class MainDAO {
 			Date date = new Date();
 			System.out.println("providername"+participant.getProvider_name());
 			// System.out.println(dateFormat.format(date));
-			String cmd = "INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
-					+ participant.getFname()
-					+ "','"
-					+ participant.getLname()
+			String cmd = "INSERT INTO `participants_table` (`fname`,`username`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
+					+ participant.getFname()					
+					+"','"
+					+participant.getusername()
 					+ "','"
 					+ participant.getMobile_num()
 					+ "','"
@@ -238,10 +399,8 @@ public class MainDAO {
 			Date date = new Date();
 			System.out.println("providername"+participant.getProvider_name());
 			// System.out.println(dateFormat.format(date));
-			String cmd = "INSERT INTO `participants_table` (`fname`,`lname`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
+			String cmd = "INSERT INTO `participants_table` (`fname`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
 					+ participant.getFname()
-					+ "','"
-					+ participant.getLname()
 					+ "','"
 					+ participant.getMobile_num()
 					+ "','"
@@ -323,7 +482,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',lname ='"+participant.getLname()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name='"+participant.getProvider_name()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name='"+participant.getProvider_name()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
 	    	String Desc="Update participant "+participant.getFname();
 	    	
 	    	
@@ -384,7 +543,7 @@ public class MainDAO {
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet
-						.getString("fname"), resultSet.getString("lname"),
+						.getString("fname"), resultSet.getString("username"),
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
@@ -495,7 +654,7 @@ public class MainDAO {
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet
-						.getString("fname"), resultSet.getString("lname"),
+						.getString("fname"),resultSet.getString("username"),
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
@@ -632,7 +791,7 @@ public class MainDAO {
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet
-						.getString("fname"), resultSet.getString("lname"),
+						.getString("fname"),resultSet.getString("username"),
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
@@ -680,7 +839,7 @@ public class MainDAO {
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet
-						.getString("fname"), resultSet.getString("lname"),
+						.getString("fname"),resultSet.getString("username"),
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
@@ -728,7 +887,7 @@ public class MainDAO {
 				ParticipantsDetails p = (new ParticipantsDetails(
 						resultSet
 						.getString("participants_id"), resultSet
-						.getString("fname"), resultSet.getString("lname"),
+						.getString("fname"),resultSet.getString("username"),
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
@@ -785,7 +944,7 @@ public class MainDAO {
 				ParticipantsDetails p = (new ParticipantsDetails(
 						resultSet
 						.getString("participants_id"), resultSet
-						.getString("fname"), resultSet.getString("lname"),
+						.getString("fname"),resultSet.getString("username"),
 						resultSet.getString("mobile_num"), resultSet
 								.getString("gender"), resultSet
 								.getString("city"), resultSet
