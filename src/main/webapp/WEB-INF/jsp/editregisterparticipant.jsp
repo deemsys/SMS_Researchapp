@@ -55,17 +55,16 @@
 															<form:errors path="participant.fname"></form:errors>
 													</span></font></td>
 
-											</tr>
-
-											<tr class="row2">
+											</tr>											
+												<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Last Name :</td>
+													class="err">*</span><span
+													class="err"></span> User Name :</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="lname"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
-													onmouseout="hideTooltip('tooltip_id');" name="lname"  value="${participantsDetails.lname }"/> </br> <font
-													color="Red" size="+1"><span id="spnlname"></span> <form:errors
-															path="participant.lname"></form:errors> </font></td>
+													onmouseout="hideTooltip('tooltip_id');" name="username"  value="${participantsDetails.username}"/> </br> <c:if test="${user_exists ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>User name already exists  <form:errors
+															path="participant.username"></form:errors></c:if></font></td>
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
@@ -85,8 +84,8 @@
 													type="text" class="input_txtbx1" id="eid"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="email_id" value="${participantsDetails.email_id}" /></br>
-													<font color="Red" size="+1"><span id="spneid"><form:errors
-																path="participant.email_id"></form:errors> </span></font></td>
+													<c:if test="${user_exists ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>Email-id already exists  <form:errors
+															path="participant.email_id"></form:errors></c:if></font></td>
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span class="err"></span> Gender :</td>
