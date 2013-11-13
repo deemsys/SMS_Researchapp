@@ -39,8 +39,8 @@
                 </tr>
 
 		 <tr class="row1">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Last Name :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.lname }" name="lname"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.lname"></form:errors></font></td>
+                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> User Name :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.username }" name="username"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.username"></form:errors></font></td>
                 </tr> 
 		<tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Mobile No :</td>
