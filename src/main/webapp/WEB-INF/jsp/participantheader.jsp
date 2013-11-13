@@ -100,14 +100,14 @@
 								<span id="time" class="time"></span>
 							</div></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 					
 						<td align="right" valign="middle"><span class="cart_txt">Welcome
 					 
 								<sec:authentication property="principal.username" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
 							
 						 </span></td>
-					</tr>
+					</tr> --%>
 				</table>
 			</div>
 			<div class="clear"></div>
