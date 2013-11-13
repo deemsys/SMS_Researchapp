@@ -231,7 +231,7 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
-					+participant.getProvider_name()
+					+admin_id
 					+"','"
 					+ participant.getGroup_name()
 					+ "','"
