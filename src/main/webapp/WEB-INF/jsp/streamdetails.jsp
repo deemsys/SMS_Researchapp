@@ -32,6 +32,13 @@
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${streamDetails.description}</td>
                 </tr>
+                <tr class="row2">
+                  <td width="15%" valign="middle" align="left" >stream_message</td>
+                    <td width="1%" valign="middle" align="left" >  :</td>
+                  <td width="84%" valign="top" align="left" >${streamDetails.stream_message}</td>
+                </tr>
+                
+                
 		
 		<tr class="row2">
                   <td width="15%" valign="middle" align="left" > Number of messages</td>
