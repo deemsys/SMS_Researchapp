@@ -522,7 +522,7 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 		{
 			System.out.println(mobile);
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(mobile,groupname,city));
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("menu","participants");
         ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
