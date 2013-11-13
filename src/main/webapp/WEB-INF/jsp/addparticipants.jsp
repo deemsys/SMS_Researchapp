@@ -53,13 +53,13 @@
 
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Last Name :</td>
+													class="err"></span> User Name :</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="lname"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
-													onmouseout="hideTooltip('tooltip_id');" name="lname" /> </br> <font
+													onmouseout="hideTooltip('tooltip_id');" name="username" /> </br> <font
 													color="Red" size="+1"><span id="spnlname"></span> <form:errors
-															path="participant.lname"></form:errors> </font></td>
+															path="participant.username"></form:errors> </font></td>
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
