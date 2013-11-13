@@ -13,14 +13,33 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+<<<<<<< .mine
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import bephit.controllers.MainController;
+import bephit.model.EmailSender;
+=======
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+>>>>>>> .r163
 import bephit.model.ParticipantsDetails;
 
 public class MainDAO {
 	private DataSource dataSource;
-
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);//Logger
+	
+	
+	@Autowired  
+	EmailSender emailSender;
+	
+	
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
@@ -393,6 +412,64 @@ public class MainDAO {
 
 	}
 
+	
+	public int sendForgotpassword(String email)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+		try {
+            String cmd;
+            
+			cmd = "select * from admin_log_table where admin_email='"+email+"'";
+			System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			while (resultSet.next()) {
+
+				//------------------------------------------------------------------------//
+				
+				System.out.println(email);
+				logger.info("--Before Sending--"); //Logger Test
+		        //Email Test
+		        emailSender.password_sendEmail(email, "learnguild.com", "Forgot Password",resultSet.getString("admin_firstname"),resultSet.getString("admin_username"),resultSet.getString("admin_password"));
+		        logger.info("--After Sent--");
+		        flag=1;
+		      /*  model.addAttribute("success","true");
+		       */ 
+		        try{
+		        	/*messageSender.sendSMS("6144670389", "Deemsys test");*/
+		        }catch(Exception e){e.printStackTrace();}
+		        
+		        
+		      //------------------------------------------------------------------------//
+				
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+	    if(flag==1)
+	    {
+	    	return 1;
+	    }
+	    else
+	    	return 0;
+
+	}
 	public List<ParticipantsDetails> getlimitedParticipants(int page) {
 		Connection con = null;
 		Statement statement = null;
