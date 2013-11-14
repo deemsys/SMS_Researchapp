@@ -24,10 +24,7 @@ public class AdminUser
 	@NotEmpty
 	@Pattern(regexp="(\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}))",message="Not a valid Mobile number")
 	private String admin_mobile;
-	
-	
-	
-	
+
 	private String date;
 	
 	

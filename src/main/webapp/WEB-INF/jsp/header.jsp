@@ -88,9 +88,11 @@
 
 	<div id="main">
 		<div id="header">
-			<div class="logo">
-				<a href="#"><img src="<c:url value="/resources/images/logo.png" />" alt="Company Logo" /></a>
-			</div>
+			<div class="logo" style="float:left;">
+				<a href="#"><img src="<c:url value="/resources/images/logo_pink.png" />" alt="Company Logo" /></a>
+				</div>
+				<div style="width:100px; height:70px;float:left;"><img style="width:70px; height:70px;" src="<c:url value="/resources/images/bc_ribbon.png" />" alt="Company Logo" /></div>
+			
 			<div class="top_link">
 				<table border="0" cellspacing="0" cellpadding="0"
 					style="padding: 0;">
@@ -138,10 +140,10 @@
 				            <li>
 				            	<a href="#" class="<c:choose>
 								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu5">
-				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Groups</span>
+				            		<span><img src="<c:url value="/resources/images/User-Group-icon.png" />" alt="" style="padding:5px 5px 0 0;" />Groups</span>
 				            	</a>
 				            </li>
-				            
+				            <c:if test="${role==2}">
 				            <li>
 				            	<a href="#" class="<c:choose>
 								<c:when test="${menu=='adminuser'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu3">
@@ -154,7 +156,7 @@
 				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Settings</span>
 				            	</a>
 				            </li>
-				            
+				            </c:if>
 				            
 				            
 				            
@@ -178,6 +180,7 @@
 						    <li><a href="viewparticipants">View participants</a></li>
 						    
 						</ul>
+						
 						<ul id="ddsubmenu3" class="ddsubmenustyle">
 					
 				     	<li><a href="showaddadminuser">Add Admin User</a></li> 
