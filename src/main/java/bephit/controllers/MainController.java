@@ -111,13 +111,23 @@ int role=mainDAO.getrole();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);       
   /*      model.addAttribute("noofrows",mainDAO.getParticipants().size());       
-  */      model.addAttribute("menu","dashboard");
+  */      
+        model.addAttribute("success","false");
+        model.addAttribute("button","close");
+		return "viewparticipants";
+	}
+	
+	@RequestMapping(value={"/", "/viewallgroups"}, method = RequestMethod.GET)
+	public String viewallgroups(HttpServletRequest request,ModelMap model, Principal principal ) {
+		
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+		  model.addAttribute("participantGroupForm", participantGroupForm);
+  
         model.addAttribute("success","false");
         model.addAttribute("button","close");
 		return "viewparticipantgroups";
 	}
-	
-	
 	
 	
 	
