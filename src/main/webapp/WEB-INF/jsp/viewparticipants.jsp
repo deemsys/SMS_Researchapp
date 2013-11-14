@@ -99,14 +99,22 @@
 							    	<td colspan="7" width="100%"><center><b>No Participants Found!!!</b></center></td>
 							    	</tr>
 							    	</c:if>
+							    	</table>
 							    	
+							    	</form>
+							    	</div>
+							    	
+							    	
+							    	<form action="viewparticipants_page" method="GET">
+							    	<table cellpadding="0" cellspacing="0" border="0" width="98%"
+			class="margin_table">
 							    	<tr><td colspan="7">  <div class="extrabottom">
               <ul class="pagination">
          <%--      <% int i=1;int j=0;%> 
               
          --%>
               <c:if test="${currentpage!=1&&currentpage!=null}">
-               <li class="page_unselect"><a href="viewparticipant_page?page=${currentpage - 1}" >Prev</a></li> 
+               <li class="page_unselect"><a href="viewparticipants_page?page=${currentpage - 1}" >Prev</a></li> 
                </c:if>
               
              <%-- <c:forEach var="count" begin="1" end="${noofrows}">  --%>
@@ -116,16 +124,16 @@
                       <li class="page"><a class="paging_select"><c:out value="${i}"></c:out></a></li>
                      </c:when>
                     <c:otherwise>
-                        <li class="page_unselect"><a href="viewparticipant_page?page=${i}"><c:out value="${i}"></c:out></a></li>
+                        <li class="page_unselect"><a href="viewparticipants_page?page=${i}"><c:out value="${i}"></c:out></a></li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>          
             <c:if test="${currentpage!=noofpages}">
-              <li class="page_unselect"><a href="viewparticipant_page?page=${currentpage+1}">Next</a></li> 
+              <li class="page_unselect"><a href="viewparticipants_page?page=${currentpage+1}">Next</a></li> 
                  </c:if>
               <c:choose>
               <c:when test="${button=='viewall'}">
-                  <li class="page"><a href="viewall" class="paging_select">ViewAll</a></li>
+                  <li class="page"><a href="viewparticipants" class="paging_select">ViewAll</a></li>
              </c:when>
                 <c:otherwise>
                   <li class="page"><a href="welcome" class="paging_select">Back</a></li>
@@ -135,20 +143,18 @@
          
           
                 </ul></div></td></tr>
+                
 							    	
-							    	
-							    	
+					</table>
+					</form>		
+					</td>
+					</tr>
+				    	
+					</table>		    	
 							    	
 							    	
 							  
-						</table>
 						
-						
-					</div>
-				</td>
-			</tr>
-		</table> 
-		</form>
 	
 </div>
 
