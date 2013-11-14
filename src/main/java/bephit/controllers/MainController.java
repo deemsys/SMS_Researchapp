@@ -102,6 +102,45 @@ int role=mainDAO.getrole();
 		return "dashboard";
  
 	}
+	
+	
+	@RequestMapping(value={"/", "/viewallparticipants"}, method = RequestMethod.GET)
+	public String viewallparticipants(HttpServletRequest request,ModelMap model, Principal principal ) {
+		
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
+        model.addAttribute("participantsDetailsForm", participantsDetailsForm);       
+        model.addAttribute("noofrows",mainDAO.getParticipants().size());       
+        model.addAttribute("menu","dashboard");
+        model.addAttribute("success","false");
+        model.addAttribute("button","close");
+		return "viewparticipants";
+ 
+	}
+	
+	@RequestMapping(value={"/", "/viewallgroups"}, method = RequestMethod.GET)
+	public String viewallpartGroup(HttpServletRequest request,ModelMap model, Principal principal ) {
+		
+		
+		
+		 ParticipantsGroupForm participantGroupForm=new ParticipantsGroupForm();
+		    participantGroupForm.setParticipantGroups(partDAO.getGroups());
+		  
+		    model.addAttribute("participantGroupForm", participantGroupForm); 
+	        model.addAttribute("noofrows",partDAO.getGroups().size());
+	        model.addAttribute("menu","dashboard");
+	        model.addAttribute("success","false");
+	        model.addAttribute("button","close");
+			return "viewparticipantgroups";
+ 
+	}
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request,ModelMap model) {
 		return "login";
@@ -111,8 +150,7 @@ int role=mainDAO.getrole();
 	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
 	public String loginerror(HttpServletRequest request,ModelMap model) {
 		model.addAttribute("error", "true");
-		return "login";
-		
+		return "login";		
  
 	}
 	
@@ -395,7 +433,7 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 		
 	@RequestMapping(value="/viewparticipants", method=RequestMethod.GET)
 	public String viewParticipants(HttpServletRequest request,ModelMap model, Principal principal) {
-		 model.addAttribute("success","false");
+		model.addAttribute("success","false");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
@@ -520,6 +558,17 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm); 
         model.addAttribute("menu","participants");
+        
+        //pagination 
+        model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
+        model.addAttribute("noofrows",participantGroupForm.getParticipantGroups().size());       
+        participantGroupForm.setParticipantGroups(partDAO.getlimitedParticipants_group(1));
+		model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 5));	 
+        model.addAttribute("button","viewall");
+        //end pagination
+        
+        
+        
 		return "viewparticipantgroups";
 	}
 	
@@ -866,6 +915,24 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 		return "viewparticipants";
 		
 	}	
+	
+	
+	@RequestMapping(value="/viewparticipantgroup_page", method=RequestMethod.GET)
+	public String pagesParticipants_group(HttpServletRequest request,@RequestParam("page") int page,ModelMap model) {	
+		
+	    ParticipantsGroupForm participantGroupForm=new ParticipantsGroupForm();
+	    participantGroupForm.setParticipantGroups(partDAO.getlimitedParticipants_group(page));
+	   	model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 5));
+	    model.addAttribute("participantGroupForm", participantGroupForm); 
+        model.addAttribute("noofrows",partDAO.getGroups().size());
+        model.addAttribute("currentpage",page);
+        model.addAttribute("menu","dashboard");
+        model.addAttribute("button","viewall");
+		return "viewparticipantgroups";
+		
+	}	
+	
+	
 	
 	
 	@RequestMapping(value="/deleteSelectedparticipants", method=RequestMethod.POST)

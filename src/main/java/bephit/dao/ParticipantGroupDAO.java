@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import bephit.forms.ParticipantsGroupForm;
 import bephit.model.ParticipantGroups;
 import bephit.model.ParticipantsDetails;
 import bephit.model.UserProfile;
@@ -262,7 +263,88 @@ public class ParticipantGroupDAO {
 	   return participantgroupName;
 	}
 	
-	
+	public List<ParticipantGroups> getlimitedParticipants_group(int page) {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
+		try {
+
+			String cmd;
+			int offset = 5 * (page - 1);
+			int limit = 5;
+			cmd = "select * from participant_group_table where created_by='"+userName+"' limit " + offset + ","+ limit+"" ;
+			System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			while (resultSet.next()) {
+				  participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs"),resultSet.getString("created_by")));
+			        
+			}
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return participantgroup;
+
+	}
+
+	public int getnoofParticipants_group() {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int noofRecords = 0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
+		try {
+
+			String cmd;
+			cmd = "select count(*) as noofrecords from participant_group_table where created_by='"+userName+"'";
+			System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			if (resultSet.next())
+				noofRecords = resultSet.getInt("noofrecords");
+
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return noofRecords;
+
+	}
 	
 	
 	public void releaseConnection(Connection con){
@@ -280,4 +362,11 @@ public class ParticipantGroupDAO {
 			stmt.close();
 	}catch(Exception e){}
 	}
+	
+	
+	
+	
+	
+	
+	
 }
