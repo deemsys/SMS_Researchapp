@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import bephit.controllers.MainController;
 import bephit.model.EmailSender;
+import bephit.model.ParticipantGroups;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import bephit.model.ParticipantsDetails;
@@ -288,14 +290,14 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
-					+admin_id
+					+participant.getProvider_name()
 					+"','"
 					+ participant.getGroup_name()
 					+ "','"
 					+ participant.getAge()
 					+ "','"
 					+ dateFormat.format(date)
-					+ "','" + participant.getEmail_id() + "','0')";
+					+ "','" + participant.getEmail_id() + "','"+participant.getProvider_name()+"')";
 			System.out.println(cmd);
 			statement.execute(cmd);
 			
@@ -444,9 +446,11 @@ public class MainDAO {
 			Date date = new Date();
 			System.out.println("providername"+participant.getProvider_name());
 			// System.out.println(dateFormat.format(date));
-			String cmd = "INSERT INTO `participants_table` (`fname`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
+			String cmd = "INSERT INTO `participants_table` (`fname`,`username`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
 					+ participant.getFname()
 					+ "','"
+					+participant.getusername()
+					+"','"
 					+ participant.getMobile_num()
 					+ "','"
 					+ participant.getGender()
@@ -463,7 +467,7 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
-					+userName
+					+participant.getProvider_name()
 					+"','"
 					+ participant.getGroup_name()
 					+ "','"
@@ -581,7 +585,7 @@ public class MainDAO {
 		try {
 			String cmd;
 			
-			cmd="select * from participants_table where created_by='"+userName+"'";
+			cmd="select * from participants_table where Provider_name='"+userName+"'";
 			resultSet = statement
 					.executeQuery(cmd);
 			System.out.print("username"+userName);
@@ -698,7 +702,7 @@ public class MainDAO {
 			String cmd;
 			int offset = 5 * (page - 1);
 			int limit = 5;
-			cmd = "select * from participants_table where created_by='"+userName+"' limit " + offset + ","+ limit+"" ;
+			cmd = "select * from participants_table where provider_name='"+userName+"' limit " + offset + ","+ limit+"" ;
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {
@@ -753,7 +757,7 @@ public class MainDAO {
 		try {
 
 			String cmd;
-			cmd = "select count(*) as noofrecords from participants_table where created_by='"+userName+"'";
+			cmd = "select count(*) as noofrecords from participants_table where provider_name='"+userName+"'";
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())

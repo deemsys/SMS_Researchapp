@@ -48,11 +48,11 @@ public class ParticipantGroupDAO {
 	    try{
 	    	
 	    	//String cmd="INSERT INTO users(`FULLNAME`,`USERNAME`,`PASSWORD`,`ENABLED`,`EMAIL`,`PROFILE_IMAGE`,`UPDATEBYEMAIL`) VALUES('"+user.getFullName()+"','"+user.getUsername()+"','"+user.getPassword()+"','"+enabled+"','"+user.getEmail()+"','empty','"+updateemail+"')";
-<<<<<<< .mine
+
           String cmd_pgroups="INSERT INTO `participant_group_table`(`group_name`,`group_decs`,created_by) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"','"+userName1+"')";
-=======
-          String cmd_pgroups="INSERT INTO `participant_group_table`(`group_name`,`group_decs`) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"')";
->>>>>>> .r174
+
+         
+
           System.out.println(cmd_pgroups);
 			statement.execute(cmd_pgroups);
 			flag=1;
@@ -73,6 +73,117 @@ public class ParticipantGroupDAO {
     		return 0;
 	    
 	}
+	
+	public List<ParticipantGroups> getlimitedParticipantsgroups(int page) {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
+		try {
+
+			String cmd;
+			int offset = 5 * (page - 1);
+			int limit = 5;
+			cmd = "Select * from `participant_group_table` where created_by='"+userName+"' limit " + offset + ","+ limit+"" ;
+			System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			while (resultSet.next()) {
+				participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs"),resultSet.getString("created_by")));
+			}
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return participantgroup;
+
+	}
+
+	
+	public int getnoofParticipantsgroups() {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int noofRecords = 0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
+		try {
+
+			String cmd;
+			cmd = "select count(*) as noofrecords from participant_group_table where created_by='"+userName+"'";
+			System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			if (resultSet.next())
+				noofRecords = resultSet.getInt("noofrecords");
+			System.out.println(noofRecords);
+
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return noofRecords;
+
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public int deleteParticipantgroup(String group_id)
@@ -146,11 +257,11 @@ public class ParticipantGroupDAO {
 	    try{
 	    	int enabled=1;
 	    	int updateemail=1;
-<<<<<<< .mine
+
 	      String cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"'";
-=======
-	      String cmd_groupslist="Select * from `participant_group_table`";
->>>>>>> .r174
+
+	     
+
           System.out.println(cmd_groupslist);
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
@@ -178,6 +289,7 @@ public class ParticipantGroupDAO {
 	    }
 	    return participantgroup;
 	}
+	
 	
 	
 	
