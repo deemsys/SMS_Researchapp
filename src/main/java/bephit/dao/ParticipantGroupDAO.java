@@ -12,6 +12,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import bephit.model.ParticipantGroups;
 import bephit.model.ParticipantsDetails;
 import bephit.model.UserProfile;
@@ -23,12 +26,18 @@ public class ParticipantGroupDAO {
 			this.dataSource = dataSource;
 		}
 		
-	public int setParticipantGroup(ParticipantGroups pgroups)
+	public int setParticipantGroup(ParticipantGroups pgroups,String userName)
 	{
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag=0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName1 = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -39,7 +48,11 @@ public class ParticipantGroupDAO {
 	    try{
 	    	
 	    	//String cmd="INSERT INTO users(`FULLNAME`,`USERNAME`,`PASSWORD`,`ENABLED`,`EMAIL`,`PROFILE_IMAGE`,`UPDATEBYEMAIL`) VALUES('"+user.getFullName()+"','"+user.getUsername()+"','"+user.getPassword()+"','"+enabled+"','"+user.getEmail()+"','empty','"+updateemail+"')";
+<<<<<<< .mine
+          String cmd_pgroups="INSERT INTO `participant_group_table`(`group_name`,`group_decs`,created_by) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"','"+userName1+"')";
+=======
           String cmd_pgroups="INSERT INTO `participant_group_table`(`group_name`,`group_decs`) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"')";
+>>>>>>> .r174
           System.out.println(cmd_pgroups);
 			statement.execute(cmd_pgroups);
 			flag=1;
@@ -116,6 +129,12 @@ public class ParticipantGroupDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag=0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
 		try {
 			con = dataSource.getConnection();
@@ -127,13 +146,17 @@ public class ParticipantGroupDAO {
 	    try{
 	    	int enabled=1;
 	    	int updateemail=1;
+<<<<<<< .mine
+	      String cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"'";
+=======
 	      String cmd_groupslist="Select * from `participant_group_table`";
+>>>>>>> .r174
           System.out.println(cmd_groupslist);
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
           {
         	  
-          participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs")));
+          participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs"),resultSet.getString("created_by")));
           
           }
            
