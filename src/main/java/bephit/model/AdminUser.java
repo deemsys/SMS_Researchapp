@@ -22,7 +22,7 @@ public class AdminUser
 	private String admin_email;
 	
 	@NotEmpty
-	@Pattern(regexp="(^$|[0-9]{10})",message="Not a valid Mobile number")
+	@Pattern(regexp="(\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}))",message="Not a valid Mobile number")
 	private String admin_mobile;
 	
 	

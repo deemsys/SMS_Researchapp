@@ -24,7 +24,7 @@
 
       <li>
        <c:if test="${not empty error}">
-        <div class="error_div"><img src="resources/images/Close.png" width="16" height="16" alt="error" /><b></b></div>
+        <div class="error_div"><img src="resources/images/Close.png" width="16" height="16" alt="error" /><b><c:out value="${error}"></c:out></b></div>
         </c:if>
       </li>
 
@@ -40,7 +40,7 @@
       <li><a href="#">
         <input type="submit" class="submit-btn" value="" />
         </a></li>
-      <li><p><a href="login" style="color:White;">Login</a></p></li>
+      <li><p><a href="login" style="color:White;">Back</a></p></li>
     </ul>
   </div>
 

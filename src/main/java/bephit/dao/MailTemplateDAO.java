@@ -206,8 +206,10 @@ public int updateoldPwd(UpdatePwd updatePwds){
 	}
 	try {
 		String cmd="update admin_log_table set admin_password='" + updatePwds.getNew_pwd() + "' where admin_username ='" + userName + "' ";
+		String cmd_login="update login set password='" + updatePwds.getNew_pwd() + "' where username='"+userName+"'";
 		System.out.println(cmd);
 		statement.execute(cmd);
+		statement.execute(cmd_login);
 		flag=1;
 	} catch (Exception e) {
 		System.out.println(e.toString());

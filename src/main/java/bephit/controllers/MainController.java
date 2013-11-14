@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; 
  
 @Controller
-@SessionAttributes({"currentuser","participants"})
+@SessionAttributes({"currentuser","role"})
 public class MainController {
 	
 	@Autowired  
@@ -61,8 +61,8 @@ public class MainController {
 	@RequestMapping(value={"/", "/welcome"}, method = RequestMethod.GET)
 	public ModelAndView printWelcome(HttpServletRequest request,ModelMap model, Principal principal ) {
 		
-
-        
+int role=mainDAO.getrole();
+       
 		
        	ParticipantsDetailsForm participantsDetailsForm1 = new ParticipantsDetailsForm();
 		participantsDetailsForm1.setParticipantsDetails(mainDAO.getParticipants());         
@@ -82,6 +82,7 @@ public class MainController {
         AdminUserForm adminUserForm=new AdminUserForm();
         adminUserForm.setAdminuser(adminuserdao.getAdminUserby_username(principal.getName()));      
         mav.addObject("currentuser", adminUserForm);
+        mav.addObject("role",role);
         //session stop
        
         
@@ -365,10 +366,10 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 				model.put("success","true");
 				
 				    model.addAttribute("menu","participants");
-				    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+				   /* ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 					participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
 			        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-		
+		*/
 	    model.addAttribute("menu","dashboard");
 		model.addAttribute("noofrows",mainDAO.getParticipants().size());
 		return "login";
@@ -913,17 +914,19 @@ public String showRegisterParticipants(HttpServletRequest request,ModelMap model
 		if(s1.equals(updatePwds.getCurrent_pwd()))
 		{
 			model.put("password_mismatch", "false");
-			System.out.println("password");
+			System.out.println("password match");
 			logger.debug("Password changed successfully");
 			mailTemplateDAO.updateoldPwd(updatePwds);
+			return "dashboard";
 		}
 		else
 		{
 			System.out.println("password");
 			logger.debug("Password change failed");
 			model.put("password_mismatch", "true");
+			return "changepwd";
 		}
-		return "dashboard";
+		
 	}
 	
 	

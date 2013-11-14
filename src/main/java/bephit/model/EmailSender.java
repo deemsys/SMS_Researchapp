@@ -41,9 +41,12 @@ public class EmailSender {
 
 	private void sendEmail(final String toEmailAddresses,
 			final String fromEmailAddress, final String subject,
-			final String attachmentPath, final String attachmentName) {
-		MimeMessagePreparator preparator = new MimeMessagePreparator() {
-			public void prepare(MimeMessage mimeMessage) throws Exception {
+			final String attachmentPath, final String attachmentName)
+	{
+		MimeMessagePreparator preparator = new MimeMessagePreparator() 
+		{
+			public void prepare(MimeMessage mimeMessage) throws Exception 
+			{
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage,
 						true);
 				message.setTo(toEmailAddresses);
@@ -60,7 +63,8 @@ public class EmailSender {
 						velocityEngine, "templates/" + TEMPLATE_NAME, "UTF-8",
 						model);
 				message.setText(body, true);
-				if (!StringUtils.isBlank(attachmentPath)) {
+				if (!StringUtils.isBlank(attachmentPath)) 
+				{
 					FileSystemResource file = new FileSystemResource(
 							attachmentPath);
 					message.addAttachment(attachmentName, file);

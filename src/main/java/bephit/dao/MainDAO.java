@@ -1,5 +1,6 @@
 package bephit.dao;
 
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,11 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.sql.DataSource;
-
-<<<<<<< .mine
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import bephit.controllers.MainController;
 import bephit.model.EmailSender;
-=======
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-
->>>>>>> .r163
 import bephit.model.ParticipantsDetails;
 
 public class MainDAO {
 	private DataSource dataSource;
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);//Logger
-	
-	
+	private static final Random RANDOM = new SecureRandom();
 	@Autowired  
 	EmailSender emailSender;
 	
@@ -302,7 +297,57 @@ public class MainDAO {
 					+ dateFormat.format(date)
 					+ "','" + participant.getEmail_id() + "','0')";
 			System.out.println(cmd);
-			statement.executeUpdate(cmd);
+			statement.execute(cmd);
+			
+			
+			//Generate random password
+			 
+			 String letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789+@";
+
+		      String pw = "";
+		      int PASSWORD_LENGTH=6;
+			for (int i=0; i<PASSWORD_LENGTH; i++)
+		      {
+		          int index = (int)(RANDOM.nextDouble()*letters.length());
+		          pw += letters.substring(index, index+1);
+		      }
+		    System.out.println("Password:"+pw);
+		    
+		    
+			 
+			 
+			 
+			 //end generate random password			
+			
+			//insert into role table
+			String cmd_login="insert into login(username,password,email_id,role,status) values('"+participant.getusername()+"','"+pw+"','"+participant.getEmail_id()+"',0,1)";
+			
+			/*statement.execute(cmd);*/
+			statement.execute(cmd_login);
+			String cmd_getid="SELECT LAST_INSERT_ID() as lastid";
+			System.out.println(cmd);
+			/*String Desc="added adminuser"+admin_id;
+			String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+			System.out.println(cmd_activity);
+			*/resultSet=statement.executeQuery(cmd_getid);
+			resultSet.next();
+			int lastinsertedid=Integer.parseInt(resultSet.getString("lastid"));
+			System.out.println(lastinsertedid);
+			String cmd_role="insert into user_roles(user_id,authority) values('"+lastinsertedid+"','ROLE_USER')";
+			statement.execute(cmd_role);	
+			//end insert
+			
+			//send mail password
+			logger.info("--Before Sending--"); //Logger Test
+		    //Email Test
+		    emailSender.password_sendEmail(participant.getEmail_id(),"learnguild@gmail.com","Breast Cancer Research App Registration",participant.getFname(),participant.getusername(),pw);
+		    
+		    logger.info("--After Sent--");
+			
+			
+			
+			
+			
 			System.out.println("insertcmd"+cmd);
 			
 			resultSet= statement.executeQuery("select  max(participants_id) as participant from participants_table;");
@@ -559,6 +604,7 @@ public class MainDAO {
 								.getString("created_by"),resultSet.getString("message")));
 			}
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -996,5 +1042,64 @@ public class MainDAO {
 		} catch (Exception e) {
 		}
 	}
+	
+	public int getrole()
+	{
+		
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet=null;
+		int flag=0;
+		int role=4;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	String cmd_role="select role from login where username='"+userName+"'";
+	    	resultSet=statement.executeQuery(cmd_role);
+	    	resultSet.next();
+	    	role=Integer.parseInt(resultSet.getString("role"));
+	    	flag=1;
+	    	System.out.println(role);
+	    	 
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	//return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    if(flag==1)
+    		return role;
+    	else
+    		return 4;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

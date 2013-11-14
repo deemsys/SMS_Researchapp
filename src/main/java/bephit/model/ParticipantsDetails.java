@@ -63,8 +63,6 @@ public class ParticipantsDetails {
 	private String email_id;
 	
 	private String created_by;
-	
-	 
 	private String message;
 	
 	public ParticipantsDetails() {

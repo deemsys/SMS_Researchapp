@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -25,6 +26,7 @@ import bephit.model.ParticipantGroups;
 
 public class AdminUserDAO {
 	
+	@Autowired
 	EmailSender emailSender;
 	
 	 private static final Logger logger = LoggerFactory.getLogger(MainController.class); //Logger
@@ -78,17 +80,26 @@ public class AdminUserDAO {
 			 
 			 
 	String cmd="INSERT INTO admin_log_table(admin_firstname,admin_username,admin_password,admin_mobile,admin_email,date,status) VALUES('"+adminuser.getAdmin_firstname()+"','"+adminuser.getAdmin_username()+"','"+pw+"','"+adminuser.getAdmin_mobile()+"','"+adminuser.getAdmin_email()+"','"+dateFormat.format(date)+"',0)";
+	String cmd_login="insert into login(username,password,email_id,role,status) values('"+adminuser.getAdmin_username()+"','"+pw+"','"+adminuser.getAdmin_email()+"',1,0)";
+	String cmd_getid="SELECT LAST_INSERT_ID() as lastid";
 	System.out.println(cmd);
 	statement.execute(cmd);
+	statement.execute(cmd_login);
 	String Desc="added adminuser"+adminuser.getAdmin_username();
 	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
 	System.out.println(cmd_activity);
-	statement.execute(cmd_activity);
-	
-	
+	resultSet=statement.executeQuery(cmd_getid);
+	resultSet.next();
+	int lastinsertedid=Integer.parseInt(resultSet.getString("lastid"));
+	String cmd_role="insert into user_roles(user_id,authority) values('"+lastinsertedid+"','ROLE_USER')";
+	statement.execute(cmd_role);	
 	//Send password
 	
 	System.out.println(adminuser.getAdmin_email());
+	System.out.println("fname:"+adminuser.getAdmin_firstname());
+	System.out.println("uname:"+adminuser.getAdmin_username());
+	//System.out.println("password:"+adminuser.getAdmin_password());
+	System.out.println("password:"+pw);
 	
 	logger.info("--Before Sending--"); //Logger Test
     //Email Test
@@ -135,7 +146,17 @@ public class AdminUserDAO {
 			 Date date = new Date();		 
 			 
 			 
-	String cmd="Update admin_log_table set status='"+Status+"' where admin_id='"+admin_id+"'";	
+	String cmd="Update admin_log_table set status='"+Status+"' where admin_id='"+admin_id+"'";
+	String cmd_getusername="select admin_username from admin_log_table where admin_id='"+admin_id+"'";
+	resultSet=statement.executeQuery(cmd_getusername);
+	
+	resultSet.next();
+	System.out.println();
+	String cmd_update_status_login="Update login set status='"+Status+"' where username='"+resultSet.getString("admin_username")+"'";
+	statement.execute(cmd_update_status_login);
+	
+	
+	
 	System.out.println(cmd);
 	statement.executeUpdate(cmd);
 	
@@ -175,7 +196,7 @@ public class AdminUserDAO {
 	    	int enabled=1;
 	    	int updateemail=1;
 	    
-	      String cmd_emaillist="Select count(*) as counting from `deemspro_deem`.`admin_log_table` where admin_email='"+admin_email+"'";
+	      String cmd_emaillist="Select count(*) as counting from  admin_log_table where admin_email='"+admin_email+"'";
           resultSet=statement.executeQuery(cmd_emaillist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
@@ -222,7 +243,7 @@ public class AdminUserDAO {
 	    	int enabled=1;
 	    	int updateemail=1;
 	   
-	      String cmd_mobilelist="Select count(*) as counting from `deemspro_deem`.`admin_log_table` where admin_mobile='"+admin_mobile+"'";
+	      String cmd_mobilelist="Select count(*) as counting from `admin_log_table` where admin_mobile='"+admin_mobile+"'";
           resultSet=statement.executeQuery(cmd_mobilelist);
           resultSet.next();
           int counts=Integer.parseInt(resultSet.getString("counting"));
@@ -268,7 +289,7 @@ public class AdminUserDAO {
 	    	int enabled=1;
 	    	int updateemail=1;
 	   
-	      String cmd_userlist="Select count(*) as counting from `deemspro_deem`.`admin_log_table` where admin_username='"+admin_username+"'";
+	      String cmd_userlist="Select count(*) as counting from `admin_log_table` where admin_username='"+admin_username+"'";
           resultSet=statement.executeQuery(cmd_userlist);
           resultSet.next();
           int counts=Integer.parseInt(resultSet.getString("counting"));

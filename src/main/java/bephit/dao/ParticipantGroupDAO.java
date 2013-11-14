@@ -39,7 +39,7 @@ public class ParticipantGroupDAO {
 	    try{
 	    	
 	    	//String cmd="INSERT INTO users(`FULLNAME`,`USERNAME`,`PASSWORD`,`ENABLED`,`EMAIL`,`PROFILE_IMAGE`,`UPDATEBYEMAIL`) VALUES('"+user.getFullName()+"','"+user.getUsername()+"','"+user.getPassword()+"','"+enabled+"','"+user.getEmail()+"','empty','"+updateemail+"')";
-          String cmd_pgroups="INSERT INTO `deemspro_deem`.`participant_group_table`(`group_name`,`group_decs`) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"')";
+          String cmd_pgroups="INSERT INTO `participant_group_table`(`group_name`,`group_decs`) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"')";
           System.out.println(cmd_pgroups);
 			statement.execute(cmd_pgroups);
 			flag=1;
@@ -127,7 +127,7 @@ public class ParticipantGroupDAO {
 	    try{
 	    	int enabled=1;
 	    	int updateemail=1;
-	      String cmd_groupslist="Select * from `deemspro_deem`.`participant_group_table`";
+	      String cmd_groupslist="Select * from `participant_group_table`";
           System.out.println(cmd_groupslist);
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
@@ -174,7 +174,7 @@ public class ParticipantGroupDAO {
 		try{
 	    	int enabled=1;
 	    	int updateemail=1;
-	      String cmd_groupslist="Select count(*) as counting from `deemspro_deem`.`participant_group_table` where group_name='"+pgroups.getgroup_name()+"'";
+	      String cmd_groupslist="Select count(*) as counting from `participant_group_table` where group_name='"+pgroups.getgroup_name()+"'";
           resultSet=statement.executeQuery(cmd_groupslist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
@@ -218,7 +218,7 @@ public class ParticipantGroupDAO {
 	//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 	   try{
 	   	
-	     String cmd_group="Select group_name from `deemspro_deem`.`participant_group_table` where group_id="+group_id;
+	     String cmd_group="Select group_name from `participant_group_table` where group_id="+group_id;
 	          System.out.println(cmd_group);
 	resultSet=statement.executeQuery(cmd_group);
 	          while(resultSet.next())

@@ -1,12 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <body>
-Hi,${firstName}<p/>
+Hi, ${firstName}<p/>
 
-This is a message from <font style="color:blue">${fromName}</font>.<p/>
-Username: ${userName}<br/>
-Password: ${password}<br/>
+Welcome to Breast Cancer Research App,<br/>
 
+Kindly use the below credentials to login.<br/>
+<br/>
+Username: <font style="color:blue">${userName}</font><br/>
+Password: <font style="color:blue">${password}</font><br/>
+<br/>
+<br/>
+<br/>
 Thanks for joining!!<br/>
 ${fromName}
 
