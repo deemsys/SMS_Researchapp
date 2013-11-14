@@ -96,7 +96,7 @@
                  </c:if>
               <c:choose>
               <c:when test="${button=='viewall'}">
-                  <li class="page"><a href="viewparticipantgroups" class="paging_select">ViewAll</a></li>
+                  <li class="page"><a href="viewallgroups" class="paging_select">ViewAll</a></li>
              </c:when>
                 <c:otherwise>
                   <li class="page"><a href="viewparticipantgroups" class="paging_select">Back</a></li>

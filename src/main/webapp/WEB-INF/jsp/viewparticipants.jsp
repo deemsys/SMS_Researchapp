@@ -136,7 +136,7 @@
                   <li class="page"><a href="viewallparticipants" class="paging_select">ViewAll</a></li>
              </c:when>
                 <c:otherwise>
-                  <li class="page"><a href="welcome" class="paging_select">Back</a></li>
+                  <li class="page"><a href="viewparticipants" class="paging_select">Back</a></li>
               </c:otherwise>
               
               </c:choose>
