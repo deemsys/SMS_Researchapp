@@ -60,14 +60,61 @@
 						<%-- 					<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
 							 --%>			</tr>
 							    	</c:forEach>
-						</table>
+							    	</table>
+							    	</div>
+							    	</div>
+							    	</td>
+							    	</tr>
+							    	</table>
+							    	</form>
+							    	
+							    	<form action="viewparticipantgroup_page" method="GET">
+							    	<table cellpadding="0" cellspacing="0" border="0" width="98%"
+			class="margin_table">
+							    	<tr><td colspan="7">  <div class="extrabottom">
+              <ul class="pagination">
+         <%--      <% int i=1;int j=0;%> 
+              
+         --%>
+              <c:if test="${currentpage!=1&&currentpage!=null}">
+               <li class="page_unselect"><a href="viewparticipantgroup_page?page=${currentpage - 1}" >Prev</a></li> 
+               </c:if>
+              
+             <%-- <c:forEach var="count" begin="1" end="${noofrows}">  --%>
+               <c:forEach begin="1" end="${noofpages}" var="i">
+                <c:choose>
+                    <c:when test="${currentpage eq i}">
+                      <li class="page"><a class="paging_select"><c:out value="${i}"></c:out></a></li>
+                     </c:when>
+                    <c:otherwise>
+                        <li class="page_unselect"><a href="viewparticipantgroup_page?page=${i}"><c:out value="${i}"></c:out></a></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>          
+            <c:if test="${currentpage!=noofpages}">
+              <li class="page_unselect"><a href="viewparticipantgroup_page?page=${currentpage+1}">Next</a></li> 
+                 </c:if>
+              <c:choose>
+              <c:when test="${button=='viewall'}">
+                  <li class="page"><a href="viewparticipantgroups" class="paging_select">ViewAll</a></li>
+             </c:when>
+                <c:otherwise>
+                  <li class="page"><a href="viewparticipantgroups" class="paging_select">Back</a></li>
+              </c:otherwise>
+              
+              </c:choose>
+         
+          
+                </ul></div></td></tr>
+							    	
+							    	
+			</table>
+			</form>
+							    	
+							    	
+							    	
+							    	
 						
-					</div>
-				</div>
-			</td>
-		</tr>
-	</table>
-	</form>
 </div>
 <script>
 function confirmation() {
