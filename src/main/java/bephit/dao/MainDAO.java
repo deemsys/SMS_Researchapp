@@ -679,7 +679,13 @@ public class MainDAO {
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -692,9 +698,7 @@ public class MainDAO {
 			String cmd;
 			int offset = 5 * (page - 1);
 			int limit = 5;
-
-			cmd = "select * from participants_table limit " + offset + ","
-					+ limit;
+			cmd = "select * from participants_table where created_by='"+userName+"' limit " + offset + ","+ limit+"" ;
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {
@@ -733,7 +737,12 @@ public class MainDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int noofRecords = 0;
-
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -744,7 +753,7 @@ public class MainDAO {
 		try {
 
 			String cmd;
-			cmd = "select count(*) as noofrecords from participants_table";
+			cmd = "select count(*) as noofrecords from participants_table where created_by='"+userName+"'";
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())
