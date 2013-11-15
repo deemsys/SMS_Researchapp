@@ -119,6 +119,25 @@
 					<div class="menu_c">
 					
 						<ul class="menu">
+					<!-- 	participant menus -->
+						<c:if test="${role==0}">
+						 <li>
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='participants'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu6">
+				            		<span><img src="<c:url value="/resources/images/icon_03.png" />" alt="" style="padding:5px 5px 0 0;" />Profile</span>
+				            	</a>
+				            </li>
+				                <li>
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu7">
+				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Message Settings</span>
+				            	</a>
+				            </li>	 
+						</c:if>
+					<!-- end participant menus	 -->
+						
+						<c:if test="${role!=0}">
+						
 							<li>
 								<a href="welcome" class="<c:choose>
 								<c:when test="${menu=='dashboard'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>">
@@ -143,6 +162,7 @@
 				            		<span><img src="<c:url value="/resources/images/User-Group-icon.png" />" alt="" style="padding:5px 5px 0 0;" />Groups</span>
 				            	</a>
 				            </li>
+				            </c:if>
 				            <c:if test="${role==2}">
 				            <li>
 				            	<a href="#" class="<c:choose>
@@ -193,8 +213,8 @@
 							<li><a href="textmsgsettings">Text Message API settings</a></li>
 							
 						
-							<li><a href="addmailtemplate">Mail Templates</a></li>
-							
+							<!-- <li><a href="addmailtemplate">Mail Templates</a></li>
+							 -->
 							<li><a href="changepassword">Change My Password</a></li>
 						</ul>
 						<ul id="ddsubmenu5" class="ddsubmenustyle">
@@ -203,7 +223,24 @@
 							<li><a href="viewparticipantgroups">View Participant Groups</a></li>
 							</ul>
 						
+						<!-- participant submenu -->
 						
+						<ul id="ddsubmenu6" class="ddsubmenustyle">
+					
+					 <li><a href="viewregisterparticipants">View Details</a></li>
+							
+						    <li><a href="editregisterparticipant">Edit Details</a></li>
+						    
+						</ul>
+						<ul id="ddsubmenu7" class="ddsubmenustyle">
+						
+							<li><a href="participantsettings">Settings</a></li>					
+													 
+						</ul>
+						 
+						
+						
+						<!-- end participant submenu -->
 						
 						
 						

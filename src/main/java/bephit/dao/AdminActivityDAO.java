@@ -19,7 +19,7 @@ public class AdminActivityDAO {
 	}
 
 	
-	public List<AdminActivity> getAdminActivity(String admin_id) {
+	public List<AdminActivity> getAdminActivity() {
 
 		Connection con = null;
 		Statement statement = null;
@@ -35,8 +35,8 @@ public class AdminActivityDAO {
 		try
 		{
 			resultSet = statement.
-					executeQuery("select * from admin_log_activity_table where admin_id='"+admin_id+"'");
-			System.out.println("select * from admin_log_activity_table where admin_id='"+admin_id+"'");
+					executeQuery("select * from admin_log_activity_table");
+			System.out.println("select * from admin_log_activity_table");
 			while (resultSet.next()) {
 				adminactivity.add(new AdminActivity(resultSet.getString("log_id")
 						,resultSet.getString("admin_id")

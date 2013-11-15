@@ -126,12 +126,17 @@ public class ParticipantGroupDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag=0;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
+		  //userName = userDetails.getUsername();
+		  userName="suresh";
 		}
-		String userName = userDetails.getUsername();
+		else
+		userName="suresh";	
+		
 		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
 		try {
 			con = dataSource.getConnection();
@@ -174,7 +179,64 @@ public class ParticipantGroupDAO {
 	    return participantgroup;
 	}
 	
-	
+	public  List<ParticipantGroups> getparticularGroups(String id)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		String userName;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		  //userName = userDetails.getUsername();
+		  userName="suresh";
+		}
+		else
+		userName="suresh";	
+		
+		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	int enabled=1;
+	    	int updateemail=1;
+
+	      String cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"' and group_id='"+id+"'";
+
+          System.out.println(cmd_groupslist);
+			resultSet=statement.executeQuery(cmd_groupslist);
+          while(resultSet.next())
+          {
+        	  
+          participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs"),resultSet.getString("created_by")));
+          
+          }
+           
+			flag=1;
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	//return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	//if(flag==1)
+	    		//return 1;
+	    	//else
+	    		//return 0;
+	    }
+	    return participantgroup;
+	}
 	
 	public  int checkGroupname(ParticipantGroups pgroups)
 	{

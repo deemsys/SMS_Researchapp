@@ -130,7 +130,7 @@ ul.login-list li p {
 #header {
 	height:120px;
 }
-/* New CSS */
+/* New CSS */ bg
 #right_content {
 	float:left;
 	width:100%;

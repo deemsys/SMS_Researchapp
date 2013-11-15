@@ -56,7 +56,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET message ='"+participant.getmessage()+"' WHERE participants_id='65'";
+	    	String cmd="UPDATE participants_table SET message ='"+participant.getmessage()+"' WHERE participants_id='"+participants_id+"'";
 	    	
 	    	String Desc="Update participant "+participant.getFname();
 	    	
@@ -467,7 +467,7 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
-					+participant.getProvider_name()
+					+userName
 					+"','"
 					+ participant.getGroup_name()
 					+ "','"
@@ -531,7 +531,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name='"+participant.getProvider_name()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
 	    	String Desc="Update participant "+participant.getFname();
 	    	
 	    	
@@ -574,6 +574,10 @@ public class MainDAO {
 		}
 		String userName = userDetails.getUsername();
 		
+		//give full permission to superadmin
+		
+		
+		
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -584,8 +588,11 @@ public class MainDAO {
 		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 		try {
 			String cmd;
-			
-			cmd="select * from participants_table where Provider_name='"+userName+"'";
+			if(userName=="superadmin")
+				cmd="select * from participants_table";
+				else
+					cmd="select * from participants_table where Provider_name='"+userName+"'";
+				
 			resultSet = statement
 					.executeQuery(cmd);
 			System.out.print("username"+userName);
@@ -654,8 +661,8 @@ public class MainDAO {
 		      /*  model.addAttribute("success","true");
 		       */ 
 		        try{
-		        	/*messageSender.sendSMS("6144670389", "Deemsys test");*/
-		        }catch(Exception e){e.printStackTrace();}
+		        /*	messageSender.sendSMS("6144670389", "Deemsys test");
+		       */ }catch(Exception e){e.printStackTrace();}
 		        
 		        
 		      //------------------------------------------------------------------------//
@@ -702,8 +709,12 @@ public class MainDAO {
 			String cmd;
 			int offset = 5 * (page - 1);
 			int limit = 5;
-			cmd = "select * from participants_table where provider_name='"+userName+"' limit " + offset + ","+ limit+"" ;
-			System.out.println(cmd);
+			if(userName=="superadmin")
+				cmd="select * from participants_table  limit " + offset + ","+ limit+"" ;
+				else
+					cmd = "select * from participants_table where provider_name='"+userName+"' limit " + offset + ","+ limit+"" ;
+							
+				System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
@@ -757,7 +768,10 @@ public class MainDAO {
 		try {
 
 			String cmd;
-			cmd = "select count(*) as noofrecords from participants_table where provider_name='"+userName+"'";
+			if(userName=="superadmin")
+				cmd = "select count(*) as noofrecords from participants_table";
+				else
+					cmd = "select count(*) as noofrecords from participants_table where provider_name='"+userName+"'";
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())
@@ -834,6 +848,12 @@ public class MainDAO {
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -842,7 +862,7 @@ public class MainDAO {
 		}
 		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 		try {
-			String cmd = "select * from participants_table where mobile_num='"
+			String cmd = "select * from participants_table where Provider_name='"+userName+"' and mobile_num='"
 					+ mobile + "' or group_name='" + groupname + "' or city='"
 					+ city + "'";
 			resultSet = statement.executeQuery(cmd);
@@ -1103,7 +1123,53 @@ public class MainDAO {
     		return 4;
 	
 	}
+	public String getparticipantid()
+	{
+		
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet=null;
+		int flag=0;
+		String p_id="65";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	String cmd_role="select participants_id from participants_table where username='"+userName+"'";
+	    	resultSet=statement.executeQuery(cmd_role);
+	    	resultSet.next();
+	    	p_id=resultSet.getString("participants_id");
+	    	flag=1;
+	    	System.out.println(p_id);
+	    	 
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	//return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    if(flag==1)
+    		return p_id;
+    	else
+    		return "65";
 	
+	}
 	
 	
 	

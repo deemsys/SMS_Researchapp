@@ -29,7 +29,7 @@ public class AdminActivityController {
 	{
 		
 		AdminActivityForm adminactivityForm=new AdminActivityForm();
-		adminactivityForm.setAdminActivity(adminactivityDAO.getAdminActivity(principal.getName()));	
+		adminactivityForm.setAdminActivity(adminactivityDAO.getAdminActivity());	
 	   // adminactivityDAO.getAdminActivity(principal.getName());
 		model.addAttribute("adminactivityForm",adminactivityForm);
 		return "activityofadmin";

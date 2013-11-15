@@ -36,19 +36,23 @@
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.fname}</td>
                 </tr>
-             
-		
-		<tr class="row1">
+              <%-- <tr class="row1">
+                  <td width="15%" valign="middle" align="left" > Last Name </td>
+                    <td width="1%" valign="middle" align="left" >  :</td>
+                  <td width="84%" valign="top" align="left" >${participantsDetails.lname}</td>
+                </tr>
+		 --%>
+		<tr class="row2">
                   <td width="15%" valign="middle" align="left" > Mobile Number </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.mobile_num}</td>
                 </tr>
-		<tr class="row2">
+		<tr class="row1">
                   <td width="15%" valign="middle" align="left" > Email-Id </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.email_id}</td>
                 </tr>
-              <tr class="row1">
+              <tr class="row2">
                   <td width="15%" valign="middle" align="left" > Gender </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                     
@@ -62,12 +66,12 @@
                   </c:choose>
                   
                   
-                </tr><tr class="row2">
+                </tr><tr class="row1">
                   <td width="15%" valign="middle" align="left" > City </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.city}</td>
                 </tr>
-              <tr class="row1">
+              <tr class="row2">
                   <td width="15%" valign="middle" align="left" > Education </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.education}</td>
@@ -77,26 +81,29 @@
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.medical_details}</td>
                 </tr>
-              <tr class="row1">
+              <tr class="row2">
                   <td width="15%" valign="middle" align="left" > Group Name </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.group_name}</td>
-                </tr><tr class="row2">
+                </tr><tr class="row1">
                   <td width="15%" valign="middle" align="left" > Age</td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.age}</td>
                 </tr>
-              <tr class="row1">
+              <tr class="row2">
                   <td width="15%" valign="middle" align="left" > Date Of Join </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.date_of_join}</td>
                 </tr>   
+              <tr class="row1">  
+              <td width="15%" valign="middle" align="left" ></td>
+                    <td width="5%" valign="middle" align="left" ><ul class="pagination">
+               <li class="page"><a href="welcome" class="paging_select">Back</a></li>
+              </ul></td>
+                  <td width="80%" valign="top" align="left" >
+                               
               
-              
-                       
-              
-              
-              
+              </td></tr>
               
              	</c:forEach>
                 

@@ -1,7 +1,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<jsp:include page="participantheader.jsp"></jsp:include>
+<jsp:include page="header.jsp"></jsp:include>
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
 	type="text/css" />
 <link href="<c:url value="/resources/css/inner-clr.css" />"
@@ -39,7 +39,7 @@
 							<h2>Settings</h2>
 						</div>
 						<div class="contentbox">
-
+<c:set value="${participantsDetailsForm.participantsDetails[0]}" var="participant"/>
 							<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
 								<tr>
 									<td align="center" valign="top" width="50%"

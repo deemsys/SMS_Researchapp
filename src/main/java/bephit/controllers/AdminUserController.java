@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import bephit.dao.*;
@@ -26,7 +27,7 @@ import bephit.forms.*;
 import bephit.model.*;
 
 @Controller
-@SessionAttributes("currentuser")
+@SessionAttributes({"currentuser"})
 public class AdminUserController
 {
 	@Autowired
@@ -185,15 +186,17 @@ public class AdminUserController
 	}	
 	
 	@RequestMapping(value="/showRegisterProvider", method=RequestMethod.GET)
-	public String showRegisterProvider(HttpServletRequest request,ModelMap model) {
+	public String showRegisterProvider(HttpSession session,HttpServletRequest request,ModelMap model) {
 			
-			model.put("success", "false");
-			
+		//session.removeAttribute("adminuser");
+		
+			model.put("success", "false");			
 			AdminUserForm adminuserForm = new AdminUserForm();
 			adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
 	        model.addAttribute("adminuserForm",adminuserForm);
 	        return "registerprovider";
 		}
+	
 	@RequestMapping(value="/registerprovider",method=RequestMethod.GET)
 	public String showAddprovider(HttpServletRequest request,ModelMap model)
 	{
@@ -229,8 +232,13 @@ public class AdminUserController
 	}	*/
 	
 	@RequestMapping(value="/registerprovider", method=RequestMethod.POST)
-	public String addproviderForm(HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
+	public String addproviderForm(HttpSession session,HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
 			BindingResult result,ModelMap model,Principal principal) {
+		
+		
+		//session.setAttribute("adminuser",adminuser);
+		
+		
 		model.addAttribute("email_exist","false");
 		model.addAttribute("mobile_exists","false");
 		model.addAttribute("user_exists","false");
@@ -299,7 +307,7 @@ public class AdminUserController
 			else
 			{
 				adminuserDAO.setAdminUser(adminuser,"personal");
-				return "/registerprovider";
+				return "/login";
 			}
 			}
 		

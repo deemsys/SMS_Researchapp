@@ -116,8 +116,7 @@
 					<div class="menu_l"></div>
 					<div class="menu_c">
 					
-						<ul class="menu">
-							 
+						<ul class="menu">						 
 				            
 				            <li>
 				            	<a href="#" class="<c:choose>
@@ -125,28 +124,13 @@
 				            		<span><img src="<c:url value="/resources/images/icon_03.png" />" alt="" style="padding:5px 5px 0 0;" />Profile</span>
 				            	</a>
 				            </li>
-				           <%--  <li>
-				            	<a href="#" class="<c:choose>
-								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu5">
-				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Groups</span>
-				            	</a>
-				            </li> --%>
-				            
-				            <%-- <li>
-				            	<a href="#" class="<c:choose>
-								<c:when test="${menu=='adminuser'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu3">
-				            		<span><img src="<c:url value="/resources/images/icon_06.png" />" alt="" style="padding:5px 5px 0 0;" />Admin User</span>
-				            	</a>
-				            </li> --%>
-				            <li>
+				                <li>
 				            	<a href="#" class="<c:choose>
 								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu4">
 				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Message Settings</span>
 				            	</a>
-				            </li>
-				            
-				            
-				            
+				            </li>	            
+				            				            
 				            
 						</ul>
 						<div class="clear"></div>
