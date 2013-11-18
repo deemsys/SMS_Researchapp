@@ -21,11 +21,11 @@
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Stream Name :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="streamName" class="input_txtbx" id="inp_id3" value=" " /></br> <span class="err"><form:errors path="streamDetails.streamName"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="streamName" class="input_txtbx" id="inp_id3"/></br> <span class="err"><form:errors path="streamDetails.streamName"></form:errors></span></td>
                 </tr>
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span>No of Texting Contacts :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="textingcontacts" class="input_txtbx" id="inp_id3" value=" " /></br> <span class="err"><form:errors path="streamDetails.textingcontacts"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="textingcontacts" class="input_txtbx" id="inp_id3"/></br> <span class="err"><form:errors path="streamDetails.textingcontacts"></form:errors></span></td>
                 </tr>
                  <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Description :</td>
