@@ -58,12 +58,17 @@ public class MessageStreamController {
 	
 
 	@RequestMapping(value = "/viewstream", method = RequestMethod.GET)
-	public String viewstream(ModelMap model) {
+	public String viewstream(HttpServletRequest request,ModelMap model) {
 		model.addAttribute("success", "false");
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
 		 model.addAttribute("menu","message");
+	       model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
+	     model.addAttribute("noofrows",streamForm.getStreamDetails().size());       
+	    streamForm.setStreamDetails(streamDAO.getlimitedstream(1));
+			model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 5));	 
+	        model.addAttribute("button","viewall");
 		return "viewstream";
 	}
 	
@@ -82,28 +87,7 @@ public class MessageStreamController {
 	}
 	
 	
-	/*@RequestMapping(value = "/updatemessage", method = RequestMethod.POST)
-	public String updatemessage(HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamDetails,BindingResult result,ModelMap model,Principal principal) {
-		
-		System.out.println("update message id"+streamDetails.getStreamId());	
-		System.out.println("update message name"+streamDetails.getStreamName());
-		if (result.hasErrors())
-		{
-			StreamDetailsForm streamForm = new StreamDetailsForm();
-			streamForm.setStreamDetails(streamDAO.getStream(streamDetails.getStreamId()));
-			model.addAttribute("streamForm", streamForm);
-			
-		        return "edit_stream";
-		}
-		System.out.println("streamDetails.getStreamId()"+streamDetails.getStreamId());
-		StreamDetailsForm streamForm = new StreamDetailsForm();
-		streamForm.setStreamDetails(streamDAO.getStream(streamDetails.getStreamId()));
-		model.addAttribute("streamForm", streamForm);
-		 model.addAttribute("menu","message");
-		return "viewstream";
-
-	}*/
-
+	
 	
 	@RequestMapping(value="/updatestream", method=RequestMethod.POST)
 	public String updatestream(HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamDetails,BindingResult result,ModelMap model,Principal principal)
@@ -181,9 +165,41 @@ public class MessageStreamController {
 		
 	}	
 	
+	@RequestMapping(value="/viewstream_page", method=RequestMethod.GET)
+	public String pagesstream(HttpServletRequest request,@RequestParam("page") int page,ModelMap model) {	
+		
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+	    streamForm.setStreamDetails(streamDAO.getlimitedstream(page));
+	   	model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 5));
+	   	model.addAttribute("streamForm", streamForm);
+	   	model.addAttribute("noofrows",streamForm.getStreamDetails().size());   
+        model.addAttribute("currentpage",page);
+        model.addAttribute("menu","message");
+        model.addAttribute("button","viewall");
+		return "viewstream";
+		
+	}	
 	
 	
-	
-	
+	@RequestMapping(value={"/", "/viewallstream"}, method = RequestMethod.GET)
+	public String viewallpartGroup(HttpServletRequest request,ModelMap model, Principal principal ) {
+		
+		
+		
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream());
+		  
+		model.addAttribute("streamForm", streamForm);
+		model.addAttribute("noofrows",streamForm.getStreamDetails().size());   
+       
+        model.addAttribute("menu","message");
+        model.addAttribute("button","close");
+	      
+	        model.addAttribute("menu","dashboard");
+	        model.addAttribute("success","false");
+	        model.addAttribute("button","close");
+			return "viewstream";
+ 
+	}
 	
 }
