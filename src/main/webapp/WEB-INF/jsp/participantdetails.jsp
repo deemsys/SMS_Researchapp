@@ -31,7 +31,7 @@
           <%--   </c:forEach>  
           --%>      
              <c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
-                   <tr class="row2">
+                   <tr class="row1">
                   <td width="15%" valign="middle" align="left" > First Name </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.fname}</td>
@@ -76,7 +76,7 @@
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.education}</td>
                 </tr>
-              <tr class="row2">
+              <tr class="row1">
                   <td width="15%" valign="middle" align="left" > Medical Details </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.medical_details}</td>
