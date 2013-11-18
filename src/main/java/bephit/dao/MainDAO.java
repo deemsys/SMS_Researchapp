@@ -263,7 +263,12 @@ public class MainDAO {
 			e1.printStackTrace();
 		}
 		// List<ParticipantsDetails> participants = new
-		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		
 		
 		
@@ -294,7 +299,7 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
-					+participant.getProvider_name()
+					+userName
 					+"','"
 					+ participant.getGroup_name()
 					+ "','"
