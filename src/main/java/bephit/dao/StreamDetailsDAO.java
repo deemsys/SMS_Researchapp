@@ -145,7 +145,7 @@ public class StreamDetailsDAO
 			count++;
 			statement.execute(cmd_mess);
 			}
-			String cmd="UPDATE stream SET stream_name='"+streamdetails.getStreamName()+"', stream_description='"+streamdetails.getDescription()+"',message_count='"+(count-1)+"' where stream_id='"+streamdetails.getStreamId()+"';";
+			String cmd="UPDATE stream SET stream_name='"+streamdetails.getStreamName()+"',textingcontacts='"+streamdetails.getTextingcontacts()+"',stream_description='"+streamdetails.getDescription()+"',message_count='"+(count-1)+"' where stream_id='"+streamdetails.getStreamId()+"';";
 			System.out.println("update stream"+cmd);
 			statement.executeUpdate(cmd);
 		
@@ -490,6 +490,100 @@ public class StreamDetailsDAO
 	   		else
 	   			return 0;
 	}
+	
+	public List<StreamDetails> getlimitedstream(int page) {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<StreamDetails> stream = new ArrayList<StreamDetails>();
+		try {
+
+			String cmd;
+			int offset = 5 * (page - 1);
+			int limit = 5;
+			if(userName.equals("superadmin"))
+				   cmd= "select * from stream limit " + offset + ","+ limit+"" ;
+				else
+					cmd = "select * from stream where created_by='"+userName+"' limit " + offset + ","+ limit+"" ;
+							
+				System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			while (resultSet.next()) {
+				stream.add(new StreamDetails(resultSet.getString("stream_id"),
+						resultSet.getString("admin_name")
+						,resultSet.getString("stream_name")	,
+						resultSet.getString("textingcontacts"),
+						resultSet.getString("stream_description"),resultSet.getString("message_count"),resultSet.getString("created_by")
+						));
+			}
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return stream;
+
+	}
+	public int getnoofstream() {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int noofRecords = 0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<StreamDetails> stream = new ArrayList<StreamDetails>();
+		try {
+
+			String cmd;
+			if(userName.equals("superadmin"))
+				cmd = "select count(*) as noofrecords from stream";
+				else
+					cmd = "select count(*) as noofrecords from stream where created_by='"+userName+"'";
+			System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			if (resultSet.next())
+				noofRecords = resultSet.getInt("noofrecords");
+
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return noofRecords;
+
+	}
+	
 	
 	public void releaseConnection(Connection con){
 		try{if(con != null)
