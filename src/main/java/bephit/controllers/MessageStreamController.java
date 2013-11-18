@@ -41,12 +41,21 @@ public class MessageStreamController {
 
 	@RequestMapping(value = "/insertstream", method = RequestMethod.POST)
 	public String insertstream(HttpServletRequest request,@ModelAttribute("streamDetails") @Valid StreamDetails streamdetails,BindingResult result,ModelMap model,Principal principal) {
+		if(result.hasErrors())
+		{
+			
+			model.addAttribute("menu","message");
+			return "createstream";
+			
+			
+		}
 		
-		System.out.println("insert stream id"+streamdetails.getStreamId());
-		String[] Messages = new String[1000];
-		Messages = request.getParameterValues("message[]");
-		streamDAO.insertNewstream(streamdetails, principal.getName(), Messages);
-		
+		else
+		{
+			System.out.println("insert stream id"+streamdetails.getStreamId());
+		     String[] Messages = new String[1000];
+		      Messages = request.getParameterValues("message[]");
+		  streamDAO.insertNewstream(streamdetails, principal.getName(), Messages);
 		model.addAttribute("success", "true");
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
@@ -55,7 +64,7 @@ public class MessageStreamController {
 		return "viewstream";
 
 	}
-	
+	}
 
 	@RequestMapping(value = "/viewstream", method = RequestMethod.GET)
 	public String viewstream(HttpServletRequest request,ModelMap model) {
