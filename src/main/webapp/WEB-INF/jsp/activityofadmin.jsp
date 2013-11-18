@@ -16,13 +16,13 @@
 	            	</div>
 	            	<div class="contentbox">
 						<table cellpadding="0" cellspacing="0" border="0" width="100%">
-							<tr>
+							<%-- <tr>
 								<td width="30%" align="right"><b>User Name</b></td>
 								<td width="10%" align="center"><b>:</b></td> 
 								<td align="left" width="60%"><b>
 								<sec:authentication property="principal.username" />
 								</b></td>
-							</tr>
+							</tr> --%>
 							<tr><td width="30%" align="right" colspan="3">&nbsp;</td>
 							</tr>
 						</table>

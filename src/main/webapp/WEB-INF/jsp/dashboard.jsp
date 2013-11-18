@@ -37,7 +37,7 @@
 									<td valign="top" align="left" width="10%">Time2</td>
 									<td valign="top" align="left" width="10%">Time3</td>
 									
-									<td valign="top" align="left" width="15%">Education</td>
+									<!-- <td valign="top" align="left" width="15%">Education</td> -->
 									<td valign="top" align="left" width="10%">Date Of Join</td>
 								</tr>
 
@@ -51,7 +51,7 @@
 											<td valign="top" align="left" width="10%">${participantsDetails.time1}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.time2}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.time3}</td>
-											<td valign="top" align="left" width="15%">${participantsDetails.education}</td>
+										<%-- 	<td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
 											<td valign="top" align="left" width="10%">${participantsDetails.date_of_join}</td>
 										</tr>
 							    	</c:forEach>

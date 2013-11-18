@@ -73,8 +73,8 @@
 								 
 							</table>
 							
-							<table align="right"><tr><td><input type="submit" class="submit_btn" value="Submit" name="insert"></td></form>
-							<td width="50"></td><td><input type="reset" value="Reset" class="submit_btn"></td><td width="50">
+							<table align="right"><tr><td><input type="submit" class="submit_btn" value="Save" name="insert"></td></form>
+							<!-- <td width="50"></td><td><input type="reset" value="Reset" class="submit_btn"></td> --><td width="50">
 							<td><a href="viewregisterparticipants" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
 				<%-- </td>
 			</tr>

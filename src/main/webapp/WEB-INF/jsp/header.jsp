@@ -167,7 +167,7 @@
 				            <li>
 				            	<a href="#" class="<c:choose>
 								<c:when test="${menu=='adminuser'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu3">
-				            		<span><img src="<c:url value="/resources/images/icon_06.png" />" alt="" style="padding:5px 5px 0 0;" />Admin User</span>
+				            		<span><img src="<c:url value="/resources/images/icon_06.png" />" alt="" style="padding:5px 5px 0 0;" />Providers</span>
 				            	</a>
 				            </li>
 				            <li>
@@ -203,9 +203,9 @@
 						
 						<ul id="ddsubmenu3" class="ddsubmenustyle">
 					
-				     	<li><a href="showaddadminuser">Add Admin User</a></li> 
+				     	<li><a href="showaddadminuser">Add Provider</a></li> 
 							
-				            <li><a href="viewadminuser">View Admin User</a></li>
+				            <li><a href="viewadminuser">View Providers</a></li>
 				            <li><a href="activityofadmin">User Activity Logs</a></li>
 				         </ul>
 						<ul id="ddsubmenu4" class="ddsubmenustyle">

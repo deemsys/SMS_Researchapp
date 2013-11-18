@@ -14,7 +14,7 @@
 
 
 
-<form name="grid" onSubmit="return validate(this)" action="deleteadminuser" method="POST">
+<form name="grid" onSubmit="return validate(this)" action="deleteSelectedadminuser" method="POST">
 	<div id="right_content">
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
 			<tr>
@@ -42,7 +42,7 @@
 	        	<td valign="top" align="left">
 	        		<div>
 	            		<div class="headings altheading">
-	              			<h2>Admin User</h2>
+	              			<h2>Providers List</h2>
 	            		</div>
 	            		<div class="contentbox">
 	              			<table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -92,9 +92,46 @@
 			</tr>
 		</table>
 	</div>
+	
 </form>
 
-<script>
+<script type="text/javascript">
+
+function validate()
+{
+//alert(fname);
+var chks = document.getElementsByName('chkUser');
+var hasChecked = false;
+for (var i = 0; i < chks.length; i++)
+{
+if (chks[i].checked)
+{
+hasChecked = true;
+break;
+}
+}
+if (hasChecked == false)
+{
+alert("Please select at least one.");
+return false;
+}
+var result=confirm("Are you sure.You want to delete the User(s)?");
+if(result)
+	{
+return true;
+	}
+else
+	return false;
+}
+
+
+
+
+
+
+
+
+
 function myFunction(str) {
 
 	var answer = confirm("Are you sure want to delete this User?")
@@ -162,33 +199,7 @@ function confirmation() {
 
 
 
-function validate()
-{
-//alert(fname);
-var chks = document.getElementsByName('chkUser');
 
-var hasChecked = false;
-for (var i = 0; i < chks.length; i++)
-{
-if (chks[i].checked)
-{
-hasChecked = true;
-break;
-}
-}
-if (hasChecked == false)
-{
-alert("Please select at least one.");
-return false;
-}
-var result=Confirm("Are you sure?You want to delete the User(s)?");
-if(result)
-	{
-return true;
-	}
-else
-	return false;
-}
 </script>
 
 

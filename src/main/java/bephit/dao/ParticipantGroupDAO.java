@@ -131,11 +131,10 @@ public class ParticipantGroupDAO {
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
-		  //userName = userDetails.getUsername();
-		  userName="suresh";
+		  
 		}
-		else
-		userName="suresh";	
+		 userName = userDetails.getUsername();
+		 
 		
 		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
 		try {
@@ -148,9 +147,12 @@ public class ParticipantGroupDAO {
 	    try{
 	    	int enabled=1;
 	    	int updateemail=1;
-
-	      String cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"'";
-
+	    	String cmd_groupslist="";
+          if(userName.equals("superadmin"))
+	      cmd_groupslist="Select * from `participant_group_table`";
+          else
+        	    cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"'";
+            
           System.out.println(cmd_groupslist);
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
@@ -179,22 +181,21 @@ public class ParticipantGroupDAO {
 	    return participantgroup;
 	}
 	
-	public  List<ParticipantGroups> getparticularGroups(String id)
+	public  List<ParticipantGroups> getAllGroups()
 	{
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag=0;
 		String userName;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
-		UserDetails userDetails = null;
+		/*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();*/		
+	/*	UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
-		  //userName = userDetails.getUsername();
-		  userName="suresh";
+		  
 		}
-		else
-		userName="suresh";	
+		 userName = userDetails.getUsername();
+		 */
 		
 		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
 		try {
@@ -207,9 +208,133 @@ public class ParticipantGroupDAO {
 	    try{
 	    	int enabled=1;
 	    	int updateemail=1;
-
-	      String cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"' and group_id='"+id+"'";
-
+	    	String cmd_groupslist="";
+          /*if(userName.equals("superadmin"))*/
+	      cmd_groupslist="Select * from `participant_group_table`";
+         /* else
+        	    cmd_groupslist="Select * from `participant_group_table`";
+            */
+          System.out.println(cmd_groupslist);
+			resultSet=statement.executeQuery(cmd_groupslist);
+          while(resultSet.next())
+          {
+        	  
+          participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs"),resultSet.getString("created_by")));
+          
+          }
+           
+			flag=1;
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	//return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	//if(flag==1)
+	    		//return 1;
+	    	//else
+	    		//return 0;
+	    }
+	    return participantgroup;
+	}
+	
+	
+	
+	
+	public  List<ParticipantGroups> getGroupsbyprovider(String provider)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		String userName;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		
+		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	    	String cmd_groupslist="";
+        
+        	    cmd_groupslist="Select * from `participant_group_table` where created_by='"+provider+"'";
+            
+          System.out.println(cmd_groupslist);
+			resultSet=statement.executeQuery(cmd_groupslist);
+          while(resultSet.next())
+          {
+        	  
+          participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs"),resultSet.getString("created_by")));
+          
+          }
+           
+			flag=1;
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	//return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	//if(flag==1)
+	    		//return 1;
+	    	//else
+	    		//return 0;
+	    }
+	    return participantgroup;
+	}
+	public  List<ParticipantGroups> getparticularGroups(String id)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		String userName;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		   //userName="suresh";
+		}
+		userName = userDetails.getUsername();
+		 
+		/*else
+		   userName="suresh";	*/
+		
+		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+	    try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	    	String cmd_groupslist="";
+ if(userName.equals("superadmin"))
+ {
+	      cmd_groupslist="Select * from `participant_group_table` where group_id='"+id+"'";
+ }
+ else
+ {
+	   cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"' and group_id='"+id+"'";
+ 
+ }
           System.out.println(cmd_groupslist);
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
@@ -244,6 +369,14 @@ public class ParticipantGroupDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag=0;
+		String userName;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		   
+		}
+		userName = userDetails.getUsername();
 		List<ParticipantGroups> participantgroup = new ArrayList<ParticipantGroups>();
 		try {
 			con = dataSource.getConnection();
@@ -254,8 +387,12 @@ public class ParticipantGroupDAO {
 		try{
 	    	int enabled=1;
 	    	int updateemail=1;
-	      String cmd_groupslist="Select count(*) as counting from `participant_group_table` where group_name='"+pgroups.getgroup_name()+"'";
-          resultSet=statement.executeQuery(cmd_groupslist);
+	    	String cmd_groupslist="";
+	    	if(userName.equals("superadmin"))
+	    	  	  cmd_groupslist="Select count(*) as counting from `participant_group_table` group_name='"+pgroups.getgroup_name()+"'";
+	  	    else
+	    	      cmd_groupslist="Select count(*) as counting from `participant_group_table` where created_by='"+userName+"' and group_name='"+pgroups.getgroup_name()+"'";
+	      resultSet=statement.executeQuery(cmd_groupslist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
           System.out.println(count);
@@ -348,6 +485,9 @@ public class ParticipantGroupDAO {
 			String cmd;
 			int offset = 5 * (page - 1);
 			int limit = 5;
+			if(userName.equals("superadmin"))
+				cmd="select * from participant_group_table limit " + offset + ","+ limit+"";
+			else
 			cmd = "select * from participant_group_table where created_by='"+userName+"' limit " + offset + ","+ limit+"" ;
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
@@ -389,7 +529,11 @@ public class ParticipantGroupDAO {
 		try {
 
 			String cmd;
-			cmd = "select count(*) as noofrecords from participant_group_table where created_by='"+userName+"'";
+			if(userName.equals("superadmin"))
+			cmd = "select count(*) as noofrecords from participant_group_table";
+			else
+				cmd = "select count(*) as noofrecords from participant_group_table where created_by='"+userName+"'";
+				
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())

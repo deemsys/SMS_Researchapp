@@ -23,11 +23,15 @@ import bephit.controllers.MainController;
 import bephit.model.AdminUser;
 import bephit.model.EmailSender;
 import bephit.model.ParticipantGroups;
+import bephit.model.TwilioSMS;
 
 public class AdminUserDAO {
 	
 	@Autowired
 	EmailSender emailSender;
+	
+	 @Autowired  
+		TwilioSMS messageSender;
 	
 	 private static final Logger logger = LoggerFactory.getLogger(MainController.class); //Logger
 		
@@ -109,8 +113,13 @@ public class AdminUserDAO {
     
   /*  model.addAttribute("success","true");
    */
-	
-	
+    /*  model.addAttribute("success","true");
+     */ 
+      try{
+    	 
+      	messageSender.sendSMS(adminuser.getAdmin_mobile(), "BC Password :"+pw);
+     }catch(Exception e){e.printStackTrace();}
+    
 	//End Send Passwordlcvbnm,./,nbvcc                                                                                                                                                                  
 		}
 		catch(Exception ex)
@@ -445,7 +454,7 @@ public class AdminUserDAO {
 			
 			if(resultSet.next())
 				Desc=Desc+resultSet.getString(1);
-			statement.execute("delete from admin_log_table where admin_id='"+admin_id+"'");
+			statement.execute("delete from admin_log_table where admin_id='"+adminuser+"'");
 			flag=1;
 		} 
 		catch (Exception ex) 

@@ -263,6 +263,10 @@ public class MainDAO {
 			e1.printStackTrace();
 		}
 		// List<ParticipantsDetails> participants = new
+		
+		
+		
+		
 		// ArrayList<ParticipantsDetails>();
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -338,14 +342,19 @@ public class MainDAO {
 			String cmd_role="insert into user_roles(user_id,authority) values('"+lastinsertedid+"','ROLE_USER')";
 			statement.execute(cmd_role);	
 			//end insert
-			
+			try
+			{
 			//send mail password
 			logger.info("--Before Sending--"); //Logger Test
 		    //Email Test
 		    emailSender.password_sendEmail(participant.getEmail_id(),"learnguild@gmail.com","Breast Cancer Research App Registration",participant.getFname(),participant.getusername(),pw);
 		    
 		    logger.info("--After Sent--");
-			
+			}
+			catch(Exception ex)
+			{
+				
+			}
 			
 			
 			
@@ -571,6 +580,7 @@ public class MainDAO {
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
+		  System.out.println(((UserDetails) principal).getAuthorities());
 		}
 		String userName = userDetails.getUsername();
 		
@@ -588,10 +598,11 @@ public class MainDAO {
 		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 		try {
 			String cmd;
-			if(userName=="superadmin")
+			String role_admin="ROLE_ADMIN";
+			if(userName.equals("superadmin"))
 				cmd="select * from participants_table";
 				else
-					cmd="select * from participants_table where Provider_name='"+userName+"'";
+			    cmd="select * from participants_table where Provider_name='"+userName+"'";
 				
 			resultSet = statement
 					.executeQuery(cmd);
@@ -709,8 +720,8 @@ public class MainDAO {
 			String cmd;
 			int offset = 5 * (page - 1);
 			int limit = 5;
-			if(userName=="superadmin")
-				cmd="select * from participants_table  limit " + offset + ","+ limit+"" ;
+			if(userName.equals("superadmin"))
+				   cmd="select * from participants_table  limit " + offset + ","+ limit+"" ;
 				else
 					cmd = "select * from participants_table where provider_name='"+userName+"' limit " + offset + ","+ limit+"" ;
 							
@@ -768,7 +779,7 @@ public class MainDAO {
 		try {
 
 			String cmd;
-			if(userName=="superadmin")
+			if(userName.equals("superadmin"))
 				cmd = "select count(*) as noofrecords from participants_table";
 				else
 					cmd = "select count(*) as noofrecords from participants_table where provider_name='"+userName+"'";
@@ -862,9 +873,17 @@ public class MainDAO {
 		}
 		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 		try {
-			String cmd = "select * from participants_table where Provider_name='"+userName+"' and mobile_num='"
+			
+			String cmd;
+			if(userName.equals("superadmin"))
+			cmd = "select * from participants_table where mobile_num='"
 					+ mobile + "' or group_name='" + groupname + "' or city='"
 					+ city + "'";
+			else
+				cmd=cmd = "select * from participants_table where mobile_num='"
+				+ mobile + "' or group_name='" + groupname + "' or city='"
+				+ city + "' having Provider_name='"+userName+"'";
+	
 			resultSet = statement.executeQuery(cmd);
 			System.out.println(cmd);
 			while (resultSet.next()) {
@@ -1172,7 +1191,105 @@ public class MainDAO {
 	}
 	
 	
-	
+	public  int checkuser(String admin_username,int from,String participantid)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		//List<AdminUser> adminuser = new ArrayList<AdminUser>();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	    	String cmd_userlist="";
+	    	if(from==0)	   
+	      cmd_userlist="Select count(*) as counting from participants_table where username='"+admin_username+"'";
+	    	else if(from==1)
+	    		cmd_userlist="Select count(*) as counting from participants_table where mobile_num='"+admin_username+"' && participants_id!='"+participantid+"'";
+	    	 resultSet=statement.executeQuery(cmd_userlist);
+	          resultSet.next();
+	          int count=Integer.parseInt(resultSet.getString("counting"));
+	          System.out.println(count);
+	         if(count>0)
+	          {
+	        	  return 0;
+	          }
+	          else
+	          {
+	              return 1;
+	          }
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	
+	    	return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    
+	}
+
+	public  int checkmobile(String admin_mobile,int from,String participantid)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag=0;
+		//List<AdminUser> adminuser = new ArrayList<AdminUser>();
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try{
+	    	int enabled=1;
+	    	int updateemail=1;
+	    	String cmd_mobilelist="";
+	    	if(from==0)	   
+	    		cmd_mobilelist ="Select count(*) as counting from participants_table where mobile_num='"+admin_mobile+"'";
+	    	else if(from==1)
+	    		cmd_mobilelist="Select count(*) as counting from participants_table where mobile_num='"+admin_mobile+"' && participants_id!='"+participantid+"'";
+		 	    
+	    	resultSet=statement.executeQuery(cmd_mobilelist);
+	          resultSet.next();
+	          int count=Integer.parseInt(resultSet.getString("counting"));
+	          System.out.println(count);
+	         if(count>0)
+	          {
+	        	  return 0;
+	          }
+	          else
+	          {
+	              return 1;
+	          }
+	 }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+	    	flag=0;
+	    	
+	    	return 0;
+	    }finally{
+	     	releaseStatement(statement);
+	    	releaseConnection(con);	    
+	    	
+	    }
+	    
+	}
+
 	
 	
 	

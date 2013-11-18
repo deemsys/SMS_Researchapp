@@ -120,6 +120,15 @@ function validate(form)
           </div>
       </tr>
     </c:if> 
+    <c:if test="${passwordsuccess==true}">
+        <tr>
+        <td valign="top" align="left" style="padding:5px 0 10px 0;">&nbsp;
+            <div id="success_statusbar" class="status success">
+            <p class="closestatus"><a title="Close" href="login">x</a></p>
+            <p><img alt="Success" src="resources/images/icons/icon_success.png"><span>Password Send Successful!!</span>.</p>
+          </div>
+      </tr>
+    </c:if> 
 		  <c:if test="${not empty error}">
 		<!-- <div class="errorblock"> -->
 		<center><font color="red"><img alt="invalid login" src="resources/images/Close.png"><span>	${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span></font></center></img>

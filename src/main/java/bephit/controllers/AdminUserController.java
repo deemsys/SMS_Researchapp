@@ -27,7 +27,7 @@ import bephit.forms.*;
 import bephit.model.*;
 
 @Controller
-@SessionAttributes({"currentuser"})
+@SessionAttributes({"currentuser","admin"})
 public class AdminUserController
 {
 	@Autowired
@@ -35,10 +35,10 @@ public class AdminUserController
 	
 	
 	@RequestMapping(value="/addadminuser", method=RequestMethod.POST)
-	public String addnewadminuser(HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
+	public String addnewadminuser(HttpSession session,HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
 			BindingResult result,ModelMap model,Principal principal)
 	{
-		
+		session.setAttribute("admin",adminuser);
 		if (result.hasErrors())
 		{
 		   model.addAttribute("menu","adminuser");
@@ -48,13 +48,16 @@ public class AdminUserController
 		model.put("success", "true");
 		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		adminuserDAO.setAdminUser(adminuser,principal.getName());
+		session.removeAttribute("admin");
 		model.addAttribute("menu","adminuser");
 		return "addadminuser";
 	}
 	
 	@RequestMapping(value="/addadminuser", method=RequestMethod.GET)
-	public String showaddnewadminuser(HttpServletRequest request,ModelMap model)
+	public String showaddnewadminuser(HttpSession session,HttpServletRequest request,ModelMap model)
 	{
+        session.invalidate();
+		session.removeAttribute("admin");
 		model.put("success", "false");
 		  model.addAttribute("menu","adminuser");
 		  model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
@@ -90,18 +93,7 @@ public class AdminUserController
 		}
 		  model.addAttribute("menu","adminuser");
 		return "viewadminuser";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 	@RequestMapping(value="/editadminuser", method=RequestMethod.GET)
 	public String editadminuser(HttpServletRequest request,@RequestParam("id") String admin_id,ModelMap model, Principal principal) {
@@ -166,7 +158,7 @@ public class AdminUserController
 		for(String id:SelectedIDs)
 		{
 		System.out.println(id);
-		adminuserDAO.deleteAdminUser(adminuser,id);
+		adminuserDAO.deleteAdminUser(principal.getName(),id);
 		}
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
@@ -188,8 +180,7 @@ public class AdminUserController
 	@RequestMapping(value="/showRegisterProvider", method=RequestMethod.GET)
 	public String showRegisterProvider(HttpSession session,HttpServletRequest request,ModelMap model) {
 			
-		//session.removeAttribute("adminuser");
-		
+		    session.removeAttribute("admin");		
 			model.put("success", "false");			
 			AdminUserForm adminuserForm = new AdminUserForm();
 			adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
@@ -206,7 +197,7 @@ public class AdminUserController
         adminuserform.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserform",adminuserform);
         model.addAttribute("menu","adminuser");
-     
+        
 		return "/registerprovider";
 	}
 	/*@RequestMapping(value="/registerprovider", method=RequestMethod.POST)
@@ -235,7 +226,7 @@ public class AdminUserController
 	public String addproviderForm(HttpSession session,HttpServletRequest request,@ModelAttribute("adminuser") @Valid AdminUser adminuser,
 			BindingResult result,ModelMap model,Principal principal) {
 		
-		
+		session.setAttribute("admin",adminuser);
 		//session.setAttribute("adminuser",adminuser);
 		
 		
@@ -307,6 +298,7 @@ public class AdminUserController
 			else
 			{
 				adminuserDAO.setAdminUser(adminuser,"personal");
+				model.addAttribute("Regsuccess","true");
 				return "/login";
 			}
 			}

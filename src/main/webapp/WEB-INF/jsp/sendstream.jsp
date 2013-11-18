@@ -28,7 +28,7 @@
 	});
 </script>
 <div id="right_content">
-	<form action="insertsendstream" method="POST">
+	<form action="sendstream" method="POST">
 
 		<table cellpadding="0" cellspacing="0" border="0" width="98%"
 			class="margin_table">

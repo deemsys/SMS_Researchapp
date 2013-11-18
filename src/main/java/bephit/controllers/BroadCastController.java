@@ -69,24 +69,25 @@ public class BroadCastController {
         else
         	
         {
-        	System.out.println("Error but ???");
+       /* System.out.println("Error but ???");
         ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
-        model.addAttribute("participantGroupForm", participantGroupForm); 
-        model.addAttribute("menu","message");
+        model.addAttribute("participantGroupForm", participantGroupForm);*/ 
+        	   int status=broadDAO.insertNewBroadCast(broadCast);  
+        	      
+        	model.addAttribute("menu","message");
         return "viewstream";
         }
-        
-      /*int status=broadDAO.insertNewBroadCast(broadCast);  
+      /*  
         try{
-        	messageSender.sendSMS("6144670389", "Deemsys test");
+        	//messageSender.sendSMS("6144670389", "Deemsys test");
         }
         catch(Exception e)
         {
         	e.printStackTrace();
-        	}
+        	}*/
         
-        */
+	
 		
 	}
 

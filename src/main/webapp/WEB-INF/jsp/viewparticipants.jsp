@@ -56,7 +56,8 @@
 					<div class="del_div">
 						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" /></label></p>
 	          		</div>
-				</td></tr>
+				</td></tr></table>
+				<table>
 							<tr class="title">
 								
 								<td valign="center" align="right" width="10%"><input type="checkbox" value="" name="chkAll"></td>
@@ -101,10 +102,10 @@
 							    	</c:if>
 							    	</table>
 							    	
-							    	</form>
+							    	
 							    	</div>
 							    	
-							    	
+							    	</form>
 							    	<form action="viewparticipants_page" method="GET">
 							    	<table cellpadding="0" cellspacing="0" border="0" width="98%"
 			class="margin_table">
