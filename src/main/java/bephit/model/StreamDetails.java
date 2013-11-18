@@ -4,6 +4,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class StreamDetails {
 
+	public String getCreated_by() {
+		return created_by;
+	}
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
 	public StreamDetails()
 	{
 		
@@ -17,6 +23,7 @@ public class StreamDetails {
 	@NotEmpty
 	private String streamName;
 	
+	private String textingcontacts;
 	
 	@NotEmpty
 	private String description;
@@ -26,21 +33,30 @@ public class StreamDetails {
 	private String message_count;
     private String message_id;
     private String stream_message;
+    private String created_by;
     
      
-    public StreamDetails(String streamId,String admin_username, String streamName, String description, String count) {
+    public StreamDetails(String streamId,String admin_username, String streamName,String textingcontacts, String description, String count,String created_by) {
 	    super();
 		this.streamId = streamId;
 		this.admin_username=admin_username;
-		this.streamName = streamName;		
+		this.streamName = streamName;
+		this.textingcontacts=textingcontacts;
 		this.description = description;
 		this.message_count=count;
+		this.created_by=created_by;
     }	
     public String getstream_message()
     {
     	return stream_message;
     }
-    public void setstream_message()
+    public String getTextingcontacts() {
+		return textingcontacts;
+	}
+	public void setTextingcontacts(String textingcontacts) {
+		this.textingcontacts = textingcontacts;
+	}
+	public void setstream_message()
     {
     	this.stream_message=stream_message;
     }
