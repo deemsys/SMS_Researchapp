@@ -12,6 +12,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import bephit.model.AdminUser;
 import bephit.model.ParticipantsDetails;
 import bephit.model.StreamDetails;
@@ -66,6 +69,14 @@ public class StreamDetailsDAO
 		Statement statement = null;		 
 		ResultSet resultSet = null;
 		int flag=0;
+		String userName;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		  
+		}
+		 userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -84,7 +95,7 @@ public class StreamDetailsDAO
 	count++;
 	statement.execute(cmd_mess);
 	}
-	String cmd="insert into stream values('"+streamdetails.getStreamId()+"','"+admin_id+"','"+streamdetails.getStreamName()+"','"+streamdetails.getDescription()+"','"+(count-1)+"')";
+	String cmd="insert into stream values('"+streamdetails.getStreamId()+"','"+admin_id+"','"+streamdetails.getStreamName()+"','"+streamdetails.getTextingcontacts()+"','"+streamdetails.getDescription()+"','"+(count-1)+"','"+userName+"')";
 	
 	System.out.println(cmd);
 	statement.execute(cmd);
@@ -219,6 +230,14 @@ public class StreamDetailsDAO
 		ResultSet resultSet = null;
 	
 		String cmd;
+		String userName;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		  
+		}
+		 userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -227,16 +246,19 @@ public class StreamDetailsDAO
 		}
 		List<StreamDetails> stream = new ArrayList<StreamDetails>();
 	    try{
-	        
+	       
+	    	if(userName.equals("superadmin"))
 	       cmd="select * from stream";
-	    
+	    	else
+	    		cmd="select * from stream where created_by='"+userName+"'";
 	    	System.out.println(cmd);
 			resultSet=statement.executeQuery(cmd);
 			while(resultSet.next()){
 				stream.add(new StreamDetails(resultSet.getString("stream_id"),
 						resultSet.getString("admin_name")
-						,resultSet.getString("stream_name")						
-						,resultSet.getString("stream_description"),resultSet.getString("message_count")
+						,resultSet.getString("stream_name")	,
+						resultSet.getString("textingcontacts"),
+						resultSet.getString("stream_description"),resultSet.getString("message_count"),resultSet.getString("created_by")
 						));
 			}
 			
@@ -260,6 +282,14 @@ public class StreamDetailsDAO
 		ResultSet resultSet = null;
 	
 		String cmd;
+		String userName;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		  
+		}
+		 userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -268,15 +298,17 @@ public class StreamDetailsDAO
 		}
 		List<StreamDetails> stream = new ArrayList<StreamDetails>();
 	    try{
-	        
-	       cmd="select * from stream where stream_id='"+stream_id+"'";
-	         
+	        if(userName.equals("superadmin"))
+	       cmd="select * from stream";
+	        else
+	        	cmd="select * from stream where stream_id='"+stream_id+"' and created_by='"+userName+"'";
 	    	System.out.println(cmd);
 			resultSet=statement.executeQuery(cmd);
 			while(resultSet.next()){
 				stream.add(new StreamDetails(resultSet.getString("stream_id"),resultSet.getString("admin_name")
-						,resultSet.getString("stream_name")						
-						,resultSet.getString("stream_description"),resultSet.getString("message_count")
+						,resultSet.getString("stream_name")	,
+						resultSet.getString("textingcontacts"),
+						resultSet.getString("stream_description"),resultSet.getString("message_count"),resultSet.getString("created_by")
 						));
 			}
 			
