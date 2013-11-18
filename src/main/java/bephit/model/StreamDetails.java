@@ -23,6 +23,7 @@ public class StreamDetails {
 	@NotEmpty
 	private String streamName;
 	
+	@NotEmpty
 	private String textingcontacts;
 	
 	@NotEmpty
