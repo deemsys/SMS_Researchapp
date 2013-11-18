@@ -46,7 +46,7 @@
 
 
                 </tr>
-                
+         
 		<c:forEach items="${streamForm.streamDetails}" var="streamDetails" varStatus="status">
         					
 		<tr class="row1">
@@ -64,20 +64,65 @@
 		<c:if test="${currentuser.adminuser[0].deletestream==1}"> --%>
 	    <a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deletestream?id=${streamDetails.streamId}"/>" onclick="return confirmation()">Remove</a>
 	   <%--  </c:if> --%>
-     </td>
-        </tr>
-        </c:forEach>
-         
-
-              </table>
-            </div>
-          </div></td>
-      </tr>
-     </table>
-     </div>
+    </tr>
+		</c:forEach>
+							    	
+							   		    	
+							    	</table>
+							    	
+							    	
+							    	</div>
+							    	
+							    	</form>
      
-</form>
 
+<form action="viewstream_page" method="GET">
+							    	<table cellpadding="0" cellspacing="0" border="0" width="98%"
+			class="margin_table">
+							    	<tr><td colspan="7">  <div class="extrabottom">
+              <ul class="pagination">
+         <%--      <% int i=1;int j=0;%> 
+              
+         --%>
+              <c:if test="${currentpage!=1&&currentpage!=null}">
+               <li class="page_unselect"><a href="viewstream_page?page=${currentpage - 1}" >Prev</a></li> 
+               </c:if>
+              
+             <%-- <c:forEach var="count" begin="1" end="${noofrows}">  --%>
+               <c:forEach begin="1" end="${noofpages}" var="i">
+                <c:choose>
+                    <c:when test="${currentpage eq i}">
+                      <li class="page"><a class="paging_select"><c:out value="${i}"></c:out></a></li>
+                     </c:when>
+                    <c:otherwise>
+                        <li class="page_unselect"><a href="viewstream_page?page=${i}"><c:out value="${i}"></c:out></a></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>          
+            <c:if test="${currentpage!=noofpages}">
+              <li class="page_unselect"><a href="viewstream_page?page=${currentpage+1}">Next</a></li> 
+                 </c:if>
+              <c:choose>
+              <c:when test="${button=='viewall'}">
+                  <li class="page"><a href="viewallstream" class="paging_select">ViewAll</a></li>
+             </c:when>
+                <c:otherwise>
+                  <li class="page"><a href="viewstream" class="paging_select">Back</a></li>
+              </c:otherwise>
+              
+              </c:choose>
+         
+          
+                </ul></div></td></tr>
+                
+</table>
+</form>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</form>
 
 <script type="text/javascript">
 function streamdelete(str) {

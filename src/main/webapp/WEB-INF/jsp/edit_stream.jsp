@@ -27,6 +27,11 @@
                   <td valign="top" align="left" class="input_txt" width="70%"><input type="hidden" name="admin_username" class="input_txtbx" id="admin_username" value="${streamDetails.admin_username}" /><input type="text" name="streamName" class="input_txtbx" id="stream_name" value="${streamDetails.streamName}" />
                   <span><Form:errors path="streamDetails.streamName"></Form:errors></span></td>
                 </tr>
+                <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span>No of Texting Contacts :</td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="textingcontacts" class="input_txtbx" id="inp_id3" value="${streamDetails.textingcontacts}" />
+                  <span><form:errors path="streamDetails.textingcontacts"></form:errors></span></td>
+                </tr>
                  <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Description :</td>
                   <td valign="top" align="left" class="input_txt" width="70%"><textarea name="description" class="input_txtarea"  rows="5" cols="" id="inp_id5"/>${streamDetails.description}</textarea></br><span class="err"><Form:errors path="streamDetails.description"></Form:errors></span></td>
