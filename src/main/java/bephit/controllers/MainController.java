@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; 
  
 @Controller
-@SessionAttributes({"currentuser","role","participants","provider","addparticipants"})
+@SessionAttributes({"currentuser","role","participants","provider","addparticipants","groups"})
 public class MainController {
 	
 	@Autowired  
@@ -117,6 +117,50 @@ public class MainController {
 		return "dashboard";
  
 	}
+	
+	@RequestMapping(value="/AddUser.htm",method=RequestMethod.GET)
+	public String showForm(){
+		return "registerparticipants";
+	}
+	
+	@RequestMapping(value="/AddUser.htm",method=RequestMethod.POST)
+	public @ResponseBody String addUser(HttpSession session,HttpServletRequest request,@ModelAttribute(value="participant")ParticipantsDetails participant, BindingResult result,ModelMap model ){
+      
+		String sample=request.getParameter("Provider_name");
+		System.out.println("sample Provider name"+sample);
+		
+		List<String> userList = new ArrayList<String>(); 
+		String returnText="";
+		System.out.println("username"+participant.getProvider_name());
+		if(!result.hasErrors()){
+			userList.add(participant.getProvider_name());                         
+			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			List<String>  strlist=new ArrayList<String>(); 
+				
+		    /*participantGroupForm.setParticipantGroups(partDAO.getGroups1(user.getName()));
+			model.addAttribute("participantGroupForm", participantGroupForm);*/
+			strlist=partDAO.getGroups(participant.getProvider_name());
+			returnText=returnText+"<select id='group_name' name='group_name' multiple='multiple' class='input_cmbbx1'>";
+			for(String group:strlist)
+			{
+				System.out.println(group);
+				returnText+="<option value='"+group+"'>"+group+"</option>";
+				}
+			System.out.println("strlist"+strlist);
+			  session.setAttribute("groups",strlist);
+		   returnText=returnText+"</select>";			
+		   System.out.println("grouplist"+strlist);
+			
+			//returnText = "User has been added to the list. Total number of users are " + userList.size()+user.getName()+participantGroupForm;
+			return returnText;
+		}
+		else{
+			returnText = "Sorry, an error has occur. User has not been added to list.";
+			return returnText;
+		}
+		
+	}
+
 	
 	
 	
@@ -710,12 +754,15 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		return "activityofadmin";
 	}*/
 	@RequestMapping(value="/editregisterparticipant", method=RequestMethod.GET)
-	public String editregisterparticipantsettings(HttpServletRequest request,ModelMap model) {
+	public String editregisterparticipantsettings(HttpSession session,HttpServletRequest request,ModelMap model) {
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		
 		String participants_id=mainDAO.getparticipantid();
-        
-		
+		System.out.println("participant id"+participants_id);	
+		String name;
+		name=mainDAO.getproviders(participants_id);
+		System.out.println("maindao----------"+name);
+		session.setAttribute("provider",name);
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
@@ -927,10 +974,10 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
         adminuserform.setAdminuser(adminuserdao.getAdminUser());         
 		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),"participant");
 		System.out.println("status"+status);
-		 model.addAttribute("adminuserform",adminuserform);	  
-		 ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+		model.addAttribute("adminuserform",adminuserform);	  
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 	    participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants));
-		 model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 			participantGroupForm.setParticipantGroups(partDAO.getGroups());
 	        model.addAttribute("participantGroupForm", participantGroupForm);
