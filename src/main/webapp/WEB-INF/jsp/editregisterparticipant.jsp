@@ -8,6 +8,49 @@
 	rel="stylesheet" type="text/css" />
 
 <div id="right_content">
+<link rel="stylesheet" url="resources/js/jquery.js" />
+<script src="/BePhitResearchApp/resources/js/jquery.js"></script>
+<script type="text/javascript">
+function doAjaxPost() {  
+	  // get the form values  
+	  var name = $('#Provider_name').val();
+	 /*   var education = $('#education').val();	 */   
+	  $.ajax({  
+	    type: "POST",  
+	    url: "/BePhitResearchApp/AddUser.htm",  
+	    data: "Provider_name=" + name,  
+	    success: function(response){  
+	      // we have the response  
+	      $('#info').html(response);
+	      /*     $('#education').val(''); */
+	    },  
+	    error: function(e){  
+	      alert('Error: ' + e);  
+	    }  
+	  });  
+	}  
+</script>
+
+<script>
+function validate(){
+var fld = document.getElementById('group_name');
+var values = [];
+for (var i = 0; i < fld.options.length; i++) {
+  if (fld.options[i].selected) {
+    values.push(fld.options[i].value);
+  }
+}
+
+if(values.length>4)
+{
+alert("You can select only 4 groups");
+return false;
+}
+else
+return true;
+}
+</script>
+
 
 	<form action="updateregisterparticipant" method="POST" name="update" id="update">
 
@@ -283,12 +326,10 @@
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select
-													name="Provider_name">
-														<c:forEach
-															items="${adminuserform.adminuser}"
-															var="adminuser" varStatus="status">
-															<option value="${adminuser.admin_username}"<c:if test="${participantDetails.Provider_name==adminuser.admin_username}"><c:out value="selected"/></c:if>>${adminuser.admin_username}</option>
+												<select onchange="doAjaxPost()" class="input_cmbbx1" name="Provider_name" id="Provider_name">
+														<c:forEach items="${adminuserform.adminuser}" var="adminuser" varStatus="status">
+															
+															<option value="${adminuser.admin_username}" <c:if test="${provider==adminuser.admin_username}"><c:out value="selected"/></c:if>>${adminuser.admin_username}</option>
 														</c:forEach>
 
 												</select>
@@ -304,7 +345,7 @@
 													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select
+												<div id="info" style="color: green;"><select id="group_name"
 													name="group_name" multiple>
 														<c:forEach
 															items="${participantGroupForm.participantGroups}"
@@ -312,7 +353,7 @@
 															<option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
 														</c:forEach>
 
-												</select> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
+												</select></div> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
 										</table>
@@ -326,7 +367,7 @@
 								</tr>
 								 <tr class="row1">
                   <td valign="top" align="center">&nbsp;</td>
-                  <td valign="top" align="left"><input type="submit" class="submit_btn2" value="Update Participant" onclick="update.submit()"></td>
+                  <td valign="top" align="left"><input type="submit" class="submit_btn2" value="Update Participant" onclick="return validate('this')"></td>
                 </tr>
 							</table>
 							
