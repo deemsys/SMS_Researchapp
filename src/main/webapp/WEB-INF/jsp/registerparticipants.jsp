@@ -7,36 +7,54 @@
             response.setDateHeader("Expires", 0);
             response.setHeader("Pragma", "no-cache");
 %>
+<link rel="stylesheet" url="resources/js/jquery.js" />
+<script src="/BePhitResearchApp/resources/js/jquery.js"></script>
 <script type="text/javascript">
-function doAjax(){
-	alert("i am in script");
-	$.ajax()({
-	url: 'getgroupbyprovider',
-	data:({pid: "suresh"}),
-	
-	success: function(data)
-	{
-		$('#time').html(data);
-		alert("success");
-	}
-});
+function doAjaxPost() {  
+	  // get the form values  
+	  var name = $('#Provider_name').val();
+	 /*   var education = $('#education').val();	 */   
+	  $.ajax({  
+	    type: "POST",  
+	    url: "/BePhitResearchApp/AddUser.htm",  
+	    data: "Provider_name=" + name,  
+	    success: function(response){  
+	      // we have the response  
+	      $('#info').html(response);
+	      /*     $('#education').val(''); */
+	    },  
+	    error: function(e){  
+	      alert('Error: ' + e);  
+	    }  
+	  });  
+	}  
+</script>
+
+
+<script>
+function validate(){
+var fld = document.getElementById('group_name');
+var values = [];
+for (var i = 0; i < fld.options.length; i++) {
+  if (fld.options[i].selected) {
+    values.push(fld.options[i].value);
+  }
+}
+
+if(values.length>4)
+{
+alert("You can select only 4 groups");
+return false;
+}
+else
+return true;
 }
 </script>
-<script language="javascript" type="text/javascript">
-        function CountItems(lb) {
-            var count = 0;
-            for (var i = 0; i < lb.options.length; i++) {
-                if (lb.options[i].selected) {
-                    count++;
-                }
-            }
-            alert(count);
-        }
-    </script>
+
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js">
 </head>
 <body>
-<script type="text/javascript" src="<c:url value="/resources/js/ajaxpaging.js" />"></script>
+
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.js" />"></script>
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
 	type="text/css" />
@@ -155,7 +173,7 @@ function doAjax(){
                                                        </c:forEach>   --%>
 													Age:</td>
 												<td valign="top" align="left" class="input_txt"><select
-													name="age" class="input_cmbbx2">
+													name="age" class="input_cmbbx1">
 														<option selected="selected" value="">Below 12</option>
 														<option value="12-20 years" id="age">12-20 &#160 years</option>
 														<option value="20-30 years" id="age">20-30 &#160 years</option>
@@ -348,8 +366,7 @@ function doAjax(){
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select onchange="myActive()"
-													name="Provider_name" id="Provider_name">
+												<select onchange="doAjaxPost()" name="Provider_name" id="Provider_name"  class="input_cmbbx1"> <option>--select--</option>
 														<c:forEach
 															items="${adminuserform.adminuser}"
 															var="adminuser" varStatus="status">
@@ -358,7 +375,7 @@ function doAjax(){
 
 												</select>
 												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
-																path="participant.group_name"></form:errors> </span></font></td>
+																path="participant.Provider_name"></form:errors> </span></font></td>
 											</tr>
 											<tr>
 												<td><p class="quck-txt">Group</p></td>
@@ -369,7 +386,7 @@ function doAjax(){
 													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select
+												<%-- <select
 													name="group_name" multiple="multiple">
 														<c:forEach
 															items="${participantGroupForm.participantGroups}"
@@ -377,7 +394,12 @@ function doAjax(){
 															<option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
 														</c:forEach>
 
-												</select> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
+												</select> --%>
+							
+												<div id="info" style="color: green;"><select id="group_name" multiple="multiple" class="input_cmbbx1"><option></option></select></div>
+												
+												
+												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
 										</table>
@@ -453,7 +475,7 @@ function doAjax(){
                                                        </c:forEach>   --%>
 													Age:</td>
 												<td valign="top" align="left" class="input_txt"><select
-													name="age" class="input_cmbbx2">
+													name="age" class="input_cmbbx1">
 														<option value="" <c:if test="${participants.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
                  <option value="12-20 years" <c:if test="${participants.age=='12-20 years'}"><c:out value="selected"/></c:if>>12-20 &#160 years</option>
                  <option value="20-30 years" <c:if test="${participants.age=='20-30 years'}"><c:out value="selected"/></c:if>>20-30 &#160 years</option>
@@ -636,7 +658,8 @@ function doAjax(){
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select onchange="myActive()" id="Provider_name"	name="Provider_name">
+												<select onchange="doAjaxPost()" id="Provider_name"	name="Provider_name" class="input_cmbbx1">
+													<option>--select--</option>
 														<c:forEach items="${adminuserform.adminuser}"
 															var="adminuser" varStatus="status">
 															
@@ -644,8 +667,7 @@ function doAjax(){
 														</c:forEach>
 
 												</select>
-												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
-																path="participant.Provider_name"></form:errors> </span></font></td>
+												 </td>
 											</tr>
 											<tr>
 												<td><p class="quck-txt">Group</p></td>
@@ -656,7 +678,7 @@ function doAjax(){
 													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select
+												<%-- <select
 													name="group_name" multiple>
 														<c:forEach
 															items="${participantGroupForm.participantGroups}"
@@ -664,7 +686,19 @@ function doAjax(){
 															<option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
 														</c:forEach>
 
-												</select> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
+												</select> --%>
+												
+												<div id="info" style="color: green;"><select class="input_cmbbx1" multiple="multiple" name="group_name" id="group_name" value="${groups}">
+												
+												<c:forEach items="${groups}"
+															var="group" varStatus="status">
+															<option value="${group}">${group}</option>
+														</c:forEach>
+												
+												
+												</select></div>
+												
+												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
 										</table>
@@ -681,24 +715,9 @@ function doAjax(){
 						
 						
 						
-							<table align="right"><tr><td><input type="submit" class="submit_btn" value="Register" name="insert"></td>
+							<table align="right"><tr><td><input type="submit" class="submit_btn" value="Register" name="insert" onclick="return validate('this')"></td>
 							<td width="50"></td><td><input type="reset" value="Reset" class="submit_btn"></td><td width="50">
 							<td><a href="login" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
-				<%-- </td>
-			</tr>
-		</table>
-	</form>
-</div> --%>
-<script type="text/javascript">
-function myActive() {
+			
 
-	var e = document.getElementById("Provider_name");
-	var provider = e.options[e.selectedIndex].text;
-	//alert("i am in script");
-	//alert(provider);
-// 		alert("?do=activeuser&userid="+str+"&status="+sta);
-		window.location = "getgroupbyprovider?pid="+provider;
-	
-}
-</script>
 <jsp:include page="footer.jsp"></jsp:include>
