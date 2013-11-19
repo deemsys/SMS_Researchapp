@@ -249,6 +249,8 @@ public class MainDAO {
 	    
 	}
 	
+	
+	
 
 	
 	public int setParticipants(ParticipantsDetails participant, String admin_id,String[] groups) {
@@ -545,7 +547,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+participant.getProvider_name()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
 	    	String Desc="Update participant "+participant.getFname();
 	    	
 	    	
@@ -575,6 +577,56 @@ public class MainDAO {
     	else
     		return 0;
 	    
+	}
+	public  String getproviders(String participantid)
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		  System.out.println(((UserDetails) principal).getAuthorities());
+		}
+		String userName = userDetails.getUsername();	
+		//give full permission to superadmin
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String name="";
+		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+		try {
+			String cmd;
+			String role_admin="ROLE_ADMIN";
+			cmd="select * from participants_table where participants_id='"+participantid+"'";
+				
+			resultSet = statement
+					.executeQuery(cmd);
+			System.out.print("username"+userName);
+			if(resultSet.next()) {
+				name=resultSet.getString("Provider_name");
+								
+			}
+			System.out.println("name"+name);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return name;
+
+
+		
 	}
 	
 	public List<ParticipantsDetails> getParticipants() {

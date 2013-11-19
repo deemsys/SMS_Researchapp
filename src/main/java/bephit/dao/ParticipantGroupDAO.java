@@ -27,6 +27,56 @@ public class ParticipantGroupDAO {
 			this.dataSource = dataSource;
 		}
 		
+		public  List<String> getGroups(String providername)
+		{
+			Connection con = null;
+			Statement statement = null;
+			ResultSet resultSet = null;
+			int flag=0;
+			List<String> participantgroup = new ArrayList<String>();
+			try {
+				con = dataSource.getConnection();
+				statement = con.createStatement();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
+		    try{
+		    	int enabled=1;
+		    	int updateemail=1;
+		      String cmd_groupslist="select * from participant_group_table where created_by='"+providername+"'";
+	          System.out.println(cmd_groupslist);
+				resultSet=statement.executeQuery(cmd_groupslist);
+	          while(resultSet.next())
+	          {
+	        	  
+	          participantgroup.add(resultSet.getString("group_name"));
+	          
+	          }
+	          System.out.println("participant"+participantgroup);
+	           
+				flag=1;
+		 }
+		    catch(Exception e){
+		    	System.out.println(e.toString());
+		    	releaseStatement(statement);
+		    	releaseConnection(con);
+		    	flag=0;
+		    	//return 0;
+		    }finally{
+		     	releaseStatement(statement);
+		    	releaseConnection(con);	    
+		    	//if(flag==1)
+		    		//return 1;
+		    	//else
+		    		//return 0;
+		    }
+		    return participantgroup;
+		}
+		
+		
+		
+		
 	public int setParticipantGroup(ParticipantGroups pgroups,String userName)
 	{
 		Connection con = null;
