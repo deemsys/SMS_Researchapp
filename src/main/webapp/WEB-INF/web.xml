@@ -24,7 +24,8 @@
 			/WEB-INF/bephitapp-servlet.xml,
 			/WEB-INF/bephit-database.xml,
 			/WEB-INF/bephit-dao.xml,
-			/WEB-INF/bephit-security.xml
+			/WEB-INF/bephit-security.xml,
+			/WEB-INF/app-config.xml
 		</param-value>
 	</context-param>
  
