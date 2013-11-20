@@ -13,5 +13,8 @@ public List<BroadCastReports> getBroadCastReports() {
 
 public void setBroadCastReports(List<BroadCastReports> broadCastReports) {
 	this.broadCastReports = broadCastReports;
+	
+	
 }
+
 }
