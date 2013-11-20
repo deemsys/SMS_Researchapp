@@ -1,5 +1,8 @@
 package bephit.controllers;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +17,12 @@ import bephit.dao.BroadCastDAO;
 import bephit.dao.ParticipantGroupDAO;
 //import bephit.dao.StreamDetailsDAO;
 import bephit.dao.StreamDetailsDAO;
+import bephit.forms.BroadCastForm;
+import bephit.forms.BroadCastReportsForm;
 import bephit.forms.ParticipantsGroupForm;
 import bephit.forms.StreamDetailsForm;
 import bephit.model.BroadCast;
+import bephit.model.BroadCastReports;
 import bephit.model.TwilioSMS;
 import bephit.model.UserProfile;
 
@@ -55,40 +61,39 @@ public class BroadCastController {
 
 	
 	@RequestMapping(value = "/sendstream", method = RequestMethod.POST)
-	public String insertsendstream(@ModelAttribute("broadCast") @Valid BroadCast broadCast,BindingResult result,ModelMap model) {
+	public String insertsendstream(@ModelAttribute("broadCastReports") @Valid BroadCast broadCast,BindingResult result,ModelMap model,Principal principal) {
 		
         
         if (result.hasErrors())
         {
-            System.out.println("Error came");
-    		StreamDetailsForm streamForm = new StreamDetailsForm();
-    		streamForm.setStreamDetails(streamDAO.getStream());
-    		model.addAttribute("streamForm", streamForm);	
+        	model.addAttribute("menu","message");
     	    return "sendstream";
         }
         else
         	
         {
-       /* System.out.println("Error but ???");
-        ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-		participantGroupForm.setParticipantGroups(partDAO.getGroups());
-        model.addAttribute("participantGroupForm", participantGroupForm);*/ 
-        	   int status=broadDAO.insertNewBroadCast(broadCast);  
-        	      
-        	model.addAttribute("menu","message");
-        return "viewstream";
+            System.out.println("insert broad id" +broadCast.getBroad_id());
+        	 broadDAO.insertNewBroadCast(broadCast);  
+        	 model.addAttribute("success", "true");  
+        	 
+        	 BroadCastReportsForm broadCastReportsForm=new BroadCastReportsForm();
+     		broadCastReportsForm.setBroadCastReports(broadDAO.getReports());
+     		model.addAttribute("broadCastReportsForm",broadCastReportsForm);
+     		
+        	 BroadCastForm broadCastForm=new BroadCastForm();
+     		broadCastForm.setBroadCast(broadDAO.getBroadCast());
+     		model.addAttribute("broadCastForm",broadCastForm);
+     		
+       		StreamDetailsForm streamForm = new StreamDetailsForm();
+       		streamForm.setStreamDetails(streamDAO.getStream());
+       		model.addAttribute("streamForm", streamForm);
+       		
+       		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+    		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+            model.addAttribute("participantGroupForm", participantGroupForm); 
+       		model.addAttribute("menu","message");
+        return "viewreports";
         }
-      /*  
-        try{
-        	//messageSender.sendSMS("6144670389", "Deemsys test");
-        }
-        catch(Exception e)
-        {
-        	e.printStackTrace();
-        	}*/
-        
-	
-		
 	}
 
 	
@@ -99,7 +104,29 @@ public class BroadCastController {
 	
 	
 	@RequestMapping(value = "/viewreports", method = RequestMethod.GET)
-	public String viewreports(ModelMap model) {
+	public String viewreports(HttpServletRequest request,ModelMap model) {
+		
+		BroadCastReportsForm broadCastReportsForm=new BroadCastReportsForm();
+		broadCastReportsForm.setBroadCastReports(broadDAO.getReports());
+		model.addAttribute("broadCastReportsForm",broadCastReportsForm);
+		
+		 BroadCastForm broadCastForm=new BroadCastForm();
+  		broadCastForm.setBroadCast(broadDAO.getBroadCast());
+  		model.addAttribute("broadCastForm",broadCastForm);
+		
+		StreamDetailsForm streamForm = new StreamDetailsForm();
+		streamForm.setStreamDetails(streamDAO.getStream());
+		model.addAttribute("streamForm", streamForm);
+		
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm); 
+        
+	    /*model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
+	     model.addAttribute("noofrows",streamForm.getStreamDetails().size());       
+	    streamForm.setStreamDetails(streamDAO.getlimitedstream(1));
+			model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 5));	 
+	        model.addAttribute("button","viewall");*/
 		model.addAttribute("menu","message");
 		return "viewreports";
 	}

@@ -192,7 +192,7 @@ public class MainController {
 	    model.addAttribute("participantGroupForm", participantGroupForm); 
      
         model.addAttribute("noofrows",mainDAO.getParticipants().size());       
-        model.addAttribute("menu","dashboard");
+        model.addAttribute("menu","participants");
         model.addAttribute("success","false");
         model.addAttribute("button","close");
 		return "viewparticipants";
@@ -675,7 +675,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
         model.addAttribute("participantGroupForm", participantGroupForm);        
 		//partDAO.setParticipantGroup(pgroups);	
         model.addAttribute("success","false");
-        model.addAttribute("menu","participants");
+        model.addAttribute("menu","groups");
 		return "addparticipantgroups";
 	}
 	
@@ -688,7 +688,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 			           /* ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 				        participantGroupForm.setParticipantGroups(partDAO.getGroups());
                         model.addAttribute("participantGroupForm", participantGroupForm);*/
-			            model.addAttribute("menu","participants");
+			            model.addAttribute("menu","groups");
 			            return "addparticipantgroups";
 			}
 		else
@@ -698,7 +698,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
          ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
  		participantGroupForm.setParticipantGroups(partDAO.getGroups());
          model.addAttribute("participantGroupForm", participantGroupForm);
-         model.addAttribute("menu","participants");
+         model.addAttribute("menu","groups");
 		return "viewparticipantgroups";
 		}
 	}
@@ -709,7 +709,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
 		//partDAO.setParticipantGroup(pgroups);
-        model.addAttribute("menu","participants");
+        model.addAttribute("menu","groups");
 		return "addparticipantgroups";
 	}
 	
@@ -721,7 +721,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm); 
-        model.addAttribute("menu","participants");
+        model.addAttribute("menu","groups");
         
         //pagination 
         model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
@@ -791,7 +791,9 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		TextMsgSettingsForm form = new TextMsgSettingsForm();
 		form.setTextMsgSettings(mailTemplateDAO.getMsgSettings());
 		map.addAttribute("form", form);
-System.out.println("textmessage");
+		map.addAttribute("menu","settings");
+        System.out.println("textmessage");
+
 		return "textmsg";
 	}
 @RequestMapping(value="/textMsgSettings", method= RequestMethod.POST)
@@ -804,7 +806,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	textMsgSettingsForm.setTextMsgSettings(mailTemplateDAO.getMsgSettings());
 	map.addAttribute("form", textMsgSettingsForm);
 	map.addAttribute("success", "true");
-	
+	map.addAttribute("menu","settings");
 	return "textmsg";
 	
 }
@@ -1015,7 +1017,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
         model.addAttribute("participantGroupForm", participantGroupForm); 
         model.addAttribute("menu","participants");
 		}
-		 model.addAttribute("menu","participants");
+		 model.addAttribute("menu","groups");
 		return "viewparticipantgroups";
 	}
 	
@@ -1041,7 +1043,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
         model.addAttribute("participantGroupForm", participantGroupForm); 
         model.addAttribute("menu","participants");
 		}
-		 model.addAttribute("menu","participants");
+		 model.addAttribute("menu","groups");
 		return "viewparticipantgroups";
 	}
 	
@@ -1058,7 +1060,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		/*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);	*/
-        model.addAttribute("menu","dashboard");
+        model.addAttribute("menu","participants");
 		return "participantdetails";
 	}
 	
@@ -1068,7 +1070,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getparticularGroups(group_id));
         model.addAttribute("participantGroupForm", participantGroupForm); 
-        model.addAttribute("menu","participants");
+        model.addAttribute("menu","groups");
 		return "groupdetails";
 	}
 	
@@ -1086,7 +1088,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("noofrows",mainDAO.getParticipants().size());
         model.addAttribute("currentpage",page);
-        model.addAttribute("menu","dashboard");
+        model.addAttribute("menu","participants");
         model.addAttribute("button","viewall");
 		return "dashboard";
 		
@@ -1119,7 +1121,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	    model.addAttribute("participantGroupForm", participantGroupForm); 
         model.addAttribute("noofrows",partDAO.getGroups().size());
         model.addAttribute("currentpage",page);
-        model.addAttribute("menu","dashboard");
+        model.addAttribute("menu","groups");
         model.addAttribute("button","viewall");
 		return "viewparticipantgroups";
 		
@@ -1162,12 +1164,14 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	        }
 			catch(Exception e){e.printStackTrace();}
 	        model.addAttribute("passwordsuccess",true);
+	        model.addAttribute("menu","settings");
 			 return "login"; 
 		}
 		else
 		{
 			model.addAttribute("success","false");
 			model.addAttribute("error","Emailid not exists");
+			model.addAttribute("menu","settings");
 			return "forgotpwd";
 		}
 		 
@@ -1199,7 +1203,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	@RequestMapping(value ="/changePassword",method=RequestMethod.POST)
 	public String addNewPwd(HttpServletRequest request,@ModelAttribute("updatePwds") @Valid UpdatePwd updatePwds,BindingResult result,ModelMap model,Principal principal){
 		if(result.hasErrors()){
-			
+			model.addAttribute("menu","settings");
 			return "changepwd";
 		}
 
@@ -1216,6 +1220,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			System.out.println("password match");
 			logger.debug("Password changed successfully");
 			mailTemplateDAO.updateoldPwd(updatePwds);
+			model.addAttribute("menu","settings");
 			return "dashboard";
 		}
 		else
@@ -1223,6 +1228,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			System.out.println("password");
 			logger.debug("Password change failed");
 			model.put("password_mismatch", "true");
+			model.addAttribute("menu","settings");
 			return "changepwd";
 		}
 		

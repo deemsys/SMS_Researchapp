@@ -174,6 +174,7 @@ public class AdminUserController
 	{AdminUserForm adminuserForm = new AdminUserForm();
 	adminuserForm.setAdminuser(adminuserDAO.getAdminUser(admin_id));
     model.addAttribute("adminuserForm",adminuserForm);
+    model.addAttribute("menu","adminuser");
 		return "admindetails";
 	}	
 	

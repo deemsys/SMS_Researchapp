@@ -152,7 +152,7 @@ public class MessageStreamController {
 		model.addAttribute("streamForm", streamForm);
 		
 		
-        model.addAttribute("menu","dashboard");
+        model.addAttribute("menu","message");
 		return "streamdetails";
 	}
 	
@@ -204,7 +204,7 @@ public class MessageStreamController {
         model.addAttribute("menu","message");
         model.addAttribute("button","close");
 	      
-	        model.addAttribute("menu","dashboard");
+	        model.addAttribute("menu","message");
 	        model.addAttribute("success","false");
 	        model.addAttribute("button","close");
 			return "viewstream";
