@@ -42,11 +42,12 @@
 									<td valign="top" align="left" width="10%">Broadcast&nbsp;Id</td>
 									<td valign="top" align="left" width="15%">Stream&nbsp;Name</td>
 									<td valign="top" align="left" width="15%">Send&nbsp;to&nbsp;Group</td>
-
 									<td valign="top" align="left" width="15%">Frequency</td>
 									<td valign="top" align="left" width="10%">Start&nbsp;Date</td>
 									<td valign="top" align="left" width="10%">Status</td>
 									<td valign="top" align="left" width="20%">No.&nbsp;of&nbsp;Msg&nbsp;Delivered</td>
+								   <td valign="top" align="left" width="10%">Enable/Disable</td>
+								   
 								</tr>
 
 
@@ -59,13 +60,30 @@
 										<td valign="center" align="left" width="5%">
 										<input type="checkbox" value="" name="chkUser"></td>
 										<td valign="top" align="left" width="10%">${broadCastReports.broad_id}</td>
-										<td valign="top" align="left" width="15%">${broadCastReports.stream_name}</td>
-										<td valign="top" align="center" width="15%">${broadCastReports.group_name}</td>
-										<td valign="top" align="left" width="15%">${broadCastReports.frequency}</td>
-										<td valign="top" align="left" width="15%">${broadCastReports.start_date}</td>
-										<td valign="top" align="left" width="15%">${broadCastReports.status}</td>
+										<td valign="top" align="left" width="12%">${broadCastReports.stream_name}</td>
+										<td valign="top" align="center" width="14%">${broadCastReports.group_name}</td>
+										<td valign="top" align="left" width="10%">${broadCastReports.frequency}</td>
+										<td valign="top" align="left" width="10%">${broadCastReports.start_date}</td>
+										<td valign="top" align="left" width="10%">${broadCastReports.status}</td>
 
 										<td valign="top" align="center" width="15%">${broadCastReports.message_count}</td>
+										
+										<td valign="top" align="center" width="10%">
+										<c:choose>
+									     	<c:when test="${broadCastReports.enable==0}">
+									     	<a href="viewreports" title=""><img src="resources/images/icons/icon_approve.png" alt="Enable" /></a><a href="#"  style="padding-right:20px;" onclick="myActive(${broadCastReports.broad_id},1)">Enable</a>
+										 	</c:when>
+										 	<c:when test="${broadCastReports.enable==1}">
+										 	<a href="viewreports" title=""><img src="resources/images/icons/icon_unapprove.png" alt="Disable" /></a><a href="#" style="padding-right:10px;" onclick="myActive(${broadCastReports.broad_id},0)">Disable</a>
+										 	</c:when>										 	
+										 	</c:choose>
+										
+										
+										</td>
+										
+										
+										
+										
 										
 									</tr>
 								</c:forEach>
@@ -92,6 +110,39 @@
 										// 		alert("Thanks for sticking around!")
 									}
 								}
+								
+								
+								function myActive(broad_id,ena) {
+
+									
+									if(ena==1)
+									{
+										var answer = confirm("Are you sure want to enable this broadcast?");
+									}
+									else
+									{
+										var answer = confirm("Are you sure want to Disable this broadcast?");
+									}
+									if (answer){
+//								 		
+										window.location = "enable_messaging?id="+broad_id+"&enable="+ena;
+									}
+									else{
+//								 		//alert("Thanks for sticking around!")
+									}
+								}
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
 							</script>
 							<script type="text/javascript">
 								$(function() {
