@@ -237,32 +237,31 @@
 										Time :</td>
 									<td valign="top" align="left" class="input_txt"><select
 										name="fstream_time" class="input_cmbbx2">
-											<option value="12AM" selected="selected">12&nbsp;AM</option>
-											<option value="01AM">01&nbsp;AM</option>
-											<option value="02AM">02&nbsp;AM</option>
-											<option value="03AM">03&nbsp;AM</option>
-											<option value="04AM">04&nbsp;AM</option>
-											<option value="05AM">05&nbsp;AM</option>
-											<option value="06AM">06&nbsp;AM</option>
-											<option value="07AM">07&nbsp;AM</option>
-											<option value="08AM">08&nbsp;AM</option>
-											<option value="09AM">09&nbsp;AM</option>
-											<option value="10AM">10&nbsp;AM</option>
-											<option value="11AM">11&nbsp;AM</option>
-											<option value="12PM">12&nbsp;PM</option>
-											<option value="01PM">01&nbsp;PM</option>
-											<option value="02PM">02&nbsp;PM</option>
-											<option value="03PM">03&nbsp;PM</option>
-											<option value="04PM">04&nbsp;PM</option>
-											<option value="05PM">05&nbsp;PM</option>
-											<option value="06PM">06&nbsp;PM</option>
-											<option value="07PM">07&nbsp;PM</option>
-											<option value="08PM">08&nbsp;PM</option>
-											<option value="09PM">09&nbsp;PM</option>
-											<option value="10PM">10&nbsp;PM</option>
-											<option value="11PM">11&nbsp;PM</option>
-									</select></td>
-								</tr>
+											<option value="12AM" selected="selected">00&nbsp;</option>
+											<option value="01AM">01&nbsp;</option>
+											<option value="02AM">02&nbsp;</option>
+											<option value="03AM">03&nbsp;</option>
+											<option value="04AM">04&nbsp;</option>
+											<option value="05AM">05&nbsp;</option>
+											<option value="06AM">06&nbsp;</option>
+											<option value="07AM">07&nbsp;</option>
+											<option value="08AM">08&nbsp;</option>
+											<option value="09AM">09&nbsp;</option>
+											<option value="10AM">10&nbsp;</option>
+											<option value="11AM">11&nbsp;</option>
+											<option value="12PM">12&nbsp;</option>
+											<option value="01PM">13&nbsp;</option>
+											<option value="02PM">14&nbsp;</option>
+											<option value="03PM">15&nbsp;</option>
+											<option value="04PM">16&nbsp;</option>
+											<option value="05PM">17&nbsp;</option>
+											<option value="06PM">18&nbsp;</option>
+											<option value="07PM">19&nbsp;</option>
+											<option value="08PM">20&nbsp;</option>
+											<option value="09PM">21&nbsp;</option>
+											<option value="10PM">22&nbsp;</option>
+											<option value="11PM">23&nbsp;</option>
+									</select></td>								</tr>
 							</table>
 							
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">

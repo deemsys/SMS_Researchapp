@@ -4,12 +4,12 @@
 
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
 
-<form name="grid" onSubmit="return validate(this)" action=""
-	method="POST">
+<form name="grid" onSubmit="return validate(this)" action="viewbroadcast_page"
+	method="GET">
 
 	<div id="right_content">
-		<table cellpadding="0" cellspacing="0" border="0" width="98%"
-			class="margin_table">
+		<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+
 
 			<tr>
 				<c:if test="${success==true}">
@@ -69,10 +69,10 @@
 										<td valign="top" align="center" width="10%">
 										<c:choose>
 									     	<c:when test="${broadCastReports.enable==0}">
-									     	<a href="viewreports" title=""><img src="resources/images/icons/icon_approve.png" alt="Enable" /></a><a href="#"  style="padding-right:20px;" onclick="myActive(${broadCastReports.broad_id},1)">Enable</a>
+									     	<a href="viewreports" title=""><img src="resources/images/icons/icon_unapprove.png" alt="Enable" /></a><a href="#"  style="padding-right:20px;" onclick="myActive(${broadCastReports.broad_id},1)">Enable</a>
 										 	</c:when>
 										 	<c:when test="${broadCastReports.enable==1}">
-										 	<a href="viewreports" title=""><img src="resources/images/icons/icon_unapprove.png" alt="Disable" /></a><a href="#" style="padding-right:10px;" onclick="myActive(${broadCastReports.broad_id},0)">Disable</a>
+										 	<a href="viewreports" title=""><img src="resources/images/icons/icon_approve.png" alt="Disable" /></a><a href="#" style="padding-right:10px;" onclick="myActive(${broadCastReports.broad_id},0)">Disable</a>
 										 	</c:when>										 	
 										 	</c:choose>
 										
@@ -85,8 +85,60 @@
 										
 									</tr>
 								</c:forEach>
+							
+								<tr><td colspan="7">  <div class="extrabottom">
+              <ul class="pagination">
+         <%--      <% int i=1;int j=0;%> 
+              
+         --%>
+              <c:if test="${currentpage!=1&&currentpage!=null}">
+               <li class="page_unselect"><a href="viewbroadcast_page?page=${currentpage - 1}" >Prev</a></li> 
+               </c:if>
+              
+             <%-- <c:forEach var="count" begin="1" end="${noofrows}">  --%>
+               <c:forEach begin="1" end="${noofpages}" var="i">
+                <c:choose>
+                    <c:when test="${currentpage eq i}">
+                      <li class="page"><a class="paging_select"><c:out value="${i}"></c:out></a></li>
+                     </c:when>
+                    <c:otherwise>
+                        <li class="page_unselect"><a href="viewbroadcast_page?page=${i}"><c:out value="${i}"></c:out></a></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>          
+            <c:if test="${currentpage!=noofpages}">
+              <li class="page_unselect"><a href="viewbroadcast_page?page=${currentpage+1}">Next</a></li> 
+                 </c:if>
+              <c:choose>
+              <c:when test="${button=='viewall'}">
+                  <li class="page"><a href="viewallbroadcast" class="paging_select">ViewAll</a></li>
+             </c:when>
+                <c:otherwise>
+                  <li class="page"><a href="viewreports" class="paging_select">Back</a></li>
+              </c:otherwise>
+              
+              </c:choose>
+         
+          
+                </ul></div></td></tr>
+
+								
+								</table>
+</div>
+								<div style="clear: both;"></div>
+								</div>
+								
+								</td>
+								</tr>
+								<tr>
+									<td valign="top" align="left">&nbsp;</td>
+								</tr>
+								
 							</table>
 							</form>
+						
+							
+			
 							<script>
 								function myFunction(str) {
 									var answer = confirm("Are you sure want to delete this User?")

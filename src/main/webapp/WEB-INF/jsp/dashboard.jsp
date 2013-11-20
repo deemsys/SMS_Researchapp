@@ -92,13 +92,7 @@
           
                 </ul></div></td></tr>
 
-								<!-- <tr><td colspan="7">  <div class="extrabottom">
-								
-              						<ul class="pagination">
-              						
-                						<li class="text"><a href="viewparticipant_page?page=1" class="submit_btn"></li>
-                						<li class="text"></li>
-                					</ul></div></td></tr> -->
+							
 
 								</table>
 
