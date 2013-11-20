@@ -139,19 +139,19 @@ public class BroadCastDAO {
 		List<BroadCastReports> reportList = new ArrayList<BroadCastReports>();
 		try {
 
-			repotscmd = "select broad_cast_table.broad_id, broad_cast_table.frequency, broad_cast_table.start_date, broad_cast_table.status,stream_name,stream.message_count,participant_group_table.group_name from broad_cast_table,stream,participant_group_table where broad_cast_table.stream_id = stream.stream_id AND broad_cast_table .group_id = participant_group_table.group_id;";
-
+			repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id;";
+			
+			resultSet=statement.executeQuery(repotscmd);
 			System.out.println(repotscmd);
-			resultSet = statement.executeQuery(repotscmd);
 			while (resultSet.next()) {
 				reportList.add(new BroadCastReports(resultSet
-						.getString("broad_id"), resultSet
+						.getString("broad_id"),resultSet
+						.getString("stream_name"),resultSet
+						.getString("group_name"), resultSet
 						.getString("frequency"), resultSet
 						.getString("start_date"),
-						resultSet.getString("status"), resultSet
-								.getString("stream_name"), resultSet
-								.getString("message_count"), resultSet
-								.getString("group_name")));
+						resultSet.getString("status"),resultSet
+								.getString("message_count")));
 
 			}
 
@@ -185,15 +185,12 @@ public class BroadCastDAO {
 		List<BroadCast> bcast = new ArrayList<BroadCast>();
 		try {
 
-			/*
-			 * cmd_msgcount="select max("
-			 */
-
 			cmd = "select * from broad_cast_table";
 
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
-			while (resultSet.next()) {
+			while (resultSet.next())
+			{
 				bcast.add(new BroadCast(resultSet.getString("broad_id"),
 						resultSet.getString("stream_id"), resultSet
 								.getString("group_id"), resultSet
@@ -204,6 +201,8 @@ public class BroadCastDAO {
 								.getString("stream_week_day"), resultSet
 								.getString("status")));
 			}
+
+			
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
