@@ -26,33 +26,8 @@
 							</div>
 					</tr>
 				</c:if>
-				<td valign="top" align="left" style="padding: 5px 0 10px 0;">
-					<div class="del_div">
-
-						<p>
-							<label style="padding: 0pt 20px 0pt 0pt;"><input
-								type="submit" name="delete" value="" class="icon1"
-								onclick="form.action='?do=deletestream'" /></label>
-						</p>
-
-					</div>
-				</td>
-			</tr>
-			<td valign="top" align="left" style="padding: 5px 0 10px 0;">
-				<!-- <div class="status success">
-            <p class="closestatus"><a title="Close" href="">x</a></p>
-            <p><img alt="Success" src="images/icons/icon_success.png"></p>
-          </div>
-		<div class="status error">
-            <p class="closestatus"><a title="Close" href="">x</a></p>
-            <p><img alt="Error" src="images/icons/icon_error.png"></p>
-          </div>
-		<div class="status success">
-            <p class="closestatus"><a title="Close" href="">x</a></p>
-            <p><img alt="Success" src="images/icons/icon_success.png"></p>
-          </div> -->
-			</td>
-			</tr>
+				
+			
 			<tr>
 				<td valign="top" align="left"><div>
 						<div class="headings altheading">
@@ -60,14 +35,14 @@
 						</div>
 						<div class="contentbox">
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">
+							
 								<tr class="title">
 									<td valign="center" align="left" width="5%"><input
 										type="checkbox" value="" name="chkAll"></td>
 									<td valign="top" align="left" width="10%">Broadcast&nbsp;Id</td>
 									<td valign="top" align="left" width="15%">Stream&nbsp;Name</td>
 									<td valign="top" align="left" width="15%">Send&nbsp;to&nbsp;Group</td>
-									<!-- 		   <td valign="top" align="left" width="5%">No.&nbsp;of&nbsp;Particpants</td>
- -->
+
 									<td valign="top" align="left" width="15%">Frequency</td>
 									<td valign="top" align="left" width="10%">Start&nbsp;Date</td>
 									<td valign="top" align="left" width="10%">Status</td>
@@ -81,8 +56,8 @@
 								<c:forEach items="${broadCastReportsForm.broadCastReports}"
 									var="broadCastReports" varStatus="status">
 									<tr class="row1">
-										<td valign="center" align="left" width="5%"><input
-											type="checkbox" value="" name="chkUser"></td>
+										<td valign="center" align="left" width="5%">
+										<input type="checkbox" value="" name="chkUser"></td>
 										<td valign="top" align="left" width="10%">${broadCastReports.broad_id}</td>
 										<td valign="top" align="left" width="15%">${broadCastReports.stream_name}</td>
 										<td valign="top" align="center" width="15%">${broadCastReports.group_name}</td>
@@ -91,17 +66,7 @@
 										<td valign="top" align="left" width="15%">${broadCastReports.status}</td>
 
 										<td valign="top" align="center" width="15%">${broadCastReports.message_count}</td>
-										<%-- <td valign="top" align="center" width="25%"><c:if
-												test="${currentuser.adminuser[0].editparticipant==1}">
-												<a href="#" title=""><img
-													src="resources/images/icons/icon_edit.png" alt="Edit" /></a>
-												<a href="<c:out value="#"/>" style="padding-right: 10px;">Edit</a>
-											</c:if> <c:if
-												test="${currentuser.adminuser[0].deleteparticipant==1}">
-												<a href="#" title=""><img
-													src="resources/images/icons/icon_delete.png" alt="Delete" /></a>
-												<a href="<c:out value="#"/>" onclick="return confirmation()">Remove</a>
-											</c:if></td> --%>
+										
 									</tr>
 								</c:forEach>
 							</table>

@@ -58,27 +58,22 @@
         <td valign="top" align="left" width="15%">${streamDetails.admin_username}</td>
 		<td valign="top" align="center" width="25%">
 		
-		<%-- <c:if test="${currentuser.adminuser[0].editstream==1}"> --%>
+		
 		<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="edit_stream?id=${streamDetails.streamId}"/>" style="padding-right:10px;">Edit</a>
-		<%-- </c:if>
-		<c:if test="${currentuser.adminuser[0].deletestream==1}"> --%>
+		
+		
 	    <a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deletestream?id=${streamDetails.streamId}"/>" onclick="return confirmation()">Remove</a>
-	   <%--  </c:if> --%>
+	  
     </tr>
 		</c:forEach>
 							    	
 							   		    	
-							    	</table>
-							    	
-							    	
-							    	</div>
-							    	
-							    	</form>
-     
+							    
 
-<form action="viewstream_page" method="GET">
+
 							    	<table cellpadding="0" cellspacing="0" border="0" width="98%"
 			class="margin_table">
+			<form action="viewstream_page" method="GET">
 							    	<tr><td colspan="7">  <div class="extrabottom">
               <ul class="pagination">
          <%--      <% int i=1;int j=0;%> 
@@ -114,15 +109,22 @@
          
           
                 </ul></div></td></tr>
+                </table>
+                </table>
+                <div style="clear: both;"></div>
+								</div>
+                </div>
+               
+                </td>
+                </tr>
+                <tr>
+									<td valign="top" align="left">&nbsp;</td>
+								</tr>
+                </table>
+                </div>
+                </form>
                 
-</table>
-</form>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</form>
+
 
 <script type="text/javascript">
 function streamdelete(str) {
