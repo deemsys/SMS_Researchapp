@@ -531,10 +531,11 @@ public class MainDAO {
 	}
 
 
-	public int updateParticipants(ParticipantsDetails participant,String participants_id,String admin)
+	public int updateParticipants(ParticipantsDetails participant,String participants_id,String admin,String[] groups)
 	{
 		Connection con = null;
 		Statement statement = null;
+		ResultSet resultSet;
 		int flag=0;
 		try {
 			con = dataSource.getConnection();
@@ -547,13 +548,38 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+participant.getProvider_name()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";
-	    	String Desc="Update participant "+participant.getFname();
 	    	
+	    	String Desc="Update participant "+participant.getFname();
+	    	List<String> strlist = new ArrayList<String>();
+			List<String> strlist1 = new ArrayList<String>();				
+			statement.executeUpdate("delete from participant_group where participant_id='"+participants_id+"'");
+			for(String group :groups)				
+				{	
+		    	resultSet= statement.executeQuery("select group_id,group_name from participant_group_table where group_name='"+group+"'");   
+			     int i=0;
+					while(resultSet.next())
+					{
+						strlist.add(i,resultSet.getString("group_id"));
+						strlist1.add(i,resultSet.getString("group_name"));
+						i++;
+					}
+				}
+		 int count=groups.length;
+		 System.out.println("count"+count);
+		
+			System.out.println("group_id"+strlist);
+			System.out.println("group_name"+strlist1);
+		for(int i=0;i<count;i++)
+		{	
+			String cmd_mess="insert into participant_group(group_id,group_name,participant_id) values('"+strlist.get(i)+"','"+strlist1.get(i)+"','"+participants_id+"')";
+			statement.execute(cmd_mess);
+			System.out.println("cmd_mess"+cmd_mess);
+	     }			
+		
 	    	
 	    	
 	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
-	    	    	
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+participant.getProvider_name()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
 	    	System.out.println(cmd);
 	    	System.out.println(cmd_activity);
 			
