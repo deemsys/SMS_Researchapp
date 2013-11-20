@@ -8,7 +8,7 @@ public class BroadCastReports {
 	}
 	public BroadCastReports(String broad_id, String frequency,
 			String start_date, String status, String stream_name,
-			String message_count, String group_name) {
+			String message_count, String group_name,String enable) {
 		super();
 		this.broad_id = broad_id;
 		this.frequency = frequency;
@@ -17,6 +17,13 @@ public class BroadCastReports {
 		this.stream_name = stream_name;
 		this.message_count = message_count;
 		this.group_name = group_name;
+		this.enable = enable;
+	}
+	public String getEnable() {
+		return enable;
+	}
+	public void setEnable(String enable) {
+		this.enable = enable;
 	}
 	private String broad_id;
 	private String frequency;
@@ -25,6 +32,7 @@ public class BroadCastReports {
 	private String stream_name;
 	private String message_count;
 	private String group_name;
+	private String enable;
 	public String getBroad_id() {
 		return broad_id;
 	}
