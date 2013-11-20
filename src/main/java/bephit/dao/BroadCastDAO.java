@@ -139,7 +139,7 @@ public class BroadCastDAO {
 		List<BroadCastReports> reportList = new ArrayList<BroadCastReports>();
 		try {
 
-			repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id;";
+			repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id;";
 			
 			resultSet=statement.executeQuery(repotscmd);
 			System.out.println(repotscmd);
@@ -151,7 +151,7 @@ public class BroadCastDAO {
 						.getString("frequency"), resultSet
 						.getString("start_date"),
 						resultSet.getString("status"),resultSet
-								.getString("message_count")));
+								.getString("message_count"),resultSet.getString("enable")));
 
 			}
 
@@ -217,6 +217,49 @@ public class BroadCastDAO {
 		return bcast;
 	}
 
+	public int setenable_messaging(String broad_id,String enable)
+	{
+		Connection con = null;
+		Statement statement = null;		 
+		ResultSet resultSet = null;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}	
+		try
+		{
+			
+	String cmd_update_enable="Update broad_cast_table set enable="+enable+" where broad_id='"+broad_id+"'";
+	statement.executeUpdate(cmd_update_enable);
+	
+	System.out.println(cmd_update_enable);
+	
+	
+	
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+		}
+		finally
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	   
+		}
+		return 1;
+	}
+	
+	
+	
+	
+	
+	
 	public void releaseConnection(Connection con) {
 		try {
 			if (con != null)
