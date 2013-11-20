@@ -1,8 +1,10 @@
 package bephit.controllers;
 
+import java.io.IOException;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bephit.dao.BroadCastDAO;
 import bephit.dao.ParticipantGroupDAO;
 //import bephit.dao.StreamDetailsDAO;
 import bephit.dao.StreamDetailsDAO;
+import bephit.forms.AdminUserForm;
 import bephit.forms.BroadCastForm;
 import bephit.forms.BroadCastReportsForm;
 import bephit.forms.ParticipantsGroupForm;
@@ -97,7 +101,18 @@ public class BroadCastController {
 	}
 
 	
-	
+	@RequestMapping(value="/enable_messaging", method=RequestMethod.GET)
+	public void enablemessaging(HttpServletRequest request,HttpServletResponse response,@RequestParam("id") String broad_id,@RequestParam("enable") String enable,ModelMap model) throws IOException 
+	{	
+		BroadCastReportsForm broadCastReportsForm=new BroadCastReportsForm();
+		broadCastReportsForm.setBroadCastReports(broadDAO.getReports());
+		model.addAttribute("broadCastReportsForm",broadCastReportsForm);
+       
+        model.addAttribute("menu","message");
+        System.out.println(request.getRequestURL());
+        broadDAO.setenable_messaging(broad_id,enable);        
+        response.sendRedirect("viewreports");
+	}
 	
 	
 	
