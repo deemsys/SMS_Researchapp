@@ -75,7 +75,48 @@ public class AdminUserController
         model.addAttribute("adminuserForm", adminuserForm);	
         model.addAttribute("menu","adminuser");
         model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
+            
+	     model.addAttribute("noofrows",adminuserForm.getAdminuser().size());       
+	    adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(1));
+			model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 5));	 
+	        model.addAttribute("button","viewall");
+	        model.addAttribute("currentpage",1);
 		return "viewadminuser";
+	}
+	
+	@RequestMapping(value="/viewadminuser_page", method=RequestMethod.GET)
+	public String pagesadminuser(HttpServletRequest request,@RequestParam("page") int page,ModelMap model) {	
+		
+		AdminUserForm adminuserForm = new AdminUserForm();
+		adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
+		
+	   	model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 5));
+	    model.addAttribute("adminuserForm", adminuserForm);	
+	   	model.addAttribute("noofrows",adminuserForm.getAdminuser().size());   
+        model.addAttribute("currentpage",page);
+        model.addAttribute("menu","adminuser");
+        model.addAttribute("button","viewall");
+		return "viewadminuser";
+		
+	}	
+	
+	@RequestMapping(value={"/", "/viewalladminuser"}, method = RequestMethod.GET)
+	public String viewalladminuser(HttpServletRequest request,ModelMap model, Principal principal ) {
+		
+		AdminUserForm adminuserForm = new AdminUserForm();
+		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
+		
+		  model.addAttribute("adminuserForm", adminuserForm);	
+		model.addAttribute("noofrows",adminuserForm.getAdminuser().size());    
+       
+        model.addAttribute("menu","adminuser");
+        model.addAttribute("button","close");
+	      
+	        model.addAttribute("menu","adminuser");
+	        model.addAttribute("success","false");
+	        model.addAttribute("button","close");
+			return "viewadminuser";
+ 
 	}
 	
 	

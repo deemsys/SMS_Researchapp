@@ -137,14 +137,50 @@ public class BroadCastController {
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm); 
         
-	    /*model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
+	    model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
 	     model.addAttribute("noofrows",streamForm.getStreamDetails().size());       
 	    streamForm.setStreamDetails(streamDAO.getlimitedstream(1));
 			model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 5));	 
-	        model.addAttribute("button","viewall");*/
+	        model.addAttribute("button","viewall");
+	        model.addAttribute("currentpage",1);
 		model.addAttribute("menu","message");
 		return "viewreports";
 	}
+	
+	@RequestMapping(value="/viewbroadcast_page", method=RequestMethod.GET)
+	public String pagesbroadcast(HttpServletRequest request,@RequestParam("page") int page,ModelMap model) {	
+		
+		BroadCastReportsForm broadCastReportsForm=new BroadCastReportsForm();
+		broadCastReportsForm.setBroadCastReports(broadDAO.getlimitedbroadcast(page));
+	   	model.addAttribute("noofpages",(int) Math.ceil(broadDAO.getnoofbroadcast() * 1.0 / 5));
+	   	model.addAttribute("broadCastReportsForm",broadCastReportsForm);
+	   	model.addAttribute("noofrows",broadCastReportsForm.getBroadCastReports().size());   
+        model.addAttribute("currentpage",page);
+        model.addAttribute("menu","message");
+        model.addAttribute("button","viewall");
+		return "viewreports";
+		
+	}	
+	
+	@RequestMapping(value={"/", "/viewallbroadcast"}, method = RequestMethod.GET)
+	public String viewallpartGroup(HttpServletRequest request,ModelMap model, Principal principal ) {
+		
+		BroadCastReportsForm broadCastReportsForm=new BroadCastReportsForm();
+		broadCastReportsForm.setBroadCastReports(broadDAO.getReports());
+		
+		model.addAttribute("broadCastReportsForm",broadCastReportsForm);
+		model.addAttribute("noofrows",broadCastReportsForm.getBroadCastReports().size());    
+       
+        model.addAttribute("menu","message");
+        model.addAttribute("button","close");
+	      
+	        model.addAttribute("menu","message");
+	        model.addAttribute("success","false");
+	        model.addAttribute("button","close");
+			return "viewreports";
+ 
+	}
+	
 	
 	
 	

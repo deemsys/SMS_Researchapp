@@ -610,6 +610,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
         participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
 		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));	 
         model.addAttribute("button","viewall");
+        model.addAttribute("currentpage",1);
 		return "viewparticipants";
 	}
 	@RequestMapping(value="/viewregisterparticipants", method=RequestMethod.GET)
@@ -728,8 +729,10 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
         model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
         model.addAttribute("noofrows",participantGroupForm.getParticipantGroups().size());       
         participantGroupForm.setParticipantGroups(partDAO.getlimitedParticipants_group(1));
-		model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 5));	 
+		model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 5));
+		
         model.addAttribute("button","viewall");
+        model.addAttribute("currentpage",1);
         //end pagination
         
         

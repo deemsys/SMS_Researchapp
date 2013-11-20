@@ -78,6 +78,7 @@ public class MessageStreamController {
 	    streamForm.setStreamDetails(streamDAO.getlimitedstream(1));
 			model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 5));	 
 	        model.addAttribute("button","viewall");
+	        model.addAttribute("currentpage",1);
 		return "viewstream";
 	}
 	
