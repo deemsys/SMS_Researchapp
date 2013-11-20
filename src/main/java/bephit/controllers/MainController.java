@@ -209,7 +209,7 @@ public class MainController {
 		  
 		    model.addAttribute("participantGroupForm", participantGroupForm); 
 	        model.addAttribute("noofrows",partDAO.getGroups().size());
-	        model.addAttribute("menu","dashboard");
+	        model.addAttribute("menu","groups");
 	        model.addAttribute("success","false");
 	        model.addAttribute("button","close");
 			return "viewparticipantgroups";
@@ -814,6 +814,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	@RequestMapping(value="/changepassword",method=RequestMethod.GET)
 	public String changemypassword(HttpServletRequest request,ModelMap model)
 	{
+		model.addAttribute("menu","pwd");
 		return "changepwd";
 	}
 	
@@ -1088,7 +1089,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("noofrows",mainDAO.getParticipants().size());
         model.addAttribute("currentpage",page);
-        model.addAttribute("menu","participants");
+        model.addAttribute("menu","dashboard");
         model.addAttribute("button","viewall");
 		return "dashboard";
 		
@@ -1105,7 +1106,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);
         model.addAttribute("noofrows",mainDAO.getParticipants().size());
         model.addAttribute("currentpage",page);
-        model.addAttribute("menu","dashboard");
+        model.addAttribute("menu","participants");
         model.addAttribute("button","viewall");
 		return "viewparticipants";
 		
@@ -1220,7 +1221,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			System.out.println("password match");
 			logger.debug("Password changed successfully");
 			mailTemplateDAO.updateoldPwd(updatePwds);
-			model.addAttribute("menu","settings");
+			model.addAttribute("menu","pwd");
 			return "dashboard";
 		}
 		else
@@ -1228,7 +1229,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			System.out.println("password");
 			logger.debug("Password change failed");
 			model.put("password_mismatch", "true");
-			model.addAttribute("menu","settings");
+			model.addAttribute("menu","pwd");
 			return "changepwd";
 		}
 		
