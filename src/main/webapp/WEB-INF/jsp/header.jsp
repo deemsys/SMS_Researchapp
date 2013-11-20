@@ -132,7 +132,16 @@
 								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu7">
 				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Message Settings</span>
 				            	</a>
-				            </li>	 
+				            </li>
+				            <li>
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='pwd'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu8">
+				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Change My Password</span>
+				            	</a>
+				            </li>
+				            
+				            
+				            	 
 						</c:if>
 					<!-- end participant menus	 -->
 						
@@ -162,6 +171,15 @@
 				            		<span><img src="<c:url value="/resources/images/User-Group-icon.png" />" alt="" style="padding:5px 5px 0 0;" />Groups</span>
 				            	</a>
 				            </li>
+				           <c:if test="${role==1}">
+						    <li>
+				            	<a href="#" class="<c:choose>
+								<c:when test="${menu=='pwd'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu8">
+				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Change My Password</span>
+				            	</a>
+				            </li>
+				            </c:if>
+				            
 				            </c:if>
 				            <c:if test="${role==2}">
 				            <li>
@@ -235,6 +253,12 @@
 						<ul id="ddsubmenu7" class="ddsubmenustyle">
 						
 							<li><a href="participantsettings">Settings</a></li>					
+													 
+						</ul>
+						
+						<ul id="ddsubmenu8" class="ddsubmenustyle">
+						
+							<li><a href="changepassword">Change My Password</a></li>					
 													 
 						</ul>
 						 

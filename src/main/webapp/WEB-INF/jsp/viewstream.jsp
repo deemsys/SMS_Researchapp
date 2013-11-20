@@ -66,14 +66,10 @@
 	  
     </tr>
 		</c:forEach>
-							    	
-							   		    	
-							    
-
-
-							    	<table cellpadding="0" cellspacing="0" border="0" width="98%"
-			class="margin_table">
-			<form action="viewstream_page" method="GET">
+		
+		<form action="viewstream_page" method="GET">
+	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+			
 							    	<tr><td colspan="7">  <div class="extrabottom">
               <ul class="pagination">
          <%--      <% int i=1;int j=0;%> 
