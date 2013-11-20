@@ -37,15 +37,14 @@
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">
 							
 								<tr class="title">
-									<td valign="center" align="left" width="5%"><input
-										type="checkbox" value="" name="chkAll"></td>
+									
 									<td valign="top" align="left" width="10%">Broadcast&nbsp;Id</td>
-									<td valign="top" align="left" width="15%">Stream&nbsp;Name</td>
-									<td valign="top" align="left" width="15%">Send&nbsp;to&nbsp;Group</td>
+									<td valign="top" align="left" width="15%">Start &nbsp;Date</td>
+									<td valign="top" align="left" width="15%">No&nbsp;Of&nbsp;message&nbsp;Delivered</td>
+									<td valign="top" align="left" width="15%">Stream Name</td>
+									<td valign="top" align="left" width="13%">Send &nbsp;to&nbsp; Group</td>
 									<td valign="top" align="left" width="15%">Frequency</td>
-									<td valign="top" align="left" width="10%">Start&nbsp;Date</td>
-									<td valign="top" align="left" width="10%">Status</td>
-									<td valign="top" align="left" width="20%">No.&nbsp;of&nbsp;Msg&nbsp;Delivered</td>
+									<td valign="top" align="left" width="15%">Status</td>
 								   <td valign="top" align="left" width="10%">Enable/Disable</td>
 								   
 								</tr>
@@ -57,10 +56,9 @@
 								<c:forEach items="${broadCastReportsForm.broadCastReports}"
 									var="broadCastReports" varStatus="status">
 									<tr class="row1">
-										<td valign="center" align="left" width="5%">
-										<input type="checkbox" value="" name="chkUser"></td>
+										
 										<td valign="top" align="left" width="10%">${broadCastReports.broad_id}</td>
-										<td valign="top" align="left" width="12%">${broadCastReports.stream_name}</td>
+										<td valign="top" align="left" width="15%">${broadCastReports.stream_name}</td>
 										<td valign="top" align="center" width="14%">${broadCastReports.group_name}</td>
 										<td valign="top" align="left" width="10%">${broadCastReports.frequency}</td>
 										<td valign="top" align="left" width="10%">${broadCastReports.start_date}</td>
