@@ -16,6 +16,8 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -23,6 +25,7 @@ import bephit.controllers.MainController;
 import bephit.model.AdminUser;
 import bephit.model.EmailSender;
 import bephit.model.ParticipantGroups;
+import bephit.model.StreamDetails;
 import bephit.model.TwilioSMS;
 
 public class AdminUserDAO {
@@ -531,6 +534,89 @@ public class AdminUserDAO {
 		return adminuser;
 	}
 	
+	public List<AdminUser> getlimitedadminuser(int page) {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<AdminUser> adminuser = new ArrayList<AdminUser>();
+		try {
+
+			String cmd;
+			int offset = 5 * (page - 1);
+			int limit = 5;
+			
+				
+					cmd = "select * from admin_log_table limit " + offset + ","+ limit+"" ;
+							
+				System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			while (resultSet.next()) {
+				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
+						resultSet.getString("admin_firstname"),
+						resultSet.getString("admin_username"), resultSet
+								.getString("admin_password"), resultSet
+								.getString("admin_email"), resultSet
+								.getString("admin_mobile"), resultSet
+								.getString("date"), resultSet
+								.getString("status")
+								
+								));
+			}
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return adminuser;
+
+	}
+	public int getnoofadminuser() {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int noofRecords = 0;
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<AdminUser> adminuser = new ArrayList<AdminUser>();
+		try {
+
+			String cmd;
+			
+					cmd = "select count(*) as noofrecords from admin_log_table";
+			System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			if (resultSet.next())
+				noofRecords = resultSet.getInt("noofrecords");
+
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return noofRecords;
+
+	}
 	
 	
 	

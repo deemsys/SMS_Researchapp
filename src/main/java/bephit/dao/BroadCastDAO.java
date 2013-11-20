@@ -26,6 +26,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import bephit.model.BroadCast;
 import bephit.model.ParticipantsDetails;
 import bephit.model.StreamDetails;
@@ -254,7 +257,86 @@ public class BroadCastDAO {
 		}
 		return 1;
 	}
-	
+	public List<BroadCastReports> getlimitedbroadcast(int page) {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		        
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<BroadCastReports> reportList = new ArrayList<BroadCastReports>();
+		try {
+
+			
+			int offset = 5 * (page - 1);
+			int limit = 5;
+             String repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id limit " + offset + ","+ limit+"";
+			
+			resultSet=statement.executeQuery(repotscmd);
+			System.out.println(repotscmd);
+
+			while (resultSet.next()) {
+				reportList.add(new BroadCastReports(resultSet
+						.getString("broad_id"),resultSet
+						.getString("stream_name"),resultSet
+						.getString("group_name"), resultSet
+						.getString("frequency"), resultSet
+						.getString("start_date"),
+						resultSet.getString("status"),resultSet
+								.getString("message_count"),resultSet.getString("enable")));
+			}
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return reportList;
+
+	}
+	public int getnoofbroadcast() {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int noofRecords = 0;
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<BroadCastReports> reportList = new ArrayList<BroadCastReports>();
+		try {
+
+			String cmd;
+			
+					cmd = "select count(*) as noofrecords from broad_cast_table";
+			System.out.println(cmd);
+			resultSet = statement.executeQuery(cmd);
+			if (resultSet.next())
+				noofRecords = resultSet.getInt("noofrecords");
+
+		} catch (Exception e) {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return noofRecords;
+
+	}
 	
 	
 	
