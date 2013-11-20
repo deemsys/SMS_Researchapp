@@ -1,6 +1,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="header.jsp"></jsp:include>
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
 	type="text/css" />
@@ -10,6 +11,33 @@
 <div id="right_content">
 <link rel="stylesheet" url="resources/js/jquery.js" />
 <script src="/BePhitResearchApp/resources/js/jquery.js"></script>
+
+<script type="text/javascript">
+function listbox_moveacross(sourceID, destID) {
+	var src = document.getElementById(sourceID);
+	var dest = document.getElementById(destID);
+
+	for(var count=0; count < src.options.length; count++) {
+
+		if(src.options[count].selected == true) {
+				var option = src.options[count];
+
+				var newOption = document.createElement("option");
+				newOption.value = option.value;
+				newOption.text = option.text;
+				newOption.selected = true;
+				try {
+						 dest.add(newOption, null); //Standard
+						 src.remove(count, null);
+				 }catch(error) {
+						 dest.add(newOption); // IE only
+						 src.remove(count);
+				 }
+				count--;
+		}
+	}
+}
+</script>
 <script type="text/javascript">
 function doAjaxPost() {  
 	  // get the form values  
@@ -106,7 +134,7 @@ return true;
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="lname"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
-													onmouseout="hideTooltip('tooltip_id');" name="username"  value="${participantsDetails.username}"/> </br> <c:if test="${user_exists ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>User name already exists  <form:errors
+													onmouseout="hideTooltip('tooltip_id');" name="username" disabled="true" value="${participantsDetails.username}"/> </br> <c:if test="${user_exists ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>User name already exists  <form:errors
 															path="participant.username"></form:errors></c:if></font></td>
 											</tr>
 											<tr class="row1">
@@ -326,34 +354,55 @@ return true;
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select onchange="doAjaxPost()" class="input_cmbbx1" name="Provider_name" id="Provider_name">
+												<select onchange="doAjaxPost()" class="input_cmbbx1" name="Provider_name" id="Provider_name" >
 														<c:forEach items="${adminuserform.adminuser}" var="adminuser" varStatus="status">
 															
-															<option value="${adminuser.admin_username}" <c:if test="${provider==adminuser.admin_username}"><c:out value="selected"/></c:if>>${adminuser.admin_username}</option>
+															<option value="${adminuser.admin_username}" style=<c:if test="${provider==adminuser.admin_username}"><c:out value="background-color:red; selected "/></c:if>>${adminuser.admin_username}</option>
 														</c:forEach>
 
 												</select>
 												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
-											</tr>
+											</tr></table>
+											<table>
 											<tr>
 												<td><p class="quck-txt">Group</p></td>
 											</tr>											
 											<tr class="row2">
-												<td valign="top" align="left" class="input_txt"><span
-													class="err">*</span> Select
+												<td><span class="err">*</span> Select
 													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
-												<td valign="top" align="left" class="input_txt">
-												<div id="info" style="color: green;"><select id="group_name"
-													name="group_name" multiple>
-														<c:forEach
-															items="${participantGroupForm.participantGroups}"
-															var="participantGroups" varStatus="status">
-															<option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
-														</c:forEach>
-
-												</select></div> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
+												<td class="input_txt">											
+												
+												<div id="info" style="color: green;">
+												<select id="group_name"  multiple="multiple" class="input_cmbbx1">
+											<c:forEach items="${groups}"  var="group1" varStatus="status">																									
+																					
+											<option value="${group1}">${group1}</option>
+																							
+											</c:forEach></select></div></td><td>
+											<td>
+											<a href="#" onclick="listbox_moveacross('group_name','group_names')">&gt;&gt;</a>											
+											
+											<!-- input type="submit" value=">>" onclick=""/> -->
+											</br>
+											<a href="#" onclick="listbox_moveacross('group_names','group_name')">&lt;&lt</a>
+											<%-- <input type="submit" value="<<"" onclick="listbox_moveacross('group_names', 'group_name')"/> --%>
+											</td>
+											<td>
+											
+											
+											<select id="group_names"  name="group_name" multiple="multiple" class="input_cmbbx1">
+											<c:forEach items="${group}"  var="group2" varStatus="status">																											
+																					
+											<option value="${group2}" selected>${group2}</option>
+																							
+											</c:forEach></select>
+											
+											
+											
+											
+																				 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
 										</table>
