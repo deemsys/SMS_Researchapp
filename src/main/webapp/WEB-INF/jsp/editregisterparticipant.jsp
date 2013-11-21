@@ -89,7 +89,7 @@
 			/*   var education = $('#education').val();	 */
 			$.ajax({
 				type : "POST",
-				url : "/BePhitResearchApp/AddUser.htm",
+				url : "/BePhitResearchApp/editregisters",
 				data : "Provider_name=" + name,
 				success : function(response) {
 					// we have the response  
@@ -508,17 +508,17 @@
 													class="err">*</span> Provider Name
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
-												<td valign="top" align="left" class="input_txt"><select
+												<td valign="top" align="left" class="input_txt"><%-- <select
 													onchange="doAjaxPost()" class="input_cmbbx1"
 													name="Provider_name" id="Provider_name">
 														<c:forEach items="${adminuserform.adminuser}"
 															var="adminuser" varStatus="status">
 
-															<option value="${adminuser.admin_username}" Disabled="true"
+															<option value="${adminuser.admin_username}" 
 																style=<c:if test="${provider==adminuser.admin_username}"><c:out value="color:red; selected "/></c:if>>${adminuser.admin_username}</option>
 														</c:forEach>
 
-												</select> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
+												</select> --%> <label style="border: 1px solid #000; display: block;width: 170px;" >${ provider}</label></br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
 										</table>
@@ -527,9 +527,9 @@
 												<td><p class="quck-txt">Group</p></td>
 											</tr>
 											<tr class="row2">
-												<td><span class="err">*</span> Select
-													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+												<td ><span class="err">*</span> Select
+													Group:
+													</td>
 												<td class="input_txt">
                                                     <p>Provider Groups</p>
 													<div id="info" style="color: green;">

@@ -253,7 +253,7 @@ public class MainDAO {
 	
 
 	
-	public int setParticipants(ParticipantsDetails participant, String admin_id,String[] groups) {
+	public int setParticipants(ParticipantsDetails participant, String admin_id,String[] groups,int from) {
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
@@ -264,14 +264,22 @@ public class MainDAO {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		String providername="";
+		if(from==0)
+	{
+		providername=admin_id;
+	}
+	else if(from==1)
+	{
+	
 		// List<ParticipantsDetails> participants = new
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
 		}
-		String userName = userDetails.getUsername();
-		
+		providername = userDetails.getUsername();
+	 }
 		
 		
 		// ArrayList<ParticipantsDetails>();
@@ -301,7 +309,7 @@ public class MainDAO {
 					+"','"
 					+participant.getTime3()
 					+"','"
-					+userName
+					+providername
 					+"','"
 					+ participant.getGroup_name()
 					+ "','"
@@ -311,6 +319,7 @@ public class MainDAO {
 					+ "','" + participant.getEmail_id() + "','"+participant.getProvider_name()+"')";
 			System.out.println(cmd);
 			statement.execute(cmd);
+		
 			
 			
 			//Generate random password
@@ -418,6 +427,7 @@ public class MainDAO {
 			System.out.println(cmd_activity);
 			statement.execute(cmd_activity);
 			flag = 1;
+		
 		
 		}
 		catch (Exception e) {
@@ -531,7 +541,7 @@ public class MainDAO {
 	}
 
 
-	public int updateParticipants(ParticipantsDetails participant,String participants_id,String admin,String[] groups)
+	public int updateParticipants(ParticipantsDetails participant,String participants_id,String providername,String[] groups,int from)
 	{
 		Connection con = null;
 		Statement statement = null;
@@ -574,18 +584,25 @@ public class MainDAO {
 			String cmd_mess="insert into participant_group(group_id,group_name,participant_id) values('"+strlist.get(i)+"','"+strlist1.get(i)+"','"+participants_id+"')";
 			statement.execute(cmd_mess);
 			System.out.println("cmd_mess"+cmd_mess);
-	     }			
+	     }
+		String Providername="";
+		if(from==1)
+		{
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
 		}
-		String userName = userDetails.getUsername();
-		
+		Providername = userDetails.getUsername();
+		}
+		else if(from==0)
+		{
+			Providername=providername;
+		}
 	    	
-	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+userName+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
+	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+providername+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
 	    	System.out.println(cmd);
 	    	System.out.println(cmd_activity);
 			
