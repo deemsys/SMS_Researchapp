@@ -1034,6 +1034,7 @@ public class MainDAO {
 								.getString("date_of_join"), resultSet
 								.getString("email_id"), resultSet
 								.getString("created_by"),resultSet.getString("message")));
+				
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -1048,6 +1049,46 @@ public class MainDAO {
 		return participants;
 
 	}
+	
+	public String getprovidername(String participantid)
+	{
+		
+			Connection con = null;
+			Statement statement = null;
+			ResultSet resultSet = null;
+			try {
+				con = dataSource.getConnection();
+				statement = con.createStatement();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			String participants = "";
+			try {
+				String cmd = "select Provider_name from participants_table where participants_id='"
+						+ participantid + "'";
+				resultSet = statement.executeQuery(cmd);
+				System.out.println(cmd);
+			if (resultSet.next()) {
+					
+								participants=resultSet.getString("Provider_name");
+									
+					
+				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				releaseResultSet(resultSet);
+				releaseStatement(statement);
+				releaseConnection(con);
+			} finally {
+				releaseResultSet(resultSet);
+				releaseStatement(statement);
+				releaseConnection(con);
+			}
+			return participants;
+	
+		}
+
+	
 
 	public HashMap<String, ArrayList<ParticipantsDetails>> getAllParticipants() {
 		Connection con = null;
@@ -1232,7 +1273,7 @@ public class MainDAO {
 		Statement statement = null;
 		ResultSet resultSet=null;
 		int flag=0;
-		String p_id="65";
+		String p_id="";
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {

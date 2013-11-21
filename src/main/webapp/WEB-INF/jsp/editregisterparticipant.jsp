@@ -174,20 +174,13 @@
 													</span></font></td>
 
 											</tr>
-											<tr class="row2">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span><span class="err"></span> User Name :</td>
-												<td valign="top" align="left" class="input_txt"><input
-													type="text" class="input_txtbx1" id="lname"
+											<input
+													type="hidden" class="input_txtbx1" id="lname"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="username"
-													disabled="true" value="${participantsDetails.username}" />
-													</br> <c:if test="${user_exists ==true}">
-														<font color="Red" size="+1"><span id="spnlname"></span>User
-															name already exists <form:errors
-																path="participant.username"></form:errors>
-													</c:if></font></td>
-											</tr>
+													 value="${participantsDetails.username}" />
+													</br> 
+														
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Mobile No :</td>
