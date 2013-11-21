@@ -98,7 +98,7 @@
               <tr class="row1">  
               <td width="15%" valign="middle" align="left" ></td>
                     <td width="5%" valign="middle" align="left" ><ul class="pagination">
-               <li class="page"><a href="welcome" class="paging_select">Back</a></li>
+               <li class="page"><a href="viewparticipants" class="paging_select">Back</a></li>
               </ul></td>
                   <td width="80%" valign="top" align="left" >
                                

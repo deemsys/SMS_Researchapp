@@ -85,15 +85,17 @@ else {
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> E-mail :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" name="admin_email" class="input_txtbx" id="inp_id" value="" /><br><span class="err"><c:if test="${email_exist==true}"><c:out value="Email Id  already exist"/></c:if><form:errors path="adminuser.admin_email"></form:errors></span></td>
-                </tr>
-		
-</td>
-                </tr>
+                </tr> 
                  
-                 <tr class="row1">
-                  <td valign="top" align="right">&nbsp;</td>
-                  <td valign="top" align="left"><input type="submit" value="Register" class="submit_btn">  <span id="spnsub"></span></td>
-              </tr>
+                  <table align="left">
+                  <tr align="center">
+                  <td valign="middle" width="25%"><input type="submit" class="submit_btn" value="Register"></td>
+							<td valign="middle"><input type="reset" value="Reset" class="submit_btn"></td>
+							<td valign="middle" width="25%"><a href="login" class="submit_btn" style="color:white">Cancel</a></td>
+							</tr>
+							</table>
+             
+              
               </table>
               </c:when>
               <c:otherwise>
@@ -129,11 +131,13 @@ else {
 </td>
                 </tr>
                  
-                 <tr class="row1">
-                  <td valign="top" align="right">&nbsp;</td>
-                  <td valign="top" align="left"><input type="submit" value="Register" class="submit_btn">  <span id="spnsub"></span></td>
-              </tr>
-              </table>
+             <table align="left">
+                  <tr align="center">
+                  <td valign="middle" width="25%"><input type="submit" class="submit_btn" value="Register"></td>
+							<td valign="middle"><input type="reset" value="Reset" class="submit_btn"></td>
+							<td valign="middle" width="25%"><a href="login" class="submit_btn" style="color:white">Cancel</a></td>
+							</tr>
+							</table>
               
               
               

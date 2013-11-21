@@ -68,10 +68,11 @@ var $in = xx+1;
 	function removechoice(id)
 	{
 		id='newtbl'+id;
-		var child = document.getElementById(id)
+		var child = document.getElementById(id);
 		var parentDiv = child.parentNode;
 		parentDiv.removeChild(child);
 
+	
 	}
 
 </script>
