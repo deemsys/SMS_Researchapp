@@ -576,10 +576,16 @@ public class MainDAO {
 			System.out.println("cmd_mess"+cmd_mess);
 	     }			
 		
-	    	
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
+		
 	    	
 	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+participant.getProvider_name()+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+userName+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
 	    	System.out.println(cmd);
 	    	System.out.println(cmd_activity);
 			

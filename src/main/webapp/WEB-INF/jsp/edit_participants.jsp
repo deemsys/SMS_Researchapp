@@ -97,7 +97,7 @@
 
 	<script>
 		function validate() {
-			var fld = document.getElementById('group_name');
+			var fld = document.getElementById('group_names');
 			var values = [];
 			for ( var i = 0; i < fld.options.length; i++) {
 				if (fld.options[i].selected) {
@@ -114,7 +114,7 @@
 	</script>
 
 
-	<form action="updateregisterparticipant" method="POST" name="update"
+	<form action="updateparticipant" method="POST" name="update"
 		id="update">
 
     <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
@@ -142,7 +142,7 @@
                 </tr>
 
 		
-                <input type="text" class="input_txtbx1" id="inp_id" name="username" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.username }"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.username"></form:errors></font>
+                <input type="hidden" class="input_txtbx1" id="inp_id" name="username" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.username }"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.username"></form:errors></font>
                
 		<tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Mobile No :</td>
@@ -340,7 +340,7 @@
 												<td class="input_txt">
                                                     <p>Provider Groups</p>
 													<select class="input_cmbbx2"
-													name="group_name" multiple="multiple" id="group_name">
+													 multiple="multiple" id="group_name">
 														<c:forEach
 															items="${participantGroupForm.participantGroups}"
 															var="participantGroups" varStatus="status">
@@ -390,7 +390,7 @@
                  
                  <tr class="row1">
                   <td valign="top" align="center">&nbsp;</td>
-                  <td valign="top" align="left"><input type="submit" class="submit_btn2" value="Update Participant" onclick="update.submit()"></td>
+                  <td valign="top" align="left"><input type="submit" class="submit_btn2" value="Update Participant" onclick="return validate(this)"></td>
                 </tr>
               </table>
          
