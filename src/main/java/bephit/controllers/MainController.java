@@ -857,6 +857,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	public String changemypassword(HttpServletRequest request,ModelMap model)
 	{
 		model.addAttribute("menu","pwd");
+		model.addAttribute("menu","settings");
 		return "changepwd";
 	}
 	
@@ -1253,7 +1254,8 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	@RequestMapping(value ="/changePassword",method=RequestMethod.POST)
 	public String addNewPwd(HttpServletRequest request,@ModelAttribute("updatePwds") @Valid UpdatePwd updatePwds,BindingResult result,ModelMap model,Principal principal){
 		if(result.hasErrors()){
-			model.addAttribute("menu","settings");
+			
+			model.addAttribute("menu","pwd");
 			return "changepwd";
 		}
 

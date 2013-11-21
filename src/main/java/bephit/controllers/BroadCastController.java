@@ -138,9 +138,9 @@ public class BroadCastController {
         model.addAttribute("participantGroupForm", participantGroupForm); 
         
 	    model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
-	     model.addAttribute("noofrows",streamForm.getStreamDetails().size());       
-	    streamForm.setStreamDetails(streamDAO.getlimitedstream(1));
-			model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 5));	 
+	     model.addAttribute("noofrows",broadCastReportsForm.getBroadCastReports().size());       
+	    broadCastReportsForm.setBroadCastReports(broadDAO.getlimitedbroadcast(1));
+			model.addAttribute("noofpages",(int) Math.ceil(broadDAO.getnoofbroadcast() * 1.0 / 5));	 
 	        model.addAttribute("button","viewall");
 	        model.addAttribute("currentpage",1);
 		model.addAttribute("menu","message");
