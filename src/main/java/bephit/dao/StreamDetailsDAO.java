@@ -299,10 +299,14 @@ public class StreamDetailsDAO
 		List<StreamDetails> stream = new ArrayList<StreamDetails>();
 	    try{
 	        if(userName.equals("superadmin"))
-	       cmd="select * from stream";
+	        {
+	       cmd="select * from stream where stream_id='"+stream_id+"'";
+	        }
 	        else
+	        {
 	        	cmd="select * from stream where stream_id='"+stream_id+"' and created_by='"+userName+"'";
-	    	System.out.println(cmd);
+	        }
+	        	System.out.println(cmd);
 			resultSet=statement.executeQuery(cmd);
 			while(resultSet.next()){
 				stream.add(new StreamDetails(resultSet.getString("stream_id"),resultSet.getString("admin_name")
