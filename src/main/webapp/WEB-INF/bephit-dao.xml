@@ -29,4 +29,8 @@
 	<bean id="mailTemplateDAO" class="bephit.dao.MailTemplateDAO">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	<bean id="messagelogdao" class="bephit.dao.MessageLogDAO">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
 </beans>

@@ -40,6 +40,46 @@ public class MainDAO {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
+	
+	public  String getmaxparticipantid()
+	{
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String participants="";
+		
+		try {
+			String cmd;		
+			resultSet= statement.executeQuery("select  max(participants_id) as participant from participants_table;");
+		    
+			if(resultSet.next())
+				{
+				participants=resultSet.getString("participant");
+				}
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		return participants;
+
+
+		
+	}
+	
 	public int updateparticipantmessage(ParticipantsDetails participant,String participants_id,String admin)
 	{
 		Connection con = null;
@@ -601,7 +641,7 @@ public class MainDAO {
 			Providername=providername;
 		}
 	    	
-	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+providername+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+Providername+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
 	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
 	    	System.out.println(cmd);
 	    	System.out.println(cmd_activity);

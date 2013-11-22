@@ -53,6 +53,9 @@ public class MainController {
     @Autowired 
     AdminUserDAO adminuserdao;
     
+    @Autowired 
+    MessageLogDAO messagelogdao;
+    
     @Autowired  
 	TwilioSMS messageSender;
 
@@ -496,7 +499,10 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);			
 		int a=mainDAO.setParticipants(participant,principal.getName(),groups,1);
-		System.out.println("a"+a);
+		 String participantid=mainDAO.getmaxparticipantid();
+		 System.out.println("participant_id"+participantid);
+		 messagelogdao.getMessageLog(participantid);		
+		 System.out.println("a"+a);
 				model.put("success","true");
 				
 				 model.addAttribute("menu","participants");
@@ -611,8 +617,12 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 				model.put("errmsg",errmsges[0]);					
 
 		int a=mainDAO.setParticipants(participant,providername,groups,0);
-
-		System.out.println("a"+a);
+		 String participantid=mainDAO.getmaxparticipantid();
+		 System.out.println("participant_id"+participantid);
+		 messagelogdao.getMessageLog(participantid);
+		 
+        
+		//System.out.println("a"+a);
 
 				model.put("success","true");
 				
@@ -818,7 +828,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		String name;
 		name=mainDAO.getproviders(participants_id);
 		System.out.println("maindao----------"+name);
-		session.setAttribute("provider",name);
+		model.addAttribute("provider",name);
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		List<String>  strlist=new ArrayList<String>(); 
@@ -950,14 +960,19 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		if (result.hasErrors())
 		{
 			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-	        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));
-	        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+	        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));	               
 			    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 				participantGroupForm.setParticipantGroups(partDAO.getGroups());
+				model.addAttribute("participantsDetailsForm", participantsDetailsForm);	 
 		        return "edit_participants";
 		}
 		String groups[]=request.getParameterValues("group_name");
 		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName(),groups,1);
+		String participantid=participant.getParticipants_id();
+		System.out.println("participant_id"+participantid);
+		 messagelogdao.getMessageLog(participantid);
+		
+		
 		System.out.println(status);
 
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
@@ -1059,6 +1074,10 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
         String[] groups=request.getParameterValues("group_name");
         
 		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),providername,groups,0);
+		
+		 String participantid=participant.getParticipants_id();
+		 System.out.println("participant_id"+participantid);
+		 messagelogdao.getMessageLog(participantid);
 		System.out.println("status"+status);
 		model.addAttribute("adminuserform",adminuserform);	  
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();

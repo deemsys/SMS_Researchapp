@@ -508,7 +508,10 @@
 													class="err">*</span> Provider Name
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
-												<td valign="top" align="left" class="input_txt"><%-- <select
+												<td valign="top" align="left" class="input_txt">
+												
+												<input type="text" name="Provider_name" value="${provider}">
+												<%-- <select
 													onchange="doAjaxPost()" class="input_cmbbx1"
 													name="Provider_name" id="Provider_name">
 														<c:forEach items="${adminuserform.adminuser}"
