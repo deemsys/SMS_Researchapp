@@ -962,8 +962,9 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 	        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));	               
 			    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-				participantGroupForm.setParticipantGroups(partDAO.getGroups());
+				participantGroupForm.setParticipantGroups(partDAO.getGroups());				
 				model.addAttribute("participantsDetailsForm", participantsDetailsForm);	 
+				model.addAttribute("participantGroupForm", participantGroupForm);
 		        return "edit_participants";
 		}
 		String groups[]=request.getParameterValues("group_name");
