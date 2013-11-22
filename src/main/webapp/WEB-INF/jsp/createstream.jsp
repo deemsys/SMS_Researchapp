@@ -21,24 +21,24 @@
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Stream Name :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="streamName" class="input_txtbx" id="inp_id3"/></br> <span class="err"><form:errors path="streamDetails.streamName"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="streamName" class="input_txtbx" id="streamName"/></br> <span id="sn" class="err"><form:errors path="streamDetails.streamName"></form:errors></span></td>
                 </tr>
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span>No of Texting Contacts :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="textingcontacts" class="input_txtbx" id="inp_id3"/></br> <span class="err"><form:errors path="streamDetails.textingcontacts"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="textingcontacts" class="input_txtbx" id="textingcontacts"/></br> <span id="tc" class="err"><form:errors path="streamDetails.textingcontacts"></form:errors></span></td>
                 </tr>
                  <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Description :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><textarea name="description" class="input_txtarea"  rows="5" cols="" id="inp_id5"/></textarea></br><span class="err"><form:errors path="streamDetails.description"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><textarea name="description" class="input_txtarea"  rows="5" cols="" id="description"/></textarea></br><span id="des" class="err"><form:errors path="streamDetails.description"></form:errors></span></td>
                 </tr>
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Message 1 :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><textarea class="input_txtarea" name="message[]" rows="5" cols="" id="inp_id5" /></textarea> </br><span class="err"></span></td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><textarea class="input_txtarea" name="message[]" rows="5" cols="" id="message" /></textarea><br><span id="mes" class="err"></span></br></td>
                 </tr></table><div id="multichoice"></div><table width="100%" border="0" cellspacing="0" cellpadding="0"></table>
 		<table width="100%">
                  <tr class="row2">
                   <td valign="center" align="right" width="30%" > <p style="width:180px;"><a href="javascript:void(0);" onclick="addMultichoice('multichoice');" style="text-decoration:none;" ><input type="button" value="Add one more Message" class="submit_btn2" name="" /></a></p> </td>
-		<td valign="top" align="right" width="30%" > <div style="float:center; padding:0px 75% 0px 0px;"> <input type="submit" value="Save Stream" class="submit_btn1" /> </div></td>
+		<td valign="top" align="right" width="30%" > <div style="float:center; padding:0px 75% 0px 0px;"> <input type="submit" value="Save Stream" class="submit_btn1" onclick="return validate()"/> </div></td>
                 </tr>
               </table>
             
@@ -75,6 +75,27 @@ var $in = xx+1;
 	
 	}
 
+	function validate()
+	{
+	var str=document.getElementById("streamName").value;
+	var tc=document.getElementById("textingcontacts").value;
+	var des=document.getElementById("description").value; 
+	var mes=document.getElementById("message").value;
+	
+	if(mes=="" && str=="")
+		{
+		document.getElementById("mes").innerHTML="Required Field Should Not be empty";
+	    document.getElementById("str").innerHTML="Required Field Should not be blank";
+		return false;
+		}
+	else if(tc=="" && des=="")
+		{
+		document.getElementById("tc").innerHTML="Required Field Should Not be empty";
+		 document.getElementById("des").innerHTML="Required Field Should not be blank";
+		 return false;
+		}
+			return true;
+			}
 </script>
 
 <jsp:include page="footer.jsp"></jsp:include>
