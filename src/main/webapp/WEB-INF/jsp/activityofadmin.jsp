@@ -32,7 +32,8 @@
 	                		<tr class="title">
 	                  			<td valign="top" align="center" width="15%">Date & Time</td>
 	                  			<td valign="top" align="left" width="15%">&nbsp;&nbsp;&nbsp;&nbsp;IP</td>
-	                  			<td valign="top" align="left" width="70%">Actvity</td>
+	                  			<td valign="top" align="left" width="15%">Activity</td>
+	                  			<td valign="top" align="left" width="20%">Done By</td>
 	                		</tr>
 	                	
 	                	 
@@ -40,7 +41,8 @@
 	                		<tr class="row1">
 	                  			<td valign="top" align="center" width="15%">${adminActivity.admin_date_time}</td>
 	                  			<td valign="top" align="left" width="15%">&nbsp;&nbsp;&nbsp;&nbsp;${adminActivity.ip_address}</td>
-	                  			<td valign="top" align="left" width="70%">${adminActivity.admin_desc}</td>
+	                  			<td valign="top" align="left" width="15%">${adminActivity.admin_desc}</td>
+	                		<td valign="top" align="left" width="20%">${adminActivity.done_by}</td>
 	                		</tr>
 	                	</c:forEach>	
 	                		

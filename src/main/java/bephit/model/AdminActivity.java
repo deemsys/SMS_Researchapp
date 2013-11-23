@@ -49,22 +49,32 @@ public class AdminActivity {
 	
 	private String admin_desc;
 	
-	
+	private String done_by;
 	
 	public AdminActivity()
 	{
 		
 	}	
+	public String getDone_by() {
+		return done_by;
+	}
+
+	public void setDone_by(String done_by) {
+		this.done_by = done_by;
+	}
+
 	public AdminActivity(String log_id,
 	 String admin_id,
 	 String ip_address,
 	 String admin_date_time,
-	 String admin_desc)
+	 String admin_desc,
+	 String done_by)
 	{
 	this.log_id=log_id;
 	this.admin_id=admin_id;
 	this.ip_address=ip_address;
 	this.admin_date_time=admin_date_time;
 	this.admin_desc=admin_desc;
+	this.done_by=done_by;
 	}
 }

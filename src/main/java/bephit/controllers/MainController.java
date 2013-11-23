@@ -73,6 +73,7 @@ public class MainController {
         ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+       
         model.addAttribute("currentpage",1);      
         model.addAttribute("noofrows",participantsDetailsForm1.getParticipantsDetails().size());       
         participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));

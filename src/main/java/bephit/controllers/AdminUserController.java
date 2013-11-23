@@ -154,6 +154,7 @@ public class AdminUserController
 		int status=adminuserDAO.updateAdminUser(adminuser,principal.getName());//.deleteParticipant(participant_id);
 		if (result.hasErrors())
 		{
+			
 			AdminUserForm adminuserForm = new AdminUserForm();
 			adminuserForm.setAdminuser(adminuserDAO.getAdminUser(adminuser.getAdmin_id()));
 	        model.addAttribute("adminuserForm",adminuserForm);
@@ -161,13 +162,11 @@ public class AdminUserController
 	        return "editadminuser";
 		}
 		System.out.println(status);
-		model.addAttribute("success","true");
+		
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm",adminuserForm);
         model.addAttribute("menu","adminuser");
-        
-        
         AdminUserForm adminuserForm1 = new AdminUserForm();
 		adminuserForm1.setAdminuser(adminuserDAO.getAdminUserby_username(principal.getName()));
         model.addAttribute("currentuser",adminuserForm1);

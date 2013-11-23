@@ -85,6 +85,12 @@ public class MainDAO {
 		Connection con = null;
 		Statement statement = null;
 		int flag=0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -98,11 +104,11 @@ public class MainDAO {
 	    	 //System.out.println(dateFormat.format(date));
 	    	String cmd="UPDATE participants_table SET message ='"+participant.getmessage()+"' WHERE participants_id='"+participants_id+"'";
 	    	
-	    	String Desc="Update participant "+participant.getFname();
+	    	String Desc="Update participant ";
 	    	
 	    	
 	    	
-	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+userName+"')";
 	    	    	
 	    	System.out.println("update message"+cmd);
 	    	System.out.println(cmd_activity);
@@ -298,6 +304,7 @@ public class MainDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag = 0;
+		
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -419,6 +426,12 @@ public class MainDAO {
 			
 			resultSet= statement.executeQuery("select  max(participants_id) as participant from participants_table;");
 			String participants="";
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserDetails userDetails = null;
+			if (principal instanceof UserDetails) {
+			  userDetails = (UserDetails) principal;
+			}
+			String userName = userDetails.getUsername();
 			if(resultSet.next())
 				{
 				participants=resultSet.getString("participant");
@@ -459,11 +472,11 @@ public class MainDAO {
 			/*
 			 * if(resultSet.next()) Desc=Desc+resultSet.getString(1);
 			 */
-		     String cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"
+		     String cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"
 					+ admin_id
 					+ "','127.0.0.1','"
 					+ dateFormat.format(date)
-					+ "','" + Desc + "')";
+					+ "','" + Desc + "','"+userName+"')";
 			System.out.println(cmd_activity);
 			statement.execute(cmd_activity);
 			flag = 1;
@@ -553,11 +566,11 @@ public class MainDAO {
 			 */String Desc = "added participants" + participant.getFname();
 			/*
 			 * if(resultSet.next()) Desc=Desc+resultSet.getString(1);
-			 */String cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"
+			 */String cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"
 					+ admin_id
 					+ "','127.0.0.1','"
 					+ dateFormat.format(date)
-					+ "','" + Desc + "')";
+					+ "','" + Desc + "','"+userName+"')";
 			System.out.println(cmd_activity);
 			statement.execute(cmd_activity);
 			flag = 1;
@@ -641,7 +654,7 @@ public class MainDAO {
 			Providername=providername;
 		}
 	    	
-	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+Providername+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
+	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+Providername+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+Providername+"')";
 	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
 	    	System.out.println(cmd);
 	    	System.out.println(cmd_activity);
@@ -752,7 +765,7 @@ public class MainDAO {
 				
 			resultSet = statement
 					.executeQuery(cmd);
-			System.out.print("username"+userName);
+			System.out.print("username" +userName);
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet
@@ -952,6 +965,12 @@ public class MainDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag = 0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -972,11 +991,11 @@ public class MainDAO {
 			statement
 					.execute("delete from participants_table where participants_id='"
 							+ participant_id + "'");
-			cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"
+			cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"
 					+ admin
 					+ "','127.0.0.1','"
 					+ dateFormat.format(date)
-					+ "','" + Desc + "')";
+					+ "','" + Desc + "','"+userName+"')";
 			statement.execute(cmd_activity);
 			flag = 1;
 

@@ -9,6 +9,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import bephit.model.AdminActivity;
 
 public class AdminActivityDAO {
@@ -24,6 +27,12 @@ public class AdminActivityDAO {
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -43,6 +52,7 @@ public class AdminActivityDAO {
 						,resultSet.getString("ip_address")
 						,resultSet.getString("admin_date_time")
 						,resultSet.getString("admin_desc")
+						,resultSet.getString("done_by")
 						));
 			
 		                  }
