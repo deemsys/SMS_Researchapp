@@ -36,7 +36,11 @@
 		</property>
 	</bean>
 	
-	
+	<!-- Make sure to add the <context:component-scan base-package="" /> first -->
+  
+ <!-- Activates @Scheduled and @Async annotations for scheduling -->
+   
+ 
 	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
         <property name="velocityProperties">
             <value>
@@ -48,7 +52,24 @@
 	
 	
 	
+	<!-- Scheduler -->
+<!-- Activates various annotations to be detected in bean classes -->
+	<context:annotation-config />
 	
+	<!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.
+	 For example @Controller and @Service. Make sure to set the correct base-package-->
+	<!-- <context:component-scan base-package="bephit" /> -->
+	
+	<!-- Configures the annotation-driven Spring MVC Controller programming model.
+	Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
+	
+	
+	<!-- Loads Spring Task Scheduler related configurations -->
+	<!-- <import resource="spring-scheduler.xml" /> -->
+	
+<!-- End Scheduler -->
+
+
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="javaMailProperties">
         <!-- Gmail setup for from acct -->
@@ -62,5 +83,6 @@
         <property name="username" value="learnguild@gmail.com" />
         <property name="password" value="deemsys@123" />
     </bean>
-<!-- 	<import resource="spring-scheduler.xml"/>  
- --></beans>
+    
+	 
+</beans>
