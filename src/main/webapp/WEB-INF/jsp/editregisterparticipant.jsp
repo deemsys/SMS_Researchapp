@@ -13,6 +13,8 @@
 	<script src="/BePhitResearchApp/resources/js/jquery.js"></script>
 
 	<script type="text/javascript">
+	
+	
 		function listbox_moveacross(sourceID, destID) {
 			var src = document.getElementById(sourceID);
 			var dest = document.getElementById(destID);
@@ -105,7 +107,15 @@
 
 	<script>
 		function validate() {
-			var fld = document.getElementById('group_name');
+		var fld = document.getElementById('group_names');		
+if(fld.value=="")
+{
+groupnameerror.innerHTML="Required Field Should not be Empty";
+return false;
+}
+else
+{
+	     
 			var values = [];
 			for ( var i = 0; i < fld.options.length; i++) {
 				if (fld.options[i].selected) {
@@ -118,6 +128,7 @@
 				return false;
 			} else
 				return true;
+		}
 		}
 	</script>
 
@@ -160,7 +171,7 @@
 										style="padding-right: 25px;">
 										<h2 class="quck-txt">Quick Info</h2>
 										<table cellpadding="0" cellspacing="0" border="0" width="100%">
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> First Name :</td>
 												<input type="hidden" class="input_txtbx1" id="inp_id"
@@ -223,7 +234,11 @@
                                                        </c:forEach>   --%>
 													Age:</td>
 												<td valign="top" align="left" class="input_txt"><select
-													name="age" class="input_cmbbx2">
+													name="age" class="input_cmbbx1">
+													
+													<option value=""
+															<c:if test="${participantsDetails.age=='null'}"><c:out value="selected"/></c:if>>--Select--
+															</option>
 														<option value=""
 															<c:if test="${participantsDetails.age=='Below 12'}"><c:out value="selected"/></c:if>>Below
 															12</option>
@@ -277,7 +292,7 @@
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
-														<option selected="selected" value="">--select--</option>
+														<option selected="selected" value="">--Select--</option>
 														<option value="School"
 															<c:if test="${participantsDetails.education=='School'}"><c:out value="selected"/></c:if>>School</option>
 														<option value="Some College"
@@ -297,8 +312,7 @@
 											<tr class="row1">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err"></span> Medical
-													Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Details:</td>
 												<td valign="top" align="left" class="input_txt"><textarea
 														class="input_txtbx1" id="det"
 														onmouseover="showTooltip('tooltip_id','inp_id3');"
@@ -323,10 +337,10 @@
 											</tr>
 
 											<tr class="row2">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time1:</td>
+												<td valign="middle" align="left" class="input_txt">Time1:</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time1" class="input_cmbbx1" id="msg">
+													<option <c:if test="${participantsDetails.time1=='null'}"><c:out value="selected"/></c:if>> --Select--</option>
 														<option value="0-1"
 															<c:if test="${participantsDetails.time1=='00-1'}"><c:out value="selected"/></c:if>>0-1</option>
 														<option value="1-2"
@@ -380,15 +394,11 @@
 												</select><br /></td>
 											</tr>
 											<tr class="row1">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time2:</td>
+												<td valign="middle" align="left" class="input_txt"> Time2:</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time2" class="input_cmbbx1" id="msg">
-														<option value="00-1" id="time">00-1</option>
-														<c:if test="${participantsDetails.time1=='00-1'}">
-															<c:out value="selected" />
-														</c:if>00-1
-														</option>
+													<option	<c:if test="${participantsDetails.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+														
 														<option value="0-1"
 															<c:if test="${participantsDetails.time2=='0-1'}"><c:out value="selected"/></c:if>>0-1</option>
 														<option value="1-2"
@@ -441,10 +451,11 @@
 												</select><br /></td>
 											</tr>
 											<tr class="row2">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time3:</td>
+												<td valign="middle" align="left" class="input_txt"> Time3:</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time3" class="input_cmbbx1" id="msg">
+													<option 
+															<c:if test="${participantsDetails.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 														<option value="0-1"
 															<c:if test="${participantsDetails.time3=='0-1'}"><c:out value="selected"/></c:if>>0-1</option>
 														<option value="1-2"
@@ -522,7 +533,7 @@
 														</c:forEach>
 
 												</select> --%> <label style="border: 1px solid #000; display: block;width: 170px;" >${ provider}</label></br> <font color="Red" size="+1"><span id="spngrp"><form:errors
-																path="participant.group_name"></form:errors> </span></font></td>
+																path="participant.Provider_name"></form:errors> </span></font></td>
 											</tr>
 										</table>
 										<table>
@@ -537,7 +548,7 @@
                                                     <p>Provider Groups</p>
 													<div id="info" style="color: green;">
 														<select id="group_name" multiple="multiple"
-															class="input_cmbbx1">
+															class="input_cmbbx1" name="provider_groups">
 															<c:forEach items="${groups}" var="group1"
 																varStatus="status">
 
@@ -571,8 +582,8 @@
 														
 
 														</c:forEach>
-												</select> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
-																path="participant.group_name"></form:errors> </span></font>
+												</select> </br><font color="Red" size="+1"><span id="spngrp"><form:errors
+																path="participant.group_name"></form:errors> </span><span id="groupnameerror"></span></font>
 																
 																</td>
 											</tr></table>
