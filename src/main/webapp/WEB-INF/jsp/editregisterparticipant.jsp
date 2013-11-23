@@ -341,26 +341,26 @@ else
 												<td valign="top" align="left" class="input_txt"><select
 													name="time1" class="input_cmbbx1" id="msg">
 													<option <c:if test="${participantsDetails.time1=='null'}"><c:out value="selected"/></c:if>> --Select--</option>
-														<option value="0-1"
-															<c:if test="${participantsDetails.time1=='00-1'}"><c:out value="selected"/></c:if>>0-1</option>
-														<option value="1-2"
-															<c:if test="${participantsDetails.time1=='1-2'}"><c:out value="selected"/></c:if>>1-2</option>
-														<option value="2-3"
-															<c:if test="${participantsDetails.time1=='2-3'}"><c:out value="selected"/></c:if>>2-3</option>
-														<option value="3-4"
-															<c:if test="${participantsDetails.time1=='3-4'}"><c:out value="selected"/></c:if>>3-4</option>
-														<option value="4-5"
-															<c:if test="${participantsDetails.time1=='4-5'}"><c:out value="selected"/></c:if>>4-5</option>
-														<option value="5-6"
-															<c:if test="${participantsDetails.time1=='5-6'}"><c:out value="selected"/></c:if>>5-6</option>
-														<option value="6-7"
-															<c:if test="${participantsDetails.time1=='6-7'}"><c:out value="selected"/></c:if>>6-7</option>
-														<option value="7-8"
-															<c:if test="${participantsDetails.time1=='7-8'}"><c:out value="selected"/></c:if>>7-8</option>
-														<option value="8-9"
-															<c:if test="${participantsDetails.time1=='8-9'}"><c:out value="selected"/></c:if>>8-9</option>
-														<option value="9-10"
-															<c:if test="${participantsDetails.time1=='9-10'}"><c:out value="selected"/></c:if>>9-10</option>
+														<option value="00-01"
+															<c:if test="${participantsDetails.time1=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+														<option value="01-02"
+															<c:if test="${participantsDetails.time1=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+														<option value="02-03"
+															<c:if test="${participantsDetails.time1=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+														<option value="03-04"
+															<c:if test="${participantsDetails.time1=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+														<option value="04-05"
+															<c:if test="${participantsDetails.time1=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+														<option value="05-06"
+															<c:if test="${participantsDetails.time1=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+														<option value="06-07"
+															<c:if test="${participantsDetails.time1=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+														<option value="07-08"
+															<c:if test="${participantsDetails.time1=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+														<option value="08-09"
+															<c:if test="${participantsDetails.time1=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+														<option value="09-10"
+															<c:if test="${participantsDetails.time1=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
 														<option value="10-11"
 															<c:if test="${participantsDetails.time1=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 														<option value="11-12"
@@ -399,26 +399,26 @@ else
 													name="time2" class="input_cmbbx1" id="msg">
 													<option	<c:if test="${participantsDetails.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 														
-														<option value="0-1"
-															<c:if test="${participantsDetails.time2=='0-1'}"><c:out value="selected"/></c:if>>0-1</option>
-														<option value="1-2"
-															<c:if test="${participantsDetails.time2=='1-2'}"><c:out value="selected"/></c:if>>1-2</option>
-														<option value="2-3"
-															<c:if test="${participantsDetails.time2=='2-3'}"><c:out value="selected"/></c:if>>2-3</option>
-														<option value="3-4"
-															<c:if test="${participantsDetails.time2=='3-4'}"><c:out value="selected"/></c:if>>3-4</option>
-														<option value="4-5"
-															<c:if test="${participantsDetails.time2=='4-5'}"><c:out value="selected"/></c:if>>4-5</option>
-														<option value="5-6"
-															<c:if test="${participantsDetails.time2=='5-6'}"><c:out value="selected"/></c:if>>5-6</option>
-														<option value="6-7"
-															<c:if test="${participantsDetails.time2=='6-7'}"><c:out value="selected"/></c:if>>6-7</option>
-														<option value="7-8"
-															<c:if test="${participantsDetails.time2=='7-8'}"><c:out value="selected"/></c:if>>7-8</option>
-														<option value="8-9"
-															<c:if test="${participantsDetails.time2=='8-9'}"><c:out value="selected"/></c:if>>8-9</option>
-														<option value="9-10"
-															<c:if test="${participantsDetails.time2=='9-10'}"><c:out value="selected"/></c:if>>9-10</option>
+														<option value="00-01"
+															<c:if test="${participantsDetails.time2=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+														<option value="01-02"
+															<c:if test="${participantsDetails.time2=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+														<option value="02-03"
+															<c:if test="${participantsDetails.time2=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+														<option value="03-04"
+															<c:if test="${participantsDetails.time2=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+														<option value="04-05"
+															<c:if test="${participantsDetails.time2=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+														<option value="05-06"
+															<c:if test="${participantsDetails.time2=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+														<option value="06-07"
+															<c:if test="${participantsDetails.time2=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+														<option value="07-08"
+															<c:if test="${participantsDetails.time2=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+														<option value="08-09"
+															<c:if test="${participantsDetails.time2=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+														<option value="09-10"
+															<c:if test="${participantsDetails.time2=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
 														<option value="10-11"
 															<c:if test="${participantsDetails.time2=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 														<option value="11-12"
@@ -456,26 +456,26 @@ else
 													name="time3" class="input_cmbbx1" id="msg">
 													<option 
 															<c:if test="${participantsDetails.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
-														<option value="0-1"
-															<c:if test="${participantsDetails.time3=='0-1'}"><c:out value="selected"/></c:if>>0-1</option>
-														<option value="1-2"
-															<c:if test="${participantsDetails.time3=='1-2'}"><c:out value="selected"/></c:if>>1-2</option>
-														<option value="2-3"
-															<c:if test="${participantsDetails.time3=='2-3'}"><c:out value="selected"/></c:if>>2-3</option>
-														<option value="3-4"
-															<c:if test="${participantsDetails.time3=='3-4'}"><c:out value="selected"/></c:if>>3-4</option>
-														<option value="4-5"
-															<c:if test="${participantsDetails.time3=='4-5'}"><c:out value="selected"/></c:if>>4-5</option>
-														<option value="5-6"
-															<c:if test="${participantsDetails.time3=='5-6'}"><c:out value="selected"/></c:if>>5-6</option>
-														<option value="6-7"
-															<c:if test="${participantsDetails.time3=='6-7'}"><c:out value="selected"/></c:if>>6-7</option>
-														<option value="7-8"
-															<c:if test="${participantsDetails.time3=='7-8'}"><c:out value="selected"/></c:if>>7-8</option>
-														<option value="8-9"
-															<c:if test="${participantsDetails.time3=='8-9'}"><c:out value="selected"/></c:if>>8-9</option>
-														<option value="9-10"
-															<c:if test="${participantsDetails.time3=='9-10'}"><c:out value="selected"/></c:if>>9-10</option>
+														<option value="00-01"
+															<c:if test="${participantsDetails.time3=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+														<option value="01-02"
+															<c:if test="${participantsDetails.time3=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+														<option value="02-03"
+															<c:if test="${participantsDetails.time3=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+														<option value="03-04"
+															<c:if test="${participantsDetails.time3=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+														<option value="04-05"
+															<c:if test="${participantsDetails.time3=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+														<option value="05-06"
+															<c:if test="${participantsDetails.time3=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+														<option value="06-07"
+															<c:if test="${participantsDetails.time3=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+														<option value="07-08"
+															<c:if test="${participantsDetails.time3=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+														<option value="08-09"
+															<c:if test="${participantsDetails.time3=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+														<option value="09-10"
+															<c:if test="${participantsDetails.time3=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
 														<option value="10-11"
 															<c:if test="${participantsDetails.time3=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 														<option value="11-12"
