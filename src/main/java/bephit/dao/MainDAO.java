@@ -202,12 +202,12 @@ public class MainDAO {
 	      if(from==0)
 	       	     cmd_emaillist="Select count(*) as counting from participants_table where email_id='"+admin_email+"'";
 	      else if(from==1)
-	    	  cmd_emaillist="Select count(*) as counting from participants_table where email_id='"+admin_email+"' && participants_id!='"+participantid+"'";
-	 	     	  
+	    	  cmd_emaillist="Select count(*) as counting from participants_table where email_id='"+admin_email+"' and participants_id!='"+participantid+"'";
+	 	     System.out.println(cmd_emaillist);	  
           resultSet=statement.executeQuery(cmd_emaillist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
-          System.out.println(count);
+          System.out.println("emailcount"+count);
          if(count>0)
           {
         	  return 0;
@@ -266,6 +266,8 @@ public class MainDAO {
 	    	int enabled=1;
 	    	int updateemail=1;
 	   
+	    	
+	    	
 	      String cmd_mobilelist="Select count(*) as counting from participants_table where mobile_num='"+admin_mobile+"'";
           resultSet=statement.executeQuery(cmd_mobilelist);
           resultSet.next();
@@ -1466,7 +1468,7 @@ public class MainDAO {
 	    	if(from==0)	   
 	    		cmd_mobilelist ="Select count(*) as counting from participants_table where mobile_num='"+admin_mobile+"'";
 	    	else if(from==1)
-	    		cmd_mobilelist="Select count(*) as counting from participants_table where mobile_num='"+admin_mobile+"' && participants_id!='"+participantid+"'";
+	    		cmd_mobilelist="Select count(*) as counting from participants_table where mobile_num='"+admin_mobile+"' and participants_id!='"+participantid+"'";
 		 	    
 	    	resultSet=statement.executeQuery(cmd_mobilelist);
 	          resultSet.next();
