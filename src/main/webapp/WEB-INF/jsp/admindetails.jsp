@@ -15,7 +15,7 @@
       <tr>
         <td valign="top" align="left"><div>
             <div class="headings altheading">
-              <h2>Adminuser Details</h2>
+              <h2>Provider Details</h2>
             </div>
             <div class="contentbox">
               <table cellpadding="0" cellspacing="0" border="0" width="100%">

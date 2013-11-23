@@ -107,7 +107,7 @@
               <tr class="row1">  
               <td width="15%" valign="middle" align="left" ></td>
               <td width="5%" valign="middle" align="left" >
-               <a href="welcome" class="paging_select"> <input type="button" onclick="goBack()" value="Back" class="submit_btn"/> </a>
+              <a href="welcome" class="paging_select"> <input type="button" onclick="goBack()" value="Back" class="submit_btn"/> </a>
               </td>
               </tr>
              

@@ -58,12 +58,12 @@ else {
       <tr>
         <td valign="top" align="left"><div>
             <div class="headings altheading">
-              <h2>Add Admin User</h2>
+              <h2>Add Provider</h2>
             </div>
             <div class="contentbox">
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
               
-                             <tr class="row2">
+                             <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span>First Name :</td>
                   <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="admin_firstname" class="input_txtbx" id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /></br><span class="err"><form:errors path="adminuser.admin_firstname"></form:errors></span></td>
                 </tr>
@@ -80,11 +80,11 @@ else {
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Retype password :</td>
                   <td valign="top" align="left" class="input_txt"><input type="password" name="repassword" class="input_txtbx" id="pass2" value="" /></br><span class="err" id="spnsub_pass"></span></td>
                 </tr> --%>
-		<tr class="row2">
+		<tr class="row1">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Mobile :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" name="admin_mobile" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /></br><span class="err"><form:errors path="adminuser.admin_mobile"></form:errors></span></td>
                 </tr>
-                <tr class="row1">
+                <tr class="row2">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> E-mail :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" name="admin_email" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /></br><span class="err"><form:errors path="adminuser.admin_email"></form:errors></span></td>
                 </tr>
@@ -102,7 +102,7 @@ else {
               <tr>
         <td valign="top" align="left"><div>
             <div class="headings altheading">
-              <h2>Add Admin User</h2>
+              <h2>Add Provider</h2>
             </div>
             <div class="contentbox">
               <table cellpadding="0" cellspacing="0" border="0" width="100%">

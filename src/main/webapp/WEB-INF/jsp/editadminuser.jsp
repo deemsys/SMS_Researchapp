@@ -27,21 +27,23 @@
       <tr>
         <td valign="top" align="left"><div>
             <div class="headings altheading">
-              <h2>Edit Admin User</h2>
+              <h2>Edit Provider Details</h2>
             </div>
             
             <div class="contentbox">
             
+             <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            
             <c:set value="${adminuserForm.adminuser[0]}" var="adminuser"/>
             
-              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+             
                 
-                <tr class="row2">
+                <tr class="row1">
                 <input type="hidden" name="admin_id" class="input_txtbx" id="inp_id3"  value="${adminuser.admin_id}" />
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Name :</td>
                   <td valign="top" align="left" class="input_txt" width="70%"><input type="text" name="admin_username" class="input_txtbx" id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${adminuser.admin_username }" /></br><span class="err"><form:errors path="adminuser.admin_username"></form:errors></span></td>
                 </tr>
-		<tr class="row1">
+		<tr class="row2">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> E-mail :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" name="admin_email" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${adminuser.admin_email }" /></br><span class="err"><form:errors path="adminuser.admin_email"></form:errors></span></td>
                 </tr>
@@ -53,31 +55,30 @@
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Retype password :</td>
                   <td valign="top" align="left" class="input_txt"> --><input type="hidden" name="repassword" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /></br><span class="err"></span></td>
                <!--  </tr> -->
-		<tr class="row2">
+		<tr class="row1">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Mobile :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" name="admin_mobile" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${adminuser.admin_mobile }" /></br><span class="err"><form:errors path="adminuser.admin_mobile"></form:errors></span></td>
                 </tr>
-		
-</table>
-</td>
-                </tr>
-                 
+                
                  <tr class="row1">
                   <td valign="top" align="right">&nbsp;</td>
-                  <td valign="top" align="left"><input type="submit" value="SAVE" class="submit_btn"></td>
+                  <td valign="top" align="left"><input type="submit" value="Update Provider" class="submit_btn2"></td>
                 </tr>
               </table>
+              </div>
+              </div>
+              </td>
+              </tr>
+              </table>
+             
+              </div>
               
               
               
               
               
               
-            </div>
-          </div></td>
-      </tr>
-      </table>
-      </div>
+         
       
 </form>
       <jsp:include page="footer.jsp"></jsp:include>
