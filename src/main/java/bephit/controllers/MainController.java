@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; 
  
 @Controller
-@SessionAttributes({"currentuser","role","participants","provider","addparticipants","groups","group"})
+@SessionAttributes({"currentuser","role","participants","provider","addparticipants","groups","group","editregister"})
 public class MainController {
 	
 	@Autowired  
@@ -196,7 +196,8 @@ public class MainController {
 				returnText+="<option value='"+group+"'>"+group+"</option>";
 				}
 			System.out.println("strlist"+strlist);
-			  session.setAttribute("groups",strlist);
+			model.addAttribute("groups",strlist);
+			session.setAttribute("groups",strlist);
 		   returnText=returnText+"</select>";			
 		   System.out.println("grouplist"+strlist);
 			
@@ -524,6 +525,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		String providername=participant.getProvider_name();
 		System.out.println(participant.getProvider_name());
 		session.setAttribute("participants",participant);
+		model.addAttribute("provider",participant.getProvider_name());
 		session.setAttribute("provider",participant.getProvider_name());
 		model.addAttribute("email_exist","false");
 		model.addAttribute("mobile_exists","false");
@@ -824,6 +826,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	public String editregisterparticipantsettings(HttpSession session,HttpServletRequest request,ModelMap model) {
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		
+		session.removeAttribute("editregister");
 		String participants_id=mainDAO.getparticipantid();
 		System.out.println("participant id"+participants_id);	
 		String name;
@@ -988,23 +991,25 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		return "viewparticipants";
 	}
 	@RequestMapping(value="/updateregisterparticipant", method=RequestMethod.POST)
-	public String updateregisterParticipant(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+	public String updateregisterParticipant(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model,Principal principal)
 	{
 		
 		String providername=request.getParameter("Provider_name");
 		System.out.println("providername"+providername);
-		
+		System.out.println(participant.getEmail_id());
+		session.setAttribute("editregister",participant.getFname());
 		model.addAttribute("providername",providername);
 		
 		
 		model.addAttribute("email_exist","false");
 		model.addAttribute("mobile_exists","false");
-		int user_count=mainDAO.checkuser(participant.getusername());
+		//int user_count=mainDAO.checkuser(participant.getusername());
 		int email_count=mainDAO.checkemail(participant.getEmail_id(),1,participant.getParticipants_id());
-		int mobile_count=mainDAO.checkmobile(participant.getMobile_num());
+		int mobile_count=mainDAO.checkmobile(participant.getMobile_num(),1,participant.getParticipants_id());
 		
-		/*if (result.hasErrors())
+		System.out.println("Email count-------------------------"+email_count);
+		if (result.hasErrors())
 		{
 			
 			System.out.println("if email count: "+email_count);
@@ -1024,20 +1029,20 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 				model.addAttribute("mobile_exists","true");
 							
 			}
-			if(user_count==0)
+			/*if(user_count==0)
 			{
 				System.out.println("user exists");
 				model.addAttribute("user_exists","true");
 							
-			}
+			}*/
 			AdminUserForm adminuserform=new AdminUserForm();
 	        adminuserform.setAdminuser(adminuserdao.getAdminUser());
 	        model.addAttribute("adminuserform",adminuserform);
 			model.addAttribute("participantGroupForm", participantGroupForm);
 	        model.addAttribute("menu","participants");
 			return "/editregisterparticipant";
-		}	*/	
-		/*else			
+		}		
+		else			
 		{
 			System.out.println("else email count: "+email_count);
 			System.out.println("else mobile: "+mobile_count);
@@ -1058,16 +1063,16 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 				return "/editregisterparticipant";
 							
 			}
-			else if(user_count==0)
+			/*else if(user_count==0)
 			{
 				System.out.println("user exists");
 				model.addAttribute("user_exists","true");
 				model.addAttribute("menu","participants");
 				return "/editregisterparticipant";			
-			}
+			}*/
 			else
 			{
-	*/
+	
 		
 		String participants=mainDAO.getparticipantid();
 		
@@ -1103,6 +1108,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			}*/
 		return "viewregisterparticipants";
 	
+			}}
 		}
 
 	
