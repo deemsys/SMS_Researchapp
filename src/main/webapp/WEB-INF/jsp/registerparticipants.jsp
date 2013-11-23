@@ -29,10 +29,16 @@ function doAjaxPost() {
 	  });  
 	}  
 </script>
-
+<Script>
+function empty()
+{		var fld = document.getElementById('group_name');
+		fld.innerHTML = "";
+		
+	}
+</Script>
 
 <script>
-function validate(){
+   function validate(){
 var fld = document.getElementById('group_name');
 var values = [];
 for (var i = 0; i < fld.options.length; i++) {
@@ -163,7 +169,7 @@ return true;
 													class="err"></span> Gender :</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="radio" name="gender" value="0" class="input_txt"
-													checked="true">Male&nbsp;&nbsp;&nbsp;<input
+													checked="true">Male&nbsp;&nbsp;&nbsp;<input id="gender"
 													type="radio" name="gender" value="1" class="input_txt">Female&nbsp;&nbsp;&nbsp;</td>
 											</tr>
 											<tr class="row2">
@@ -173,8 +179,9 @@ return true;
                                                        </c:forEach>   --%>
 													Age:</td>
 												<td valign="top" align="left" class="input_txt"><select
-													name="age" class="input_cmbbx1">
-														<option selected="selected" value="">Below 12</option>
+													name="age" class="input_cmbbx1" id="age">
+													<option selected="selected" value="">--Select--</option>
+														<option value="">Below 12</option>
 														<option value="12-20 years" id="age">12-20 &#160 years</option>
 														<option value="20-30 years" id="age">20-30 &#160 years</option>
 														<option value="30-40 years" id="age">30-40 &#160 years</option>
@@ -205,8 +212,8 @@ return true;
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
-													name="education" class="input_cmbbx1">
-														<option selected="selected" value="">--select--</option>
+													name="education" class="input_cmbbx1" id="education">
+														<option selected="selected" value="">--Select--</option>
 														<option value="School" id="edu">School</option>
 														<option value="Some Collage" id="edu">Some
 															College</option>
@@ -222,10 +229,9 @@ return true;
 											<tr class="row1">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err"></span> Medical
-													Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Details:</td>
 												<td valign="top" align="left" class="input_txt"><textarea
-														class="input_txtbx1" id="det"
+														class="input_txtbx1" id="medical"
 														onmouseover="showTooltip('tooltip_id','inp_id3');"
 														onmouseout="hideTooltip('tooltip_id');"
 														style="width: 177px; height: 89px;" name="medical_details" /></textarea>
@@ -248,10 +254,10 @@ return true;
 											</tr>
 
                                             <tr class="row2">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time1:</td>
+												<td valign="middle" align="left" class="input_txt">
+ Time1:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select name="time1" class="input_cmbbx1" id="msg">
+												<select name="time1" class="input_cmbbx1" id="time1">
 														<option selected="selected" value="">--Select--</option>
 														
 														<option value="1-2" id="time">1-2</option>
@@ -278,17 +284,16 @@ return true;
 														<option value="23-00" id="time">23-00</option>
 														
 															
-												</select><br/>
+												</select><span>     Hours</span><br/>
 																								
 												<font color="Red" size="+1"><span
 														id="spnedu"><form:errors
 																path="participant.time1"></form:errors> </span></font></td>
 											</tr>
                                                <tr class="row1">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time2:</td>
+												<td valign="middle" align="left" class="input_txt">Time2:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select name="time2" class="input_cmbbx1" id="msg">
+												<select name="time2" class="input_cmbbx1" id="time2">
 														<option selected="selected" value="">--Select--</option>
 														
 														<option value="1-2" id="time">1-2</option>
@@ -315,16 +320,15 @@ return true;
 														<option value="23-00" id="time">23-00</option>
 														
 															
-												</select><br/>
+												</select><span>     Hours</span><br/>
 																							<font color="Red" size="+1"><span
 														id="spnedu"><form:errors
 																path="participant.time2"></form:errors> </span></font></td>
 											</tr>
 											<tr class="row2">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time3:</td>
+												<td valign="middle" align="left" class="input_txt">Time3:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select name="time3" class="input_cmbbx1" id="msg">
+												<select name="time3" class="input_cmbbx1" id="time3">
 														<option selected="selected" value="">--Select--</option>
 														
 														<option value="1-2" id="time">1-2</option>
@@ -351,7 +355,7 @@ return true;
 														<option value="23-00" id="time">23-00</option>
 														
 															
-												</select><br/>																						
+												</select><span>     Hours</span><br/>																					
 												<font color="Red" size="+1"><span
 														id="spnedu"><form:errors
 																path="participant.time3"></form:errors> </span></font></td>
@@ -362,11 +366,9 @@ return true;
 											</tr>
 <tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
-													class="err">*</span> Provider Name
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													class="err">*</span> Provider Name:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select onchange="doAjaxPost()" name="Provider_name" id="Provider_name"  class="input_cmbbx1"> <option>--select--</option>
+												<select onchange="doAjaxPost()" name="Provider_name" id="Provider_name"  class="input_cmbbx1"> <option>--Select--</option>
 														<c:forEach
 															items="${adminuserform.adminuser}"
 															var="adminuser" varStatus="status">
@@ -383,8 +385,7 @@ return true;
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err">*</span> Select
-													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Group:</td>
 												<td valign="top" align="left" class="input_txt">
 												<%-- <select
 													name="group_name" multiple="multiple">
@@ -466,7 +467,7 @@ return true;
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span class="err"></span> Gender :</td>
-												<td valign="top" align="left" class="input_txt"><input type="radio" name="gender" value="0"  class="input_txt" <c:if test="${participants.gender=='0'}"><c:out value="checked=checked"/></c:if>>Male&nbsp;&nbsp;&nbsp;
+												<td valign="top" align="left" class="input_txt"><input type="radio" name="gender" value="0" id="gender" class="input_txt" <c:if test="${participants.gender=='0'}"><c:out value="checked=checked"/></c:if>>Male&nbsp;&nbsp;&nbsp;
                   <input type="radio" name="gender" value="1"  class="input_txt" <c:if test="${participants.gender=='1'}"><c:out value="checked=checked"/></c:if>> Female</td></tr>
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
@@ -475,7 +476,8 @@ return true;
                                                        </c:forEach>   --%>
 													Age:</td>
 												<td valign="top" align="left" class="input_txt"><select
-													name="age" class="input_cmbbx1">
+													name="age" class="input_cmbbx1" id="age">
+													<option value="" <c:if test="${participants.age=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 														<option value="" <c:if test="${participants.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
                  <option value="12-20 years" <c:if test="${participants.age=='12-20 years'}"><c:out value="selected"/></c:if>>12-20 &#160 years</option>
                  <option value="20-30 years" <c:if test="${participants.age=='20-30 years'}"><c:out value="selected"/></c:if>>20-30 &#160 years</option>
@@ -507,8 +509,8 @@ return true;
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
-													name="education" class="input_cmbbx1">
-														<option selected="selected" value="">--select--</option>
+													name="education" class="input_cmbbx1" id="education">
+														<option selected="selected" value="">--Select--</option>
 														 <option value="School" <c:if test="${participants.education=='School'}"><c:out value="selected"/></c:if>>School</option>
 			<option value="Some College" <c:if test="${participants.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
 			<option value="Professional Degree" <c:if test="${participants.education=='Professional Degree'}"><c:out value="selected"/></c:if>>Professional Degree</option>
@@ -521,10 +523,9 @@ return true;
 											<tr class="row1">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err"></span> Medical
-													Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Details:</td>
 												<td valign="top" align="left" class="input_txt"><textarea
-														class="input_txtbx1" id="det"
+														class="input_txtbx1" id="medical"
 														onmouseover="showTooltip('tooltip_id','inp_id3');"
 														onmouseout="hideTooltip('tooltip_id');"
 														style="width: 177px; height: 89px;" name="medical_details" />${participants.medical_details }</textarea>
@@ -547,11 +548,11 @@ return true;
 											</tr>
 
                                        <tr class="row2">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time1:</td>
+												<td valign="middle" align="left" class="input_txt">Time1:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select name="time1" class="input_cmbbx1" id="msg">
-					  <option value="0-1" <c:if test="${participants.time1=='00-1'}"><c:out value="selected"/></c:if>>0-1</option>
+												<select name="time1" class="input_cmbbx1" id="time1">
+					<option<c:if test="${participants.time1=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+					  <option value="0-1" <c:if test="${participants.time1=='0-1'}"><c:out value="selected"/></c:if>>0-1</option>
                    <option value="1-2"  <c:if test="${participants.time1=='1-2'}"><c:out value="selected"/></c:if>>1-2</option>
 				   <option value="2-3" <c:if test="${participants.time1=='2-3'}"><c:out value="selected"/></c:if>>2-3</option>
 				   <option value="3-4" <c:if test="${participants.time1=='3-4'}"><c:out value="selected"/></c:if>>3-4</option>
@@ -581,10 +582,10 @@ return true;
 												</td>
 											</tr>
                                                <tr class="row1">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time2:</td>
+												<td valign="middle" align="left" class="input_txt"> Time2:</td>
 												<td valign="top" align="left" class="input_txt" >
-												<select name="time2" class="input_cmbbx1" id="msg"">
+												<select name="time2" class="input_cmbbx1" id="time2">
+				 <option<c:if test="${participants.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
                    <option value="0-1" <c:if test="${participants.time2=='0-1'}"><c:out value="selected"/></c:if>>0-1</option>
                    <option value="1-2"  <c:if test="${participants.time2=='1-2'}"><c:out value="selected"/></c:if>>1-2</option>
 				   <option value="2-3" <c:if test="${participants.time2=='2-3'}"><c:out value="selected"/></c:if>>2-3</option>
@@ -614,11 +615,11 @@ return true;
 												</td>
 											</tr>
 											<tr class="row2">
-												<td valign="middle" align="left" class="input_txt"><span
-													class="err">*</span> Time3:</td>
+												<td valign="middle" align="left" class="input_txt">Time3:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select name="time3" class="input_cmbbx1" id="msg">
-														<option value="0-1" <c:if test="${participants.time3=='0-1'}"><c:out value="selected"/></c:if>>0-1</option>
+												<select name="time3" class="input_cmbbx1" id="time3">
+				<option<c:if test="${participants.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+				  <option value="0-1" <c:if test="${participants.time3=='0-1'}"><c:out value="selected"/></c:if>>0-1</option>
                    <option value="1-2"  <c:if test="${participants.time3=='1-2'}"><c:out value="selected"/></c:if>>1-2</option>
 				   <option value="2-3" <c:if test="${participants.time3=='2-3'}"><c:out value="selected"/></c:if>>2-3</option>
 				   <option value="3-4" <c:if test="${participants.time3=='3-4'}"><c:out value="selected"/></c:if>>3-4</option>
@@ -654,12 +655,11 @@ return true;
 											</tr>
 <tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
-													class="err">*</span> Provider Name
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													class="err">*</span> Provider Name:								
+													</td>
 												<td valign="top" align="left" class="input_txt">
 												<select onchange="doAjaxPost()" id="Provider_name"	name="Provider_name" class="input_cmbbx1">
-													<option>--select--</option>
+													<option>--Select--</option>
 														<c:forEach items="${adminuserform.adminuser}"
 															var="adminuser" varStatus="status">
 															
@@ -667,6 +667,8 @@ return true;
 														</c:forEach>
 
 												</select>
+												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
+																path="participant.Provider_name"></form:errors> </span></font>
 												 </td>
 											</tr>
 											<tr>
@@ -675,8 +677,8 @@ return true;
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err">*</span> Select
-													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Group:
+													</td>
 												<td valign="top" align="left" class="input_txt">
 												<%-- <select
 													name="group_name" multiple>
@@ -688,13 +690,12 @@ return true;
 
 												</select> --%>
 												
-												<div id="info" style="color: green;"><select class="input_cmbbx1" multiple="multiple" name="group_name" id="group_name" value="${groups}">
+												<div id="info" style="color: green;"><select id="group_name" class="input_cmbbx1" multiple="multiple" name="group_name" id="group_name" value="${groups}">
 												
 												<c:forEach items="${groups}"
 															var="group" varStatus="status">
 															<option value="${group}">${group}</option>
-														</c:forEach>
-												
+														</c:forEach>											
 												
 												</select></div>
 												
@@ -716,7 +717,7 @@ return true;
 						
 						
 							<table align="right"><tr><td><input type="submit" class="submit_btn" value="Register" name="insert" onclick="return validate('this')"></td>
-							<td width="50"></td><td><input type="reset" value="Reset" class="submit_btn"></td><td width="50">
+							<td width="50"></td><td><input type="reset"  value="Reset" class="submit_btn" onclick="empty()" ></td><td width="50">
 							<td><a href="login" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
 			
 

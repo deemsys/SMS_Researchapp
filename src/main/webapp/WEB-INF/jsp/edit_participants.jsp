@@ -305,7 +305,9 @@
 												</select><br/>
 												</td>
 											</tr>
-				<tr><td><p class="quck-txt">Group</p></td></tr>
+				<tr>
+				
+				<td><p class="quck-txt">Group</p></td></tr>
 
 <tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
                 
@@ -352,13 +354,13 @@
 												<td>
 												<td>
 													<ul class="pagination">
-														<li class="page_unselect"><a href="#"
+														<li class="page_unselect"><a 
 															onclick="listbox_moveacross('group_name','group_names')">&gt;&gt;</a>
 															</li></ul>
 
 															<!-- input type="submit" value=">>" onclick=""/> --> </br>
 															<ul class="pagination">
-																<li class="page_unselect"><a href="#"
+																<li class="page_unselect"><a
 																	onclick="listbox_moveacrossright('group_names','group_name')">&lt;&lt</a></li>
 															</ul> <%-- <input type="submit" value="<<"" onclick="listbox_moveacross('group_names', 'group_name')"/> --%>
 												</td>

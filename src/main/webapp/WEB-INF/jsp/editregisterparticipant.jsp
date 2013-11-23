@@ -510,7 +510,7 @@
 													:</td>
 												<td valign="top" align="left" class="input_txt">
 												
-												<input type="text" name="Provider_name" value="${provider}">
+												<input type="hidden" name="Provider_name" value="${provider}">
 												<%-- <select
 													onchange="doAjaxPost()" class="input_cmbbx1"
 													name="Provider_name" id="Provider_name">
@@ -550,13 +550,13 @@
 												<td>
 												<td>
 													<ul class="pagination">
-														<li class="page_unselect"><a href="#"
+														<li class="page_unselect"><a 
 															onclick="listbox_moveacross('group_name','group_names')">&gt;&gt;</a>
 															</li></ul>
 
 															<!-- input type="submit" value=">>" onclick=""/> --> </br>
 															<ul class="pagination">
-																<li class="page_unselect"><a href="#"
+																<li class="page_unselect"><a
 																	onclick="listbox_moveacrossright('group_names','group_name')">&lt;&lt</a></li>
 															</ul> <%-- <input type="submit" value="<<"" onclick="listbox_moveacross('group_names', 'group_name')"/> --%>
 												</td>

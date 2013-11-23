@@ -37,15 +37,16 @@ public class ParticipantsDetails {
 	
 	private String medical_details;
 	
-	@NotEmpty
+
 	private String time1;
 	
-	@NotEmpty
+	
 	private String time2;
 	
-	@NotEmpty
+
 	private String time3;
 	
+	@NotEmpty
 	private String Provider_name;
 	
 	@NotEmpty
@@ -65,47 +66,39 @@ public class ParticipantsDetails {
 	private String created_by;
 	private String message;
 	
-	public ParticipantsDetails() {
-    }
- 
-    public ParticipantsDetails(String participants_id,
-    		String fname,
-    		String username,
-    		String mobile_num,
-    		String gender,
-    		String city,
-    		String education,
-    		String medical_details,
-    		String time1,
-    		String time2,
-    		String time3,
-    		String Provider_name,
-    		String group_name,
-    		String age,
-    		String date_of_join,
-    		String email_id,
-    		String created_by,
-    		String message) {
+	
+	public ParticipantsDetails(String participants_id, String fname,
+			String username, String mobile_num, String gender, String city,
+			String education, String medical_details, String time1,
+			String time2, String time3, String provider_name,
+			String group_name, String age, String date_of_join,
+			String email_id, String created_by, String message) {
+		super();
 		this.participants_id = participants_id;
 		this.fname = fname;
-		this.username=username;
+		this.username = username;
 		this.mobile_num = mobile_num;
 		this.gender = gender;
 		this.city = city;
 		this.education = education;
-		
 		this.medical_details = medical_details;
-		this.time1=time1;
-		this.time2=time2;
-		this.time3=time3;
-		this.Provider_name=Provider_name;
+		this.time1 = time1;
+		this.time2 = time2;
+		this.time3 = time3;
+		Provider_name = provider_name;
 		this.group_name = group_name;
 		this.age = age;
 		this.date_of_join = date_of_join;
 		this.email_id = email_id;
 		this.created_by = created_by;
-		this.message=message;
+		this.message = message;
+	}
+
+	
+	public ParticipantsDetails() {
     }
+ 
+ 
     public String getmessage() {
     	if(message==null)    	 
     		return "0";    	 
@@ -163,16 +156,25 @@ public class ParticipantsDetails {
 	public String getMedical_details() {
 		return medical_details;
 	}
+	
+	public String getProvider_name() {
+		return Provider_name;
+	}
+
+	public void setProvider_name(String provider_name) {
+		Provider_name = provider_name;
+	}
+
 	public void setMedical_details(String medical_details) {
 		this.medical_details = medical_details;
 	}
-	public String getProvider_name(){
+	/*public String getProvider_name(){
 		return Provider_name;
 	}
 	public void setProvider_name(String Provider_name)
 	{
 	this.Provider_name=Provider_name;	
-	}
+	}*/
 	public String getGroup_name() {
 		return group_name;
 	}
