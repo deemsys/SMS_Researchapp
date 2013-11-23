@@ -961,7 +961,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			BindingResult result,ModelMap model,Principal principal)
 	{
 		
-		if (result.hasErrors())
+		/*if (result.hasErrors())
 		{
 			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 	        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));	               
@@ -970,7 +970,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 				model.addAttribute("participantsDetailsForm", participantsDetailsForm);	 
 				model.addAttribute("participantGroupForm", participantGroupForm);
 		        return "edit_participants";
-		}
+		}*/
 		String groups[]=request.getParameterValues("group_name");
 		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName(),groups,1);
 		String participantid=participant.getParticipants_id();
