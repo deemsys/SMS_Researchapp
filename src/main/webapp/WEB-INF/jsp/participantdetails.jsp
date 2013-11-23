@@ -85,7 +85,16 @@
                   <td width="15%" valign="middle" align="left" > Group Name </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.group_name}</td>
-                </tr><tr class="row1">
+                </tr>
+                
+                <tr class="row1">
+                  <td width="15%" valign="middle" align="left" > Provider Name </td>
+                    <td width="1%" valign="middle" align="left" >  :</td>
+                  <td width="84%" valign="top" align="left" >${participantsDetails.created_by}</td>
+                </tr>
+                
+                
+                <tr class="row1">
                   <td width="15%" valign="middle" align="left" > Age</td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.age}</td>
@@ -97,46 +106,30 @@
                 </tr>   
               <tr class="row1">  
               <td width="15%" valign="middle" align="left" ></td>
-                    <td width="5%" valign="middle" align="left" ><ul class="pagination">
-               <li class="page"><a href="viewparticipants" class="paging_select">Back</a></li>
-              </ul></td>
-                  <td width="80%" valign="top" align="left" >
-                               
-              
-              </td></tr>
-              
-             	</c:forEach>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+              <td width="5%" valign="middle" align="left" >
+               <a href="welcome" class="paging_select"> <input type="button" onclick="goBack()" value="Back" class="submit_btn"/> </a>
+              </td>
+              </tr>
+             
+           </c:forEach>
               </table>
           
-            </div>
+          </div>
           </div>
           </td>
-      </tr>
-      </table>
-      </div>
-</form>
+          </tr>
+          </table>
+          </div>
+          </form>
+          </div>
+         
 
-
+<script>
+function goBack()
+  {
+  window.history.back();
+  }
+</script>
 
 
 

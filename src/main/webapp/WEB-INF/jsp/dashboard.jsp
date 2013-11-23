@@ -10,7 +10,7 @@
 			<tr>
 				<td valign="top" align="left"><div>
 						<div class="headings altheading">
-							<h2>Participants Stat</h2>
+							<h2>Participants Status</h2>
 						</div>
 						<div class="contentbox">
 						<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table" id="su" >
@@ -31,7 +31,7 @@
 								<tr class="title">
 									<td valign="top" align="left" width="10%">First&nbsp;Name</td>
 									<td valign="top" align="left" width="15%">Mobile Number</td>
-									
+									<td valign="top" align="left" width="15%">Provider Name</td>
 									<td valign="top" align="left" width="10%">Age</td>
 									<td valign="top" align="left" width="10%">Time1</td>
 									<td valign="top" align="left" width="10%">Time2</td>
@@ -46,7 +46,7 @@
 							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
 								          <td valign="top" align="left"  width="10%"> <a href="participantdetails?id=${participantsDetails.participants_id}">${participantsDetails.fname}</a></td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
-											
+											<td valign="top" align="left" width="15%">${participantsDetails.created_by}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.time1}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.time2}</td>

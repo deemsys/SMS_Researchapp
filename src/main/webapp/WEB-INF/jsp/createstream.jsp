@@ -82,15 +82,22 @@ var $in = xx+1;
 	var des=document.getElementById("description").value; 
 	var mes=document.getElementById("message").value;
 	
-	if(mes=="" && str=="")
+	if(mes=="")
 		{
 		document.getElementById("mes").innerHTML="Required Field Should Not be empty";
+		return false;
+		}
+	else if(str=="")
+		{
 	    document.getElementById("str").innerHTML="Required Field Should not be blank";
 		return false;
 		}
-	else if(tc=="" && des=="")
+	else if(tc=="")
 		{
 		document.getElementById("tc").innerHTML="Required Field Should Not be empty";
+		}
+	else if(des=="")
+		{
 		 document.getElementById("des").innerHTML="Required Field Should not be blank";
 		 return false;
 		}
