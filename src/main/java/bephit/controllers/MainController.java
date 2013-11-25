@@ -57,6 +57,9 @@ public class MainController {
     MessageLogDAO messagelogdao;
     
     @Autowired  
+	MessageStatusDAO messageStatusDAO;
+    
+    @Autowired  
 	TwilioSMS messageSender;
 
 	
@@ -843,7 +846,8 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		strlist=partDAO.getGroups(name);
 		session.setAttribute("groups",strlist);
 		strlist1=partDAO.getparticipantGroups(participants_id);
-		session.setAttribute("group",strlist1);
+		//session.setAttribute("group",strlist1);
+		model.addAttribute("group",strlist1);
 		System.out.println("strlist1"+strlist1);   
 	    int counter = 0;
 		int length = Math.min(strlist.size(), strlist1.size());
@@ -961,7 +965,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			BindingResult result,ModelMap model,Principal principal)
 	{
 		
-		/*if (result.hasErrors())
+		if (result.hasErrors())
 		{
 			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 	        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));	               
@@ -970,7 +974,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 				model.addAttribute("participantsDetailsForm", participantsDetailsForm);	 
 				model.addAttribute("participantGroupForm", participantGroupForm);
 		        return "edit_participants";
-		}*/
+		}
 		String groups[]=request.getParameterValues("group_name");
 		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName(),groups,1);
 		String participantid=participant.getParticipants_id();
