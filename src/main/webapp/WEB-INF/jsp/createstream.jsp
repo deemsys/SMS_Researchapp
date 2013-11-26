@@ -31,7 +31,8 @@ $("#textingcontacts").keyup(function() {
 	}
 	else if($(this).val()!='')
 		{
-		$("#tc").html('Kindly give numbers only!!');
+		
+		$("#tc").html('"<br>" Kindly give numbers only!!');
 		}
 }).keydown(function() {
     oldValue = $(this).val();
@@ -69,7 +70,7 @@ $("#textingcontacts").keyup(function() {
                 <tr class="row1">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span>No of Messages:</td>
                   <td valign="top" align="left" class="input_txt" width="70%">   
-<input id="textingcontacts" name="textingcontacts" class="input_txtbx" width="70%" type="text"/><!-- <input type="text" name="textingcontacts" class="input_txtbx" id="textingcontacts"/></br> --> <span id="tc" class="err"><form:errors path="streamDetails.textingcontacts"></form:errors></span></td>
+<input id="textingcontacts" name="textingcontacts" class="input_txtbx" width="70%" type="text"/><!-- <input type="text" name="textingcontacts" class="input_txtbx" id="textingcontacts"/></br> --> <span id="tc" class="err"><br><form:errors path="streamDetails.textingcontacts"></form:errors></span></td>
                 </tr>
                  <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Description :</td>
@@ -84,10 +85,10 @@ $("#textingcontacts").keyup(function() {
                    </div></td>
                    
               </tr></table><div id="multichoice"></div><table width="100%" border="0" cellspacing="0" cellpadding="0"></table>
-		<table width="100%" cellspacing="0">
-                 <tr class="row2">
-                  <td valign="center" align="right" width="30%" > <p style="width:180px;"><!-- <a href="javascript:void(0);" onclick="addMultichoice('multichoice');" style="text-decoration:none;" ><input type="button" value="Add one more Message" class="submit_btn2" name="" /></a> --></p> </td>
-		<td valign="top" align="right" width="30%" > <div style="float:center; padding:0px 75% 0px 0px;"> <input type="submit" value="Save Stream" class="submit_btn1" onclick="return validate()"/> </div></td>
+		<table align="left">
+                <tr>
+	                  <td valign="top" align="right"></td><!-- <a href="javascript:void(0);" onclick="addMultichoice('multichoice');" style="text-decoration:none;" ><input type="button" value="Add one more Message" class="submit_btn2" name="" /></a> --></p> </td>
+		 <td valign="top" align="left"><div style="float:center; padding:0px 0px 0px 450px;"><input type="submit" value="Save Stream" class="submit_btn1" onclick="return validate()"/> </div></td>
                 </tr>
               </table>
             
