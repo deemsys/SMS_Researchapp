@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 
+import javax.mail.Session;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -753,23 +754,46 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.POST)
 	public String NewParticipantGroups(HttpServletRequest request,@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
 			BindingResult result,ModelMap model,String userName) {
+		model.addAttribute("Group_exists","false");
+		System.out.println("group"+pgroups.getgroup_name());
+		int group_count=partDAO.checkGroupname(pgroups.getgroup_name());
+		
 		if(result.hasErrors())
 		{
-			           /* ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			
+			System.out.println("group count: "+group_count);
+			            ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 				        participantGroupForm.setParticipantGroups(partDAO.getGroups());
-                        model.addAttribute("participantGroupForm", participantGroupForm);*/
+                        model.addAttribute("participantGroupForm", participantGroupForm);
+                        if(group_count==0)
+                        {
+                        System.out.println("Group exists");
+        				model.addAttribute("Group_exists","true");
+                        }
 			            model.addAttribute("menu","groups");
 			            return "addparticipantgroups";
 			}
 		else
-		{
-       
-		partDAO.setParticipantGroup(pgroups,userName);
+		
+			{
+				if(group_count==0)
+				{
+					System.out.println("group exists");
+					model.addAttribute("Group_exists","true");
+					
+					model.addAttribute("menu","groups");
+					return "/addparticipantgroups";
+					
+				}
+		
          ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
  		participantGroupForm.setParticipantGroups(partDAO.getGroups());
          model.addAttribute("participantGroupForm", participantGroupForm);
+         partDAO.setParticipantGroup(pgroups);
          model.addAttribute("menu","groups");
+         model.addAttribute("success","true");
 		return "viewparticipantgroups";
+
 		}
 	}
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.GET)
@@ -967,8 +991,8 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		
 		if (result.hasErrors())
 		{
-			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-	        participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));	               
+			    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+	            participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));	               
 			    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 				participantGroupForm.setParticipantGroups(partDAO.getGroups());				
 				model.addAttribute("participantsDetailsForm", participantsDetailsForm);	 
@@ -979,7 +1003,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName(),groups,1);
 		String participantid=participant.getParticipants_id();
 		System.out.println("participant_id"+participantid);
-		 messagelogdao.getMessageLog(participantid);
+		messagelogdao.getMessageLog(participantid);
 		
 		
 		System.out.println(status);
@@ -1323,13 +1347,14 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			return "changepwd";
 		}
 
-		model.put("updatePwds", "updatePwds");
-		UpdatePwdForm updatePwdForm=new UpdatePwdForm();
+		//model.put("updatePwds", "updatePwds");
+		//UpdatePwdForm updatePwdForm=new UpdatePwdForm();
 		String s1=mailTemplateDAO.getCurrentPwd();
 		System.out.println("current password:"+s1);
 		System.out.println(updatePwds.getNew_pwd());
 		System.out.println(updatePwds.getCurrent_pwd());
-		
+		if(updatePwds.getNew_pwd().equals(updatePwds.getRetype_new_pwd()))
+		{
 		if(s1.equals(updatePwds.getCurrent_pwd()))
 		{
 			model.put("password_mismatch", "false");
@@ -1337,7 +1362,33 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			logger.debug("Password changed successfully");
 			mailTemplateDAO.updateoldPwd(updatePwds);
 			model.addAttribute("menu","pwd");
-			return "dashboard";
+			int role=mainDAO.getrole();
+			if(role!=0)
+			{
+				ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+				participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
+		        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		        model.addAttribute("success","true");
+				return "dashboard";
+			}
+			else
+			{
+				ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
+				String participantid=mainDAO.getparticipantid();
+				String providername=mainDAO.getprovidername(participantid);
+				model.addAttribute("providername",providername);
+				participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participantid));
+				
+					
+				
+		        model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+		        model.addAttribute("menu","participants");
+		       
+				model.addAttribute("success","true");
+				return "viewregisterparticipants";
+			}
+				
+			
 		}
 		else
 		{
@@ -1345,6 +1396,17 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			logger.debug("Password change failed");
 			model.put("password_mismatch", "true");
 			model.addAttribute("menu","pwd");
+			
+			return "changepwd";
+		}
+		}
+		else
+		{
+			System.out.println("password");
+			logger.debug("Password change failed");
+			model.put("retype_mismatch", "true");
+			model.addAttribute("menu","pwd");
+			
 			return "changepwd";
 		}
 		

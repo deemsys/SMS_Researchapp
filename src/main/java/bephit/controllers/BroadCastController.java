@@ -2,9 +2,12 @@ package bephit.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +18,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import bephit.dao.BroadCastDAO;
+import bephit.dao.MessageLogDAO;
+import bephit.dao.MessageStatusDAO;
 import bephit.dao.ParticipantGroupDAO;
 //import bephit.dao.StreamDetailsDAO;
 import bephit.dao.StreamDetailsDAO;
 import bephit.forms.AdminUserForm;
 import bephit.forms.BroadCastForm;
 import bephit.forms.BroadCastReportsForm;
+import bephit.forms.MessageStatusForm;
 import bephit.forms.ParticipantsGroupForm;
 import bephit.forms.StreamDetailsForm;
 import bephit.model.BroadCast;
 import bephit.model.BroadCastReports;
+import bephit.model.MessageLog;
+import bephit.model.ParticipantsDetails;
+import bephit.model.StreamDetails;
 import bephit.model.TwilioSMS;
 import bephit.model.UserProfile;
 
@@ -36,15 +46,20 @@ public class BroadCastController {
 	@Autowired
 	BroadCastDAO broadDAO;
 	
+	@Autowired
+	MessageLogDAO messageLog;
 	
 	@Autowired  
 	TwilioSMS messageSender;
 	
-	 @Autowired    
-	    ParticipantGroupDAO partDAO;
+	@Autowired    
+	ParticipantGroupDAO partDAO;
 	
 	@Autowired
 	StreamDetailsDAO streamDAO;
+	
+	@Autowired
+	MessageStatusDAO messagestatusDAO;
 	
 	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
 	public String sendstream(ModelMap model) {
@@ -63,13 +78,39 @@ public class BroadCastController {
 		return "sendstream";
 	}
 
-	
+	@RequestMapping(value = "/message_status", method = RequestMethod.GET)
+	public String show_message_status(HttpServletRequest request,HttpServletResponse response,@RequestParam("id") String broad_id,ModelMap model) throws IOException  {
+		String BroadID = broadDAO.getMaxBroadCastID();
+		System.out.println(BroadID);
+		model.addAttribute("currentbroad", BroadID);
+		
+		MessageStatusForm messageForm=new MessageStatusForm();
+		messageForm.setMessagestatus(messagestatusDAO.getMessageStatusDetails(broad_id));
+		model.addAttribute("messagestatus",messageForm);
+		
+		
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm); 
+        model.addAttribute("menu","message");
+		return "message_status";
+	}
 	@RequestMapping(value = "/sendstream", method = RequestMethod.POST)
-	public String insertsendstream(@ModelAttribute("broadCastReports") @Valid BroadCast broadCast,BindingResult result,ModelMap model,Principal principal) {
+	public String insertsendstream(@ModelAttribute("broadCast") @Valid BroadCast broadCast,BindingResult result,ModelMap model,Principal principal) {
 		
         
         if (result.hasErrors())
         {
+        	//System.out.println(result.getFieldError("group_id"));
+        	String BroadID = broadDAO.getMaxBroadCastID();
+    		System.out.println(BroadID);
+    		model.addAttribute("currentbroad", BroadID);
+    		StreamDetailsForm streamForm = new StreamDetailsForm();
+    		streamForm.setStreamDetails(streamDAO.getStream());
+    		model.addAttribute("streamForm", streamForm);	
+    		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+    		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+            model.addAttribute("participantGroupForm", participantGroupForm); 
         	model.addAttribute("menu","message");
     	    return "sendstream";
         }
@@ -78,6 +119,7 @@ public class BroadCastController {
         {
             System.out.println("insert broad id" +broadCast.getBroad_id());
         	 broadDAO.insertNewBroadCast(broadCast);  
+        	 messageLog.updateMessagelog();
         	 model.addAttribute("success", "true");  
         	 
         	 BroadCastReportsForm broadCastReportsForm=new BroadCastReportsForm();
@@ -161,6 +203,23 @@ public class BroadCastController {
 		return "viewreports";
 		
 	}	
+	
+	
+	
+	@RequestMapping(value="/sendstream_ajax",method=RequestMethod.POST)
+	public @ResponseBody String addUser1(HttpSession session,HttpServletRequest request,@ModelAttribute(value="broadcast")BroadCast broad, BindingResult result,ModelMap model ){
+      
+		String sample=request.getParameter("stream_id");
+		System.out.println("stream_id"+sample);		
+		List<StreamDetails> stream_list = new ArrayList<StreamDetails>(); 
+		String returnText="";		
+		stream_list=streamDAO.getStream(sample);
+		for(int i=0;i<stream_list.size();i++)
+			returnText="Contains "+stream_list.get(i).getMessage_count()+" Messages and Texting Contacts is "+stream_list.get(i).getTextingcontacts();
+		return returnText;
+		
+	}
+
 	
 	@RequestMapping(value={"/", "/viewallbroadcast"}, method = RequestMethod.GET)
 	public String viewallpartGroup(HttpServletRequest request,ModelMap model, Principal principal ) {

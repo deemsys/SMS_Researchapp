@@ -45,6 +45,8 @@ public class MessageStreamController {
 		{
 			
 			model.addAttribute("menu","message");
+			String StreamID = streamDAO.getMaxStreamID();
+			model.addAttribute("currentstream", StreamID);
 			return "createstream";
 			
 			

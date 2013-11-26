@@ -150,8 +150,8 @@ public class AdminUserController
 	
 	@RequestMapping(value="/updateadminuser", method=RequestMethod.POST)
 	public String updateParticipants(@ModelAttribute("adminuser") @Valid AdminUser adminuser,BindingResult result,ModelMap model, Principal principal) {
-	
-		int status=adminuserDAO.updateAdminUser(adminuser,principal.getName());//.deleteParticipant(participant_id);
+		model.addAttribute("success","false");
+		//.deleteParticipant(participant_id);
 		if (result.hasErrors())
 		{
 			
@@ -161,12 +161,14 @@ public class AdminUserController
 	        model.addAttribute("menu","adminuser");
 	        return "editadminuser";
 		}
-		System.out.println(status);
 		
+		int status=adminuserDAO.updateAdminUser(adminuser,principal.getName());
+		System.out.println(status);
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm",adminuserForm);
         model.addAttribute("menu","adminuser");
+        model.addAttribute("success","true");
         AdminUserForm adminuserForm1 = new AdminUserForm();
 		adminuserForm1.setAdminuser(adminuserDAO.getAdminUserby_username(principal.getName()));
         model.addAttribute("currentuser",adminuserForm1);
