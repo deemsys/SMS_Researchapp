@@ -35,5 +35,7 @@
 <bean id="messageSchedulingDAO" class="bephit.dao.MessageSchedulingDAO">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	
+	<bean id="messageStatusDAO" class="bephit.dao.MessageStatusDAO">
+	<property name="dataSource" ref="dataSource"></property>
+	</bean>
 </beans>
