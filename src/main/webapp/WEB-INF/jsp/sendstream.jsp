@@ -127,8 +127,26 @@ $(function() {
 									</select></td>
 								</tr>
 
-
-								<tr class="row1">
+<tr class="row1" >
+									<td valign="middle" align="right" class="input_txt1" id="weeks">No of Weeks :</td>
+									<td valign="middle" align="right" class="input_txt1" id="days">No of Days :</td>
+									<td valign="top" align="left" id="daystext">
+										<input type="text" name="days_weeks"
+										id="" class="input_txtbx1" value=""></br> <span
+										class="err"><form:errors path="broadCast.start_date"></form:errors></span>
+									</td>
+									</td>
+								</tr>
+								<%-- <tr class="row1" >
+									<td valign="middle" align="right" class="input_txt1" id="weeks">No of Weeks :</td>
+									<td valign="top" align="left" id="weekstext">
+										<input type="text" name=""
+										id="" class="input_txtbx1" value=""></br> <span
+										class="err"><form:errors path="broadCast.start_date"></form:errors></span>
+									</td>
+									</td>
+								</tr>
+							 --%>	<tr class="row1">
 									<td valign="middle" align="right" class="input_txt1">Start
 										Date :</td>
 									<td valign="top" align="left">
@@ -137,7 +155,11 @@ $(function() {
 										class="err"><form:errors path="broadCast.start_date"></form:errors></span>
 									</td>
 									</td>
-								</tr>
+								</tr>						
+								
+								
+								
+								
 							</table>
 
 
@@ -317,6 +339,9 @@ $(function() {
 		// alert(val);
 		if (val == '0') {
 			document.getElementById("one").style.display = 'block';
+			document.getElementById("days").style.display = 'block';
+			document.getElementById("weeks").style.display = 'none';		
+			document.getElementById("daystext").style.display = 'block';
 			document.getElementById("two").style.display = 'none';
 			document.getElementById("three").style.display = 'none';
 			document.getElementById("four").style.display = 'none';
@@ -324,16 +349,23 @@ $(function() {
 
 		} else if (val == '1') {
 			document.getElementById("two").style.display = 'block';
+			document.getElementById("days").style.display = 'block';
+			document.getElementById("daystext").style.display = 'block';
+			document.getElementById("weeks").style.display = 'none';		
 			document.getElementById("one").style.display = 'none';
 			document.getElementById("three").style.display = 'none';
 			document.getElementById("four").style.display = 'none';
 
 
 		} else if (val == '2') {
-			document.getElementById("three").style.display = 'block';
-			document.getElementById("two").style.display = 'none';
-			document.getElementById("one").style.display = 'none';
+		    document.getElementById("days").style.display = 'none';
+	        document.getElementById("two").style.display = 'none';
+		    document.getElementById("one").style.display = 'none';
+	        document.getElementById("weeks").style.display = 'block';	
+			document.getElementById("three").style.display = 'block';					
+			document.getElementById("daystext").style.display = 'block';
 			document.getElementById("four").style.display = 'block';
+		
 
 
 		}
