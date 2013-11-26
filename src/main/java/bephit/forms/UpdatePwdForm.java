@@ -5,13 +5,13 @@ import java.util.List;
 import bephit.model.UpdatePwd;
 
 public class UpdatePwdForm {
-private String updatePwd;
+private List<UpdatePwd> updatePwd;
 
-public String getUpdatePwd() {
+public List<UpdatePwd> getUpdatePwd() {
 	return updatePwd;
 }
 
-public void setUpdatePwd(String updatePwd) {
+public void setUpdatePwd(List<UpdatePwd> updatePwd) {
 	this.updatePwd = updatePwd;
 }
 
