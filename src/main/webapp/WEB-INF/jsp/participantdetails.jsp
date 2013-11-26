@@ -90,7 +90,7 @@
                 <tr class="row1">
                   <td width="15%" valign="middle" align="left" > Provider Name </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
-                  <td width="84%" valign="top" align="left" >${participantsDetails.created_by}</td>
+                  <td width="84%" valign="top" align="left" >${participantsDetails.provider_name}</td>
                 </tr>
                 
                 

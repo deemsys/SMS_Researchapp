@@ -3,6 +3,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="header.jsp"></jsp:include>
+<script>
+function validate(){
+var fld = document.getElementById('group_name');
+var values = [];
+for (var i = 0; i < fld.options.length; i++) {
+  if (fld.options[i].selected) {
+    values.push(fld.options[i].value);
+  }
+}
+
+if(values.length>4)
+{
+alert("You can select only 4 groups");
+return false;
+}
+else
+return true;
+}
+</script>
 <div id="right_content">
 
 <script>
@@ -129,7 +148,10 @@ return true;
 													Age:</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="age" class="input_cmbbx1">
+<<<<<<< .mine
+=======
 													    <option>--Select--</option>
+>>>>>>> .r258
 														<option value="below 12" id="age">Below 12</option>
 														<option value="12-20 years" id="age">12-20 &#160 years</option>
 														<option value="20-30 years" id="age">20-30 &#160 years</option>
@@ -323,7 +345,7 @@ return true;
 											
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
-													class="err">*</span> Select
+													class="err">*&nbsp;&nbsp;</span> Select
 													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
@@ -341,6 +363,9 @@ return true;
 										</table>
 									</td>
 								</tr>
+<<<<<<< .mine
+								
+=======
 								<tr class="row1">
 									<td valign="top" align="center">&nbsp;</td>
 									<td valign="top" align="left"><input type="submit" onclick="return validate('this')"
@@ -348,6 +373,7 @@ return true;
 										<span id="spnsub"> </span></td>
 								</tr>
 							</table>
+>>>>>>> .r258
 							</c:when>
 							<c:otherwise>
 							 <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -384,7 +410,11 @@ return true;
 		 <tr class="row1">
                  <td valign="middle" align="left" class="input_txt"><span class="err"></span> Age :</td>
                  <td valign="top" align="left" class="input_txt"><select name="age" class="input_cmbbx1">
+<<<<<<< .mine
+                 <option value="" <c:if test="${participantsDetails.age=='Below 12'}"><c:out value="selected"/></c:if>>--Select--</option>
+=======
                  <option <c:if test="${participantsDetails.age=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+>>>>>>> .r258
                  <option value="Below 12" <c:if test="${participantsDetails.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
                  <option value="12-20 years" <c:if test="${participantsDetails.age=='12-20 years'}"><c:out value="selected"/></c:if>>12-20 &#160 years</option>
                  <option value="20-30 years" <c:if test="${participantsDetails.age=='20-30 years'}"><c:out value="selected"/></c:if>>20-30 &#160 years</option>
@@ -436,6 +466,19 @@ return true;
 													class="err"></span> Time1:</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time1" class="input_cmbbx1" id="msg">
+<<<<<<< .mine
+												<option selected="selected" value="">--Select--</option>
+					  <option value="00-01" <c:if test="${addparticipants.time1=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+                   <option value="01-02"  <c:if test="${addparticipants.time1=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+				   <option value="02-03" <c:if test="${addparticipants.time1=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+				   <option value="03-04" <c:if test="${addparticipants.time1=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+				   <option value="04-05" <c:if test="${addparticipants.time1=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+				   <option value="05-06" <c:if test="${addparticipants.time1=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+				   <option value="06-07" <c:if test="${addparticipants.time1=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+				   <option value="07-08"  <c:if test="${addparticipants.time1=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+					<option value="08-09" <c:if test="${addparticipants.time1=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+					<option value="09-10" <c:if test="${addparticipants.time1=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+=======
 												<option  <c:if test="${addparticipants.time1=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 												
 					  <option value="00-01" <c:if test="${addparticipants.time1=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
@@ -448,6 +491,7 @@ return true;
 				   <option value="07-08"  <c:if test="${addparticipants.time1=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
 					<option value="08-09" <c:if test="${addparticipants.time1=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
 					<option value="09-10" <c:if test="${addparticipants.time1=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+>>>>>>> .r258
 					<option value="10-11"  <c:if test="${addparticipants.time1=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 					<option value="11-12" <c:if test="${addparticipants.time1=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
 					<option value="12-13"  <c:if test="${addparticipants.time1=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
@@ -472,6 +516,19 @@ return true;
 													class="err"></span> Time2:</td>
 												<td valign="top" align="left" class="input_txt" >
 												<select name="time2" class="input_cmbbx1" id="msg"">
+<<<<<<< .mine
+												<option selected="selected" value="">--Select--</option>
+                   <option value="00-01" <c:if test="${addparticipants.time2=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+                   <option value="01-02"  <c:if test="${addparticipants.time2=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+				   <option value="02-03" <c:if test="${addparticipants.time2=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+				   <option value="03-04" <c:if test="${addparticipants.time2=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+				   <option value="04-05" <c:if test="${addparticipants.time2=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+				   <option value="05-06" <c:if test="${addparticipants.time2=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+				   <option value="06-07" <c:if test="${addparticipants.time2=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+				   <option value="07-08"  <c:if test="${addparticipants.time2=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+					<option value="08-09" <c:if test="${addparticipants.time2=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+					<option value="09-10" <c:if test="${addparticipants.time2=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+=======
 													<option  <c:if test="${addparticipants.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
                    <option value="00-01" <c:if test="${addparticipants.time2=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
                    <option value="01-02"  <c:if test="${addparticipants.time2=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
@@ -483,6 +540,7 @@ return true;
 				   <option value="07-08"  <c:if test="${addparticipants.time2=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
 					<option value="08-09" <c:if test="${addparticipants.time2=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
 					<option value="09-10" <c:if test="${addparticipants.time2=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+>>>>>>> .r258
 					<option value="10-11"  <c:if test="${addparticipants.time2=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 					<option value="11-12" <c:if test="${addparticipants.time2=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
 					<option value="12-13"  <c:if test="${addparticipants.time2=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
@@ -506,6 +564,19 @@ return true;
 													class="err"></span> Time3:</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time3" class="input_cmbbx1" id="msg">
+<<<<<<< .mine
+												<option selected="selected" value="">--Select--</option>
+														<option value="00-01" <c:if test="${addparticipants.time3=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+                   <option value="01-02"  <c:if test="${addparticipants.time3=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+				   <option value="02-03" <c:if test="${addparticipants.time3=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+				   <option value="03-04" <c:if test="${addparticipants.time3=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+				   <option value="04-05" <c:if test="${addparticipants.time3=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+				   <option value="05-06" <c:if test="${addparticipants.time3=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+				   <option value="06-07" <c:if test="${addparticipants.time3=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+				   <option value="07-08"  <c:if test="${addparticipants.time3=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+					<option value="08-09" <c:if test="${addparticipants.time3=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+					<option value="09-10" <c:if test="${addparticipants.time3=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+=======
 				<option  <c:if test="${addparticipants.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>								
 				<option value="00-01" <c:if test="${addparticipants.time3=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
                    <option value="01-02"  <c:if test="${addparticipants.time3=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
@@ -517,6 +588,7 @@ return true;
 				   <option value="07-08"  <c:if test="${addparticipants.time3=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
 					<option value="08-09" <c:if test="${addparticipants.time3=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
 					<option value="09-10" <c:if test="${addparticipants.time3=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+>>>>>>> .r258
 					<option value="10-11"  <c:if test="${addparticipants.time3=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 					<option value="11-12" <c:if test="${addparticipants.time3=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
 					<option value="12-13"  <c:if test="${addparticipants.time3=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
@@ -543,14 +615,18 @@ return true;
 
 <tr><td><p class="quck-txt">Group</p></td></tr>
 
-<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
+<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify">Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
 
 
 
     <tr class="row1">
-                  <td valign="top" align="left" class="input_txt">Select Group :</td>
+                  <td valign="top" align="left" class="input_txt"><span class="err">*&nbsp;&nbsp;</span>Select Group :</td>
                   <td valign="top" align="left" class="input_txt">
+<<<<<<< .mine
+                  <select name="group_name" id="group_name" multiple="multiple" class="input_cmbbx2">
+=======
                   <select name="group_name" multiple="multiple" class="input_cmbbx1" id="group_name">
+>>>>>>> .r258
                   <c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
 			                   <option value="${participantGroups.group_name}" <c:if test="${addparticipants.group_name==participantGroups.group_name}"><c:out value="selected"/></c:if>>${participantGroups.group_name}</option>
 			                   </c:forEach>
@@ -558,12 +634,15 @@ return true;
                   </select>
                   
                   
-                  </br><font color="Red" size="+1"><span class="err"></span></font></td>
+                  </br><font color="Red" size="+1"><span class="err"><form:errors
+																path="participant.group_name"></form:errors></span></font></td>
                 </tr>            
  </table>
 
                   </td>
                 </tr>
+<<<<<<< .mine
+=======
                  
               
                 <tr class="row1">
@@ -573,6 +652,7 @@ return true;
 										<span id="spnsub"> </span></td>
 								</tr>
               </table>
+>>>>>>> .r258
 				</c:otherwise>			
 				<%-- </td>
 			</tr>
@@ -580,4 +660,11 @@ return true;
 	</form>
 </div> --%>
 </c:choose>
+<tr class="row1">
+									<td valign="top" align="center">&nbsp;</td>
+									<td valign="top" align="left"><input type="submit"
+										name="insert" class="submit_btn2" value="Add Participant" onclick="return validate(this)">
+										<span id="spnsub"> </span></td>
+								</tr>
+							</table>
 <jsp:include page="footer.jsp"></jsp:include>

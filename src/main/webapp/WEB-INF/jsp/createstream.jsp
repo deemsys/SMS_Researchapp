@@ -35,7 +35,7 @@
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Message 1 :</td>
                   <td valign="top" align="left" class="input_txt" width="70%"><textarea class="input_txtarea" name="message[]" rows="5" cols="" id="message" /></textarea><br><span id="mes" class="err"></span></br></td>
                 </tr></table><div id="multichoice"></div><table width="100%" border="0" cellspacing="0" cellpadding="0"></table>
-		<table width="100%">
+		<table width="100%" cellspacing="0">
                  <tr class="row2">
                   <td valign="center" align="right" width="30%" > <p style="width:180px;"><a href="javascript:void(0);" onclick="addMultichoice('multichoice');" style="text-decoration:none;" ><input type="button" value="Add one more Message" class="submit_btn2" name="" /></a></p> </td>
 		<td valign="top" align="right" width="30%" > <div style="float:center; padding:0px 75% 0px 0px;"> <input type="submit" value="Save Stream" class="submit_btn1" onclick="return validate()"/> </div></td>

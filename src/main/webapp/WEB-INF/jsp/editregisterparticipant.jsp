@@ -521,7 +521,7 @@ else
 													:</td>
 												<td valign="top" align="left" class="input_txt">
 												
-												<input type="hidden" name="Provider_name" value="${provider}">
+												<input type="hidden" name="Provider_name" value="${participantsDetails.provider_name}">
 												<%-- <select
 													onchange="doAjaxPost()" class="input_cmbbx1"
 													name="Provider_name" id="Provider_name">
@@ -532,7 +532,7 @@ else
 																style=<c:if test="${provider==adminuser.admin_username}"><c:out value="color:red; selected "/></c:if>>${adminuser.admin_username}</option>
 														</c:forEach>
 
-												</select> --%> <label style="border: 1px solid #000; display: block;width: 170px;" >${ provider}</label></br> <font color="Red" size="+1"><span id="spngrp"><form:errors
+												</select> --%> <label style="font-weight:bold;display: block;width: 170px;" >${participantsDetails.provider_name}</label></br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.Provider_name"></form:errors> </span></font></td>
 											</tr>
 										</table>

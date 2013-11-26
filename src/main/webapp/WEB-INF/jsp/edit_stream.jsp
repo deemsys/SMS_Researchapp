@@ -24,7 +24,7 @@
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Stream Name :</td>
-                  <td valign="top" align="left" class="input_txt" width="70%"><input type="hidden" name="admin_username" class="input_txtbx" id="admin_username" value="${streamDetails.admin_username}" /><input type="text" name="streamName" class="input_txtbx" id="stream_name" value="${streamDetails.streamName}" />
+                  <td valign="top" align="left" class="input_txt" width="70%"><input type="hidden" name="admin_username" class="input_txtbx" id="admin_username" value="${streamDetails.admin_username}" /><input type="hidden" name="streamName"  id="stream_name" value="${streamDetails.streamName}" /><span><c:out value="${streamDetails.streamName}"></c:out></span>
                   <span><Form:errors path="streamDetails.streamName"></Form:errors></span></td>
                 </tr>
                 <tr class="row1">

@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="header.jsp"></jsp:include>
 
 <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
@@ -7,15 +8,50 @@
 <link rel="stylesheet" href="resources/css/jquery-ui.css" />
 <script src="resources/js/jquery-1.9.1.js" type="text/javascript"></script>
 <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
-
+<link rel="stylesheet" url="resources/js/jquery.js" />
+<!-- 	<script src="/BePhitResearchApp/resources/js/jquery.js"></script> -->
+	
+<script>
+$(function() {
+	$("#dateofjointo").datepicker();
+});
+</script>	
+	
+	<script type="text/javascript">
+	function clear1()
+	{
+		var id=document.getElementById("info");
+		id.innerHTML="";
+	}
+	</script>
 <script>
 	/* $(function() {
 		$("#datepicker").datepicker();
 	}); */
-	$(function() {
-		$("#dateofjointo").datepicker();
-	});
+	
+	function doAjaxPost() {
+		// get the form values  
+		
+		var id = $('#stream_id').val();
+		/*   var education = $('#education').val();	 */
+		
+		$.ajax({
+			type : "POST",
+			url : "/BePhitResearchApp/sendstream_ajax",
+			data : "stream_id=" + id,
+			success : function(response) {
+				// we have the response  
+				$('#info').html(response);
+				/*     $('#education').val(''); */
+			},
+			error : function(e) {
+				alert('Error: ' + e);
+			}
+		});
+	}
 </script>
+	
+
 
 
 
@@ -57,32 +93,33 @@
 								<tr class="row2">
 									<td valign="middle" align="right" class="input_txt">Stream
 										Name :</td>
-									<td valign="top" align="left" class="input_txt"><select
-										name="stream_id">
+									<td valign="top" align="left"><select
+										name="stream_id" id="stream_id" onchange="doAjaxPost()"  class="input_cmbbx1">
 											<option value="">Select Stream</option>
 											<c:forEach items="${streamForm.streamDetails}"
 												var="streamDetails" varStatus="status">
 												<option value="${streamDetails.streamId}">${streamDetails.streamName}</option>
 											</c:forEach>
-									</select> </br> <span class="err"></span></td>
+									</select><span style="margin-left:10px;color:green;" id="info"></span> </br><span class="err"><form:errors path="broadCast.stream_id"></form:errors></span></td>
+									
 								</tr>
 								<tr class="row1">
 									<td valign="middle" align="right" class="input_txt">Group
 										Name :</td>
 									<td valign="top" align="left" class="input_txt"><select
-										name="group_id">
+										name="group_id" class="input_cmbbx1">
 											<option value="">Select Groups</option>
 											<c:forEach items="${participantGroupForm.participantGroups}"
 												var="participantGroups" varStatus="status">
 												<option value="${participantGroups.group_id}">${participantGroups.group_name}</option>
 											</c:forEach>
-									</select> </br> <span class="err"></span></td>
+									</select> </br> <span class="err"><form:errors path="broadCast.group_id"></form:errors></span></td>
 								</tr>
 								<tr class="row2">
 									<td valign="middle" align="right" class="input_txt">Frequency
 										:</td>
 									<td valign="top" align="left" class="input_txt">
-									<select name="frequency" class="input_cmbbx2"
+									<select name="frequency" class="input_cmbbx1"
 										onchange="openNewDiv(this.value)">
 											<option value="0" selected="selected">One Per Day</option>
 											<option value="1">Two Per Day</option>
@@ -92,12 +129,12 @@
 
 
 								<tr class="row1">
-									<td valign="middle" align="right" class="input_txt">Start
+									<td valign="middle" align="right" class="input_txt1">Start
 										Date :</td>
 									<td valign="top" align="left">
 										<input type="text" name="start_date"
 										id="datepicker" class="input_txtbx1" value=""></br> <span
-										class="err"></span>
+										class="err"><form:errors path="broadCast.start_date"></form:errors></span>
 									</td>
 									</td>
 								</tr>
@@ -107,34 +144,33 @@
 							<table cellpadding="0" cellspacing="0" border="0" width="100%" class="margin_table"
 								id="one" style="display: block;" style="display: none;">
 								<tr class="row2">
-									<td valign="middle" align="right" class="input_txt" width="200">Start
-										Time :</td>
+									<td valign="middle" align="right" class="input_txt" width="200">Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
-									<select name="fstream_time" class="input_cmbbx2">
-											<option value="12AM" selected="selected">00&nbsp;</option>
-											<option value="01AM">01&nbsp;</option>
-											<option value="02AM">02&nbsp;</option>
-											<option value="03AM">03&nbsp;</option>
-											<option value="04AM">04&nbsp;</option>
-											<option value="05AM">05&nbsp;</option>
-											<option value="06AM">06&nbsp;</option>
-											<option value="07AM">07&nbsp;</option>
-											<option value="08AM">08&nbsp;</option>
-											<option value="09AM">09&nbsp;</option>
-											<option value="10AM">10&nbsp;</option>
-											<option value="11AM">11&nbsp;</option>
-											<option value="12PM">12&nbsp;</option>
-											<option value="01PM">13&nbsp;</option>
-											<option value="02PM">14&nbsp;</option>
-											<option value="03PM">15&nbsp;</option>
-											<option value="04PM">16&nbsp;</option>
-											<option value="05PM">17&nbsp;</option>
-											<option value="06PM">18&nbsp;</option>
-											<option value="07PM">19&nbsp;</option>
-											<option value="08PM">20&nbsp;</option>
-											<option value="09PM">21&nbsp;</option>
-											<option value="10PM">22&nbsp;</option>
-											<option value="11PM">23&nbsp;</option>
+									<select name="fstream_time" class="input_cmbbx1">
+											<option value="00" selected="selected">00&nbsp;</option>
+											<option value="01">01&nbsp;</option>
+											<option value="02">02&nbsp;</option>
+											<option value="03">03&nbsp;</option>
+											<option value="04">04&nbsp;</option>
+											<option value="05">05&nbsp;</option>
+											<option value="06">06&nbsp;</option>
+											<option value="07">07&nbsp;</option>
+											<option value="08">08&nbsp;</option>
+											<option value="09">09&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											<option value="13">13&nbsp;</option>
+											<option value="14">14&nbsp;</option>
+											<option value="15">15&nbsp;</option>
+											<option value="16">16&nbsp;</option>
+											<option value="17">17&nbsp;</option>
+											<option value="18">18&nbsp;</option>
+											<option value="19">19&nbsp;</option>
+											<option value="20">20&nbsp;</option>
+											<option value="21">21&nbsp;</option>
+											<option value="22">22&nbsp;</option>
+											<option value="23">23&nbsp;</option>
 									</select></td>
 								</tr>
 							</table>
@@ -144,33 +180,33 @@
 								id="two" style="display: block;" style="display: none;">
 								<tr class="row2">
 									<td valign="middle" align="right" class="input_txt" width="200">First
-										Message sending Time :</td>
+										Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
-									<select name="sstream_time" class="input_cmbbx2">
-											<option value="12AM" selected="selected">00&nbsp;</option>
-											<option value="01AM">01&nbsp;</option>
-											<option value="02AM">02&nbsp;</option>
-											<option value="03AM">03&nbsp;</option>
-											<option value="04AM">04&nbsp;</option>
-											<option value="05AM">05&nbsp;</option>
-											<option value="06AM">06&nbsp;</option>
-											<option value="07AM">07&nbsp;</option>
-											<option value="08AM">08&nbsp;</option>
-											<option value="09AM">09&nbsp;</option>
-											<option value="10AM">10&nbsp;</option>
-											<option value="11AM">11&nbsp;</option>
-											<option value="12PM">12&nbsp;</option>
-											<option value="01PM">13&nbsp;</option>
-											<option value="02PM">14&nbsp;</option>
-											<option value="03PM">15&nbsp;</option>
-											<option value="04PM">16&nbsp;</option>
-											<option value="05PM">17&nbsp;</option>
-											<option value="06PM">18&nbsp;</option>
-											<option value="07PM">19&nbsp;</option>
-											<option value="08PM">20&nbsp;</option>
-											<option value="09PM">21&nbsp;</option>
-											<option value="10PM">22&nbsp;</option>
-											<option value="11PM">23&nbsp;</option>
+									<select name="fstream_time" class="input_cmbbx1">
+											<option value="00" selected="selected">00&nbsp;</option>
+											<option value="01">01&nbsp;</option>
+											<option value="02">02&nbsp;</option>
+											<option value="03">03&nbsp;</option>
+											<option value="04">04&nbsp;</option>
+											<option value="05">05&nbsp;</option>
+											<option value="06">06&nbsp;</option>
+											<option value="07">07&nbsp;</option>
+											<option value="08">08&nbsp;</option>
+											<option value="09">09&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											<option value="13">13&nbsp;</option>
+											<option value="14">14&nbsp;</option>
+											<option value="15">15&nbsp;</option>
+											<option value="16">16&nbsp;</option>
+											<option value="17">17&nbsp;</option>
+											<option value="18">18&nbsp;</option>
+											<option value="19">19&nbsp;</option>
+											<option value="20">20&nbsp;</option>
+											<option value="21">21&nbsp;</option>
+											<option value="22">22&nbsp;</option>
+											<option value="23">23&nbsp;</option>
 									</select></td>
 								</tr>
 
@@ -181,31 +217,31 @@
 									<td valign="middle" align="right" class="input_txt">Second
 										Message sending Time :</td>
 									<td valign="top" align="left" class="input_txt"><select
-										name="stime_two" class="input_cmbbx2">
-											<option value="12AM" selected="selected">00&nbsp;</option>
-											<option value="01AM">01&nbsp;</option>
-											<option value="02AM">02&nbsp;</option>
-											<option value="03AM">03&nbsp;</option>
-											<option value="04AM">04&nbsp;</option>
-											<option value="05AM">05&nbsp;</option>
-											<option value="06AM">06&nbsp;</option>
-											<option value="07AM">07&nbsp;</option>
-											<option value="08AM">08&nbsp;</option>
-											<option value="09AM">09&nbsp;</option>
-											<option value="10AM">10&nbsp;</option>
-											<option value="11AM">11&nbsp;</option>
-											<option value="12PM">12&nbsp;</option>
-											<option value="01PM">13&nbsp;</option>
-											<option value="02PM">14&nbsp;</option>
-											<option value="03PM">15&nbsp;</option>
-											<option value="04PM">16&nbsp;</option>
-											<option value="05PM">17&nbsp;</option>
-											<option value="06PM">18&nbsp;</option>
-											<option value="07PM">19&nbsp;</option>
-											<option value="08PM">20&nbsp;</option>
-											<option value="09PM">21&nbsp;</option>
-											<option value="10PM">22&nbsp;</option>
-											<option value="11PM">23&nbsp;</option>
+										name="sstream_time" class="input_cmbbx1">
+											<option value="00" selected="selected">00&nbsp;</option>
+											<option value="01">01&nbsp;</option>
+											<option value="02">02&nbsp;</option>
+											<option value="03">03&nbsp;</option>
+											<option value="04">04&nbsp;</option>
+											<option value="05">05&nbsp;</option>
+											<option value="06">06&nbsp;</option>
+											<option value="07">07&nbsp;</option>
+											<option value="08">08&nbsp;</option>
+											<option value="09">09&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											<option value="13">13&nbsp;</option>
+											<option value="14">14&nbsp;</option>
+											<option value="15">15&nbsp;</option>
+											<option value="16">16&nbsp;</option>
+											<option value="17">17&nbsp;</option>
+											<option value="18">18&nbsp;</option>
+											<option value="19">19&nbsp;</option>
+											<option value="20">20&nbsp;</option>
+											<option value="21">21&nbsp;</option>
+											<option value="22">22&nbsp;</option>
+											<option value="23">23&nbsp;</option>
 									</select></td>
 								</tr>
 							</table>
@@ -216,16 +252,16 @@
 								id="three" style="display: block;" style="display: none;">
 								<tr class="row2">
 									<td valign="middle" align="right" class="input_txt" width="200">
-										Message sending Day :</td>
+										Message Sending Day :</td>
 									<td valign="top" align="left" class="input_txt"><select
-										name="stream_week_day" class="input_cmbbx2">
-											<option value="Sun" selected="selected">Sunday</option>
-											<option value="Mon">Monday</option>
-											<option value="Tue">Tuesday</option>
-											<option value="Wed">Wednesday</option>
-											<option value="Thu">Thursday</option>
-											<option value="Fri">Friday</option>
-											<option value="Sat">Saturday</option>
+										name="stream_week_day" class="input_cmbbx1">
+											<option value="0" selected="selected">Sunday</option>
+											<option value="1">Monday</option>
+											<option value="2">Tuesday</option>
+											<option value="3">Wednesday</option>
+											<option value="4">Thursday</option>
+											<option value="5">Friday</option>
+											<option value="6">Saturday</option>
 
 									</select></td>
 								</tr>
@@ -236,43 +272,41 @@
 									<td valign="middle" align="right" class="input_txt" width="200">Message Sending
 										Time :</td>
 									<td valign="top" align="left" class="input_txt"><select
-										name="fstream_time" class="input_cmbbx2">
-											<option value="12AM" selected="selected">00&nbsp;</option>
-											<option value="01AM">01&nbsp;</option>
-											<option value="02AM">02&nbsp;</option>
-											<option value="03AM">03&nbsp;</option>
-											<option value="04AM">04&nbsp;</option>
-											<option value="05AM">05&nbsp;</option>
-											<option value="06AM">06&nbsp;</option>
-											<option value="07AM">07&nbsp;</option>
-											<option value="08AM">08&nbsp;</option>
-											<option value="09AM">09&nbsp;</option>
-											<option value="10AM">10&nbsp;</option>
-											<option value="11AM">11&nbsp;</option>
-											<option value="12PM">12&nbsp;</option>
-											<option value="01PM">13&nbsp;</option>
-											<option value="02PM">14&nbsp;</option>
-											<option value="03PM">15&nbsp;</option>
-											<option value="04PM">16&nbsp;</option>
-											<option value="05PM">17&nbsp;</option>
-											<option value="06PM">18&nbsp;</option>
-											<option value="07PM">19&nbsp;</option>
-											<option value="08PM">20&nbsp;</option>
-											<option value="09PM">21&nbsp;</option>
-											<option value="10PM">22&nbsp;</option>
-											<option value="11PM">23&nbsp;</option>
+										name="fstream_time" class="input_cmbbx1">
+											<option value="00" selected="selected">00&nbsp;</option>
+											<option value="01">01&nbsp;</option>
+											<option value="02">02&nbsp;</option>
+											<option value="03">03&nbsp;</option>
+											<option value="04">04&nbsp;</option>
+											<option value="05">05&nbsp;</option>
+											<option value="06">06&nbsp;</option>
+											<option value="07">07&nbsp;</option>
+											<option value="08">08&nbsp;</option>
+											<option value="09">09&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											<option value="13">13&nbsp;</option>
+											<option value="14">14&nbsp;</option>
+											<option value="15">15&nbsp;</option>
+											<option value="16">16&nbsp;</option>
+											<option value="17">17&nbsp;</option>
+											<option value="18">18&nbsp;</option>
+											<option value="19">19&nbsp;</option>
+											<option value="20">20&nbsp;</option>
+											<option value="21">21&nbsp;</option>
+											<option value="22">22&nbsp;</option>
+											<option value="23">23&nbsp;</option>
 									</select></td>								</tr>
 							</table>
 							
-							<table cellpadding="0" cellspacing="0" border="0" width="100%">
-
-
-								<tr class="row1">
-									<td valign="top" align="right"></td>
-									<td valign="top" align="left"><input type="submit"
-										class="submit_btn1" value="Send Stream" /></td>
-								</tr>
-							</table>
+							
+							
+								<table align="left"><tr><td style="padding-left:230px;"><input type="submit" class="submit_btn2" value="Send Stream" style="color:white;" name="insert"></td>
+							<td width="50"></td><td><input type="reset" value="Reset" onclick="clear1()" class="submit_btn"></td><td width="50">
+							<td><a href="viewreports" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
+								
+							
 		</table>
 		</form>
 		</div>

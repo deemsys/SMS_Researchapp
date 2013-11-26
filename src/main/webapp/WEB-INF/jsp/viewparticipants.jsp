@@ -57,18 +57,19 @@
 						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" /></label></p>
 	          		</div>
 				</td></tr></table>
-				<table>
+				<table cellpadding="0" cellspacing="0" border="0" width="100%">
 							<tr class="title">
 								
-								<td valign="center" align="right" width="10%"><input type="checkbox" value="" name="chkAll"></td>
+								<td valign="center" align="center" width="5%"><input type="checkbox" value="" name="chkAll"></td>
          						<td valign="top" align="left" width="10%">First&nbsp;Name</td>
 					         	<td valign="top" align="left" width="15%">Mobile Number</td>
+					         		<td valign="top" align="left" width="10%">Provider Name</td>
 					         	<td valign="top" align="left" width="10%">City</td>
 								<td valign="top" align="left" width="10%">Age</td>
-          						<td valign="top" align="left" width="10%">Time1</td>
-          						<td valign="top" align="left" width="10%">Time2</td>
-          						<td valign="top" align="left" width="10%">Time3</td>
-          						<td valign="top" align="left" width="10%">Action</td>
+          						<td valign="top" align="left" width="8%">Time1</td>
+          						<td valign="top" align="left" width="8%">Time2</td>
+          						<td valign="top" align="left" width="8%">Time3</td>
+          						<td valign="top" align="left" width="25%">Action</td>
           						
 				
 		
@@ -76,15 +77,16 @@
         					<c:if test="${fn:length(participantsDetailsForm.participantsDetails) gt 0}">
         					<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
         				       					<tr class="row1">
-							       		<td valign="center" align="right" width="10%"><input type="checkbox" value="${participantsDetails.participants_id}" name="chkUser"></td>
+							       		<td valign="center" align="center" width="5%"><input type="checkbox" value="${participantsDetails.participants_id}" name="chkUser"></td>
 					     		     	<td valign="top" align="left"  width="10%"><a href="participantdetails?id=${participantsDetails.participants_id}">${participantsDetails.fname}</a></td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.provider_name}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time1}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time2}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time3}</td>
-											<td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time1}</td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time2}</td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time3}</td>
+											<td valign="top" align="left" width="25%">
 											<%-- <c:if test="${currentuser.adminuser[0].editparticipant==1}"> --%>
 												<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editparticipant?id=${participantsDetails.participants_id}"/>" style="padding-right:10px;">Edit</a>
 												<%-- </c:if> --%>

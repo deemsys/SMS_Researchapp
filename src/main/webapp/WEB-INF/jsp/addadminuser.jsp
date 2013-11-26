@@ -93,8 +93,10 @@ else {
                 </tr>
                  
                  <tr class="row1">
-                  <td valign="top" align="right">&nbsp;</td>
-                  <td valign="top" align="left"><input type="submit" value="SAVE" class="submit_btn">  <span id="spnsub"></span></td>
+                 <table align="left"><tr><td valign="middle"  style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register"></td>
+							<td valign="middle" style="padding-left:10px;"><input type="reset" value="Reset" class="submit_btn"></td>
+							<td valign="middle" style="padding-left:10px;"><a href="welcome" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
+					
               </tr>
               </table>
             </c:when>
@@ -140,7 +142,7 @@ else {
                  
                  <tr class="row1">
                   <td valign="top" align="right">&nbsp;</td>
-                  <td valign="top" align="left"><input type="submit" value="Register" class="submit_btn">  <span id="spnsub"></span></td>
+                  <td valign="top" align="left"><input type="submit" value="Save" class="submit_btn">  <span id="spnsub"></span></td>
               </tr>
               </table>
               

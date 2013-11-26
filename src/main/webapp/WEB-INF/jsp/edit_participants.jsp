@@ -142,7 +142,7 @@
                 </tr>
 
 		
-                <input type="hidden" class="input_txtbx1" id="inp_id" name="username" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.username }"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.username"></form:errors></font>
+                <input type="hidden" class="input_txtbx1" id="inp_id" name="username" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.username}"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.username"></form:errors></font>
                
 		<tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Mobile No :</td>
@@ -154,13 +154,13 @@
                 </tr> 
 
 		<tr class="row1">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Gender :</td>
+                  <td valign="middle" align="left" class="input_txt"><span class="err"></span> Gender :</td>
                   <td valign="top" align="left" class="input_txt">
                   <input type="radio" name="gender" value="0"  class="input_txt" <c:if test="${participantsDetails.gender=='0'}"><c:out value="checked=checked"/></c:if>>Male&nbsp;&nbsp;&nbsp;  <c:out value="${participantDetails.gender}"/>
                   <input type="radio" name="gender" value="1"  class="input_txt" <c:if test="${participantsDetails.gender=='1'}"><c:out value="checked=checked"/></c:if>> Female</td>
                 </tr>
 		 <tr class="row2">
-                 <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Age :</td>
+                 <td valign="middle" align="left" class="input_txt"><span class="err"></span> Age :</td>
                  <td valign="top" align="left" class="input_txt"><select name="age" class="input_cmbbx1">
                  <option value="" <c:if test="${participantsDetails.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
                  <option value="12-20 years" <c:if test="${participantsDetails.age=='12-20 years'}"><c:out value="selected"/></c:if>>12-20 &#160 years</option>
@@ -177,7 +177,7 @@
                 </tr>
 		
                 <tr class="row1">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> City :</td>
+                  <td valign="middle" align="left" class="input_txt"><span class="err"></span> City :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.city}" name="city"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.city"></form:errors></span> </font></td>
                 </tr>
 		 <tr class="row2">
@@ -192,7 +192,7 @@
   
               
             <tr class="row1">
-                  <td valign="top" align="left" class="input_txt"><span class="err">*</span> Medical Details :</td>
+                  <td valign="top" align="left" class="input_txt"><span class="err"></span> Medical Details :</td>
                   <td valign="top" align="left" class="input_txt"><textarea class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');"  style="width: 220px; height: 89px;" name="medical_details"/>${participantsDetails.medical_details }</textarea></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.medical_details"></form:errors></span></font></td></tr>
                
 </table></td>
@@ -203,10 +203,28 @@
 
 
 <tr class="row2">
+<<<<<<< .mine
+												<td valign="middle" align="left" class="input_txt"><span
+													class="err"></span> Time1:</td>
+=======
 												<td valign="middle" align="left" class="input_txt">
 													 Time1:</td>
+>>>>>>> .r258
 												<td valign="top" align="left" class="input_txt">
 												<select name="time1" class="input_cmbbx1" id="msg">
+<<<<<<< .mine
+												<option value="null" selected>--Select--</option>
+					  <option value="00-01" <c:if test="${participantsDetails.time1=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+                   <option value="01-02"  <c:if test="${participantsDetails.time1=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+				   <option value="02-03" <c:if test="${participantsDetails.time1=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+				   <option value="03-04" <c:if test="${participantsDetails.time1=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+				   <option value="04-05" <c:if test="${participantsDetails.time1=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+				   <option value="05-06" <c:if test="${participantsDetails.time1=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+				   <option value="06-07" <c:if test="${participantsDetails.time1=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+				   <option value="07-08"  <c:if test="${participantsDetails.time1=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+					<option value="08-09" <c:if test="${participantsDetails.time1=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+					<option value="09-10" <c:if test="${participantsDetails.time1=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+=======
 												<option value="null" <c:if test="${participantsDetails.time1=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 					  <option value="00-01" <c:if test="${participantsDetails.time1=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
                    <option value="01-02"  <c:if test="${participantsDetails.time1=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
@@ -218,6 +236,7 @@
 				   <option value="07-08"  <c:if test="${participantsDetails.time1=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
 					<option value="08-09" <c:if test="${participantsDetails.time1=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
 					<option value="09-10" <c:if test="${participantsDetails.time1=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+>>>>>>> .r258
 					<option value="10-11"  <c:if test="${participantsDetails.time1=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 					<option value="11-12" <c:if test="${participantsDetails.time1=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
 					<option value="12-13"  <c:if test="${participantsDetails.time1=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
@@ -238,10 +257,28 @@
 												</td>
 											</tr>
                                                <tr class="row1">
+<<<<<<< .mine
+												<td valign="middle" align="left" class="input_txt"><span
+													class="err"></span> Time2:</td>
+=======
 												<td valign="middle" align="left" class="input_txt">
 													 Time2:</td>
+>>>>>>> .r258
 												<td valign="top" align="left" class="input_txt">
 												<select name="time2" class="input_cmbbx1" id="msg">
+<<<<<<< .mine
+												<option  value="null" selected>--Select--</option>
+				   <option value="00-01" <c:if test="${participantsDetails.time2=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+                   <option value="01-02"  <c:if test="${participantsDetails.time2=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+				   <option value="02-03" <c:if test="${participantsDetails.time2=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+				   <option value="03-04" <c:if test="${participantsDetails.time2=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+				   <option value="04-05" <c:if test="${participantsDetails.time2=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+				   <option value="05-06" <c:if test="${participantsDetails.time2=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+				   <option value="06-07" <c:if test="${participantsDetails.time2=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+				   <option value="07-08"  <c:if test="${participantsDetails.time2=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+					<option value="08-09" <c:if test="${participantsDetails.time2=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+					<option value="09-10" <c:if test="${participantsDetails.time2=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+=======
 														<option value="null" <c:if test="${participantsDetails.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
                    <option value="00-01" <c:if test="${participantsDetails.time2=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
                    <option value="01-02"  <c:if test="${participantsDetails.time2=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
@@ -253,6 +290,7 @@
 				   <option value="07-08"  <c:if test="${participantsDetails.time2=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
 					<option value="08-09" <c:if test="${participantsDetails.time2=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
 					<option value="09-10" <c:if test="${participantsDetails.time2=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+>>>>>>> .r258
 					<option value="10-11"  <c:if test="${participantsDetails.time2=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 					<option value="11-12" <c:if test="${participantsDetails.time2=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
 					<option value="12-13"  <c:if test="${participantsDetails.time2=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
@@ -272,10 +310,28 @@
 												</td>
 											</tr>
 											<tr class="row2">
+<<<<<<< .mine
+												<td valign="middle" align="left" class="input_txt"><span
+													class="err"></span> Time3:</td>
+=======
 												<td valign="middle" align="left" class="input_txt">
 													 Time3:</td>
+>>>>>>> .r258
 												<td valign="top" align="left" class="input_txt">
 												<select name="time3" class="input_cmbbx1" id="msg">
+<<<<<<< .mine
+												<option value="null" selected>--Select--</option>
+														<option value="00-01" <c:if test="${participantsDetails.time3=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
+                   <option value="01-02"  <c:if test="${participantsDetails.time3=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
+				   <option value="02-03" <c:if test="${participantsDetails.time3=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
+				   <option value="03-04" <c:if test="${participantsDetails.time3=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
+				   <option value="04-05" <c:if test="${participantsDetails.time3=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
+				   <option value="05-06" <c:if test="${participantsDetails.time3=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
+				   <option value="06-07" <c:if test="${participantsDetails.time3=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
+				   <option value="07-08"  <c:if test="${participantsDetails.time3=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
+					<option value="08-09" <c:if test="${participantsDetails.time3=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
+					<option value="09-10" <c:if test="${participantsDetails.time3=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+=======
 														<option value="null" <c:if test="${participantsDetails.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
                    <option value="01-02"  <c:if test="${participantsDetails.time3=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
 				   <option value="02-03" <c:if test="${participantsDetails.time3=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
@@ -286,6 +342,7 @@
 				   <option value="07-08"  <c:if test="${participantsDetails.time3=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
 					<option value="08-09" <c:if test="${participantsDetails.time3=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
 					<option value="09-10" <c:if test="${participantsDetails.time3=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
+>>>>>>> .r258
 					<option value="10-11"  <c:if test="${participantsDetails.time3=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
 					<option value="11-12" <c:if test="${participantsDetails.time3=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
 					<option value="12-13"  <c:if test="${participantsDetails.time3=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
@@ -308,7 +365,7 @@
 											</tr>
 				<tr>
 				
-				<td><p class="quck-txt">Group</p></td></tr>
+				<td><input type="hidden" value="${participantsDetails.provider_name}" name="Provider_name"/><p class="quck-txt">Group</p></td></tr>
 
 <tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
                 
@@ -335,9 +392,14 @@
  </table>
  
 
-											<table>
+											<table cellspacing="0">
 											<tr class="row2" >
+<<<<<<< .mine
+												<td><span class="err">*</span> Select
+													Group&nbsp;:</td>
+=======
 												<td><span class="err">*</span> Select Group:</td>
+>>>>>>> .r258
 												<td class="input_txt">
                                                     <p>Provider Groups</p>
 													<select class="input_cmbbx2"

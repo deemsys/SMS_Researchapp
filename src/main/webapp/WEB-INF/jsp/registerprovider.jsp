@@ -88,12 +88,12 @@ else {
                 </tr> 
                  
                   <table align="left">
-                  <tr align="center">
-                  <td valign="middle" width="25%"><input type="submit" class="submit_btn" value="Register"></td>
-							<td valign="middle"><input type="reset" value="Reset" class="submit_btn"></td>
-							<td valign="middle" width="25%"><a href="login" class="submit_btn" style="color:white">Cancel</a></td>
-							</tr>
-							</table>
+                  <tr valign="center">
+                  <td valign="middle" style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register"></td>
+				  <td valign="middle" style="padding-left:20px;"><input type="reset" value="Reset" class="submit_btn"></td>
+		    	  <td valign="middle" style="padding-left:20px;"><a href="login" class="submit_btn" style="color:white">Cancel</a></td>
+		          </tr>
+				  </table>
              
               
               </table>
@@ -131,10 +131,10 @@ else {
 </td>
                 </tr>
                  
-             <table align="left">
+             <table>
                   <tr align="center">
-                  <td valign="middle" width="25%"><input type="submit" class="submit_btn" value="Register"></td>
-							<td valign="middle"><input type="reset" value="Reset" class="submit_btn"></td>
+                  <td valign="middle"  style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register"></td>
+							<td valign="middle" style="padding-left:50px;"><input type="reset" value="Reset" class="submit_btn"></td>
 							<td valign="middle" width="25%"><a href="login" class="submit_btn" style="color:white">Cancel</a></td>
 							</tr>
 							</table>

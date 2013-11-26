@@ -31,50 +31,41 @@
 			<tr>
 				<td valign="top" align="left"><div>
 						<div class="headings altheading">
-							<h2>Broadcast Reports</h2>
+							<h2>Message Send Reports</h2>
 						</div>
 						<div class="contentbox">
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">
 							
 								<tr class="title">
 									
-									<td valign="top" align="left" width="10%">Broadcast&nbsp;Id</td>
-									<td valign="top" align="left" width="15%">Start &nbsp;Date</td>
-									<td valign="top" align="left" width="15%">No&nbsp;Of&nbsp;message&nbsp;Delivered</td>
-									<td valign="top" align="left" width="15%">Stream Name</td>
-									<td valign="top" align="left" width="13%">Send &nbsp;to&nbsp; Group</td>
-									<td valign="top" align="left" width="15%">Frequency</td>
+									<td valign="top" align="left" width="10%">Participant&nbsp;Id</td>
+									<td valign="top" align="left" width="15%">Participant &nbsp;Name</td>
+									<td valign="top" align="left" width="10%">BroadCast</td>
+									<td valign="top" align="left" width="15%">Stream</td>
+									<td valign="top" align="left" width="13%">Message&nbsp;no</td>
+									<td valign="top" align="center" width="15%">Send Time</td>
 									<td valign="top" align="left" width="15%">Status</td>
-								   <td valign="top" align="left" width="10%">Enable/Disable</td>
-								   
+								  
 								</tr>
 
 
 							</table>
 							<table cellpadding="0" cellspacing="0" border="0" width="100%"
 								id="user_ajax">
-								<c:forEach items="${broadCastReportsForm.broadCastReports}"
-									var="broadCastReports" varStatus="status">
+								<c:forEach items="${messagestatus.messagestatus}"
+									var="messageStatus" varStatus="status">
 									<tr class="row1">
 										
-										<td valign="top" align="left" width="10%"><a href="<c:out value="message_status?id=${broadCastReports.broad_id}"/>">${broadCastReports.broad_id}</a></td>
-										<td valign="top" align="left" width="15%">${broadCastReports.stream_name}</td>
-										<td valign="top" align="center" width="14%">${broadCastReports.group_name}</td>
-										<td valign="top" align="left" width="10%">${broadCastReports.frequency}</td>
-										<td valign="top" align="left" width="10%">${broadCastReports.start_date}</td>
-										<td valign="top" align="left" width="10%">${broadCastReports.status}</td>
-
-										<td valign="top" align="center" width="15%">${broadCastReports.message_count}</td>
+										<td valign="top" align="left" width="10%">${messageStatus.participant_id}</td>
+										<td valign="top" align="left" width="15%">${messageStatus.participantname}</td>
+										<td valign="top" align="left" width="10%">${messageStatus.broad_id}</td>
+										<td valign="top" align="left" width="15%">${messageStatus.stream_id}</td>
+										<td valign="top" align="left" width="13%">${messageStatus.messageno}</td>
 										
-										<td valign="top" align="center" width="10%">
-										<c:choose>
-									     	<c:when test="${broadCastReports.enable==0}">
-									     	<a href="viewreports" title=""><img src="resources/images/icons/icon_unapprove.png" alt="Enable" /></a><a href="#"  style="padding-right:20px;" onclick="myActive(${broadCastReports.broad_id},1)">Enable</a>
-										 	</c:when>
-										 	<c:when test="${broadCastReports.enable==1}">
-										 	<a href="viewreports" title=""><img src="resources/images/icons/icon_approve.png" alt="Disable" /></a><a href="#" style="padding-right:10px;" onclick="myActive(${broadCastReports.broad_id},0)">Disable</a>
-										 	</c:when>										 	
-										 	</c:choose>
+										<td valign="top" align="center" width="15%">${messageStatus.sendtime}</td>
+										<td valign="top" align="left" width="15%">${messageStatus.status}</td>
+									
+										
 										
 										
 										</td>
