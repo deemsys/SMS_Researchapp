@@ -15,11 +15,16 @@ public class BroadCast {
 	@NotEmpty
 	private String group_id;
 	
+
+	private String days_weeks;
+	
 	@NotEmpty
 	private String frequency;
 	
 	@NotEmpty
 	private String start_date;
+	
+	private String status;
 	
 	@NotEmpty
 	private String fstream_time;
@@ -30,10 +35,9 @@ public class BroadCast {
 	@NotEmpty
 	private String stream_week_day;
 
-	private String status;
 	
 	
-	private String days_weeks;
+	
 	
 	public BroadCast()
 	{
@@ -67,21 +71,22 @@ public class BroadCast {
 		this.br_id = br_id;
 	}*/
 	
-	public BroadCast(String broad_id, String stream_id, String group_id,
+	public BroadCast(String broad_id, String stream_id, String group_id,String days_weeks,
 			String frequency, String start_date, String fstream_time,
-			String sstream_time, String stream_week_day, String status,
-			String days_weeks) {
+			String sstream_time, String stream_week_day, String status
+			) {
 		super();
 		this.broad_id = broad_id;
 		this.stream_id = stream_id;
 		this.group_id = group_id;
+		this.days_weeks = days_weeks;
 		this.frequency = frequency;
 		this.start_date = start_date;
 		this.fstream_time = fstream_time;
 		this.sstream_time = sstream_time;
 		this.stream_week_day = stream_week_day;
 		this.status = status;
-		this.days_weeks = days_weeks;
+	
 	}
 	public String getDays_weeks() {
 		return days_weeks;

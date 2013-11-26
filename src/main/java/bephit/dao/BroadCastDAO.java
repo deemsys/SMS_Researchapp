@@ -158,9 +158,9 @@ public class BroadCastDAO {
 			}
 			String userName = userDetails.getUsername();
 			if(userName.equals("superadmin"))
-				repotscmd="select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id";
+				repotscmd="select b.broad_id,str.stream_name,pg.group_name,b.days_weeks,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id";
 				else			
-			repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"'";
+			repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.days_weeks,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"'";
 			
 			resultSet=statement.executeQuery(repotscmd);
 			System.out.println(repotscmd);
@@ -169,6 +169,7 @@ public class BroadCastDAO {
 						.getString("broad_id"),resultSet
 						.getString("stream_name"),resultSet
 						.getString("group_name"), resultSet
+						.getString("days_weeks"),resultSet
 						.getString("frequency"), resultSet
 						.getString("start_date"),
 						resultSet.getString("status"),resultSet
@@ -313,7 +314,7 @@ public class BroadCastDAO {
 			if(userName.equals("superadmin"))
 				repotscmd="select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id limit " + offset + ","+ limit+"";
 			else
-				repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"' limit " + offset + ","+ limit+"";
+				repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.days_weeks,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"' limit " + offset + ","+ limit+"";
 			
 			resultSet=statement.executeQuery(repotscmd);
 			System.out.println(repotscmd);
@@ -322,7 +323,8 @@ public class BroadCastDAO {
 				reportList.add(new BroadCastReports(resultSet
 						.getString("broad_id"),resultSet
 						.getString("stream_name"),resultSet
-						.getString("group_name"), resultSet
+						.getString("group_name"),resultSet
+						.getString("days_weeks"), resultSet
 						.getString("frequency"), resultSet
 						.getString("start_date"),
 						resultSet.getString("status"),resultSet
