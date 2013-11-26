@@ -7,14 +7,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UpdatePwd {
 	
 	@NotEmpty
-	@Size(min=3,max=12)
  private String new_pwd;
 	
 	@NotEmpty
  private String current_pwd;
 	
 	@NotEmpty
-	@Size(min=3,max=12)
  private String retype_new_pwd;
  
 public UpdatePwd() {

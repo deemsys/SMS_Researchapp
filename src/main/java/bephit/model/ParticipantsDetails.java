@@ -85,7 +85,7 @@ public class ParticipantsDetails {
 		this.time1 = time1;
 		this.time2 = time2;
 		this.time3 = time3;
-		Provider_name = provider_name;
+		this.Provider_name = provider_name;
 		this.group_name = group_name;
 		this.age = age;
 		this.date_of_join = date_of_join;
@@ -162,7 +162,7 @@ public class ParticipantsDetails {
 	}
 
 	public void setProvider_name(String provider_name) {
-		Provider_name = provider_name;
+		this.Provider_name = provider_name;
 	}
 
 	public void setMedical_details(String medical_details) {

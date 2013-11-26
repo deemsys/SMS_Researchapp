@@ -5,20 +5,28 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class BroadCast {
  
 	private String br_id;
+	
 	@NotEmpty
 	private String broad_id;
+	
 	@NotEmpty
 	private String stream_id;
+	
 	@NotEmpty
 	private String group_id;
+	
 	@NotEmpty
 	private String frequency;
+	
 	@NotEmpty
 	private String start_date;
+	
 	@NotEmpty
 	private String fstream_time;
+	
 	@NotEmpty
 	private String sstream_time;
+	
 	@NotEmpty
 	private String stream_week_day;
 
