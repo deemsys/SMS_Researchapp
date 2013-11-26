@@ -83,6 +83,12 @@ public class BroadCastDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag = 0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -92,7 +98,7 @@ public class BroadCastDAO {
 		try {
 //			DateFormat dateFormat=new SimpleDateFormat();
 
-			String cmd = "INSERT INTO broad_cast_table(broad_id,stream_id,group_id,frequency,start_date,fstream_time,sstream_time,stream_week_day,status) values('"
+			String cmd = "INSERT INTO broad_cast_table(broad_id,stream_id,group_id,frequency,start_date,fstream_time,sstream_time,stream_week_day,status,created_by) values('"
 					+ broadCast.getBroad_id()
 					+ "','"
 					+ broadCast.getStream_id()
@@ -107,9 +113,10 @@ public class BroadCastDAO {
 					+ "','"
 					+ broadCast.getSstream_time()
 					+ "','"
-					+ broadCast.getStream_week_day() + "','0')";
+					+ broadCast.getStream_week_day() + "','0','"+userName+"')";
 			System.out.println(cmd);
 			statement.execute(cmd);
+			
 			flag = 1;
 		} catch (Exception ex) {
 			System.out.println(ex.toString());
@@ -133,6 +140,7 @@ public class BroadCastDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		String repotscmd;
+	
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -141,8 +149,16 @@ public class BroadCastDAO {
 		}
 		List<BroadCastReports> reportList = new ArrayList<BroadCastReports>();
 		try {
-
-			repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id;";
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserDetails userDetails = null;
+			if (principal instanceof UserDetails) {
+			  userDetails = (UserDetails) principal;
+			}
+			String userName = userDetails.getUsername();
+			if(userName.equals("superadmin"))
+				repotscmd="select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id";
+				else			
+			repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"'";
 			
 			resultSet=statement.executeQuery(repotscmd);
 			System.out.println(repotscmd);
@@ -187,8 +203,18 @@ public class BroadCastDAO {
 		}
 		List<BroadCast> bcast = new ArrayList<BroadCast>();
 		try {
-
-			cmd = "select * from broad_cast_table";
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserDetails userDetails = null;
+			if (principal instanceof UserDetails) {
+			  userDetails = (UserDetails) principal;
+			}
+			String userName = userDetails.getUsername();
+			
+		
+			if(userName.equals("superadmin"))
+				cmd = "select * from broad_cast_table";
+			else 			
+			    cmd = "select * from broad_cast_table where created_by='"+userName+"'";
 
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
@@ -261,7 +287,12 @@ public class BroadCastDAO {
 		Connection con = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		        
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();        
 		
 		try {
 			con = dataSource.getConnection();
@@ -275,7 +306,11 @@ public class BroadCastDAO {
 			
 			int offset = 5 * (page - 1);
 			int limit = 5;
-             String repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id limit " + offset + ","+ limit+"";
+			String repotscmd;
+			if(userName.equals("superadmin"))
+				repotscmd="select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id limit " + offset + ","+ limit+"";
+			else
+				repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"' limit " + offset + ","+ limit+"";
 			
 			resultSet=statement.executeQuery(repotscmd);
 			System.out.println(repotscmd);
@@ -307,7 +342,12 @@ public class BroadCastDAO {
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int noofRecords = 0;
-		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -318,8 +358,10 @@ public class BroadCastDAO {
 		try {
 
 			String cmd;
-			
-					cmd = "select count(*) as noofrecords from broad_cast_table";
+			if(userName.equals("superadmin"))
+				cmd="select count(*) as noofrecords from broad_cast_table";
+			else
+					cmd = "select count(*) as noofrecords from broad_cast_table where created_by='"+userName+"'";
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())

@@ -165,12 +165,12 @@ public String getCurrentPwd(){
 		e1.printStackTrace();
 	}
 	try {
-		String cmd="select admin_password  from admin_log_table where  admin_username ='"+ userName +"'";
+		String cmd="select password  from login where  username ='"+ userName +"'";
 		
 		resultSet=statement.executeQuery(cmd);
 		resultSet.next();
 		
-	userpwd=resultSet.getString("admin_password");
+	userpwd=resultSet.getString("password");
 	System.out.println(userpwd);
 	}
 	catch (Exception e) {

@@ -124,7 +124,7 @@ public class ParticipantGroupDAO {
 		
 		
 		
-	public int setParticipantGroup(ParticipantGroups pgroups,String userName)
+	public int setParticipantGroup(ParticipantGroups pgroups)
 	{
 		Connection con = null;
 		Statement statement = null;
@@ -460,7 +460,7 @@ public class ParticipantGroupDAO {
 	    return participantgroup;
 	}
 	
-	public  int checkGroupname(ParticipantGroups pgroups)
+	public  int checkGroupname(String pgroups)
 	{
 		Connection con = null;
 		Statement statement = null;
@@ -486,9 +486,9 @@ public class ParticipantGroupDAO {
 	    	int updateemail=1;
 	    	String cmd_groupslist="";
 	    	if(userName.equals("superadmin"))
-	    	  	  cmd_groupslist="Select count(*) as counting from `participant_group_table` group_name='"+pgroups.getgroup_name()+"'";
+	    	  	  cmd_groupslist="Select count(*) as counting from `participant_group_table` where group_name='"+pgroups+"'";
 	  	    else
-	    	      cmd_groupslist="Select count(*) as counting from `participant_group_table` where created_by='"+userName+"' and group_name='"+pgroups.getgroup_name()+"'";
+	    	      cmd_groupslist="Select count(*) as counting from `participant_group_table` where group_name='"+pgroups+"'";
 	      resultSet=statement.executeQuery(cmd_groupslist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));

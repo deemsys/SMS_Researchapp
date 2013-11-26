@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -12,7 +15,10 @@ import javax.sql.DataSource;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-import bephit.model.MessageLog;;
+import bephit.model.MessageLog;
+import org.joda.*;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 public class MessageLogDAO {
 	private DataSource dataSource;
@@ -38,17 +44,20 @@ public class MessageLogDAO {
 			e1.printStackTrace();
 		}
 		List<MessageLog> messagelog = new ArrayList<MessageLog>();
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+		Date date = new Date();
 
 		try
 		{
 			resultSet = statement.executeQuery("select  b.broad_id,b.group_id,pg.participant_id from broad_cast_table as b join participant_group as pg on b.group_id=pg.group_id join participants_table as p on pg.participant_id=p.participants_id where participants_id='"+participantid+"'");
 			
-			while (resultSet.next()) {
+			while (resultSet.next())
+			{
 				messagelog.add(new MessageLog(resultSet.getString("broad_id")
 						,resultSet.getString("group_id")
 						,resultSet.getString("participant_id")));
 			
-		                  }			
+		    }			
 			
 			for(int i=0;i<messagelog.size();i++)
 			{
@@ -64,7 +73,7 @@ public class MessageLogDAO {
 				else
 				{
 					List<String> broadcast_id=new ArrayList<String>();
-					String message_log="insert into participant_message_log(Participant_id,broad_id,no_of_message_send,no_of_days,flag_status,dateofsend)values('"+messagelog.get(i).getParticipant_id()+"','"+messagelog.get(i).getBroad_id()+"','0','0','0','11/22/2013')";
+					String message_log="insert into participant_message_log(Participant_id,broad_id,no_of_message_send,no_of_days,flag_status,dateofsend)values('"+messagelog.get(i).getParticipant_id()+"','"+messagelog.get(i).getBroad_id()+"','0','0','0','"+dateFormat.format(date)+"')";
 					System.out.println(message_log);
 					logger.info(message_log);
 					statement.executeUpdate(message_log);
@@ -93,11 +102,122 @@ public class MessageLogDAO {
 						else
 						{
 							System.out.println(broadcast_id.get(b));
-							String deletelog="delete from participant_message_log where broad_id='"+broadcast_id.get(b)+"'";
+							String deletelog="delete from participant_message_log where broad_id='"+broadcast_id.get(b)+"' and Participant_id='"+participantid+"'";
 							statement.executeUpdate(deletelog);
 						}
 						
 					}
+					
+					
+					
+					
+					
+				
+				}		
+							
+			}				
+			if(messagelog.size()==0)
+			{
+				String deletelog="delete from participant_message_log where Participant_id='"+participantid+"'";
+				statement.executeUpdate(deletelog);	
+			}
+			
+			
+	
+		} 
+		catch (Exception ex) 
+		{
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);
+		} 
+		finally 
+		{
+			releaseResultSet(resultSet);
+	    	releaseStatement(statement);
+	    	releaseConnection(con);	
+	    	
+		}
+
+		return messagelog;
+	}
+	
+	public List<MessageLog> updateMessagelog() {
+
+		Connection con = null;
+		Statement statement = null;
+		ResultSet messagelogresultset = null;
+		ResultSet resultSet=null;
+		ResultSet logresultset=null;
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		List<MessageLog> messagelog = new ArrayList<MessageLog>();
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+		Date date = new Date();
+		try
+		{
+			resultSet = statement.executeQuery("select b.broad_id as broad_id,b.group_id as group_id,pg.participant_id as participant_id from broad_cast_table as b join participant_group as pg on b.group_id=pg.group_id where broad_id=(select max(broad_id) from broad_cast_table)");
+						
+			while (resultSet.next()) {
+				messagelog.add(new MessageLog(resultSet.getString("broad_id")
+						,resultSet.getString("group_id")
+						,resultSet.getString("participant_id")));
+			
+		                  }			
+			
+			for(int i=0;i<messagelog.size();i++)
+			{
+				System.out.println("broadcastid"+messagelog.get(i).getBroad_id());
+				System.out.println("Group"+messagelog.get(i).getGroup_id());
+				System.out.println("participantid"+messagelog.get(i).getParticipant_id());	
+				messagelogresultset=statement.executeQuery("select * from participant_message_log where broad_id='"+messagelog.get(i).getBroad_id()+"' and Participant_id='"+messagelog.get(i).getParticipant_id()+"'");
+				if(messagelogresultset.next())
+				{
+				
+					continue;
+				}
+				else
+				{
+					List<String> broadcast_id=new ArrayList<String>();
+					String message_log="insert into participant_message_log(Participant_id,broad_id,no_of_message_send,no_of_days,flag_status,dateofsend)values('"+messagelog.get(i).getParticipant_id()+"','"+messagelog.get(i).getBroad_id()+"','0','0','0','"+dateFormat.format(date)+"')";
+					System.out.println(message_log);
+					logger.info(message_log);
+					statement.executeUpdate(message_log);
+					/*logresultset=statement.executeQuery("select * from participant_message_log where Participant_id='"+participantid+"'");
+					while(logresultset.next())
+					{
+						broadcast_id.add(logresultset.getString("broad_id"));
+					}
+					System.out.println("messagelog size"+messagelog.size());
+					for(int b=0;b<broadcast_id.size();b++)
+					{
+						int flag=0;
+						for(int j=0;j<messagelog.size();j++)
+						{
+							System.out.println(messagelog.get(j).getBroad_id()+"message_log"+ broadcast_id.get(b));
+							if(messagelog.get(j).getBroad_id().equals(broadcast_id.get(b)))
+							{
+								flag=1;
+								break;
+							}
+						}
+						if(flag==1)
+						{
+							continue;
+						}
+						else
+						{
+							System.out.println(broadcast_id.get(b));
+							String deletelog="delete from participant_message_log where broad_id='"+broadcast_id.get(b)+"'";
+							statement.executeUpdate(deletelog);
+						}
+						
+					}*/
 					
 					
 					
@@ -129,6 +249,24 @@ public class MessageLogDAO {
 
 		return messagelog;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*public List<String> getMessageLogs(String participantid) {
 
 		Connection con = null;

@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import bephit.controllers.MainController;
 import bephit.model.EmailSender;
 import bephit.model.ParticipantGroups;
+import bephit.model.TwilioSMS;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +37,8 @@ public class MainDAO {
 	@Autowired  
 	EmailSender emailSender;
 	
+	@Autowired
+	TwilioSMS messageSender;
 	
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -415,6 +418,14 @@ public class MainDAO {
 		    emailSender.password_sendEmail(participant.getEmail_id(),"learnguild@gmail.com","Breast Cancer Research App Registration",participant.getFname(),participant.getusername(),pw);
 		    
 		    logger.info("--After Sent--");
+		    
+		    try{
+		    	 
+		      	messageSender.sendSMS(participant.getMobile_num(), "BC Research Password :"+pw);
+		     }catch(Exception e){e.printStackTrace();}
+		    
+		    
+		    
 			}
 			catch(Exception ex)
 			{
@@ -576,6 +587,8 @@ public class MainDAO {
 			System.out.println(cmd_activity);
 			statement.execute(cmd_activity);
 			flag = 1;
+			
+			
 		} catch (Exception e) {
 			
 			System.out.println(e.toString());
@@ -817,7 +830,7 @@ public class MainDAO {
 		try {
             String cmd;
             
-			cmd = "select * from admin_log_table where admin_email='"+email+"'";
+			cmd = "select * from login where email_id='"+email+"'";
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {
@@ -827,7 +840,7 @@ public class MainDAO {
 				System.out.println(email);
 				logger.info("--Before Sending--"); //Logger Test
 		        //Email Test
-		        emailSender.password_sendEmail(email, "learnguild.com", "Forgot Password",resultSet.getString("admin_firstname"),resultSet.getString("admin_username"),resultSet.getString("admin_password"));
+		        emailSender.password_sendEmail(email, "learnguild.com", "Forgot Password",resultSet.getString("username"),resultSet.getString("username"),resultSet.getString("password"));
 		        logger.info("--After Sent--");
 		        flag=1;
 		      /*  model.addAttribute("success","true");
@@ -841,7 +854,7 @@ public class MainDAO {
 				
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			System.out.println("email:"+e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -1047,7 +1060,7 @@ public class MainDAO {
 					+ mobile + "' or group_name='" + groupname + "' or city='"
 					+ city + "'";
 			else
-				cmd=cmd = "select * from participants_table where mobile_num='"
+				cmd = "select * from participants_table where mobile_num='"
 				+ mobile + "' or group_name='" + groupname + "' or city='"
 				+ city + "' having Provider_name='"+userName+"'";
 	
