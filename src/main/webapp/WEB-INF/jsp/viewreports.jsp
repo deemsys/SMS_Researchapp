@@ -39,12 +39,18 @@
 								<tr class="title">
 									
 									<td valign="top" align="left" width="10%">Broadcast&nbsp;Id</td>
-									<td valign="top" align="left" width="15%">Start &nbsp;Date</td>
-									<td valign="top" align="left" width="15%">No&nbsp;Of&nbsp;message&nbsp;Delivered</td>
 									<td valign="top" align="left" width="15%">Stream Name</td>
-									<td valign="top" align="left" width="13%">Send &nbsp;to&nbsp; Group</td>
+									<td valign="top" align="left" width="15%">Send &nbsp;to&nbsp; Group</td>
+									<td valign="top" align="left" width="15%">No of Days/Weeks</td>
 									<td valign="top" align="left" width="15%">Frequency</td>
-									<td valign="top" align="left" width="15%">Status</td>
+									<td valign="top" align="left" width="13%">Start &nbsp;Date</td>								
+									<td valign="top" align="left" width="15%">No&nbsp;Of&nbsp;message&nbsp;Delivered</td>
+										<td valign="top" align="left" width="15%">Status</td>
+									
+									
+									
+									
+									
 								   <td valign="top" align="left" width="10%">Enable/Disable</td>
 								   
 								</tr>
@@ -59,12 +65,20 @@
 										
 										<td valign="top" align="left" width="10%"><a href="<c:out value="message_status?id=${broadCastReports.broad_id}"/>">${broadCastReports.broad_id}</a></td>
 										<td valign="top" align="left" width="15%">${broadCastReports.stream_name}</td>
-										<td valign="top" align="center" width="14%">${broadCastReports.group_name}</td>
-										<td valign="top" align="left" width="10%">${broadCastReports.frequency}</td>
-										<td valign="top" align="left" width="10%">${broadCastReports.start_date}</td>
-										<td valign="top" align="left" width="10%">${broadCastReports.status}</td>
-
-										<td valign="top" align="center" width="15%">${broadCastReports.message_count}</td>
+										<td valign="top" align="left" width="15%">${broadCastReports.group_name}</td>
+										<td valign="top" align="center">${broadCastReports.days_weeks}</td>
+										<td valign="top" align="center" width="23%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <c:if test="${broadCastReports.frequency=='0'}"><c:out value="One per Day"></c:out></c:if>
+										 <c:if test="${broadCastReports.frequency=='1'}"><c:out value="Two per Day"></c:out></c:if>
+										 <c:if test="${broadCastReports.frequency=='2'}"><c:out value="Weekly Once"></c:out></c:if>
+										</td>
+										
+										<td valign="top" align="left">${broadCastReports.start_date}</td>
+										<td valign="top" align="center" width="20%">${broadCastReports.message_count}</td>	
+										<td valign="top" align="left" width="20%">${broadCastReports.status}</td>
+														
+																	
+																	
 										
 										<td valign="top" align="center" width="10%">
 										<c:choose>
