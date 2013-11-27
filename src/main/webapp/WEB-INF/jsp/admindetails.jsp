@@ -53,7 +53,12 @@
                 </tr>
 		
               
-                   
+                   <tr class="row1">  
+              <td width="15%" valign="middle" align="left" ></td>
+              <td width="5%" valign="middle" align="left" >
+              <a href="viewadminuser" class="paging_select"> <input type="button" value="Back" class="submit_btn"/> </a>
+              </td>
+              </tr>
 								</c:forEach>
                 
                 
