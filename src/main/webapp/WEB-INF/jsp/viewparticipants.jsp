@@ -78,7 +78,7 @@
         					<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
         				       					<tr class="row1">
 							       		<td valign="center" align="center" width="5%"><input type="checkbox" value="${participantsDetails.participants_id}" name="chkUser"></td>
-					     		     	<td valign="top" align="left"  width="10%"><a href="participantdetails?id=${participantsDetails.participants_id}">${participantsDetails.fname}</a></td>
+					     		     	<td valign="top" align="left"  width="10%"><a href="participantdetails?id=${participantsDetails.participants_id}&back=viewparticipant">${participantsDetails.fname}</a></td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.provider_name}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>

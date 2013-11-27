@@ -25,7 +25,8 @@
       </tr>
     </c:if>  
       
-      </table>
+      </table> 
+  
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">
 				
 								<tr class="title">
@@ -40,11 +41,12 @@
 									<!-- <td valign="top" align="left" width="15%">Education</td> -->
 									<td valign="top" align="left" width="10%">Date Of Join</td>
 								</tr>
+								
 
 								<!-- Display Admin Userd here  Suresh--> 
 									<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
 							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
-								          <td valign="top" align="left"  width="10%"> <a href="participantdetails?id=${participantsDetails.participants_id}">${participantsDetails.fname}</a></td>
+								          <td valign="top" align="left"  width="10%"> <a href="participantdetails?id=${participantsDetails.participants_id}&back=dashboard">${participantsDetails.fname}</a></td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="15%">${participantsDetails.provider_name}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
