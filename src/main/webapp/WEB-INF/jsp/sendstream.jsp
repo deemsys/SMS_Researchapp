@@ -190,7 +190,8 @@ $("#days_weeks").keyup(function() {
 										onchange="openNewDiv(this.value)">
 											<option value="0" selected="selected">One Per Day</option>
 											<option value="1">Two Per Day</option>
-											<option value="2">One Per Week</option>
+											<option value="3">Three Per Day</option>
+											<option value="2">One Per Week</option>											
 									</select></td>
 								</tr>
 
@@ -310,6 +311,31 @@ $("#days_weeks").keyup(function() {
 								   </select></td></td>
 								</tr>
 							</table>
+							
+							<table id="third">	<tr class="row1">
+									<td valign="middle" align="right" class="input_txt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Third
+										Message sending Time :</td>
+									<td valign="top" align="left" class="input_txt">
+									<select name="sstream_time" class="input_cmbbx1">
+											<option value="1" selected="selected">1&nbsp;</option>
+											<option value="2">2&nbsp;</option>
+											<option value="3">3&nbsp;</option>
+											<option value="4">4&nbsp;</option>
+											<option value="5">5&nbsp;</option>
+											<option value="6">6&nbsp;</option>
+											<option value="7">7&nbsp;</option>
+											<option value="8">8&nbsp;</option>
+											<option value="9">9&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											</select>
+									<select name="sstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="am">AM&nbsp;</option>
+											<option value="pm">PM&nbsp;</option>
+								   </select></td></td>
+								</tr>
+</table>
 
 							<!--</div>-->
 
@@ -375,37 +401,47 @@ $("#days_weeks").keyup(function() {
 		
 		
 		if (val == '0') {
-			document.getElementById("one").style.display = 'block';
-			document.getElementById("days").style.display = 'block';
-			document.getElementById("weeks").style.display = 'none';		
+			document.getElementById("weeks").style.display = 'none';
+			document.getElementById("days").style.display = 'block';					
 			document.getElementById("daystext").style.display = 'block';
+			document.getElementById("one").style.display = 'block';			
 			document.getElementById("two").style.display = 'none';
+			document.getElementById("third").style.display = 'none';
 			document.getElementById("three").style.display = 'none';
-			document.getElementById("four").style.display = 'none';
-
-
-		} else if (val == '1') {
+			document.getElementById("four").style.display = 'none';		
+		} 
+		 else if (val == '1') {
+			document.getElementById("weeks").style.display = 'none';
+			document.getElementById("days").style.display = 'block';					
+			document.getElementById("daystext").style.display = 'block';
+			document.getElementById("one").style.display = 'none';			
 			document.getElementById("two").style.display = 'block';
-			document.getElementById("days").style.display = 'block';
-			document.getElementById("daystext").style.display = 'block';
-			document.getElementById("weeks").style.display = 'none';		
-			document.getElementById("one").style.display = 'none';
+			document.getElementById("third").style.display = 'none';
 			document.getElementById("three").style.display = 'none';
-			document.getElementById("four").style.display = 'none';
-
-
-		} else if (val == '2') {
-		    document.getElementById("days").style.display = 'none';
-	        document.getElementById("two").style.display = 'none';
-		    document.getElementById("one").style.display = 'none';
-	        document.getElementById("weeks").style.display = 'block';	
-			document.getElementById("three").style.display = 'block';					
-			document.getElementById("daystext").style.display = 'block';
-			document.getElementById("four").style.display = 'block';
+			document.getElementById("four").style.display = 'none';	
+		} 
 		
+		else if (val == '3') {
+			document.getElementById("weeks").style.display = 'none';
+			document.getElementById("days").style.display = 'block';					
+			document.getElementById("daystext").style.display = 'block';
+			document.getElementById("one").style.display = 'none';			
+			document.getElementById("two").style.display = 'block';
+			document.getElementById("third").style.display = 'block';
+			document.getElementById("three").style.display = 'none';
+			document.getElementById("four").style.display = 'none';	
 
-
-		}
+		}		
+		else if (val == '2') {
+		  document.getElementById("weeks").style.display = 'block';
+			document.getElementById("days").style.display = 'none';					
+			document.getElementById("daystext").style.display = 'block';
+			document.getElementById("one").style.display = 'none';			
+			document.getElementById("two").style.display = 'none';
+			document.getElementById("third").style.display = 'none';
+			document.getElementById("three").style.display = 'none';
+			document.getElementById("four").style.display = 'block';	
+			}
 
 	}
 
