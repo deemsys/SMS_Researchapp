@@ -1,5 +1,6 @@
 package bephit.controllers;
 
+import java.awt.image.SampleModel;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -9,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import org.joda.*;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,6 +66,8 @@ public class BroadCastController {
 	
 	@Autowired
 	MessageStatusDAO messagestatusDAO;
+	
+	
 	
 	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
 	public String sendstream(ModelMap model) {
@@ -209,17 +217,83 @@ public class BroadCastController {
 	@RequestMapping(value="/sendstream_ajax",method=RequestMethod.POST)
 	public @ResponseBody String addUser1(HttpSession session,HttpServletRequest request,@ModelAttribute(value="broadcast")BroadCast broad, BindingResult result,ModelMap model ){
       
+		System.out.println("caught");
 		String sample=request.getParameter("stream_id");
 		System.out.println("stream_id"+sample);		
 		List<StreamDetails> stream_list = new ArrayList<StreamDetails>(); 
 		String returnText="";		
 		stream_list=streamDAO.getStream(sample);
-		for(int i=0;i<stream_list.size();i++)
-			returnText="Contains "+stream_list.get(i).getMessage_count()+" Messages and Texting Contacts is "+stream_list.get(i).getTextingcontacts();
+			returnText="Contains "+stream_list.get(0).getTextingcontacts()+" messages";
 		return returnText;
 		
 	}
+	
+	@RequestMapping(value="/sendstream_ajax_week",method=RequestMethod.POST)
+	public @ResponseBody String getStartdate(HttpSession session,HttpServletRequest request,@ModelAttribute(value="broadcast")BroadCast broad, BindingResult result,ModelMap model ){
+      
+	String day=request.getParameter("stream_week_day");
+	String date=request.getParameter("start_date");
+    String returnText;
+	// Date operations
 
+	DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+	
+	//--------------------------Time Zone-----------------------------//
+    DateTimeZone TZ=DateTimeZone.forID("EST");
+	DateTime selected_date = new DateTime(TZ);
+	DateTime today_date=new DateTime(TZ);
+	selected_date=formatter.parseDateTime(date);
+	//------------------------End Time Zone-------------------------//
+	
+    int diff=((Integer.parseInt(day)-selected_date.getDayOfWeek())+7)%7;
+    
+    System.out.println("Selected day:"+selected_date.getDayOfWeek());
+    System.out.println("Day:"+day);
+    System.out.println("Date difference:"+diff);
+    
+    returnText=selected_date.plusDays(diff).toLocalDate().toString();
+	return "Message will start sending on "+returnText;
+		
+	}
+	
+	
+	@RequestMapping(value="/check_lost",method=RequestMethod.POST)
+	public @ResponseBody String check_lost(HttpSession session,HttpServletRequest request,@ModelAttribute(value="broadcast")BroadCast broad, BindingResult result,ModelMap model )
+	{
+      
+		String sample=request.getParameter("stream_id");
+		int days_weeks=Integer.parseInt(request.getParameter("no_of_days"));
+		int frequency=Integer.parseInt(request.getParameter("frequency"));
+		System.out.println("stream_id"+sample);		
+		List<StreamDetails> stream_list = new ArrayList<StreamDetails>(); 
+		String returnText="";		
+		stream_list=streamDAO.getStream(sample);
+		if(frequency==0)
+		{
+			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>days_weeks)
+				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-days_weeks)+" messages";
+		}
+		else if(frequency==2)
+		{
+			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>days_weeks)
+				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-days_weeks)+" messages";
+	
+		}
+		else
+		{
+			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>(days_weeks*2))
+			{
+				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-(days_weeks*2))+" messages";
+				
+			}
+		}
+		
+			
+		return returnText;
+		
+	}
+	
+	
 	
 	@RequestMapping(value={"/", "/viewallbroadcast"}, method = RequestMethod.GET)
 	public String viewallpartGroup(HttpServletRequest request,ModelMap model, Principal principal ) {
