@@ -997,6 +997,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 				participantGroupForm.setParticipantGroups(partDAO.getGroups());				
 				model.addAttribute("participantsDetailsForm", participantsDetailsForm);	 
 				model.addAttribute("participantGroupForm", participantGroupForm);
+				
 		        return "edit_participants";
 		}
 		String groups[]=request.getParameterValues("group_name");
@@ -1189,7 +1190,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	
 	
 	@RequestMapping(value="/participantdetails", method=RequestMethod.GET)
-	public String participantdetails(HttpServletRequest request,@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	public String participantdetails(HttpServletRequest request,@RequestParam("id") String participants_id,@RequestParam("back") String back,ModelMap model,ParticipantsDetails participant)
 	{
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
         participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
@@ -1199,8 +1200,15 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		/*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);	*/
-        model.addAttribute("menu","participants");
-		return "participantdetails";
+       
+        System.out.println("kjhjhfjd"+back);
+		if(back.equals("dashboard"))
+		{ model.addAttribute("menu","dashboard");		
+		}
+		else if(back.equals("viewparticipant"))
+		{ model.addAttribute("menu","participants");			
+		}
+        return "participantdetails";
 	}
 	
 	@RequestMapping(value="/groupdetails", method=RequestMethod.GET)
