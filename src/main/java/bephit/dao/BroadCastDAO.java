@@ -312,7 +312,7 @@ public class BroadCastDAO {
 			int limit = 5;
 			String repotscmd;
 			if(userName.equals("superadmin"))
-				repotscmd="select b.broad_id,str.stream_name,pg.group_name,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id limit " + offset + ","+ limit+"";
+				repotscmd="select b.broad_id,str.stream_name,pg.group_name,b.days_weeks,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id limit " + offset + ","+ limit+"";
 			else
 				repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.days_weeks,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"' limit " + offset + ","+ limit+"";
 			
