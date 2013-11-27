@@ -1199,9 +1199,8 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		/*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
-        model.addAttribute("participantGroupForm", participantGroupForm);	*/
-       
-        System.out.println("kjhjhfjd"+back);
+        model.addAttribute("participantGroupForm", participantGroupForm);	*/      
+    
 		if(back.equals("dashboard"))
 		{ model.addAttribute("menu","dashboard");		
 		}
