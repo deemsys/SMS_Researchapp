@@ -13,10 +13,18 @@
 	
 <script>
 $(function() {
-	$("#dateofjointo").datepicker();
+	$("#datepicker").datepicker({ minDate: 0});
 });
 </script>	
+	<script type="text/javascript">
+$(window).load(function(){
+$("#textingcontacts").keyup(function() {
 	
+}).keydown(function() {
+    oldValue = $(this).val();
+})
+});
+</script>
 	<script type="text/javascript">
 	function clear1()
 	{
@@ -25,10 +33,6 @@ $(function() {
 	}
 	</script>
 <script>
-	/* $(function() {
-		$("#datepicker").datepicker();
-	}); */
-	
 	function doAjaxPost() {
 		// get the form values  
 		
@@ -49,8 +53,71 @@ $(function() {
 			}
 		});
 	}
-</script>
+	function doAjaxPost_week() {
+		// get the form values  
+		
+		var day = $('#stream_week_day').val();
+		var date = $('#datepicker').val();
+		/*   var education = $('#education').val();	 */
 	
+		$.ajax({
+			
+			type : "POST",
+			url : "/BePhitResearchApp/sendstream_ajax_week",
+			data : "stream_week_day=" + day+"&start_date="+date,
+			
+			success : function(response) {
+				// we have the response  
+				$('#info2').html(response);
+				/*     $('#education').val(''); */
+			},
+			error : function(e) {
+				alert('Error: ' + e);
+			}
+		});
+	}
+</script>
+<script type="text/javascript">
+$(window).load(function(){
+var oldValue = "";
+$("#days_weeks").keyup(function() {
+	$("#tc").html('');
+	var intRegex = /^\d+$/;
+	if(intRegex.test($(this).val())) 
+	{
+
+		var id = $('#stream_id').val();
+		var days = $(this).val();
+		var frequency = $('#frequency').val();
+		/*   var education = $('#education').val();	 */
+	
+		$.ajax({
+			
+			type : "POST",
+			url : "/BePhitResearchApp/check_lost",
+			data : "stream_id=" + id +"&no_of_days="+days+"&frequency="+frequency,
+			
+			success : function(response) {
+				// we have the response  
+				$('#info3').html(response);
+				/*     $('#education').val(''); */
+			},
+			error : function(e) {
+				alert('Error: ' + e);
+			}
+		});
+			$("#tc").html('');
+	  
+	}
+	else if($(this).val()=='')
+		{
+		$("#info3").html('');
+		}
+}).keydown(function() {
+    oldValue = $(this).val();
+})
+});
+</script>	
 
 
 
@@ -88,7 +155,7 @@ $(function() {
 									<td valign="middle" align="right" class="input_txt" width="200">Broadcast
 										Id :</td>
 									<td valign="top" align="left" class="input_txt">${currentbroad}</td>
-									<input type="hidden" name="broad_id" value="${currentbroad}">
+									<input type="hidden" name="broad_id" value="${currentbroad}"/>
 								</tr>
 								<tr class="row2">
 									<td valign="middle" align="right" class="input_txt">Stream
@@ -119,7 +186,7 @@ $(function() {
 									<td valign="middle" align="right" class="input_txt">Frequency
 										:</td>
 									<td valign="top" align="left" class="input_txt">
-									<select name="frequency" class="input_cmbbx1"
+									<select name="frequency" id="frequency" class="input_cmbbx1"
 										onchange="openNewDiv(this.value)">
 											<option value="0" selected="selected">One Per Day</option>
 											<option value="1">Two Per Day</option>
@@ -132,7 +199,7 @@ $(function() {
 									<td valign="middle" align="right" class="input_txt1" id="days">No of Days :</td>
 									<td valign="top" align="left" id="daystext">
 										<input type="text" name="days_weeks"
-										id="" class="input_txtbx1" value=""></br> <span
+										id="days_weeks" class="input_txtbx1" value=""><span style="margin-left:10px;color:red;" id="info3"></span></br> <span
 										class="err"><form:errors path="broadCast.start_date"></form:errors></span>
 									</td>
 									</td>
@@ -169,31 +236,23 @@ $(function() {
 									<td valign="middle" align="right" class="input_txt" width="200">Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="fstream_time" class="input_cmbbx1">
-											<option value="00" selected="selected">00&nbsp;</option>
-											<option value="01">01&nbsp;</option>
-											<option value="02">02&nbsp;</option>
-											<option value="03">03&nbsp;</option>
-											<option value="04">04&nbsp;</option>
-											<option value="05">05&nbsp;</option>
-											<option value="06">06&nbsp;</option>
-											<option value="07">07&nbsp;</option>
-											<option value="08">08&nbsp;</option>
-											<option value="09">09&nbsp;</option>
+											<option value="1" selected="selected">1&nbsp;</option>
+											<option value="2">2&nbsp;</option>
+											<option value="3">3&nbsp;</option>
+											<option value="4">4&nbsp;</option>
+											<option value="5">5&nbsp;</option>
+											<option value="6">6&nbsp;</option>
+											<option value="7">7&nbsp;</option>
+											<option value="8">8&nbsp;</option>
+											<option value="9">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
-											<option value="13">13&nbsp;</option>
-											<option value="14">14&nbsp;</option>
-											<option value="15">15&nbsp;</option>
-											<option value="16">16&nbsp;</option>
-											<option value="17">17&nbsp;</option>
-											<option value="18">18&nbsp;</option>
-											<option value="19">19&nbsp;</option>
-											<option value="20">20&nbsp;</option>
-											<option value="21">21&nbsp;</option>
-											<option value="22">22&nbsp;</option>
-											<option value="23">23&nbsp;</option>
-									</select></td>
+											</select>
+									<select name="fstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="am">AM&nbsp;</option>
+											<option value="pm">PM&nbsp;</option>
+								   </select></td>
 								</tr>
 							</table>
 
@@ -205,31 +264,23 @@ $(function() {
 										Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="fstream_time" class="input_cmbbx1">
-											<option value="00" selected="selected">00&nbsp;</option>
-											<option value="01">01&nbsp;</option>
-											<option value="02">02&nbsp;</option>
-											<option value="03">03&nbsp;</option>
-											<option value="04">04&nbsp;</option>
-											<option value="05">05&nbsp;</option>
-											<option value="06">06&nbsp;</option>
-											<option value="07">07&nbsp;</option>
-											<option value="08">08&nbsp;</option>
-											<option value="09">09&nbsp;</option>
+											<option value="1" selected="selected">1&nbsp;</option>
+											<option value="2">2&nbsp;</option>
+											<option value="3">3&nbsp;</option>
+											<option value="4">4&nbsp;</option>
+											<option value="5">5&nbsp;</option>
+											<option value="6">6&nbsp;</option>
+											<option value="7">7&nbsp;</option>
+											<option value="8">8&nbsp;</option>
+											<option value="9">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
-											<option value="13">13&nbsp;</option>
-											<option value="14">14&nbsp;</option>
-											<option value="15">15&nbsp;</option>
-											<option value="16">16&nbsp;</option>
-											<option value="17">17&nbsp;</option>
-											<option value="18">18&nbsp;</option>
-											<option value="19">19&nbsp;</option>
-											<option value="20">20&nbsp;</option>
-											<option value="21">21&nbsp;</option>
-											<option value="22">22&nbsp;</option>
-											<option value="23">23&nbsp;</option>
-									</select></td>
+											</select>
+									<select name="fstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="am">AM&nbsp;</option>
+											<option value="pm">PM&nbsp;</option>
+								   </select></td>
 								</tr>
 
 
@@ -238,33 +289,25 @@ $(function() {
 								<tr class="row1">
 									<td valign="middle" align="right" class="input_txt">Second
 										Message sending Time :</td>
-									<td valign="top" align="left" class="input_txt"><select
-										name="sstream_time" class="input_cmbbx1">
-											<option value="00" selected="selected">00&nbsp;</option>
-											<option value="01">01&nbsp;</option>
-											<option value="02">02&nbsp;</option>
-											<option value="03">03&nbsp;</option>
-											<option value="04">04&nbsp;</option>
-											<option value="05">05&nbsp;</option>
-											<option value="06">06&nbsp;</option>
-											<option value="07">07&nbsp;</option>
-											<option value="08">08&nbsp;</option>
-											<option value="09">09&nbsp;</option>
+									<td valign="top" align="left" class="input_txt">
+									<select name="sstream_time" class="input_cmbbx1">
+											<option value="1" selected="selected">1&nbsp;</option>
+											<option value="2">2&nbsp;</option>
+											<option value="3">3&nbsp;</option>
+											<option value="4">4&nbsp;</option>
+											<option value="5">5&nbsp;</option>
+											<option value="6">6&nbsp;</option>
+											<option value="7">7&nbsp;</option>
+											<option value="8">8&nbsp;</option>
+											<option value="9">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
-											<option value="13">13&nbsp;</option>
-											<option value="14">14&nbsp;</option>
-											<option value="15">15&nbsp;</option>
-											<option value="16">16&nbsp;</option>
-											<option value="17">17&nbsp;</option>
-											<option value="18">18&nbsp;</option>
-											<option value="19">19&nbsp;</option>
-											<option value="20">20&nbsp;</option>
-											<option value="21">21&nbsp;</option>
-											<option value="22">22&nbsp;</option>
-											<option value="23">23&nbsp;</option>
-									</select></td>
+											</select>
+									<select name="sstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="am">AM&nbsp;</option>
+											<option value="pm">PM&nbsp;</option>
+								   </select></td></td>
 								</tr>
 							</table>
 
@@ -276,8 +319,9 @@ $(function() {
 									<td valign="middle" align="right" class="input_txt" width="200">
 										Message Sending Day :</td>
 									<td valign="top" align="left" class="input_txt"><select
-										name="stream_week_day" class="input_cmbbx1">
-											<option value="0" selected="selected">Sunday</option>
+										name="stream_week_day" id="stream_week_day" onchange="doAjaxPost_week()" class="input_cmbbx1">
+										<option  selected="selected">Select Day</option>
+											<option value="0">Sunday</option>
 											<option value="1">Monday</option>
 											<option value="2">Tuesday</option>
 											<option value="3">Wednesday</option>
@@ -285,7 +329,7 @@ $(function() {
 											<option value="5">Friday</option>
 											<option value="6">Saturday</option>
 
-									</select></td>
+									</select><span style="margin-left:10px;color:green;" id="info2"></span></td>
 								</tr>
 							</table>
 							<table cellpadding="0" cellspacing="0" border="0" width="100%" class="margin_table"
@@ -293,33 +337,24 @@ $(function() {
 								<tr class="row1">
 									<td valign="middle" align="right" class="input_txt" width="200">Message Sending
 										Time :</td>
-									<td valign="top" align="left" class="input_txt"><select
-										name="fstream_time" class="input_cmbbx1">
-											<option value="00" selected="selected">00&nbsp;</option>
-											<option value="01">01&nbsp;</option>
-											<option value="02">02&nbsp;</option>
-											<option value="03">03&nbsp;</option>
-											<option value="04">04&nbsp;</option>
-											<option value="05">05&nbsp;</option>
-											<option value="06">06&nbsp;</option>
-											<option value="07">07&nbsp;</option>
-											<option value="08">08&nbsp;</option>
-											<option value="09">09&nbsp;</option>
+									<td valign="top" align="left" class="input_txt"><select name="fstream_time" class="input_cmbbx1">
+											<option value="1" selected="selected">1&nbsp;</option>
+											<option value="2">2&nbsp;</option>
+											<option value="3">3&nbsp;</option>
+											<option value="4">4&nbsp;</option>
+											<option value="5">5&nbsp;</option>
+											<option value="6">6&nbsp;</option>
+											<option value="7">7&nbsp;</option>
+											<option value="8">8&nbsp;</option>
+											<option value="9">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
-											<option value="13">13&nbsp;</option>
-											<option value="14">14&nbsp;</option>
-											<option value="15">15&nbsp;</option>
-											<option value="16">16&nbsp;</option>
-											<option value="17">17&nbsp;</option>
-											<option value="18">18&nbsp;</option>
-											<option value="19">19&nbsp;</option>
-											<option value="20">20&nbsp;</option>
-											<option value="21">21&nbsp;</option>
-											<option value="22">22&nbsp;</option>
-											<option value="23">23&nbsp;</option>
-									</select></td>								</tr>
+											</select>
+									<select name="fstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="am">AM&nbsp;</option>
+											<option value="pm">PM&nbsp;</option>
+								   </select></td>								</tr>
 							</table>
 							
 							
@@ -337,6 +372,8 @@ $(function() {
 <script language="JavaScript">
 	function openNewDiv(val) {
 		// alert(val);
+		
+		
 		if (val == '0') {
 			document.getElementById("one").style.display = 'block';
 			document.getElementById("days").style.display = 'block';
