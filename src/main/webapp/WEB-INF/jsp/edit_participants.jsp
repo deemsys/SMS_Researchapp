@@ -412,21 +412,23 @@
                
 		<tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Mobile No :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.mobile_num}" name="mobile_num" /></br><c:if test="${mobile_exists ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>Mobile Number already exists </font>	<br/></c:if><form:errors path="participant.mobile_num"></form:errors></span> </font></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.mobile_num}" name="mobile_num" /></br><font
+													color="Red" size="+1"><span id="spnlname"></span><c:if test="${mobile_exists ==true}">Mobile Number already exists </font>	<br/></c:if><form:errors path="participant.mobile_num"></form:errors></span> </font></td>
                 </tr> 
 		<tr class="row2">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Email-Id :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.email_id}" name="email_id" /></br><c:if test="${email_exist ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>Email already exists </font>	<br/></c:if><form:errors path="participant.email_id"></form:errors></span> </font></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.email_id}" name="email_id" /></br><font
+													color="Red" size="+1"><span id="spnlname"><c:if test="${email_exist ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>Email already exists </font>	<br/></c:if><form:errors path="participant.email_id"></form:errors></span> </font></td>
                 </tr> 
 
 		<tr class="row1">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Gender :</td>
+                  <td valign="middle" align="left" class="input_txt"> Gender :</td>
                   <td valign="top" align="left" class="input_txt">
                   <input type="radio" name="gender" value="0"  class="input_txt" <c:if test="${addparticipants.gender=='0'}"><c:out value="checked=checked"/></c:if>>Male&nbsp;&nbsp;&nbsp;  
                   <input type="radio" name="gender" value="1"  class="input_txt" <c:if test="${addparticipants.gender=='1'}"><c:out value="checked=checked"/></c:if>> Female</td>
                 </tr>
 		 <tr class="row2">
-                 <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Age :</td>
+                 <td valign="middle" align="left" class="input_txt"> Age :</td>
                  <td valign="top" align="left" class="input_txt"><select name="age" class="input_cmbbx1">
                  <option value="" <c:if test="${addparticipants.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
                  <option value="12-20 years" <c:if test="${addparticipants.age=='12-20 years'}"><c:out value="selected"/></c:if>>12-20 &#160 years</option>
@@ -443,11 +445,11 @@
                 </tr>
 		
                 <tr class="row1">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> City :</td>
+                  <td valign="middle" align="left" class="input_txt"> City :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.city}" name="city"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.city"></form:errors></span> </font></td>
                 </tr>
 		 <tr class="row2">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Education :</td>
+                  <td valign="middle" align="left" class="input_txt"> Education :</td>
                   <td valign="top" align="left" class="input_txt"><select name="education" class="input_cmbbx1">
                     <option value="School" <c:if test="${addparticipants.education=='School'}"><c:out value="selected"/></c:if>>School</option>
 			<option value="Some College" <c:if test="${addparticipants.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
@@ -458,7 +460,7 @@
   
               
             <tr class="row1">
-                  <td valign="top" align="left" class="input_txt"><span class="err">*</span> Medical Details :</td>
+                  <td valign="top" align="left" class="input_txt"> Medical Details :</td>
                   <td valign="top" align="left" class="input_txt"><textarea class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');"  style="width: 220px; height: 89px;" name="medical_details"/>${addparticipants.medical_details }</textarea></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.medical_details"></form:errors></span></font></td></tr>
                
 </table></td>
