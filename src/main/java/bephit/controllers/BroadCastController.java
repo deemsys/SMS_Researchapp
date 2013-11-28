@@ -279,7 +279,7 @@ public class BroadCastController {
 				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-days_weeks)+" messages";
 	
 		}
-		else
+		else if(frequency==1)
 		{
 			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>(days_weeks*2))
 			{
@@ -287,8 +287,14 @@ public class BroadCastController {
 				
 			}
 		}
-		
-			
+		else if(frequency==3)
+		{
+			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>(days_weeks*3))
+			{
+				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-(days_weeks*3))+" messages";
+				
+			}
+		}			
 		return returnText;
 		
 	}
