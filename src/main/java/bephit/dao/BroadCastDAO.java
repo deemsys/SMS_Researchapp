@@ -97,8 +97,11 @@ public class BroadCastDAO {
 		}
 		try {
 //			DateFormat dateFormat=new SimpleDateFormat();
-
-			String cmd = "INSERT INTO broad_cast_table(broad_id,stream_id,group_id,frequency,days_weeks,start_date,fstream_time,sstream_time,stream_week_day,status,created_by) values('"
+	
+			
+			
+			
+			String cmd = "INSERT INTO broad_cast_table(broad_id,stream_id,group_id,frequency,days_weeks,start_date,fstream_time,sstream_time,tstream_time,fstream_time_am_pm,sstream_time_am_pm,tstream_time_am_pm,stream_week_day,status,created_by) values('"
 					+ broadCast.getBroad_id()
 					+ "','"
 					+ broadCast.getStream_id()
@@ -115,6 +118,14 @@ public class BroadCastDAO {
 					+ "','"
 					+ broadCast.getSstream_time()
 					+ "','"
+					+ broadCast.getTstream_time()
+					+ "','"
+					+ broadCast.getFstream_time_am_pm()
+					+ "','"
+					+ broadCast.getSstream_time_am_pm()
+					+"','"
+					+ broadCast.getTstream_time_am_pm()
+					+"','"					
 					+ broadCast.getStream_week_day() + "','0','"+userName+"')";
 			System.out.println(cmd);
 			statement.execute(cmd);

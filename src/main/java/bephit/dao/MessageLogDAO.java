@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.sql.DataSource;
 
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import bephit.model.MessageLog;
 import org.joda.*;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeComparator;
 import org.joda.time.DateTimeZone;
 
 public class MessageLogDAO {
@@ -44,7 +46,17 @@ public class MessageLogDAO {
 			e1.printStackTrace();
 		}
 		List<MessageLog> messagelog = new ArrayList<MessageLog>();
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		//
+		//--------------------------Time Zone-----------------------------//
+        /*DateTimeZone TZ=DateTimeZone.forID("EST");
+		DateTime today_date = new DateTime(TZ);
+		today_date=dateFormat.
+		System.out.println("Today Date:"+today_date);*/
+		TimeZone zone=TimeZone.getTimeZone("EST");
+		dateFormat.setTimeZone(zone);
+		//------------------------End Time Zone-------------------------//
+	
 		Date date = new Date();
 
 		try
@@ -157,7 +169,9 @@ public class MessageLogDAO {
 			e1.printStackTrace();
 		}
 		List<MessageLog> messagelog = new ArrayList<MessageLog>();
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		TimeZone zone=TimeZone.getTimeZone("EST");
+		dateFormat.setTimeZone(zone);
 		Date date = new Date();
 		try
 		{
