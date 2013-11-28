@@ -46,7 +46,7 @@ public class ParticipantsDetails {
 
 	private String time3;
 	
-	@NotEmpty
+	
 	private String Provider_name;
 	
 	@NotEmpty

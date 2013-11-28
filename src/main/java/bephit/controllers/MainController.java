@@ -428,8 +428,13 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 			//groups=partDAO.getparticipantGroups();
 			
 			//System.out.println("groups"+groups);
-	        
-			if(email_count==0)
+	        if(email_count==0 && mobile_count==0)
+	        {
+	        	model.addAttribute("email_exists","true");
+	        	model.addAttribute("mobile_exists","true");
+	        }
+			
+	        else if(email_count==0)
 			{
 				System.out.println("email exists");
 				model.addAttribute("email_exists","true");
@@ -459,6 +464,12 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		}
 		else
 		{
+			if(email_count==0 && mobile_count==0)
+	        {
+	        	model.addAttribute("email_exists","true");
+	        	model.addAttribute("mobile_exists","true");
+	        	return "/addparticipants";
+	        }
 		if(email_count==0)
 		{
 			System.out.println("email exists");
@@ -543,6 +554,11 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 			participantGroupForm.setParticipantGroups(partDAO.getAllGroups());        
 			
+			if(email_count==0 && mobile_count==0)
+	        {
+	        	model.addAttribute("email_exists","true");
+	        	model.addAttribute("mobile_exists","true");
+	        }
 			if(email_count==0)
 			{
 				System.out.println("email exists");
@@ -572,6 +588,13 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		{
 			System.out.println("else email count: "+email_count);
 			System.out.println("else mobile: "+mobile_count);
+			
+			if(email_count==0 && mobile_count==0)
+	        {
+	        	model.addAttribute("email_exists","true");
+	        	model.addAttribute("mobile_exists","true");
+	        	return "/registerparticipants";
+	        }
 			
 			if(email_count==0)
 			{
@@ -783,13 +806,23 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 					return "/addparticipantgroups";
 					
 				}
-		
          ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
  		participantGroupForm.setParticipantGroups(partDAO.getGroups());
          model.addAttribute("participantGroupForm", participantGroupForm);
-         partDAO.setParticipantGroup(pgroups);
-         model.addAttribute("menu","groups");
+         partDAO.setParticipantGroup(pgroups);   
+                 
+         //pagination 
+         model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
+         model.addAttribute("noofrows",participantGroupForm.getParticipantGroups().size());       
+         participantGroupForm.setParticipantGroups(partDAO.getlimitedParticipants_group(1));
+ 		model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 5));
+ 		
+         model.addAttribute("button","viewall");
+         model.addAttribute("currentpage",1);
          model.addAttribute("success","true");
+         model.addAttribute("menu","groups");
+         //end pagination
+        
 		return "viewparticipantgroups";
 
 		}
@@ -964,15 +997,14 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	
 	
 	@RequestMapping(value="/editparticipant", method=RequestMethod.GET)
-	public String editParticipant(HttpServletRequest request,@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	public String editParticipant(HttpSession session,HttpServletRequest request,@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
 	{
 	
-		
+		session.removeAttribute("addparticipants");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
         participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-		
+		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();		
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
 		List<String> group=new ArrayList<String>();
@@ -985,12 +1017,40 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	
 	
 	@RequestMapping(value="/updateparticipant", method=RequestMethod.POST)
-	public String updateParticipant(HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
+	public String updateParticipant(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model,Principal principal)
-	{
+	{		
+		session.setAttribute("addparticipants", participant);
+		int email_count=mainDAO.checkemail(participant.getEmail_id(),1,participant.getParticipants_id());
+		int mobile_count=mainDAO.checkmobile(participant.getMobile_num(),1,participant.getParticipants_id());
+
 		
 		if (result.hasErrors())
 		{
+
+			        
+			if(email_count==0 && mobile_count==0)
+			{
+				model.addAttribute("email_exist","true");
+				model.addAttribute("menu","participants");
+				model.addAttribute("mobile_exists","true");
+				model.addAttribute("menu","participants");
+						
+			}
+			
+			else if(email_count==0)
+					{
+						System.out.println("email exists");
+						model.addAttribute("email_exist","true");
+						
+					}
+			else if(mobile_count==0)
+					{ 
+						System.out.println("mobile exists");
+						model.addAttribute("mobile_exists","true");
+									
+					} 	
+			
 			    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 	            participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participant.getParticipants_id()));	               
 			    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
@@ -1000,6 +1060,44 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 				
 		        return "edit_participants";
 		}
+		
+		else			
+		{
+			
+			
+			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+			participantGroupForm.setParticipantGroups(partDAO.getGroups());				
+			model.addAttribute("participantGroupForm", participantGroupForm);
+			System.out.println("else email count: "+email_count);
+			System.out.println("else mobile: "+mobile_count);
+			
+			if(email_count==0 && mobile_count==0)
+			{
+				model.addAttribute("email_exist","true");
+				model.addAttribute("menu","participants");
+				model.addAttribute("mobile_exists","true");
+				model.addAttribute("menu","participants");
+				return "edit_participants";
+				
+			}
+			
+			if(email_count==0)
+			{
+				System.out.println("email exists");
+				model.addAttribute("email_exist","true");
+				model.addAttribute("menu","participants");
+				return "edit_participants";
+						
+			}
+			else if(mobile_count==0)
+			{ 
+				System.out.println("mobile exists");
+				model.addAttribute("mobile_exists","true");
+				model.addAttribute("menu","participants");
+				return "edit_participants";
+							
+			}		
+		
 		String groups[]=request.getParameterValues("group_name");
 		int status=mainDAO.updateParticipants(participant, participant.getParticipants_id(),principal.getName(),groups,1);
 		String participantid=participant.getParticipants_id();
@@ -1012,12 +1110,11 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
         participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
-		    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-			participantGroupForm.setParticipantGroups(partDAO.getGroups());
-	        model.addAttribute("participantGroupForm", participantGroupForm);
+		   
 	        model.addAttribute("menu","participants");
 	        model.addAttribute("success","true");
 		return "viewparticipants";
+		}
 	}
 	@RequestMapping(value="/updateregisterparticipant", method=RequestMethod.POST)
 	public String updateregisterParticipant(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
@@ -1051,13 +1148,18 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 			participantGroupForm.setParticipantGroups(partDAO.getGroups());        
 			
-			if(email_count==0)
+			if(email_count==0 && mobile_count==0 )
+			{
+				model.addAttribute("email_exist","true");
+				model.addAttribute("mobile_exists","true");
+			}
+			else if(email_count==0)
 			{
 				System.out.println("email exists");
 				model.addAttribute("email_exist","true");
 				
 			}
-			if(mobile_count==0)
+			else if(mobile_count==0)
 			{ 
 				System.out.println("mobile exists");
 				model.addAttribute("mobile_exists","true");
@@ -1081,6 +1183,12 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			System.out.println("else email count: "+email_count);
 			System.out.println("else mobile: "+mobile_count);
 			
+			if(email_count==0 && mobile_count==0 )
+			{
+				model.addAttribute("email_exist","true");
+				model.addAttribute("mobile_exists","true");
+				return "/editregisterparticipant";
+			}
 			if(email_count==0)
 			{
 				System.out.println("email exists");

@@ -107,7 +107,17 @@
               <tr class="row1">  
               <td width="15%" valign="middle" align="left" ></td>
               <td width="5%" valign="middle" align="left" >
-              <a href="welcome" class="paging_select"> <input type="button" onclick="goBack()" value="Back" class="submit_btn"/> </a>
+             
+              
+              <c:choose> 
+              <c:when test="${menu=='dashboard'}">
+               <a class="paging_select" href="welcome"><input type="button" onclick="goBack()" value="Back" class="submit_btn"/></a>
+              </c:when>
+              <c:otherwise>
+                 <a class="paging_select" href="viewparticipants"><input type="button" onclick="goBack()" value="Back" class="submit_btn"/></a>
+            
+              </c:otherwise>
+              </c:choose>
               </td>
               </tr>
              
