@@ -32,13 +32,55 @@ public class BroadCast {
 	@NotEmpty
 	private String sstream_time;
 	
+	
+	@NotEmpty
+	private String tstream_time;
+	
+	
+	@NotEmpty
+	private String fstream_time_am_pm;
+	
+	public String getTstream_time() {
+		return tstream_time;
+	}
+
+	public void setTstream_time(String tstream_time) {
+		this.tstream_time = tstream_time;
+	}
+	@NotEmpty
+	private String sstream_time_am_pm;
+	
+	public String getFstream_time_am_pm() {
+		return fstream_time_am_pm;
+	}
+
+	public void setFstream_time_am_pm(String fstream_time_am_pm) {
+		this.fstream_time_am_pm = fstream_time_am_pm;
+	}
+
+	public String getSstream_time_am_pm() {
+		return sstream_time_am_pm;
+	}
+
+	public void setSstream_time_am_pm(String sstream_time_am_pm) {
+		this.sstream_time_am_pm = sstream_time_am_pm;
+	}
 	@NotEmpty
 	private String stream_week_day;
 
+	@NotEmpty
+	private String tstream_time_am_pm;
 	
 	
 	
-	
+	public String getTstream_time_am_pm() {
+		return tstream_time_am_pm;
+	}
+
+	public void setTstream_time_am_pm(String tstream_time_am_pm) {
+		this.tstream_time_am_pm = tstream_time_am_pm;
+	}
+
 	public BroadCast()
 	{
 	
@@ -91,6 +133,29 @@ public class BroadCast {
 	public String getDays_weeks() {
 		return days_weeks;
 	}
+	public BroadCast(String br_id, String broad_id, String stream_id,
+			String group_id, String days_weeks, String frequency,
+			String start_date, String status, String fstream_time,
+			String sstream_time,String tstream_time, String fstream_time_am_pm,
+			String sstream_time_am_pm,String tstream_time_am_pm, String stream_week_day) {
+		super();
+		this.br_id = br_id;
+		this.broad_id = broad_id;
+		this.stream_id = stream_id;
+		this.group_id = group_id;
+		this.days_weeks = days_weeks;
+		this.frequency = frequency;
+		this.start_date = start_date;
+		this.status = status;
+		this.fstream_time = fstream_time;
+		this.sstream_time = sstream_time;
+		this.sstream_time = tstream_time;
+		this.fstream_time_am_pm = fstream_time_am_pm;
+		this.sstream_time_am_pm = sstream_time_am_pm;
+		this.tstream_time_am_pm = tstream_time_am_pm;
+		this.stream_week_day = stream_week_day;
+	}
+
 	public void setDays_weeks(String days_weeks) {
 		this.days_weeks = days_weeks;
 	}

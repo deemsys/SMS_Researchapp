@@ -9,6 +9,10 @@ public class MessageList {
 	private String startdate;
 	private String provider_first_message_time;
 	private String provider_second_message_time;
+	private String provider_third_message_time;
+	private String provider_first_am_pm;
+	private String provider_second_am_pm;
+	private String provider_third_am_pm;	
 	private String provider_week_message_day;
 	private String participant_id;
 	private String username;
@@ -18,14 +22,35 @@ public class MessageList {
 	private String time3;
 	private String message_count;	
 	private String textingcontacts;	
+	private String days_weeks;
 	
+	
+	
+	public String getDays_weeks() {
+		return days_weeks;
+	}
+
+
+
+
+
+	public void setDays_weeks(String days_weeks) {
+		this.days_weeks = days_weeks;
+	}
+
+
+
+
+
 	public MessageList(String broad_id, String stream_id, String group_id,
 			String frequency, String startdate,
 			String provider_first_message_time,
 			String provider_second_message_time,
+			String provider_third_message_time, String provider_first_am_pm,
+			String provider_second_am_pm, String provider_third_am_pm,
 			String provider_week_message_day, String participant_id,
-			String username, String mobile_num,String time1, String time2,
-			String time3,String message_count,String textingcontacts) {
+			String username, String mobile_num, String time1, String time2,
+			String time3, String message_count, String textingcontacts,String days_weeks) {
 		super();
 		this.broad_id = broad_id;
 		this.stream_id = stream_id;
@@ -34,16 +59,26 @@ public class MessageList {
 		this.startdate = startdate;
 		this.provider_first_message_time = provider_first_message_time;
 		this.provider_second_message_time = provider_second_message_time;
+		this.provider_third_message_time = provider_third_message_time;
+		this.provider_first_am_pm = provider_first_am_pm;
+		this.provider_second_am_pm = provider_second_am_pm;
+		this.provider_third_am_pm = provider_third_am_pm;
 		this.provider_week_message_day = provider_week_message_day;
 		this.participant_id = participant_id;
 		this.username = username;
 		this.mobile_num = mobile_num;
 		this.time1 = time1;
 		this.time2 = time2;
-		this.time3 = time3;		
-		this.message_count=message_count;
-		this.textingcontacts=textingcontacts;
-		}
+		this.time3 = time3;
+		this.message_count = message_count;
+		this.textingcontacts = textingcontacts;
+		this.days_weeks=days_weeks;
+	}
+	
+	
+	
+	
+	
 	public String getMessage_count() {
 		return message_count;
 	}
@@ -172,7 +207,31 @@ public class MessageList {
 		this.time3 = time3;
 	}
 
-	
+	public String getProvider_third_message_time() {
+		return provider_third_message_time;
+	}
+	public void setProvider_third_message_time(String provider_third_message_time) {
+		this.provider_third_message_time = provider_third_message_time;
+	}
+	public String getProvider_first_am_pm() {
+		return provider_first_am_pm;
+	}
+	public void setProvider_first_am_pm(String provider_first_am_pm) {
+		this.provider_first_am_pm = provider_first_am_pm;
+	}
+	public String getProvider_second_am_pm() {
+		return provider_second_am_pm;
+	}
+	public void setProvider_second_am_pm(String provider_second_am_pm) {
+		this.provider_second_am_pm = provider_second_am_pm;
+	}
+	public String getProvider_third_am_pm() {
+		return provider_third_am_pm;
+	}
+	public void setProvider_third_am_pm(String provider_third_am_pm) {
+		this.provider_third_am_pm = provider_third_am_pm;
+	}
+
  
    
 
