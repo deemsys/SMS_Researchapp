@@ -1,5 +1,7 @@
 package bephit.controllers;
  
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -882,8 +884,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	}*/
 	@RequestMapping(value="/editregisterparticipant", method=RequestMethod.GET)
 	public String editregisterparticipantsettings(HttpSession session,HttpServletRequest request,ModelMap model) {
-		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
-		
+		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();		
 		session.removeAttribute("participants");
 		String participants_id=mainDAO.getparticipantid();
 		System.out.println("participant id"+participants_id);	
@@ -891,8 +892,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		name=mainDAO.getproviders(participants_id);
 		System.out.println("maindao----------"+name);
 		model.addAttribute("provider",name);
-		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
-		
+		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));		
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		List<String>  strlist=new ArrayList<String>(); 
 		List<String>  strlist1=new ArrayList<String>(); 		
@@ -1120,6 +1120,17 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	public String updateregisterParticipant(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model,Principal principal)
 	{
+		
+		InetAddress IP;
+		try {
+			IP = InetAddress.getLocalHost();
+			System.out.println("IP of my system is := "+IP.getHostAddress());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		String fname=request.getParameter("fname");
 		session.setAttribute("participants",participant);
 		
