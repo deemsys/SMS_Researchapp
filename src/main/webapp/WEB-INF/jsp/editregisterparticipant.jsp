@@ -204,7 +204,12 @@ else
 													type="text" class="input_txtbx1" id="mno"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="mobile_num"
-													value="${participantsDetails.mobile_num}" /></br> <font
+													value="${participantsDetails.mobile_num}" /></br> <c:if test="${mobile_exists ==true}">
+													<font
+													color="Red" size="+1"><span id="spnlname"></span>Mobile name already exists </font>
+													</c:if>	
+															
+												<font
 													color="Red" size="+1"><span id="spnmno"><form:errors
 																path="participant.mobile_num"></form:errors> </span></font></td>
 											</tr>
@@ -215,11 +220,12 @@ else
 													type="text" class="input_txtbx1" id="eid"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="email_id"
-													value="${participantsDetails.email_id}" /></br> <c:if
-														test="${user_exists ==true}">
-														<font color="Red" size="+1"><span id="spnlname"></span>Email-id
-															already exists <form:errors path="participant.email_id"></form:errors>
-													</c:if></font></td>
+													value="${participantsDetails.email_id}" /></br> <c:if test="${email_exist ==true}">
+													<font
+													color="Red" size="+1"><span id="spnlname"></span>Email id already exists </font>
+													</c:if>	
+													<font color="Red" size="+1"><span id="spneid"><form:errors
+																path="participant.email_id"></form:errors> </span></font></td>
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
@@ -647,7 +653,12 @@ else
 													type="text" class="input_txtbx1" id="mno"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="mobile_num"
-													value="${participants.mobile_num}" /></br> <font
+													value="${participants.mobile_num}" /></br> <c:if test="${mobile_exists ==true}">
+													<font
+													color="Red" size="+1"><span id="spnlname"></span>Mobile name already exists </font>
+													</c:if>	
+															
+												<font
 													color="Red" size="+1"><span id="spnmno"><form:errors
 																path="participant.mobile_num"></form:errors> </span></font></td>
 											</tr>
@@ -658,8 +669,12 @@ else
 													type="text" class="input_txtbx1" id="eid"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="email_id"
-													value="${participants.email_id}" /></br>	 <font color="Red" size="+1"><span id="spnlname"><c:if test="${email_exists ==true}">Email-id already exists</c:if></span><form:errors
-															path="participant.email_id"></form:errors></font></td>
+													value="${participants.email_id}" /></br>	<c:if test="${email_exist ==true}">
+													<font
+													color="Red" size="+1"><span id="spnlname"></span>Email id already exists </font>
+													</c:if>	
+													<font color="Red" size="+1"><span id="spneid"><form:errors
+																path="participant.email_id"></form:errors> </span></font></td>
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
