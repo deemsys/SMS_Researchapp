@@ -430,21 +430,19 @@ public class MainDAO {
 			catch(Exception ex)
 			{
 				
-			}
-			
-			
+			}	
 			
 			
 			System.out.println("insertcmd"+cmd);
 			
 			resultSet= statement.executeQuery("select  max(participants_id) as participant from participants_table;");
 			String participants="";
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			/*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			UserDetails userDetails = null;
 			if (principal instanceof UserDetails) {
 			  userDetails = (UserDetails) principal;
 			}
-			String userName = userDetails.getUsername();
+			String userName = userDetails.getUsername();*/
 			if(resultSet.next())
 				{
 				participants=resultSet.getString("participant");
@@ -489,7 +487,7 @@ public class MainDAO {
 					+ admin_id
 					+ "','127.0.0.1','"
 					+ dateFormat.format(date)
-					+ "','" + Desc + "','"+userName+"')";
+					+ "','" + Desc + "','"+providername+"')";
 			System.out.println(cmd_activity);
 			statement.execute(cmd_activity);
 			flag = 1;
