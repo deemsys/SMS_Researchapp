@@ -171,8 +171,6 @@ public class MainController {
 		}
 		
 	}
-
-	
 	
 	
 	@RequestMapping(value="/AddUser.htm",method=RequestMethod.POST)
@@ -853,7 +851,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	public String editregisterparticipantsettings(HttpSession session,HttpServletRequest request,ModelMap model) {
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		
-		session.removeAttribute("editregister");
+		session.removeAttribute("participants");
 		String participants_id=mainDAO.getparticipantid();
 		System.out.println("participant id"+participants_id);	
 		String name;
@@ -861,6 +859,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		System.out.println("maindao----------"+name);
 		model.addAttribute("provider",name);
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(participants_id));
+		
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
 		List<String>  strlist=new ArrayList<String>(); 
 		List<String>  strlist1=new ArrayList<String>(); 		
@@ -868,7 +867,8 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	    /*participantGroupForm.setParticipantGroups(partDAO.getGroups1(user.getName()));
 		model.addAttribute("participantGroupForm", participantGroupForm);*/
 		strlist=partDAO.getGroups(name);
-		session.setAttribute("groups",strlist);
+		//session.setAttribute("groups",strlist);
+		model.addAttribute("groups",strlist);
 		strlist1=partDAO.getparticipantGroups(participants_id);
 		//session.setAttribute("group",strlist1);
 		model.addAttribute("group",strlist1);
@@ -1023,6 +1023,11 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	public String updateregisterParticipant(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model,Principal principal)
 	{
+		String fname=request.getParameter("fname");
+		session.setAttribute("participants",participant);
+		
+		
+		
 		
 		String providername=request.getParameter("Provider_name");
 		System.out.println("providername"+providername);
