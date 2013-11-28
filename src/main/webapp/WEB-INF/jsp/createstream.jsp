@@ -124,7 +124,6 @@ var $in = xx+1;
 
 	
 	}
-
 	function validate()
 	{
 	

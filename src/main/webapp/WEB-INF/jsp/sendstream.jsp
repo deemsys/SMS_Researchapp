@@ -71,9 +71,9 @@ $("#textingcontacts").keyup(function() {
 				$('#info2').html(response);
 				/*     $('#education').val(''); */
 			},
-			error : function(e) {
+			/* error : function(e) {
 				alert('Error: ' + e);
-			}
+			} */
 		});
 	}
 </script>
@@ -103,7 +103,7 @@ $("#days_weeks").keyup(function() {
 				/*     $('#education').val(''); */
 			},
 			error : function(e) {
-				alert('Error: ' + e);
+				$("#info3").html('Kindly select stream name and group name!!');
 			}
 		});
 			$("#tc").html('');
@@ -112,6 +112,10 @@ $("#days_weeks").keyup(function() {
 	else if($(this).val()=='')
 		{
 		$("#info3").html('');
+		}
+	else
+		{
+		$("#info3").html('Kindly give a number!!');
 		}
 }).keydown(function() {
     oldValue = $(this).val();
@@ -237,22 +241,22 @@ $("#days_weeks").keyup(function() {
 									<td valign="middle" align="right" class="input_txt" width="200">Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="fstream_time" class="input_cmbbx1">
-											<option value="1" selected="selected">1&nbsp;</option>
-											<option value="2">2&nbsp;</option>
-											<option value="3">3&nbsp;</option>
-											<option value="4">4&nbsp;</option>
-											<option value="5">5&nbsp;</option>
-											<option value="6">6&nbsp;</option>
-											<option value="7">7&nbsp;</option>
-											<option value="8">8&nbsp;</option>
-											<option value="9">9&nbsp;</option>
+											<option value="01" selected="selected">1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
 											</select>
 									<select name="fstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
-											<option value="am">AM&nbsp;</option>
-											<option value="pm">PM&nbsp;</option>
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
 								   </select></td>
 								</tr>
 							</table>
@@ -265,74 +269,124 @@ $("#days_weeks").keyup(function() {
 										Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="fstream_time" class="input_cmbbx1">
-											<option value="1" selected="selected">1&nbsp;</option>
-											<option value="2">2&nbsp;</option>
-											<option value="3">3&nbsp;</option>
-											<option value="4">4&nbsp;</option>
-											<option value="5">5&nbsp;</option>
-											<option value="6">6&nbsp;</option>
-											<option value="7">7&nbsp;</option>
-											<option value="8">8&nbsp;</option>
-											<option value="9">9&nbsp;</option>
+											<option value="01" selected="selected">1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
 											</select>
 									<select name="fstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
-											<option value="am">AM&nbsp;</option>
-											<option value="pm">PM&nbsp;</option>
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
 								   </select></td>
 								</tr>
-
-
-
-
 								<tr class="row1">
 									<td valign="middle" align="right" class="input_txt">Second
 										Message sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="sstream_time" class="input_cmbbx1">
-											<option value="1" selected="selected">1&nbsp;</option>
-											<option value="2">2&nbsp;</option>
-											<option value="3">3&nbsp;</option>
-											<option value="4">4&nbsp;</option>
-											<option value="5">5&nbsp;</option>
-											<option value="6">6&nbsp;</option>
-											<option value="7">7&nbsp;</option>
-											<option value="8">8&nbsp;</option>
-											<option value="9">9&nbsp;</option>
+											<option value="01" selected="selected">1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
 											</select>
 									<select name="sstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
-											<option value="am">AM&nbsp;</option>
-											<option value="pm">PM&nbsp;</option>
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
 								   </select></td></td>
 								</tr>
 							</table>
 							
-							<table id="third">	<tr class="row1">
-									<td valign="middle" align="right" class="input_txt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Third
+							
+							
+							
+							
+							
+							<table cellpadding="0" cellspacing="0" border="0" width="100%" class="margin_table"
+								id="third" style="display: block;" style="display: none;">
+								<tr class="row2">
+									<td valign="middle" align="right" class="input_txt" width="200">First
+										Message Sending Time :</td>
+									<td valign="top" align="left" class="input_txt">
+									<select name="fstream_time" class="input_cmbbx1">
+											<option value="01" selected="selected">1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											</select>
+									<select name="fstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
+								   </select></td>
+								</tr>
+								<tr class="row1">
+									<td valign="middle" align="right" class="input_txt">Second
 										Message sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="sstream_time" class="input_cmbbx1">
-											<option value="1" selected="selected">1&nbsp;</option>
-											<option value="2">2&nbsp;</option>
-											<option value="3">3&nbsp;</option>
-											<option value="4">4&nbsp;</option>
-											<option value="5">5&nbsp;</option>
-											<option value="6">6&nbsp;</option>
-											<option value="7">7&nbsp;</option>
-											<option value="8">8&nbsp;</option>
-											<option value="9">9&nbsp;</option>
+											<option value="01" selected="selected">1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
 											</select>
 									<select name="sstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
-											<option value="am">AM&nbsp;</option>
-											<option value="pm">PM&nbsp;</option>
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
+								   </select></td></td>
+								</tr>
+						
+								<tr class="row1">
+									<td valign="middle" align="right" class="input_txt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Third
+										Message sending Time :</td>
+									<td valign="top" align="left" class="input_txt">
+									<select name="tstream_time" class="input_cmbbx1">
+											<option value="01" selected="selected">1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											</select>
+									<select name="tstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
 								   </select></td></td>
 								</tr>
 </table>
@@ -364,22 +418,22 @@ $("#days_weeks").keyup(function() {
 									<td valign="middle" align="right" class="input_txt" width="200">Message Sending
 										Time :</td>
 									<td valign="top" align="left" class="input_txt"><select name="fstream_time" class="input_cmbbx1">
-											<option value="1" selected="selected">1&nbsp;</option>
-											<option value="2">2&nbsp;</option>
-											<option value="3">3&nbsp;</option>
-											<option value="4">4&nbsp;</option>
-											<option value="5">5&nbsp;</option>
-											<option value="6">6&nbsp;</option>
-											<option value="7">7&nbsp;</option>
-											<option value="8">8&nbsp;</option>
-											<option value="9">9&nbsp;</option>
+											<option value="01" selected="selected">1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
 											<option value="10">10&nbsp;</option>
 											<option value="11">11&nbsp;</option>
 											<option value="12">12&nbsp;</option>
 											</select>
 									<select name="fstream_time_am_pm" class="input_cmbbx1" style="width:50px;">
-											<option value="am">AM&nbsp;</option>
-											<option value="pm">PM&nbsp;</option>
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
 								   </select></td>								</tr>
 							</table>
 							
@@ -426,7 +480,7 @@ $("#days_weeks").keyup(function() {
 			document.getElementById("days").style.display = 'block';					
 			document.getElementById("daystext").style.display = 'block';
 			document.getElementById("one").style.display = 'none';			
-			document.getElementById("two").style.display = 'block';
+			document.getElementById("two").style.display = 'none';
 			document.getElementById("third").style.display = 'block';
 			document.getElementById("three").style.display = 'none';
 			document.getElementById("four").style.display = 'none';	
@@ -439,7 +493,7 @@ $("#days_weeks").keyup(function() {
 			document.getElementById("one").style.display = 'none';			
 			document.getElementById("two").style.display = 'none';
 			document.getElementById("third").style.display = 'none';
-			document.getElementById("three").style.display = 'none';
+			document.getElementById("three").style.display = 'block';
 			document.getElementById("four").style.display = 'block';	
 			}
 
