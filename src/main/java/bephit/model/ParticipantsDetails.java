@@ -60,7 +60,6 @@ public class ParticipantsDetails {
 	
 	@NotEmpty
 	@Email
-
 	private String email_id;
 	
 	private String created_by;
