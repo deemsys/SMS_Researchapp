@@ -157,13 +157,13 @@
                 </tr> 
 
 		<tr class="row1">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Gender :</td>
+                  <td valign="middle" align="left" class="input_txt"> Gender :</td>
                   <td valign="top" align="left" class="input_txt">
                   <input type="radio" name="gender" value="0"  class="input_txt" <c:if test="${participantsDetails.gender=='0'}"><c:out value="checked=checked"/></c:if>>Male&nbsp;&nbsp;&nbsp;  <c:out value="${participantDetails.gender}"/>
                   <input type="radio" name="gender" value="1"  class="input_txt" <c:if test="${participantsDetails.gender=='1'}"><c:out value="checked=checked"/></c:if>> Female</td>
                 </tr>
 		 <tr class="row2">
-                 <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Age :</td>
+                 <td valign="middle" align="left" class="input_txt"> Age :</td>
                  <td valign="top" align="left" class="input_txt"><select name="age" class="input_cmbbx1">
                  <option value="" <c:if test="${participantsDetails.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
                  <option value="12-20 years" <c:if test="${participantsDetails.age=='12-20 years'}"><c:out value="selected"/></c:if>>12-20 &#160 years</option>
@@ -180,11 +180,11 @@
                 </tr>
 		
                 <tr class="row1">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> City :</td>
+                  <td valign="middle" align="left" class="input_txt">City :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.city}" name="city"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.city"></form:errors></span> </font></td>
                 </tr>
 		 <tr class="row2">
-                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Education :</td>
+                  <td valign="middle" align="left" class="input_txt"> Education :</td>
                   <td valign="top" align="left" class="input_txt"><select name="education" class="input_cmbbx1">
                     <option value="School" <c:if test="${participantsDetails.education=='School'}"><c:out value="selected"/></c:if>>School</option>
 			<option value="Some College" <c:if test="${participantsDetails.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
@@ -195,7 +195,7 @@
   
               
             <tr class="row1">
-                  <td valign="top" align="left" class="input_txt"><span class="err">*</span> Medical Details :</td>
+                  <td valign="top" align="left" class="input_txt"> Medical Details :</td>
                   <td valign="top" align="left" class="input_txt"><textarea class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');"  style="width: 220px; height: 89px;" name="medical_details"/>${participantsDetails.medical_details }</textarea></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.medical_details"></form:errors></span></font></td></tr>
                
 </table></td>
