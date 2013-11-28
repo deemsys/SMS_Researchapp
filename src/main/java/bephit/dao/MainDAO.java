@@ -689,8 +689,8 @@ public class MainDAO {
 	    	
 	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+Providername+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+Providername+"')";
 	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
-	    	String cmd_login="insert into login(username,password,email_id,role,status) values('"+participant.getusername()+"','"+pw+"','"+participant.getEmail_id()+"',0,1)";
-	    	System.out.println(cmd);
+	    	String cmd_login="UPDATE login SET email_id='"+participant.getEmail_id()+"' where username= '"+participant.getusername()+"'";
+	    			System.out.println(cmd);
 	    	System.out.println(cmd_activity);
 			
 	    	statement.execute(cmd);
