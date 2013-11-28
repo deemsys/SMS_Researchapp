@@ -374,7 +374,7 @@ function empty()
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													:</td>
 												<td valign="top" align="left" class="input_txt">
-												<select onchange="doAjaxPost()" name="Provider_name" id="Provider_name"  class="input_cmbbx1"> <option>--Select--</option>
+												<select onchange="doAjaxPost()" name="Provider_name" id="Provider_name"  class="input_cmbbx1"> <option value="null">--Select--</option>
 														<c:forEach
 															items="${adminuserform.adminuser}"
 															var="adminuser" varStatus="status">
@@ -670,7 +670,7 @@ function empty()
 													:</td>
 												<td valign="top" align="left" class="input_txt">
 												<select onchange="doAjaxPost()" id="Provider_name"	name="Provider_name" class="input_cmbbx1">
-													<option value="Null">--Select--</option>
+													<option value="null">--Select--</option>
 														<c:forEach items="${adminuserform.adminuser}"
 															var="adminuser" varStatus="status">
 															
@@ -678,8 +678,10 @@ function empty()
 														</c:forEach>
 
 												</select>
-												</br> <font color="Red" size="+1"><span id="spngrp"><form:errors
-																path="participant.Provider_name"></form:errors> </span></font>
+												</br> <font color="Red" size="+1"><span id="spngrp">
+												<c:if test="${provider=='null'}">												
+												<form:errors path="participant.group_name"></form:errors>			
+												</c:if> </span></font>
 												 </td>
 											</tr>
 											<tr>
