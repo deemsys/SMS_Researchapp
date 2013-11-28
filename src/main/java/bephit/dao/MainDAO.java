@@ -626,7 +626,25 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	
+//Generate random password
+			 
+			 String letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789+@";
+
+		      String pw = "";
+		      int PASSWORD_LENGTH=6;
+			for (int i=0; i<PASSWORD_LENGTH; i++)
+		      {
+		          int index = (int)(RANDOM.nextDouble()*letters.length());
+		          pw += letters.substring(index, index+1);
+		      }
+		    System.out.println("Password:"+pw);
+		    
+		    
+			 
+			 
+			 
+			 //end generate random password			
+			
 	    	String Desc="Update participant "+participant.getFname();
 	    	List<String> strlist = new ArrayList<String>();
 			List<String> strlist1 = new ArrayList<String>();				
@@ -671,11 +689,16 @@ public class MainDAO {
 	    	
 	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+Providername+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+Providername+"')";
 	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
+	    	String cmd_login="insert into login(username,password,email_id,role,status) values('"+participant.getusername()+"','"+pw+"','"+participant.getEmail_id()+"',0,1)";
 	    	System.out.println(cmd);
 	    	System.out.println(cmd_activity);
 			
 	    	statement.execute(cmd);
 			statement.execute(cmd_activity);
+			
+			statement.execute(cmd);
+			statement.execute(cmd_login);
+			System.out.println(cmd_login);
 			flag=1;
 	 }
 	    catch(Exception e){
