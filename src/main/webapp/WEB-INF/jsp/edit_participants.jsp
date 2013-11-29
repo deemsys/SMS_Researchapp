@@ -3,6 +3,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="header.jsp"></jsp:include>
 <div id="right_content">
+<link rel="stylesheet" url="resources/js/jquery.js" />
+<script src="/BePhitResearchApp/resources/js/jquery.js"></script>
+<script type="text/javascript">
+$(window).load(function(){
+var oldValue = "";
+$("#mno").keyup(function() {
+	$("#spnmno").html('');
+	var intRegex = /^\d+$/;
+	if(intRegex.test($(this).val())||$(this).val()=='') 
+	{
+		var $in = $(this).val();
+		var $newdiv="";
+	  var $i=0;
+	  if($in.length>10)
+		  {
+		  $("#spnmno").html('');
+		  $("#spnmno").html('Mobile number is not valid. Should be of length 10!!');		
+		   }	
+			
+	}
+	else if($(this).val()!='')
+		{
+		
+		$("#spnmno").html('Kindly give numbers only!!');
+		}
+}).keydown(function() {
+    oldValue = $(this).val();
+})
+});
+</script>
+	
+
 
 	<script type="text/javascript">
 		function listbox_moveacross(sourceID, destID) {
@@ -149,7 +181,8 @@
                
 		<tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Mobile No :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.mobile_num}" name="mobile_num" /></br><font color="Red" size="+1"><span class="err"><c:if test="${mobile_exists ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>Mobile Number already exists </font>	<br/></c:if><form:errors path="participant.mobile_num"></form:errors></span> </font></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="mno" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.mobile_num}" name="mobile_num" /></br><font color="Red" size="+1"><span class="err"><c:if test="${mobile_exists ==true}"> <font color="Red" size="+1"><span id="spnmno"></span>Mobile Number already exists </font>	<br/></c:if> <font
+													color="Red" size="+1"><span id="spnmno">   <form:errors path="participant.mobile_num"></form:errors></span> </font></td>
                 </tr> 
 		<tr class="row2">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Email-Id :</td>
@@ -412,8 +445,8 @@
                
 		<tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Mobile No :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.mobile_num}" name="mobile_num" /></br><font
-													color="Red" size="+1"><span id="spnlname"></span><c:if test="${mobile_exists ==true}">Mobile Number already exists </font>	<br/></c:if><form:errors path="participant.mobile_num"></form:errors></span> </font></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="mno" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.mobile_num}" name="mobile_num" /></br><font color="Red" size="+1"><span class="err"><c:if test="${mobile_exists ==true}"> <font color="Red" size="+1"><span id="spnmno"></span>Mobile Number already exists </font>	<br/></c:if> <font
+													color="Red" size="+1"><span id="spnmno">   <form:errors path="participant.mobile_num"></form:errors></span> </font></td>
                 </tr> 
 		<tr class="row2">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Email-Id :</td>

@@ -9,6 +9,39 @@
 %>
 <link rel="stylesheet" url="resources/js/jquery.js" />
 <script src="/BePhitResearchApp/resources/js/jquery.js"></script>
+
+
+<script type="text/javascript">
+$(window).load(function(){
+var oldValue = "";
+$("#mno").keyup(function() {
+	$("#spnmno").html('');
+	var intRegex = /^\d+$/;
+	if(intRegex.test($(this).val())||$(this).val()=='') 
+	{
+		var $in = $(this).val();
+		var $newdiv="";
+	  var $i=0;
+	  if($in.length>10)
+		  {
+		  $("#spnmno").html('Mobile number is not valid. Should be of length 10!!');		
+		   }	
+			
+	}
+	else if($(this).val()!='')
+		{
+		
+		$("#spnmno").html('Kindly give numbers only!!');
+		}
+}).keydown(function() {
+    oldValue = $(this).val();
+})
+});
+</script>
+
+
+
+
 <script type="text/javascript">
 function doAjaxPost() {  
 	  // get the form values  
@@ -145,7 +178,7 @@ function empty()
 													value="${mobile_num}" name="mobile_num" /></br> 
 												<c:if test="${mobile_exists ==true}">
 													<font
-													color="Red" size="+1"><span id="spnlname"></span>Mobile name already exists </font>
+													color="Red" size="+1"><span id="spnmno"></span>Mobile name already exists </font>
 													</c:if>	
 															
 												<font

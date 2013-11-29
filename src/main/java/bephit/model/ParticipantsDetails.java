@@ -24,7 +24,7 @@ public class ParticipantsDetails {
 	private String username;
 	
 	@NotEmpty
-	@Length(max=10,min=10,message="Phone number is not valid. Should be of length 10.")
+	@Length(max=10,min=10,message="Mobile number is not valid. Should be of length 10.")
 	private String mobile_num;
 
 	private String gender;
