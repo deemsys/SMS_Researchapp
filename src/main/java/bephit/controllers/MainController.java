@@ -1424,6 +1424,8 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	public String sendforgot_password(HttpServletRequest request,ModelMap model) 
 	{	
 		
+		if(!request.getParameter("email_id").equals(""))
+		{
 		int status=mainDAO.sendForgotpassword(request.getParameter("email_id"));
 		
 		if(status==1)
@@ -1441,6 +1443,14 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		{
 			model.addAttribute("success","false");
 			model.addAttribute("error","Emailid not exists");
+			model.addAttribute("menu","settings");
+			return "forgotpwd";
+		}
+		}
+		else
+		{
+			model.addAttribute("success","false");
+			model.addAttribute("error","Required Field should not empty");
 			model.addAttribute("menu","settings");
 			return "forgotpwd";
 		}
