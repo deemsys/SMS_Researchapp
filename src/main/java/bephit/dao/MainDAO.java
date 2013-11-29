@@ -1,5 +1,7 @@
 package bephit.dao;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -483,9 +485,18 @@ public class MainDAO {
 			/*
 			 * if(resultSet.next()) Desc=Desc+resultSet.getString(1);
 			 */
+		     InetAddress IP=InetAddress.getByName("127.0.0.1");
+				try {
+					IP = InetAddress.getLocalHost();
+					//System.out.println("IP of my system is := "+IP.getHostAddress());
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 		     String cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"
 					+ admin_id
-					+ "','127.0.0.1','"
+					+ "','"+IP.getHostAddress()+"','"
 					+ dateFormat.format(date)
 					+ "','" + Desc + "','"+providername+"')";
 			System.out.println(cmd_activity);
@@ -854,7 +865,7 @@ public class MainDAO {
 			cmd = "select * from login where email_id='"+email+"'";
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
-			while (resultSet.next()) {
+			if(resultSet.next()) {
 
 				//------------------------------------------------------------------------//
 				
