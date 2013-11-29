@@ -47,7 +47,11 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
  
-
+ <!-- Set timeout to 30 minutes -->   
+        <session-config>   
+                <session-timeout>30</session-timeout>   
+        </session-config>
+	 
 
 
 
