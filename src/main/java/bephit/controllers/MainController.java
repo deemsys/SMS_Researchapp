@@ -538,7 +538,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	public String showAddParticipants1(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model) {
 		String providername=participant.getProvider_name();
-		System.out.println(participant.getProvider_name());
+		System.out.println("providername"+participant.getProvider_name());
 		session.setAttribute("participants",participant);
 		model.addAttribute("provider",participant.getProvider_name());
 		session.setAttribute("provider",participant.getProvider_name());
@@ -762,8 +762,9 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	//Groups
 	
 	@RequestMapping(value="/showaddparticipantgroups", method=RequestMethod.GET)
-	public String showAddParticipantGroups(HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {		
+	public String showAddParticipantGroups(HttpSession session,HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {		
 	
+		session.removeAttribute("group");
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);        
@@ -775,10 +776,13 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	
 	
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.POST)
-	public String NewParticipantGroups(HttpServletRequest request,@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
+	public String NewParticipantGroups(HttpSession session,HttpServletRequest request,@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
 			BindingResult result,ModelMap model,String userName) {
+		session.setAttribute("group",pgroups);
+		//model.addAttribute("group",pgroups);
 		model.addAttribute("Group_exists","false");
 		System.out.println("group"+pgroups.getgroup_name());
+	
 		int group_count=partDAO.checkGroupname(pgroups.getgroup_name());
 		
 		if(result.hasErrors())
