@@ -925,7 +925,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(Participantid));
 		model.addAttribute("participantsDetailsForm", participantsDetailsForm);
        
-		model.addAttribute("menu","settings");
+		model.addAttribute("menu","password settings");
 		return "participantsettings";
 	}
 	
