@@ -138,7 +138,7 @@ function validate(form)
 	</c:if>
 		    <ul class="login-list">
 		      <li><br>
-		        <p>Enter Your Email-Id</p>
+		        <p>Enter Your Username</p>
 		      </li>
 		      <li>
 		        <input type="text" class="inputbx" name="j_username" id="user" >

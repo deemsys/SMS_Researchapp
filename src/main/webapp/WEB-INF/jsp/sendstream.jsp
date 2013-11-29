@@ -29,7 +29,11 @@ $("#textingcontacts").keyup(function() {
 	function clear1()
 	{
 		var id=document.getElementById("info");
+		var id1=document.getElementById("info2");
+		var id2=document.getElementById("info3");
 		id.innerHTML="";
+		id2.innerHTML="";
+		id1.innerHTML="";
 	}
 	</script>
 <script>
@@ -46,6 +50,7 @@ $("#textingcontacts").keyup(function() {
 			success : function(response) {
 				// we have the response  
 				$('#info').html(response);
+				
 				/*     $('#education').val(''); */
 			},
 			error : function(e) {
@@ -162,7 +167,7 @@ $("#days_weeks").keyup(function() {
 									<input type="hidden" name="broad_id" value="${currentbroad}"/>
 								</tr>
 								<tr class="row2">
-									<td valign="middle" align="right" class="input_txt">Stream
+									<td valign="middle" align="right" class="input_txt"><span class="err">*&nbsp;</span>Stream
 										Name :</td>
 									<td valign="top" align="left"><select
 										name="stream_id" id="stream_id" onchange="doAjaxPost()"  class="input_cmbbx1">
@@ -175,7 +180,7 @@ $("#days_weeks").keyup(function() {
 									
 								</tr>
 								<tr class="row1">
-									<td valign="middle" align="right" class="input_txt">Group
+									<td valign="middle" align="right" class="input_txt"><span class="err">*&nbsp;</span>Group
 										Name :</td>
 									<td valign="top" align="left" class="input_txt"><select
 										name="group_id" class="input_cmbbx1">
@@ -187,9 +192,9 @@ $("#days_weeks").keyup(function() {
 									</select> </br> <span class="err"><form:errors path="broadCast.group_id"></form:errors></span></td>
 								</tr>
 								<tr class="row2">
-									<td valign="middle" align="right" class="input_txt">Frequency
+									<td valign="middle" align="right" class="input_txt"><span class="err">*&nbsp;</span>Frequency
 										:</td>
-									<td valign="top" align="left" class="input_txt">
+									<td valign="top" align="left" class="input_txt"></span>
 									<select name="frequency" id="frequency" class="input_cmbbx1"
 										onchange="openNewDiv(this.value)">
 											<option value="0" selected="selected">One Per Day</option>
@@ -200,8 +205,8 @@ $("#days_weeks").keyup(function() {
 								</tr>
 
 <tr class="row1" >
-									<td valign="middle" align="right" class="input_txt1" id="weeks">No of Weeks :</td>
-									<td valign="middle" align="right" class="input_txt1" id="days">No of Days :</td>
+									<td valign="middle" align="right" class="input_txt1" id="weeks"><span class="err">*&nbsp;</span>No of Weeks :</td>
+									<td valign="middle" align="right" class="input_txt1" id="days"><span class="err">*&nbsp;</span>No of Days :</td>
 									<td valign="top" align="left" id="daystext">
 										<input type="text" name="days_weeks"
 										id="days_weeks" class="input_txtbx1" value=""><span style="margin-left:10px;color:red;" id="info3"></span></br> <span
@@ -219,7 +224,7 @@ $("#days_weeks").keyup(function() {
 									</td>
 								</tr>
 							 --%>	<tr class="row1">
-									<td valign="middle" align="right" class="input_txt1">Start
+									<td valign="middle" align="right" class="input_txt1"><span class="err">*&nbsp;</span>Start
 										Date :</td>
 									<td valign="top" align="left">
 										<input type="text" name="start_date"
@@ -238,7 +243,7 @@ $("#days_weeks").keyup(function() {
 							<table cellpadding="0" cellspacing="0" border="0" width="100%" class="margin_table"
 								id="one" style="display: block;" style="display: none;">
 								<tr class="row2">
-									<td valign="middle" align="right" class="input_txt" width="200">Message Sending Time :</td>
+									<td valign="middle" align="right" class="input_txt" width="200"><span class="err">*&nbsp;</span>Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="fstream_time" class="input_cmbbx1">
 											<option value="01" selected="selected">1&nbsp;</option>
@@ -265,7 +270,7 @@ $("#days_weeks").keyup(function() {
 							<table cellpadding="0" cellspacing="0" border="0" width="100%" class="margin_table"
 								id="two" style="display: block;" style="display: none;">
 								<tr class="row2">
-									<td valign="middle" align="right" class="input_txt" width="200">First
+									<td valign="middle" align="right" class="input_txt" width="200"><span class="err">*&nbsp;</span>First
 										Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="fstream_time" class="input_cmbbx1">
@@ -288,7 +293,7 @@ $("#days_weeks").keyup(function() {
 								   </select></td>
 								</tr>
 								<tr class="row1">
-									<td valign="middle" align="right" class="input_txt">Second
+									<td valign="middle" align="right" class="input_txt"><span class="err">*&nbsp;</span>Second
 										Message sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="sstream_time" class="input_cmbbx1">
@@ -310,9 +315,7 @@ $("#days_weeks").keyup(function() {
 											<option value="PM">PM&nbsp;</option>
 								   </select></td></td>
 								</tr>
-							</table>
-							
-							
+							</table>			
 							
 							
 							
@@ -320,7 +323,7 @@ $("#days_weeks").keyup(function() {
 							<table cellpadding="0" cellspacing="0" border="0" width="100%" class="margin_table"
 								id="third" style="display: block;" style="display: none;">
 								<tr class="row2">
-									<td valign="middle" align="right" class="input_txt" width="200">First
+									<td valign="middle" align="right" class="input_txt" width="200"><span class="err">*&nbsp;</span>First
 										Message Sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="fstream_time" class="input_cmbbx1">
@@ -343,7 +346,7 @@ $("#days_weeks").keyup(function() {
 								   </select></td>
 								</tr>
 								<tr class="row1">
-									<td valign="middle" align="right" class="input_txt">Second
+									<td valign="middle" align="right" class="input_txt"><span class="err">*&nbsp;</span>Second
 										Message sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="sstream_time" class="input_cmbbx1">
@@ -367,7 +370,7 @@ $("#days_weeks").keyup(function() {
 								</tr>
 						
 								<tr class="row1">
-									<td valign="middle" align="right" class="input_txt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Third
+									<td valign="middle" align="right" class="input_txt"><span class="err">*&nbsp;</span>Third
 										Message sending Time :</td>
 									<td valign="top" align="left" class="input_txt">
 									<select name="tstream_time" class="input_cmbbx1">
@@ -390,13 +393,13 @@ $("#days_weeks").keyup(function() {
 								   </select></td></td>
 								</tr>
 </table>
-
+							
 							<!--</div>-->
 
 							<table cellpadding="0" cellspacing="0" border="0" width="100%" class="margin_table"
 								id="three" style="display: block;" style="display: none;">
 								<tr class="row2">
-									<td valign="middle" align="right" class="input_txt" width="200">
+									<td valign="middle" align="right" class="input_txt" width="200"><span class="err">*&nbsp;</span>
 										Message Sending Day :</td>
 									<td valign="top" align="left" class="input_txt"><select
 										name="stream_week_day" id="stream_week_day" onchange="doAjaxPost_week()" class="input_cmbbx1">
@@ -415,7 +418,7 @@ $("#days_weeks").keyup(function() {
 							<table cellpadding="0" cellspacing="0" border="0" width="100%" class="margin_table"
 								id="four" style="display: block;" style="display: none;">
 								<tr class="row1">
-									<td valign="middle" align="right" class="input_txt" width="200">Message Sending
+									<td valign="middle" align="right" class="input_txt" width="200"><span class="err">*</span>Message Sending
 										Time :</td>
 									<td valign="top" align="left" class="input_txt"><select name="fstream_time" class="input_cmbbx1">
 											<option value="01" selected="selected">1&nbsp;</option>
@@ -453,7 +456,10 @@ $("#days_weeks").keyup(function() {
 	function openNewDiv(val) {
 		// alert(val);
 		
-		
+		var id=document.getElementById("days_weeks");
+		id.value="";
+		var info=document.getElementById("info3");
+		info.innerHTML="";
 		if (val == '0') {
 			document.getElementById("weeks").style.display = 'none';
 			document.getElementById("days").style.display = 'block';					
@@ -462,7 +468,8 @@ $("#days_weeks").keyup(function() {
 			document.getElementById("two").style.display = 'none';
 			document.getElementById("third").style.display = 'none';
 			document.getElementById("three").style.display = 'none';
-			document.getElementById("four").style.display = 'none';		
+			document.getElementById("four").style.display = 'none';
+			
 		} 
 		 else if (val == '1') {
 			document.getElementById("weeks").style.display = 'none';
@@ -473,6 +480,7 @@ $("#days_weeks").keyup(function() {
 			document.getElementById("third").style.display = 'none';
 			document.getElementById("three").style.display = 'none';
 			document.getElementById("four").style.display = 'none';	
+			
 		} 
 		
 		else if (val == '3') {
@@ -484,6 +492,7 @@ $("#days_weeks").keyup(function() {
 			document.getElementById("third").style.display = 'block';
 			document.getElementById("three").style.display = 'none';
 			document.getElementById("four").style.display = 'none';	
+			
 
 		}		
 		else if (val == '2') {
@@ -494,8 +503,10 @@ $("#days_weeks").keyup(function() {
 			document.getElementById("two").style.display = 'none';
 			document.getElementById("third").style.display = 'none';
 			document.getElementById("three").style.display = 'block';
-			document.getElementById("four").style.display = 'block';	
+			document.getElementById("four").style.display = 'block';
+			
 			}
+		
 
 	}
 
@@ -515,7 +526,7 @@ $("#days_weeks").keyup(function() {
 			monthfield.options[today.getMonth()] = new Option(monthtext[today
 					.getMonth()], monthtext[today.getMonth()], true, true); //select today's month
 
-			var thisyear = today.getFullYear()
+			var thisyear = today.getFullYear();
 			for ( var y = 0; y < 20; y++) {
 				yearfield.options[y] = new Option(thisyear, thisyear);
 				thisyear += 1;
