@@ -30,6 +30,9 @@ public class MessageStreamController {
 
 	@Autowired
 	StreamDetailsDAO streamDAO;
+	
+	@Autowired
+	AdminActivityDAO activityDAO;
 
 	@RequestMapping(value = "/createstream", method = RequestMethod.GET)
 	public String createstream(ModelMap model) {
@@ -62,6 +65,10 @@ public class MessageStreamController {
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
+		 AdminActivityForm adminActivityForm = new AdminActivityForm();
+	        adminActivityForm.setAdminActivity(activityDAO.getAdminActivity());
+	        model.addAttribute("adminActivityForm","adminActivityForm");
+	        activityDAO.setAdminActivity(principal.getName(),"created Stream" +streamdetails.getStreamName());
 		 model.addAttribute("menu","message");
 		return "viewstream";
 
@@ -127,21 +134,31 @@ public class MessageStreamController {
 		model.addAttribute("success","true");
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
-		model.addAttribute("streamForm", streamForm);		 
+		model.addAttribute("streamForm", streamForm);	
+		AdminActivityForm adminActivityForm = new AdminActivityForm();
+        adminActivityForm.setAdminActivity(activityDAO.getAdminActivity());
+        model.addAttribute("adminActivityForm","adminActivityForm");
+        activityDAO.setAdminActivity(principal.getName(),"Updated Stream" +streamDetails.getStreamName());
 		model.addAttribute("menu","message");
 	    return "viewstream";  
         }
 	
 	@RequestMapping(value="/deletestream", method=RequestMethod.GET)
-	public String removestream(@RequestParam("id") String stream_id,ModelMap model, Principal principal) {
+	public String removestream(@RequestParam("id") String stream_id,ModelMap model, Principal principal,StreamDetails streamdetails) {
 	
+		
+			
 		int status=streamDAO.deletestream(stream_id,principal.getName());
 		if(status==1)
 		{
 			StreamDetailsForm streamForm = new StreamDetailsForm();
 			streamForm.setStreamDetails(streamDAO.getStream());
 			model.addAttribute("streamForm", streamForm);
-        
+			streamDAO.deletestream(stream_id,principal.getName());
+			AdminActivityForm adminActivityForm = new AdminActivityForm();
+	        adminActivityForm.setAdminActivity(activityDAO.getAdminActivity());
+	        model.addAttribute("adminActivityForm","adminActivityForm");
+			//activityDAO.setAdminActivity(principal.getName(),"Deleted Stream");
 		}
 		 model.addAttribute("menu","message");
 		return "viewstream";
@@ -160,7 +177,7 @@ public class MessageStreamController {
 	}
 	
 	@RequestMapping(value="/deleteSelectedstream", method=RequestMethod.POST)
-	public String deleteSelectedstream(HttpServletRequest request,ModelMap model,Principal principal) 
+	public String deleteSelectedstream(HttpServletRequest request,ModelMap model,StreamDetails streamdetails,Principal principal) 
 	{	
 		String[] SelectedIDs=new String[100];
 		SelectedIDs=request.getParameterValues("chkUser");
@@ -173,6 +190,9 @@ public class MessageStreamController {
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
+		
+	
+        model.addAttribute("menu","message");
 		return "viewstream";
 		
 	}	

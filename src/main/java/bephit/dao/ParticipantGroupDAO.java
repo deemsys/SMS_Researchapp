@@ -149,6 +149,8 @@ public class ParticipantGroupDAO {
           String cmd_pgroups="INSERT INTO `participant_group_table`(`group_name`,`group_decs`,created_by) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"','"+userName1+"')";
           System.out.println(cmd_pgroups);
 			statement.execute(cmd_pgroups);
+			
+			String Desc="added Groups"+pgroups.getgroup_name();
 			flag=1;
 	 }
 	    catch(Exception e){
@@ -169,7 +171,7 @@ public class ParticipantGroupDAO {
 	}
 	
 	
-	public int deleteParticipantgroup(String group_id)
+	public int deleteParticipantgroup(String group_id,String admin)
 	{
 		Connection con = null;
 		Statement statement = null;
@@ -195,6 +197,7 @@ public class ParticipantGroupDAO {
           String cmd_pgroups="delete from participant_group_table where group_id='"+group_id+"'";
           System.out.println(cmd_pgroups);
 			statement.execute(cmd_pgroups);
+			/*String Desc="Deleted Groups"+pgroups.getgroup_name();*/
 			flag=1;
 	 }
 	    catch(Exception e){
@@ -522,7 +525,7 @@ public class ParticipantGroupDAO {
 	Connection con = null;
 	Statement statement = null;
 	ResultSet resultSet = null;
-	String  participantgroupName = null;
+	
 	try {
 	con = dataSource.getConnection();
 	statement = con.createStatement();
@@ -530,16 +533,18 @@ public class ParticipantGroupDAO {
 	e1.printStackTrace();
 	}
 	//List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
-	   try{
-	   	
-	     String cmd_group="Select group_name from `participant_group_table` where group_id="+group_id;
-	          System.out.println(cmd_group);
-	resultSet=statement.executeQuery(cmd_group);
-	          while(resultSet.next())
+	String  groupname ="";   
+	try{
+		   
+	     //String cmd_group="select group_name from `participant_group_table` where group_id='"+group_id+"'";
+	          //System.out.println(cmd_group);
+	          resultSet=statement.executeQuery("select group_name from participant_group_table where group_id='"+group_id+"'");
+	          if(resultSet.next())
 	          {
-	         
-	         resultSet.getString("group_name");
+	        groupname=resultSet.getString("group_name");
+	         System.out.println(groupname);
 	          }
+	          System.out.println(groupname);
 	           
 	}
 	   catch(Exception e){
@@ -556,7 +561,7 @@ public class ParticipantGroupDAO {
 	   	//else
 	   	//return 0;
 	   }
-	   return participantgroupName;
+	   return groupname;
 	}
 	
 	public List<ParticipantGroups> getlimitedParticipants_group(int page) {

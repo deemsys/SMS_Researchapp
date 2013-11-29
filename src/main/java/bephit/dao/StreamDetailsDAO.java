@@ -1,5 +1,7 @@
 package bephit.dao;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,6 +90,7 @@ public class StreamDetailsDAO
 						 
 			String cmd_mess="";
 	int count=1;
+	String stream_id="";
 	for(String message :Messages)
 	{		
 	System.out.println(message);	
@@ -97,8 +100,11 @@ public class StreamDetailsDAO
 	}
 	String cmd="insert into stream values('"+streamdetails.getStreamId()+"','"+admin_id+"','"+streamdetails.getStreamName()+"','"+streamdetails.getTextingcontacts()+"','"+streamdetails.getDescription()+"','"+(count-1)+"','"+userName+"')";
 	
+	
 	System.out.println(cmd);
 	statement.execute(cmd);
+	
+	
 	flag=1;
 		}
 		catch(Exception ex)
@@ -456,6 +462,7 @@ public class StreamDetailsDAO
 		Statement statement = null;
 		ResultSet resultSet = null;
 		int flag=0;
+		String streamname="";
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -465,19 +472,33 @@ public class StreamDetailsDAO
 		try{
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
-	    	 String cmd_getstreamname="select stream_name from stream where stream_id='"+stream_id+"'";
-				String Desc="Delete stream ";		
-			
-			resultSet=statement.executeQuery(cmd_getstreamname);
-			
+	    	 streamname="select stream_name from stream where stream_id='"+stream_id+"'";
+				resultSet=statement.executeQuery(streamname);
+				 InetAddress IP=InetAddress.getByName("127.0.0.1");
+					try {
+						IP = InetAddress.getLocalHost();
+						//System.out.println("IP of my system is := "+IP.getHostAddress());
+					} catch (UnknownHostException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			if(resultSet.next())
-				Desc=Desc+resultSet.getString(1);
+			{
+				 streamname=resultSet.getString("stream_name");
 			statement.execute("delete from stream where stream_id='"+stream_id+"'");
 			statement.execute("delete from message_stream where stream_id='"+stream_id+"'");
-			
+			String Desc="Deleted Stream" +streamname;
+			String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin+"','"+IP.getHostAddress()+"','"+dateFormat.format(date)+"','"+Desc+"','"+admin+"')";
+			System.out.println(cmd_activity);
+			statement.execute(cmd_activity);
+			 
 			flag=1;
+			}
 			
-	    }catch(Exception e){
+			
+			
+	    }
+			catch(Exception e){
 	    	System.out.println(e.toString());
 	    	flag=0;
 	    	releaseResultSet(resultSet);
@@ -489,12 +510,16 @@ public class StreamDetailsDAO
 	    	releaseStatement(statement);
 	    	releaseConnection(con);	    	
 	    }
+		
+		
 	   		if(flag==1)
 	   			return 1;
 	   		else
 	   			return 0;
+	   		
 	}
 	
+
 	public List<StreamDetails> getlimitedstream(int page) {
 		Connection con = null;
 		Statement statement = null;

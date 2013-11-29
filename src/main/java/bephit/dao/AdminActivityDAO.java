@@ -1,10 +1,15 @@
 package bephit.dao;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -13,6 +18,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import bephit.model.AdminActivity;
+import bephit.model.BroadCast;
+import bephit.model.ParticipantGroups;
+import bephit.model.ParticipantsDetails;
 
 public class AdminActivityDAO {
 	private DataSource dataSource;
@@ -42,6 +50,7 @@ public class AdminActivityDAO {
 		List<AdminActivity> adminactivity = new ArrayList<AdminActivity>();
 
 		try
+		
 		{
 			resultSet = statement.
 					executeQuery("select * from admin_log_activity_table");
@@ -75,6 +84,67 @@ public class AdminActivityDAO {
 
 		return adminactivity;
 	}
+	
+	
+	public int setAdminActivity(String admin_id,String Desc) {
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		int flag = 0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		/*UserDetails userDetails = null;
+		if (principal instanceof UserDetails) {
+		  userDetails = (UserDetails) principal;
+		}
+		String userName = userDetails.getUsername();*/
+		try {
+			con = dataSource.getConnection();
+			statement = con.createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	    	 Date date = new Date();
+	    	 
+	    	 InetAddress IP=InetAddress.getByName("127.0.0.1");
+				try {
+					IP = InetAddress.getLocalHost();
+					//System.out.println("IP of my system is := "+IP.getHostAddress());
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+			
+			String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin_id+"','"+IP.getHostAddress()+"','"+dateFormat.format(date)+"','"+Desc+"','"+admin_id+"')";
+			System.out.println(cmd_activity);
+			statement.execute(cmd_activity);
+			
+			flag = 1;
+		} catch (Exception ex) {
+			System.out.println(ex.toString());
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+			flag = 0;
+		} finally {
+			releaseResultSet(resultSet);
+			releaseStatement(statement);
+			releaseConnection(con);
+		}
+		if (flag == 1)
+			return 1;
+		else
+			return 0;
+	}
+
+	
+	
+	
+	
+	
+	
 
 	public void releaseConnection(Connection con){
 		try{if(con != null)
@@ -92,4 +162,6 @@ public class AdminActivityDAO {
 	}catch(Exception e){}
 	}
 
+
+	
 }

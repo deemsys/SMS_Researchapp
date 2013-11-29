@@ -482,25 +482,27 @@ public class MainDAO {
 			 * resultSet=statement.executeQuery(cmd_getparticipantname);
 			 */
 		     String Desc = "added participants" + participant.getFname();
+		     
+		    
 			/*
 			 * if(resultSet.next()) Desc=Desc+resultSet.getString(1);
 			 */
-		     InetAddress IP=InetAddress.getByName("127.0.0.1");
+		    /* InetAddress IP=InetAddress.getByName("127.0.0.1");
 				try {
 					IP = InetAddress.getLocalHost();
 					//System.out.println("IP of my system is := "+IP.getHostAddress());
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 
-		     String cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"
+		     /*String cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"
 					+ admin_id
 					+ "','"+IP.getHostAddress()+"','"
 					+ dateFormat.format(date)
 					+ "','" + Desc + "','"+providername+"')";
 			System.out.println(cmd_activity);
-			statement.execute(cmd_activity);
+			statement.execute(cmd_activity);*/
 			flag = 1;
 		
 		

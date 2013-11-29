@@ -98,9 +98,9 @@ public class AdminUserDAO {
 	System.out.println(cmd);
 	statement.execute(cmd);
 	statement.execute(cmd_login);
-	String Desc="added adminuser";
-	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+admin_id+"')";
-	System.out.println(cmd_activity);
+	/*String Desc="added adminuser";*/
+	/*String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+admin_id+"')";
+	System.out.println(cmd_activity);*/
 	resultSet=statement.executeQuery(cmd_getid);
 	resultSet.next();
 	int lastinsertedid=Integer.parseInt(resultSet.getString("lastid"));
@@ -655,10 +655,10 @@ public class AdminUserDAO {
 			
 			statement.execute(cmd);
             System.out.println(cmd); 
-            String Desc="Update adminuser";
+            /*String Desc="Update adminuser";
             String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+userName+"')";
             System.out.println(cmd_activity);
-            statement.execute(cmd_activity);
+            statement.execute(cmd_activity);*/
             flag=1;
 			
 		} 
