@@ -272,7 +272,7 @@ public class AdminUserController
 		session.setAttribute("admin",adminuser);
 		//session.setAttribute("adminuser",adminuser);
 		
-		
+		int flag=0;
 		model.addAttribute("email_exist","false");
 		model.addAttribute("mobile_exists","false");
 		model.addAttribute("user_exists","false");
@@ -319,30 +319,34 @@ public class AdminUserController
 				System.out.println("email exists");
 				model.addAttribute("email_exist","true");
 				model.addAttribute("adminuser", adminuser);
-				return "/registerprovider";
+				flag=1;
 				
 			}
-			else if(mobile_count==0)
+			if(mobile_count==0)
 			{ 
 				System.out.println("mobile exists");
 				model.addAttribute("mobile_exists","true");
 				model.addAttribute("adminuser", adminuser);
-				return "/registerprovider";
+				flag=1;
 							
 			}
-			else if(user_count==0)
+			if(user_count==0)
 			{
 				System.out.println("user exists");
 				model.addAttribute("user_exists","true");
 				model.addAttribute("adminuser", adminuser);
-				return "/registerprovider";
+				flag=1;
 							
 			}
-			else
+			if(flag==0)
 			{
 				adminuserDAO.setAdminUser(adminuser,"personal");
 				model.addAttribute("Regsuccess","true");
 				return "/login";
+			}
+			else
+			{
+				return "/registerprovider";
 			}
 			}
 		

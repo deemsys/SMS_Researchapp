@@ -236,7 +236,7 @@ public class BroadCastController {
     String returnText;
 	// Date operations
 
-	DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+	DateTimeFormatter formatter = DateTimeFormat.forPattern("M/d/Y");
 	
 	//--------------------------Time Zone-----------------------------//
     DateTimeZone TZ=DateTimeZone.forID("EST");
@@ -251,7 +251,7 @@ public class BroadCastController {
     System.out.println("Day:"+day);
     System.out.println("Date difference:"+diff);
     
-    returnText=selected_date.plusDays(diff).toLocalDate().toString();
+    returnText=selected_date.plusDays(diff).toLocalDate().toString("MM/dd/yyyy");
 	return "Message will start sending on "+returnText;
 		
 	}
@@ -271,19 +271,19 @@ public class BroadCastController {
 		if(frequency==0)
 		{
 			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>days_weeks)
-				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-days_weeks)+" messages";
+				returnText="You will be lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-days_weeks)+" messages";
 		}
 		else if(frequency==2)
 		{
 			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>days_weeks)
-				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-days_weeks)+" messages";
+				returnText="You will be lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-days_weeks)+" messages";
 	
 		}
 		else if(frequency==1)
 		{
 			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>(days_weeks*2))
 			{
-				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-(days_weeks*2))+" messages";
+				returnText="You will be lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-(days_weeks*2))+" messages";
 				
 			}
 		}
@@ -291,7 +291,7 @@ public class BroadCastController {
 		{
 			if(Integer.parseInt(stream_list.get(0).getTextingcontacts())>(days_weeks*3))
 			{
-				returnText="You will lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-(days_weeks*3))+" messages";
+				returnText="You will be lost "+(Integer.parseInt(stream_list.get(0).getTextingcontacts())-(days_weeks*3))+" messages";
 				
 			}
 		}			
