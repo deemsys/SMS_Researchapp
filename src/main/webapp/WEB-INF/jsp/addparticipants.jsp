@@ -371,12 +371,14 @@ return true;
 											</tr>
 										</table>
 									</td>
-								</tr>
+								</tr></table><table align="right">
 								<tr class="row1">
 									<td valign="top" align="center">&nbsp;</td>
 									<td valign="top" align="left"><input type="submit" onclick="return validate('this')"
 										name="insert" class="submit_btn2" value="Add Participant">
 										<span id="spnsub"> </span></td>
+										 <td valign="middle" style="padding-left:10px;" ><a href="viewparticipants" class="submit_btn" style="color:white ;font-size:14px;text-decoration: none;">Cancel</a>
+										
 								</tr>
 							</table>
 							</c:when>
@@ -595,16 +597,18 @@ return true;
  </table>
 
                   </td>
-                </tr>
+                </tr></table>
                  
-              
-                <tr class="row1">
+              <table align="right">
+								<tr class="row1">
 									<td valign="top" align="center">&nbsp;</td>
 									<td valign="top" align="left"><input type="submit" onclick="return validate('this')"
 										name="insert" class="submit_btn2" value="Add Participant">
 										<span id="spnsub"> </span></td>
+										 <td valign="middle" style="padding-left:10px;" ><a href="viewparticipants" class="submit_btn" style="color:white ;font-size:14px;text-decoration: none;">Cancel</a>
+										
 								</tr>
-              </table>
+							</table>
 				</c:otherwise>			
 				<%-- </td>
 			</tr>

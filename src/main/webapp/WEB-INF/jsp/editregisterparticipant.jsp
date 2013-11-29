@@ -639,11 +639,13 @@ else
 									<td valign="top" align="left"><span id="spnsub"> </span></td>
 
 								</tr>
+								</table><table align="right">
 								<tr class="row1">
 									<td valign="top" align="center">&nbsp;</td>
 									<td valign="top" align="left"><input type="submit"
 										class="submit_btn2" value="Update Participant"
 										onclick="return validate('this')"></td>
+										<td valign="middle" style="padding-left:10px;" ><a href="viewregisterparticipants" class="submit_btn" style="color:white ;font-size:14px;text-decoration: none;">Cancel</a></td>
 								</tr>
 							</table>
 							</c:when>
@@ -1083,16 +1085,18 @@ else
 										
 									</td>
 								</tr>
-								<tr class="row1" width="1000">
-									<td valign="top" align="center">&nbsp;</td>
-									<td valign="top" align="left"><span id="spnsub"> </span></td>
-										<tr class="row1">
+								
+							</table>
+							<table align="right">
+								<tr class="row1">
 									<td valign="top" align="center">&nbsp;</td>
 									<td valign="top" align="left"><input type="submit"
 										class="submit_btn2" value="Update Participant"
 										onclick="return validate('this')"></td>
+										<td valign="middle" style="padding-left:10px;" ><a href="viewregisterparticipants" class="submit_btn" style="color:white ;font-size:14px;text-decoration: none;">Cancel</a></td>
 								</tr>
 							</table>
+							
 
 							</c:otherwise></c:choose>
 							

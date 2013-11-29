@@ -164,8 +164,7 @@ $("#mno").keyup(function() {
     <c:set value="${participantsDetailsForm.participantsDetails[0]}" var="participantsDetails"/>  
     
               <table cellpadding="0" cellspacing="0" border="0" width="100%">       
-             <tr>
-           
+             <tr>     
 
     <td align="left" valign="top" width="50%" style="padding-right:25px;">
     <h2 class="quck-txt">Quick Info</h2>
@@ -234,6 +233,7 @@ $("#mno").keyup(function() {
 </table></td>
   <td align="left" valign="top"> 
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
+</br>
 <tr><td><p class="quck-txt">Preferred&nbsp;Timings
 </p></td></tr>
 
@@ -703,11 +703,13 @@ $("#mno").keyup(function() {
                 </c:otherwise></c:choose>        
                 
                 
-                
-                 
+                </table>
+                 <table align="right">
                  <tr class="row1">
                   <td valign="top" align="center">&nbsp;</td>
                   <td valign="top" align="left"><input type="submit" class="submit_btn2" value="Update Participant" onclick="return validate(this)"></td>
+                <td valign="middle" style="padding-left:10px;" ><a href="viewparticipants" class="submit_btn" style="color:white ;font-size:14px;text-decoration: none;">Cancel</a>
+               
                 </tr>
               </table>
          
