@@ -50,6 +50,13 @@ public class MainController {
     @Autowired
     MailTemplateDAO mailTemplateDAO;
     
+    
+    @Autowired
+    ResponseDAO responseDAO;
+    
+    @Autowired
+    ParticipantAnswersDAO participantAnswersDAO;
+    
     @Autowired  
 	EmailSender emailSender;
     
@@ -998,7 +1005,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		}
 		else
 		{
-			System.out.println(mobile);
+		System.out.println(mobile);
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants(mobile, groupname, city));
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
@@ -1591,5 +1598,46 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		
 	}
 	
+	@RequestMapping(value="/viewresponse", method=RequestMethod.GET)
+	public String viewResponse(HttpServletRequest request,@RequestParam("id") String participants_id,ModelMap model,ParticipantsDetails participant)
+	{
+		
+		
+		ResponseForm resposeForm=new ResponseForm();
+		resposeForm.setResponse(responseDAO.getResponse(participants_id));
+		model.addAttribute("responseForm", resposeForm);
+		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
+		/*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);	*/      
+    
+		/*if(back.equals("dashboard"))
+		{ model.addAttribute("menu","dashboard");		
+		}
+		else if(back.equals("viewparticipant"))
+		{ model.addAttribute("menu","participants");			
+		}*/
+        return "viewresponse";
+	}
 	
+	@RequestMapping(value="/viewanswers", method=RequestMethod.GET)
+	public String viewAnswer(HttpServletRequest request,@RequestParam("id") String response_id,ModelMap model,ParticipantsDetails participant)
+	{
+		
+	ParticipantAnswersForm participantAnswersForm=new ParticipantAnswersForm();
+	participantAnswersForm.setParticipantAnswers(participantAnswersDAO.getResponse(response_id));		
+		model.addAttribute("participantAnswersForm", participantAnswersForm);
+		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
+		/*ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);	*/      
+    
+		/*if(back.equals("dashboard"))
+		{ model.addAttribute("menu","dashboard");		
+		}
+		else if(back.equals("viewparticipant"))
+		{ model.addAttribute("menu","participants");			
+		}*/
+        return "viewanswers";
+	}
   }
