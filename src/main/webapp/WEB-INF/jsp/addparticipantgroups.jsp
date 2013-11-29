@@ -5,6 +5,15 @@
 <link rel="stylesheet" href="resources/css/jquery-ui.css" />
   <script src="resources/js/jquery-1.9.1.js" type="text/javascript"></script>
   <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  function empty()
+  {
+	 String name=document.getElementsByName("group_name").value;
+	 alert(name);
+  }  
+  </script>
+  
+  
   <script>
  /*  $(document).ready(function() {
       $('#group_name').keyup(function(){
@@ -35,7 +44,7 @@
     //  });
 
   //});
-  
+     
   
   $(function() {
     $( "#dateofjoinfrom" ).datepicker();
@@ -44,6 +53,7 @@
 	    $( "#dateofjointo" ).datepicker();
 	  });
   </script>
+  
 <div id="right_content">
 
 <form action="addparticipantgroups" method="post" >
@@ -66,6 +76,8 @@
 	              <h2>Participant Groups</h2>
 	            </div>
 	            <div class="contentbox">
+	            <c:choose>
+	            <c:when test="${empty group}">
 	              <table cellpadding="0" cellspacing="0" border="0" width="100%">
 	                
 	                <tr class="row1">
@@ -76,20 +88,51 @@
 	                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Group Description :</td>
 	                  <td valign="top" align="left" class="input_txt" width="70%"><textarea style="width:200px; height:100px;" name="group_decs" id="group_decs" class="input_txtbx" style="width: 301px; height: 109px;"></textarea></br><span class="err"><form:errors path="pgroups.group_decs"></form:errors></span></td>
 	                </tr>
-	               
-			</tr>
-			
-			
+	               </table>
+	              <table align="center" class="row2" cellpadding="0" cellspacing="0" border="0" width="100%">           
 	                 <tr class="row2">
 	                  <td valign="top" align="right">&nbsp;</td>
-	                  <td valign="top" align="left"><input type="submit" class="submit_btn1" value="Add Group"></td>
+	                  <td valign="top" align="right" width="42%"><input type="submit" class="submit_btn1" value="Add Group" style="color:white;"><td >
+	                  <input type="reset" class="submit_btn1" value="Reset" style="color:white;"></td>
+	                  <td><strong><b> <a href="viewparticipantgroups" class="submit_btn1" style="color:white;text-decoration: none; font-size:14px;">Cancel</a></b></strong></td><td width="40%"></td>
+	                </tr>	                
+	                </table>
+	        
+	                </c:when>
+	                <c:otherwise>
+	                  <div class="contentbox">
+	                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+	                 <tr class="row1">
+	                  <td valign="middle" align="right" class="input_txt" width=30% ><span class="err">*</span> Group Name :</td>
+	                  <td valign="top" align="left" class="input_txt" width=70%><input type="text" name="group_name" class="input_txtbx" style="width:200px;"  id="group_name" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${group.group_name}"/><br/><span class="err"> <c:if test="${Group_exists==true}"><c:out value="Group Name already exist"/></c:if><form:errors path="pgroups.group_name"></form:errors> </span></td>
 	                </tr>
-	              </table>
+	               <tr class="row1">
+	                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Group Description :</td>
+	                  <td valign="top" align="left" class="input_txt" width="70%"><textarea style="width:200px; height:100px;" name="group_decs" id="group_decs" class="input_txtbx" style="width: 301px; height: 109px;">${group.group_decs}</textarea></br><span class="err"><form:errors path="pgroups.group_decs"></form:errors></span></td>
+	                </tr>
+	                
+	                </table>
+	                 <table align="center" class="row2" cellpadding="0" cellspacing="0" border="0" width="100%">           
+	                 <tr class="row2">
+	                  <td valign="top" align="right">&nbsp;</td>
+	                  <td valign="top" align="right" width="42%"><input type="submit" class="submit_btn1" value="Add Group" style="color:white;"><td></form>
+	                 <form method=get action="showaddparticipantgroups"> <input type="submit" class="submit_btn1" onclick="empty()" value="Reset" style="color:white;"></td></form>
+	                  <td> <a href="viewparticipantgroups" class="submit_btn1" style="color:white; text-decoration: none;font-size:14px;">Cancel</a></td><td width="40%"></td>
+	                </tr>	                
+	                </table>
+	                
+	                </c:otherwise>
+	                
+	                </c:choose>
+	               
+		
+			
+			
 	            </div>
           </div></td>
       </tr>
      </table>
-</form>
+
 
 </div>
 <script type="text/javascript">
