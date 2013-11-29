@@ -52,12 +52,12 @@ public class AdminUserDAO {
 		Connection con = null;
 		Statement statement = null;		 
 		ResultSet resultSet = null;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		/*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
 		}
-		String userName = userDetails.getUsername();
+		String userName = userDetails.getUsername();*/
 		try {
 			con = dataSource.getConnection();
 			statement = con.createStatement();
@@ -99,7 +99,7 @@ public class AdminUserDAO {
 	statement.execute(cmd);
 	statement.execute(cmd_login);
 	String Desc="added adminuser";
-	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+userName+"')";
+	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+admin_id+"')";
 	System.out.println(cmd_activity);
 	resultSet=statement.executeQuery(cmd_getid);
 	resultSet.next();
@@ -214,7 +214,7 @@ public class AdminUserDAO {
 	    	int enabled=1;
 	    	int updateemail=1;
 	    
-	      String cmd_emaillist="Select count(*) as counting from  admin_log_table where admin_email='"+admin_email+"'";
+	      String cmd_emaillist="Select count(*) as counting from  login where email_id='"+admin_email+"'";
           resultSet=statement.executeQuery(cmd_emaillist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
@@ -307,7 +307,7 @@ public class AdminUserDAO {
 	    	int enabled=1;
 	    	int updateemail=1;
 	   
-	      String cmd_userlist="Select count(*) as counting from `admin_log_table` where admin_username='"+admin_username+"'";
+	      String cmd_userlist="Select count(*) as counting from login where username='"+admin_username+"'";
           resultSet=statement.executeQuery(cmd_userlist);
           resultSet.next();
           int counts=Integer.parseInt(resultSet.getString("counting"));
