@@ -53,10 +53,13 @@
 											value="${textMsgSettings.mob_num}" /></br>
 										<span class="err"></span></td>
 									</tr>
-									<tr class="row1">
-										<td valign="top" align="right">&nbsp;</td>
-										<td valign="top" align="left"><input type="submit"
-											value="SAVE" class="submit_btn"></td>
+									</table><table cellspacing="0" cellpadding="0" align="center" border="0" width="100%">
+									<tr class="row1"> 
+										<td valign="top" align="right" width="22%">&nbsp;</td>
+										<td valign="top" align="right"><input type="submit"
+											value="Save" class="submit_btn1"></td>											
+											 <td> <a href="welcome" class="submit_btn1" style="color:white; text-decoration: none;font-size:14px;">Cancel</a></td><td width="40%"></td>
+											
 									</tr>
 								</c:forEach>
 							</table>

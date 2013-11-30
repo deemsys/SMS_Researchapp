@@ -157,7 +157,7 @@ function empty()
 											</tr>
 
 											
-											<tr class="row2">
+											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span><span
 													class="err"></span> User Name :</td>
@@ -168,7 +168,7 @@ function empty()
 													 <c:if test="${user_exists ==true}"> <font color="Red" size="+1"><span id="spnlname"></span>User name already exists  <form:errors
 															path="participant.username"></form:errors></c:if> </font></td>
 											</tr>
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Mobile No :</td>
 												<td valign="top" align="left" class="input_txt"><input
@@ -185,7 +185,7 @@ function empty()
 													color="Red" size="+1"><span id="spnmno"><form:errors
 																path="participant.mobile_num"></form:errors> </span></font></td>
 											</tr>
-											<tr class="row2">
+											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Email-Id :</td>
 												<td valign="top" align="left" class="input_txt"><input
@@ -199,7 +199,7 @@ function empty()
 													<font color="Red" size="+1"><span id="spneid"><form:errors
 																path="participant.email_id"></form:errors> </span></font></td>
 											</tr>
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> Gender :</td>
 												<td valign="top" align="left" class="input_txt"><input
@@ -207,7 +207,7 @@ function empty()
 													checked="true">Male&nbsp;&nbsp;&nbsp;<input
 													type="radio" name="gender" value="1" class="input_txt">Female&nbsp;&nbsp;&nbsp;</td>
 											</tr>
-											<tr class="row2">
+											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> <%--  Age :<c:forEach begin="1" end="100" var="i">
                                  <option value="${i}" <c:if test ="${participantsDetails.age == i}">select</c:if>>${i}</option>
@@ -232,7 +232,7 @@ function empty()
 														</font></td>
 											</tr>
 
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> City :</td>
 												<td valign="top" align="left" class="input_txt"><input
@@ -242,7 +242,7 @@ function empty()
 													color="Red" size="+1"><span id="spncity"><form:errors
 																path="participant.city"></form:errors> </span></font></td>
 											</tr>
-											<tr class="row2">
+											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
@@ -260,7 +260,7 @@ function empty()
 																path="participant.education"></form:errors> </span></font></td>
 
 											</tr>
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err"></span> Medical
 													Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -463,7 +463,7 @@ function empty()
 										<table cellpadding="0" cellspacing="0" border="0" width="100%">
 						
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> First Name :</td>
 													<input type="hidden" class="input_txtbx1" id="inp_id" value="${participants.participants_id }" name="participants_id" />
@@ -474,7 +474,7 @@ function empty()
 													</span></font></td>
 
 											</tr>											
-												<tr class="row2">
+												<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span><span
 													class="err"></span> User Name :</td>
@@ -484,7 +484,7 @@ function empty()
 													onmouseout="hideTooltip('tooltip_id');" name="username"  value="${participants.username}"/> </br><font color="Red" size="+1"> <c:if test="${user_exists ==true}"><span id="spnlname"></span>User name already exists </c:if> <form:errors
 															path="participant.username"></form:errors></font></td>
 											</tr>
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Mobile No :</td>
 												<td valign="top" align="left" class="input_txt"><input
@@ -495,7 +495,7 @@ function empty()
 													color="Red" size="+1"><span id="spnmno"><c:if test="${mobile_exists ==true}">Mobile number already exists</c:if><form:errors
 																path="participant.mobile_num"></form:errors> </span></font></td>
 											</tr>
-											<tr class="row2">
+											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Email-Id :</td>
 												<td valign="top" align="left" class="input_txt"><input
@@ -505,11 +505,11 @@ function empty()
 													 <font color="Red" size="+1"><span id="spnlname"><c:if test="${email_exists ==true}">Email-id already exists</c:if></span><form:errors
 															path="participant.email_id"></form:errors></font></td>
 											</tr>
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span class="err"></span> Gender :</td>
 												<td valign="top" align="left" class="input_txt"><input type="radio" name="gender" value="0"  class="input_txt" <c:if test="${participants.gender=='0'}"><c:out value="checked=checked"/></c:if>>Male&nbsp;&nbsp;&nbsp;
                   <input type="radio" name="gender" value="1"  class="input_txt" <c:if test="${participants.gender=='1'}"><c:out value="checked=checked"/></c:if>> Female</td></tr>
-											<tr class="row2">
+											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> <%--  Age :<c:forEach begin="1" end="100" var="i">
                                  <option value="${i}" <c:if test ="${participantsDetails.age == i}">select</c:if>>${i}</option>
@@ -534,7 +534,7 @@ function empty()
 														</font></td>
 											</tr>
 
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> City :</td>
 												<td valign="top" align="left" class="input_txt"><input
@@ -544,7 +544,7 @@ function empty()
 													color="Red" size="+1"><span id="spncity"><form:errors
 																path="participant.city"></form:errors> </span></font></td>
 											</tr>
-											<tr class="row2">
+											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
@@ -559,7 +559,7 @@ function empty()
 																path="participant.education"></form:errors> </span></font></td>
 
 											</tr>
-											<tr class="row1">
+											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err"></span> Medical
 													Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
