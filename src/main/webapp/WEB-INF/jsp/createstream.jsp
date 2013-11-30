@@ -32,7 +32,7 @@ $("#textingcontacts").keyup(function() {
 	else if($(this).val()!='')
 		{
 		
-		$("#tc").html('"<br>" Kindly give numbers only!!');
+		$("#tc").html('<br/> Kindly give numbers only!!');
 		}
 }).keydown(function() {
     oldValue = $(this).val();
@@ -85,10 +85,13 @@ $("#textingcontacts").keyup(function() {
                    </div></td>
                    
               </tr></table><div id="multichoice"></div><table width="100%" border="0" cellspacing="0" cellpadding="0"></table>
-		<table align="left">
-                <tr>
-	                  <td valign="top" align="right"></td><!-- <a href="javascript:void(0);" onclick="addMultichoice('multichoice');" style="text-decoration:none;" ><input type="button" value="Add one more Message" class="submit_btn2" name="" /></a> --></p> </td>
-		 <td valign="top" align="left"><div style="float:center; padding:0px 0px 0px 450px;"><input type="submit" value="Save Stream" class="submit_btn1" onclick="return validate()"/> </div></td>
+		<table>
+                <tr>               
+	                  
+		 <td valign="top"><div style="float:center; padding:0px 0px 0px 400px;"><input type="submit" value="Save Stream" class="submit_btn1" onclick="return validate()"/> </div></td>
+               
+               <td valign="top" align="left" style="padding-left:30px;"><input type="reset" value="Reset" class="submit_btn1"/> </td>
+               <td valign="top" align="left" style="padding-left:30px;"><a href="welcome" class="submit_btn1" style="color:white;text-decoration: none; font-size:14px;">Cancel</a> </td>
                 </tr>
               </table>
             
