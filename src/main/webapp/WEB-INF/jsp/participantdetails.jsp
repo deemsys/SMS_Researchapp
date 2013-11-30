@@ -15,7 +15,10 @@
       <tr>
         <td valign="top" align="left"><div>
             <div class="headings altheading">
-              <h2>Participants Details</h2>
+          <%--    <c:set value="${participantsDetailsForm.participantsDetails}" var="participantsDetails"/>
+          --%>    <c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
+              
+              <h2>Participants Details&nbsp;&nbsp;&nbsp;<span><a href="viewresponse?id=${participantsDetails.participants_id}">View Responses</a></span></h2></c:forEach>
             </div>
             <div class="contentbox">
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -111,10 +114,10 @@
               
               <c:choose> 
               <c:when test="${menu=='dashboard'}">
-               <a class="paging_select" href="welcome"><input type="button" onclick="goBack()" value="Back" class="submit_btn"/></a>
+               <a style="text-decoration: none;" class="paging_select" href="welcome"><input type="button" onclick="goBack()" value="Back" class="submit_btn"/></a>
               </c:when>
               <c:otherwise>
-                 <a class="paging_select" href="viewparticipants"><input type="button" onclick="goBack()" value="Back" class="submit_btn"/></a>
+                 <a style="text-decoration: none;" class="paging_select" href="viewparticipants"><input type="button" onclick="goBack()" value="Back" class="submit_btn"/></a>
             
               </c:otherwise>
               </c:choose>
