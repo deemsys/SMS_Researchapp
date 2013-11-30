@@ -369,14 +369,18 @@ return true;
 												</select> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
-										</table>
+										</table>	<div>Note:	To Select Multiple Groups use ctrl+click</div>	
 									</td>
-								</tr></table><table align="right">
+								</tr></table>
+								
+							
+								
+								<table align="right" border="0" cellspacing="0" cellpadding="0">
 								<tr class="row1">
-									<td valign="top" align="center">&nbsp;</td>
-									<td valign="top" align="left"><input type="submit" onclick="return validate('this')"
+									<td valign="top" align="left" border="0"><input type="submit" onclick="return validate('this')"
 										name="insert" class="submit_btn2" value="Add Participant">
 										<span id="spnsub"> </span></td>
+										<td valign="middle" style="padding-left:10px;" ><input type="reset" class="submit_btn" value="Reset"></td>
 										 <td valign="middle" style="padding-left:10px;" ><a href="viewparticipants" class="submit_btn" style="color:white ;font-size:14px;text-decoration: none;">Cancel</a>
 										
 								</tr>
@@ -576,7 +580,7 @@ return true;
 
 <tr><td><p class="quck-txt">Group</p></td></tr>
 
-<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
+<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<a href="addparticipantgroups" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
 
 
 
@@ -595,16 +599,20 @@ return true;
 																path="participant.group_name"></form:errors> </span></font></td>
                 </tr>            
  </table>
+ <div>Note:	To Select Multiple Groups use ctrl+click</div>	
 
                   </td>
                 </tr></table>
+                
                  
-              <table align="right">
+              <table align="right" cellspacing="0" cellpadding="0" border="0">
 								<tr class="row1">
 									<td valign="top" align="center">&nbsp;</td>
 									<td valign="top" align="left"><input type="submit" onclick="return validate('this')"
 										name="insert" class="submit_btn2" value="Add Participant">
-										<span id="spnsub"> </span></td>
+										<span id="spnsub"> </span></td>			
+										
+										 <td valign="middle" style="padding-left:10px;" ><a href="showaddparticipants" class="submit_btn" style="color:white ;font-size:14px;text-decoration: none;">Reset</a></td>
 										 <td valign="middle" style="padding-left:10px;" ><a href="viewparticipants" class="submit_btn" style="color:white ;font-size:14px;text-decoration: none;">Cancel</a>
 										
 								</tr>

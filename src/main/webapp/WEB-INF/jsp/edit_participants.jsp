@@ -415,6 +415,7 @@ $("#mno").keyup(function() {
 																
 																</td>
 											</tr></table>
+ <div>Note:	To Select Multiple Groups use ctrl+click</div>	
 											
  
 
@@ -680,6 +681,8 @@ $("#mno").keyup(function() {
 																
 																</td>
 											</tr></table>
+											
+ <div>Note:	To Select Multiple Groups use ctrl+click</div>	
 											
  
 

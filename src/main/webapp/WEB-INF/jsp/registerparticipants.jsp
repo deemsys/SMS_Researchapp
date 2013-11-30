@@ -444,6 +444,7 @@ function empty()
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
 										</table>
+										<div>Note:	To Select Multiple Groups use ctrl+click</div>	
 									</td>
 								</tr>
 								<tr class="row1" width="1000">
@@ -750,6 +751,7 @@ function empty()
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
 										</table>
+										<div>Note:	To Select Multiple Groups use ctrl+click</div>	
 									</td>
 								</tr>			
 					
@@ -764,7 +766,7 @@ function empty()
 						
 						
 							<table align="right"><tr><td valign="middle"  style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register" onclick="return validate('this')"></td>
-							<td valign="middle" style="padding-left:10px;"><input type="reset" value="Reset" onclick="empty()" class="submit_btn"></td>
+							<td valign="middle" style="padding-left:10px;"><a href="showRegisterParticipant" class="submit_btn" style="color:white">Reset</a></td>
 							<td valign="middle" style="padding-left:10px;" ><a href="login" class="submit_btn" style="color:white" text-decoration: none;>Cancel</a></td></tr></table>
 					</table>
 			

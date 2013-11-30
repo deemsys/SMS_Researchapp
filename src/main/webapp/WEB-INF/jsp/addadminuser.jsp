@@ -4,6 +4,36 @@
 <html>
 <head>
 </head>
+<script src="/BePhitResearchApp/resources/js/jquery.js"></script>
+<script type="text/javascript">
+$(window).load(function(){
+var oldValue = "";
+$("#inp_id").keyup(function() {
+	$("#err").html('');
+	var intRegex = /^\d+$/;
+	if(intRegex.test($(this).val())||$(this).val()=='') 
+	{
+		var $in = $(this).val();
+		var $newdiv="";
+	  var $i=0;
+	  if($in.length>10)
+		  {
+		  $("#err").html('Mobile number is not valid. Should be of length 10!!');		
+		   }	
+			
+	}
+	else if($(this).val()!='')
+		{
+		
+		$("#err").html('Kindly give numbers only!!');
+		}
+}).keydown(function() {
+    oldValue = $(this).val();
+})
+});
+</script>
+
+
 <script type="text/javascript">
 function validate()
 {
@@ -82,7 +112,7 @@ else {
                 </tr> --%>
 		<tr class="row1">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Mobile :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" name="admin_mobile" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /></br><span class="err"><form:errors path="adminuser.admin_mobile"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" name="admin_mobile" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="" /></br><span class="err"><span id="err"></span><form:errors path="adminuser.admin_mobile"></form:errors></span></span></td>
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> E-mail :</td>
@@ -130,11 +160,11 @@ else {
                 </tr> --%>
 		<tr class="row1">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Mobile :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" name="admin_mobile" class="input_txtbx" id="inp_id" value="${admin.admin_mobile}" /><br><span class="err"><c:if test="${mobile_exists==true}"><c:out value="mobile number  already exist"/></c:if><form:errors path="adminuser.admin_mobile"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" name="admin_mobile" class="input_txtbx" id="inp_id" value="${admin.admin_mobile}" /><br><font color="Red" size="+1"><span  id="err"><c:if test="${mobile_exists==true}"><c:out value="mobile number  already exist"/></c:if><form:errors path="adminuser.admin_mobile"></form:errors></span></td>
                 </tr>
                 <tr class="row2">
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> E-mail :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" name="admin_email" class="input_txtbx" id="inp_id" value="${admin.admin_email}" /><br><span class="err"><c:if test="${email_exist==true}"><c:out value="Email Id  already exist"/></c:if><form:errors path="adminuser.admin_email"></form:errors></span></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" name="admin_email" class="input_txtbx" id="inp_id" value="${admin.admin_email}" /><br><font color="Red" size="+1"><span class="err"></span><c:if test="${email_exist==true}"><c:out value="Email Id  already exist"/></c:if><form:errors path="adminuser.admin_email"></form:errors></span></td>
                 </tr>
 		
 </td>
@@ -142,7 +172,7 @@ else {
                  
                  <tr class="row1">
                  <table align="left"><tr><td valign="middle"  style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register"></td>
-							<td valign="middle" style="padding-left:10px;"><input type="reset" value="Reset" class="submit_btn"></td>
+							<td valign="middle" style="padding-left:10px;"><a href="showaddadminuser" class="submit_btn" style="color:white">Reset</a></td>
 							<td valign="middle" style="padding-left:10px;"><a href="welcome" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
 					
               </tr>

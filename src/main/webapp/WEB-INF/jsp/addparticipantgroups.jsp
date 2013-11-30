@@ -5,13 +5,7 @@
 <link rel="stylesheet" href="resources/css/jquery-ui.css" />
   <script src="resources/js/jquery-1.9.1.js" type="text/javascript"></script>
   <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
-  <script type="text/javascript">
-  function empty()
-  {
-	 String name=document.getElementsByName("group_name").value;
-	 alert(name);
-  }  
-  </script>
+  
   
   
   <script>
@@ -116,7 +110,7 @@
 	                 <tr class="row2">
 	                  <td valign="top" align="right">&nbsp;</td>
 	                  <td valign="top" align="right" width="42%"><input type="submit" class="submit_btn1" value="Add Group" style="color:white;"><td></form>
-	                 <form method=get action="showaddparticipantgroups"> <input type="submit" class="submit_btn1" onclick="empty()" value="Reset" style="color:white;"></td></form>
+	                 <form method=get action="showaddparticipantgroups"> <input type="submit" class="submit_btn1"  value="Reset" style="color:white;"></td></form>
 	                  <td> <a href="viewparticipantgroups" class="submit_btn1" style="color:white; text-decoration: none;font-size:14px;">Cancel</a></td><td width="40%"></td>
 	                </tr>	                
 	                </table>
