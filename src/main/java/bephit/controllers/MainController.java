@@ -963,11 +963,21 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		map.addAttribute("form", form);
 		map.addAttribute("menu","settings");
         System.out.println("textmessage");
-
+        map.addAttribute("success","false");
 		return "textmsg";
 	}
+	
 @RequestMapping(value="/textMsgSettings", method= RequestMethod.POST)
-public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSettings") TextMsgSettings textMsgSettings,ModelMap map, Principal principal){
+public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSettings") @Valid TextMsgSettings textMsgSettings,BindingResult result,ModelMap map, Principal principal){
+	
+	if(result.hasErrors())
+	{
+		return "textmsg";
+	}
+	else
+	{
+	
+	
 	int status=mailTemplateDAO.updateMsgSettings(textMsgSettings);
 	System.out.println(status);
 	TextMsgSettingsForm textMsgSettingsForm=new TextMsgSettingsForm();
@@ -978,6 +988,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	map.addAttribute("success", "true");
 	map.addAttribute("menu","settings");
 	return "textmsg";
+	}
 	
 }
 	

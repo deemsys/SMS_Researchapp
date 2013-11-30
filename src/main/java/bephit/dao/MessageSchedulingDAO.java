@@ -45,7 +45,7 @@ public class MessageSchedulingDAO {
 	@Autowired
 	MessageStatusDAO messageStatus;
 
-	protected static Logger logger = org.slf4j.LoggerFactory.getLogger("schedular");
+	protected static Logger logger = org.slf4j.LoggerFactory.getLogger(MessageSchedulingDAO.class);
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
@@ -261,7 +261,7 @@ public class MessageSchedulingDAO {
 		ResultSet resultSet = null;
 
 		// Date operations
-
+        
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("M/d/Y");
 		
 		//
@@ -373,6 +373,7 @@ public class MessageSchedulingDAO {
 							 try{
 						    	 System.out.println("Sending messages.......");
 							      	messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+							      	logger.info("One per day sending message..."+message_list.get(i).getParticipant_id());
 							     }catch(Exception e){e.printStackTrace();}				
 							
 							
@@ -525,6 +526,7 @@ public class MessageSchedulingDAO {
 							 try{
 						    	 
 							      	messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+							    	logger.info("Weekly sending message..."+message_list.get(i).getParticipant_id());
 							     }catch(Exception e){e.printStackTrace();}	
 							
 							
@@ -675,6 +677,7 @@ public class MessageSchedulingDAO {
 								 {
 									 try{
 								           messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+								       	logger.info("Two per day sending message..."+message_list.get(i).getParticipant_id());
 									     }catch(Exception e){e.printStackTrace();}	
 							update_participant_message_status(
 									message_list.get(i).getBroad_id(),
@@ -693,6 +696,7 @@ public class MessageSchedulingDAO {
 									 try{
 								    	 
 									      	messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+									      	logger.info("Two per day sending message..."+message_list.get(i).getParticipant_id());
 									     }catch(Exception e){e.printStackTrace();}	
 								update_participant_message_status(
 										message_list.get(i).getBroad_id(),
@@ -709,6 +713,7 @@ public class MessageSchedulingDAO {
 									 try{
 								    	 
 									      	messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+									    	logger.info("Two per day sending message..."+message_list.get(i).getParticipant_id());
 									     }catch(Exception e){e.printStackTrace();}	
 								update_participant_message_status(
 										message_list.get(i).getBroad_id(),
@@ -855,6 +860,7 @@ public class MessageSchedulingDAO {
 									 try{
 								    	 System.out.println("Sending message.....!!!!");
 									      	messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+									      	logger.info("Three per day sending message..."+message_list.get(i).getParticipant_id());
 									     }catch(Exception e){e.printStackTrace();}	
 							update_participant_message_status(
 									message_list.get(i).getBroad_id(),
@@ -871,6 +877,7 @@ public class MessageSchedulingDAO {
 									 try{
 										 System.out.println("Sending message.....!!!!");
 									      	messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+									    	logger.info("Three per day sending message..."+message_list.get(i).getParticipant_id());
 									     }catch(Exception e){e.printStackTrace();}	
 								update_participant_message_status(
 										message_list.get(i).getBroad_id(),
@@ -887,6 +894,7 @@ public class MessageSchedulingDAO {
 									 try{
 										 System.out.println("Sending message.....!!!!");
 									      	messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+									    	logger.info("Three per day sending message..."+message_list.get(i).getParticipant_id());
 									     }catch(Exception e){e.printStackTrace();}	
 								update_participant_message_status(
 										message_list.get(i).getBroad_id(),
@@ -903,6 +911,7 @@ public class MessageSchedulingDAO {
 									 try{
 										 System.out.println("Sending message.....!!!!");
 									      	messageSender.sendSMS(message_list.get(i).getMobile_num(),Message_to_send);
+									    	logger.info("Three per day sending message..."+message_list.get(i).getParticipant_id());
 									     }catch(Exception e){e.printStackTrace();}	
 								update_participant_message_status(
 										message_list.get(i).getBroad_id(),

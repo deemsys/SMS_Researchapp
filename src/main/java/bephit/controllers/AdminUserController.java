@@ -54,9 +54,9 @@ public class AdminUserController
 	}
 	
 	@RequestMapping(value="/addadminuser", method=RequestMethod.GET)
-	public String showaddnewadminuser(HttpSession session,HttpServletRequest request,ModelMap model)
+	public String showaddnewadminuser(HttpSession session,HttpServletRequest request,ModelMap model,Principal principal)
 	{
-        session.invalidate();
+       // session.invalidate();
 		session.removeAttribute("admin");
 		model.put("success", "false");
 		  model.addAttribute("menu","adminuser");
