@@ -793,8 +793,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.POST)
 	public String NewParticipantGroups(HttpSession session,HttpServletRequest request,@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
 			BindingResult result,ModelMap model,Principal principal) {
-		session.setAttribute("group",pgroups);
-		//model.addAttribute("group",pgroups);
+		session.setAttribute("group",pgroups);		
 		model.addAttribute("Group_exists","false");
 		System.out.println("group"+pgroups.getgroup_name());
 	
