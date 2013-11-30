@@ -123,7 +123,7 @@ else {
                 </tr>
                  
                  <tr class="row1">
-                 <table align="left"><tr><td valign="middle"  style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register"></td>
+                 <table align="left"><tr><td valign="middle"  style="padding-left:400px;"><input type="submit" class="submit_btn" value="Register"></td>
 							<td valign="middle" style="padding-left:10px;"><input type="reset" value="Reset" class="submit_btn"></td>
 							<td valign="middle" style="padding-left:10px;"><a href="welcome" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
 					
@@ -171,7 +171,7 @@ else {
                 </tr>
                  
                  <tr class="row1">
-                 <table align="left"><tr><td valign="middle"  style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register"></td>
+                 <table align="left"><tr><td valign="middle" style="padding-left:410px;" ><input type="submit" class="submit_btn" value="Register"></td>
 							<td valign="middle" style="padding-left:10px;"><a href="showaddadminuser" class="submit_btn" style="color:white">Reset</a></td>
 							<td valign="middle" style="padding-left:10px;"><a href="welcome" class="submit_btn" style="color:white">Cancel</a></td></tr></table>
 					

@@ -141,7 +141,7 @@ else {
                  
                   <table align="left">
                   <tr valign="center">
-                  <td valign="middle" style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register"></td>
+                  <td valign="middle" style="padding-left:400px;"><input type="submit" class="submit_btn" value="Register"></td>
 				  <td valign="middle" style="padding-left:20px;"><input type="reset" value="Reset" class="submit_btn"></td>
 		    	  <td valign="middle" style="padding-left:20px;"><a href="login" class="submit_btn" style="color:white">Cancel</a></td>
 		          </tr>
@@ -185,7 +185,7 @@ else {
                  
              <table>
                   <tr align="center">
-                  <td valign="middle"  style="padding-left:500px;"><input type="submit" class="submit_btn" value="Register"></td>
+                  <td valign="middle"  style="padding-left:400px;"><input type="submit" class="submit_btn" value="Register"></td>
 							<td valign="middle" style="padding-left:50px;"><a href="showRegisterProvider" class="submit_btn" style="color:white">Reset</a></td>
 							<td valign="middle" width="25%"><a href="login" class="submit_btn" style="color:white">Cancel</a></td>
 							</tr>

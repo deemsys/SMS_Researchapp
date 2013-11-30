@@ -59,10 +59,12 @@
                   <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Mobile :</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" name="admin_mobile" class="input_txtbx" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${adminuser.admin_mobile }" /></br><span class="err"><form:errors path="adminuser.admin_mobile"></form:errors></span></td>
                 </tr>
-                
-                 <tr class="row1">
-                  <td valign="top" align="right">&nbsp;</td>
-                  <td valign="top" align="left"><input type="submit" value="Update Provider" class="submit_btn2"></td>
+                </table><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                 <tr class="row1">  
+                               
+                  <td valign="top" align="right"><input type="submit" value="Update Provider" class="submit_btn2"></td>
+                   <td valign="top" align="left"><a href="welcome" class="submit_btn1" style="color:white;text-decoration: none; font-size:14px;">Cancel</a></td>
+               <td width="22%"></td>
                 </tr>
               </table>
               </div>

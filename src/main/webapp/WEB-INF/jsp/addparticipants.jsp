@@ -421,17 +421,17 @@ return true;
 		 <tr class="row1">
                  <td valign="middle" align="left" class="input_txt"><span class="err"></span> Age :</td>
                  <td valign="top" align="left" class="input_txt"><select name="age" class="input_cmbbx1">
-                 <option <c:if test="${participantsDetails.age=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
-                 <option value="Below 12" <c:if test="${participantsDetails.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
-                 <option value="12-20 years" <c:if test="${participantsDetails.age=='12-20 years'}"><c:out value="selected"/></c:if>>12-20 &#160 years</option>
-                 <option value="20-30 years" <c:if test="${participantsDetails.age=='20-30 years'}"><c:out value="selected"/></c:if>>20-30 &#160 years</option>
-                 <option value="30-40 years" <c:if test="${participantsDetails.age=='30-40 years'}"><c:out value="selected"/></c:if>>30-40 &#160 years</</option>                  
-                 <option value="40-50 years" <c:if test="${participantsDetails.age=='40-50 years'}"><c:out value="selected"/></c:if>>40-50 &#160 years</option>
-                 <option value="50-60 years"  <c:if test="${participantsDetails.age=='50-60 years'}"><c:out value="selected"/></c:if>>50-60 &#160 years</option>
-                 <option value="60-70 years" <c:if test="${participantsDetails.age=='60-70 years'}"><c:out value="selected"/></c:if>>60-70 &#160 years</option>
-                 <option value="70-80 years" <c:if test="${participantsDetails.age=='70-80 years'}"><c:out value="selected"/></c:if>>70-80 &#160 years</option>
-                 <option value="80-90 years" <c:if test="${participantsDetails.age=='80-90 years'}"><c:out value="selected"/></c:if>>80-90 &#160 years</option>
-                   <option value="90-100 years" <c:if test="${participantsDetails.age=='90-100 years'}"><c:out value="selected"/></c:if>>90-100 years</option>
+                 <option <c:if test="${addparticipants.age=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+                 <option value="Below 12" <c:if test="${addparticipants.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
+                 <option value="12-20 years" <c:if test="${addparticipants.age=='12-20 years'}"><c:out value="selected"/></c:if>>12-20 &#160 years</option>
+                 <option value="20-30 years" <c:if test="${addparticipants.age=='20-30 years'}"><c:out value="selected"/></c:if>>20-30 &#160 years</option>
+                 <option value="30-40 years" <c:if test="${addparticipants.age=='30-40 years'}"><c:out value="selected"/></c:if>>30-40 &#160 years</</option>                  
+                 <option value="40-50 years" <c:if test="${addparticipants.age=='40-50 years'}"><c:out value="selected"/></c:if>>40-50 &#160 years</option>
+                 <option value="50-60 years"  <c:if test="${addparticipants.age=='50-60 years'}"><c:out value="selected"/></c:if>>50-60 &#160 years</option>
+                 <option value="60-70 years" <c:if test="${addparticipants.age=='60-70 years'}"><c:out value="selected"/></c:if>>60-70 &#160 years</option>
+                 <option value="70-80 years" <c:if test="${addparticipants.age=='70-80 years'}"><c:out value="selected"/></c:if>>70-80 &#160 years</option>
+                 <option value="80-90 years" <c:if test="${addparticipants.age=='80-90 years'}"><c:out value="selected"/></c:if>>80-90 &#160 years</option>
+                   <option value="90-100 years" <c:if test="${addparticipants.age=='90-100 years'}"><c:out value="selected"/></c:if>>90-100 years</option>
                   
                   </select><%-- <input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantsDetails.age}" name="age" /></br><span class="err"><form:errors path="participant.age"></form:errors></span> --%></td>
                 </tr>
@@ -443,7 +443,7 @@ return true;
 		 <tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err"></span> Education :</td>
                   <td valign="top" align="left" class="input_txt"><select name="education" class="input_cmbbx1">
-                          <option <c:if test="${participantsDetails.education=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+                          <option <c:if test="${addparticipants.education=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
                     <option value="School" <c:if test="${addparticipants.education=='School'}"><c:out value="selected"/></c:if>>School</option>
 			<option value="Some College" <c:if test="${addparticipants.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
 			<option value="Professional Degree" <c:if test="${addparticipants.education=='Professional Degree'}"><c:out value="selected"/></c:if>>Professional Degree</option>
