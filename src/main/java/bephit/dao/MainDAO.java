@@ -1091,11 +1091,11 @@ public class MainDAO {
 			String cmd;
 			if(userName.equals("superadmin"))
 			cmd = "select * from participants_table where mobile_num='"
-					+ mobile + "' or group_name='" + groupname + "' or city='"
+					+ mobile + "' or group_name like '%" + groupname + "%' or city='"
 					+ city + "'";
 			else
 				cmd = "select * from participants_table where mobile_num='"
-				+ mobile + "' or group_name='" + groupname + "' or city='"
+				+ mobile + "' or group_name like '%" + groupname + "%' or city='"
 				+ city + "' having Provider_name='"+userName+"'";
 	
 			resultSet = statement.executeQuery(cmd);

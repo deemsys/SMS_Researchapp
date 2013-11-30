@@ -19,10 +19,16 @@ import bephit.model.UpdatePwd;
 public class MailTemplateDAO {
 	private DataSource dataSource;
 
+	
+	
+	
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
+
+	
+	
 	
 	public int insertMailTempplate(MailTemplateDetails mailTemplateDetails) {
 		Connection con = null;
@@ -126,11 +132,11 @@ public List<TextMsgSettings> getMsgSettings(){
 	} catch (SQLException e1) {
 		e1.printStackTrace();
 	}
-	List<TextMsgSettings> forms=new ArrayList<TextMsgSettings>();
+	List<TextMsgSettings> txtList=new ArrayList<TextMsgSettings>();
 	try {
 		resultSet = statement.executeQuery("select * from text_msg_api order by msg_id desc");
 		while(resultSet.next()){
-			forms.add(new TextMsgSettings(resultSet.getString("account_sid"),resultSet.getString("auth_token"),resultSet.getString("mob_num")));
+			txtList.add(new TextMsgSettings(resultSet.getString("account_sid"),resultSet.getString("auth_token"),resultSet.getString("mob_num")));
 		}
 		
 	} catch (Exception e) {
@@ -144,7 +150,7 @@ public List<TextMsgSettings> getMsgSettings(){
     	releaseConnection(con);	    	
     }
    
-	return forms;
+	return txtList;
 }
 public String getCurrentPwd(){
 	String userpwd="";
