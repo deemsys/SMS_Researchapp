@@ -420,15 +420,14 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	public String showAddParticipants(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model,Principal principal,String admin_id,String Desc) {		
 		
-	
 		session.setAttribute("addparticipants", participant);
 		
 		
 		model.addAttribute("email_exist","false");		
 		model.addAttribute("mobile_exists","false");
 		
-		System.out.println("username"+participant.getusername());
-		int user_count=mainDAO.checkuser(participant.getusername(),0,null);
+		System.out.println("username"+participant.getUsername());
+		int user_count=mainDAO.checkuser(participant.getUsername(),0,null);
 		int email_count=mainDAO.checkemail(participant.getEmail_id(),0,null);
 		int mobile_count=mainDAO.checkmobile(participant.getMobile_num(),0,null);
 		
@@ -552,6 +551,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	@RequestMapping(value="/registerparticipants", method=RequestMethod.POST)	
 	public String showAddParticipants1(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model) {
+		
 		String providername=participant.getProvider_name();
 		System.out.println("providername"+participant.getProvider_name());
 		session.setAttribute("participants",participant);
@@ -559,7 +559,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		session.setAttribute("provider",participant.getProvider_name());
 		model.addAttribute("email_exist","false");
 		model.addAttribute("mobile_exists","false");
-		int user_count=mainDAO.checkuser(participant.getusername());
+		int user_count=mainDAO.checkuser(participant.getUsername());
 		int email_count=mainDAO.checkemail(participant.getEmail_id(),0,null);
 		int mobile_count=mainDAO.checkmobile(participant.getMobile_num());
 		
@@ -779,7 +779,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	@RequestMapping(value="/showaddparticipantgroups", method=RequestMethod.GET)
 	public String showAddParticipantGroups(HttpSession session,HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {		
 	
-		session.removeAttribute("group");
+		session.invalidate();		
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);        
@@ -796,7 +796,8 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		session.setAttribute("group",pgroups);		
 		model.addAttribute("Group_exists","false");
 		System.out.println("group"+pgroups.getgroup_name());
-	
+		System.out.println("admin name"+principal.getName());
+		
 		int group_count=partDAO.checkGroupname(pgroups.getgroup_name());
 		
 		if(result.hasErrors())
@@ -1057,6 +1058,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	public String updateParticipant(HttpSession session,HttpServletRequest request,@ModelAttribute("participant") @Valid ParticipantsDetails participant,
 			BindingResult result,ModelMap model,Principal principal)
 	{		
+		
 		session.setAttribute("addparticipants", participant);
 		int email_count=mainDAO.checkemail(participant.getEmail_id(),1,participant.getParticipants_id());
 		int mobile_count=mainDAO.checkmobile(participant.getMobile_num(),1,participant.getParticipants_id());
@@ -1164,21 +1166,10 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 			BindingResult result,ModelMap model,Principal principal)
 	{
 		
-		InetAddress IP;
-		try {
-			IP = InetAddress.getLocalHost();
-			System.out.println("IP of my system is := "+IP.getHostAddress());
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		
 		String fname=request.getParameter("fname");
-		session.setAttribute("participants",participant);
-		
-		
-		
+		session.setAttribute("participants",participant);	
 		
 		String providername=request.getParameter("Provider_name");
 		System.out.println("providername"+providername);
