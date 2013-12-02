@@ -9,7 +9,14 @@
 %>
 <link rel="stylesheet" url="resources/js/jquery.js" />
 <script src="/BePhitResearchApp/resources/js/jquery.js"></script>
+<script>
+function regex()
+{
+var regex=/(^\d{5}$)|(^\d{5}-\d{4}$)/;
+var city=document.getElementById('');
 
+}
+</script>
 
 <script type="text/javascript">
 $(window).load(function(){
@@ -42,14 +49,21 @@ $("#mno").keyup(function() {
 $("#city").keyup(function() {
 	$("#spncity").html('');
 	var intRegex = /^\d+$/;
-	if(intRegex.test($(this).val())||$(this).val()=='') 
+	var regex=/(^\d{5}$)|(^\d{5}-\d{4}$)/;
+	/* if(intRegex.test($(this).val())||$(this).val()=='') 
+	{
+		var $in = $(this).val();		 
+	} */
+	if(regex.test($(this).val())||$(this).val()=='') 
 	{
 		var $in = $(this).val();		 
 	}
+	
 	else if($(this).val()!='')
 		{
 		
-		$("#spncity").html('Kindly give numbers only!!');
+		$("#spncity").html('Not a valid Zipcode!!');
+		return false;
 		}
 }).keydown(function() {
     oldValue = $(this).val();
@@ -216,7 +230,7 @@ function empty()
 													type="text" class="input_txtbx1" id="mno"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');"
-													value="${mobile_num}" name="mobile_num" /></br> 
+													value="${mobile_num}" name="mobile_num" max="10" min="" size="10"/></br> 
 												<c:if test="${mobile_exists ==true}">
 													<font
 													color="Red" size="+1"><span id="spnmno"></span>Mobile name already exists </font>
@@ -253,7 +267,7 @@ function empty()
 													class="err"></span> <%--  Age :<c:forEach begin="1" end="100" var="i">
                                  <option value="${i}" <c:if test ="${participantsDetails.age == i}">select</c:if>>${i}</option>
                                                        </c:forEach>   --%>
-													Age:</td>
+													Age :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="age" class="input_cmbbx1">
 														<option selected="selected" value="">Below 12</option>
@@ -279,23 +293,25 @@ function empty()
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="city"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
-													onmouseout="hideTooltip('tooltip_id');" name="city" /></br> <font
-													color="Red" size="+1"><span id="spncity"><form:errors
-																path="participant.city"></form:errors> </span></font></td>
+													onmouseout="hideTooltip('tooltip_id');" name="city" /></br>
+													
+													<font
+													color="Red" size="+1"><span id="spncity">
+													
+													<form:errors path="participant.city"></form:errors> </span></font></td>
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
-														<option selected="selected" value="">--Select--</option>
-														<option value="School" id="edu">School</option>
+														<option selected="selected" value="null">--Select--</option>
+														<option value="School" id="edu">Did not complete High School</option>
+														<option value="School" id="edu">High School or GED</option>
 														<option value="Some Collage" id="edu">Some
 															College</option>
-														<option value="Professional Degree" id="edu">Professional
-															Degree</option>
-														<option value="Master Degree" id="edu">Master
-															Degree</option>
+														<option value="Professional Degree" id="edu">Undergraduate Degree</option>
+														<option value="Master Degree" id="edu">Post-graduate Degree</option>
 												</select> <br /> <font color="Red" size="+1"><span
 														id="spnedu"><form:errors
 																path="participant.education"></form:errors> </span></font></td>
@@ -304,8 +320,7 @@ function empty()
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err"></span> Medical
-													Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Details :</td>
 												<td valign="top" align="left" class="input_txt"><textarea
 														class="input_txtbx1" id="det"
 														onmouseover="showTooltip('tooltip_id','inp_id3');"
@@ -331,36 +346,27 @@ function empty()
 
                                             <tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Time1:</td>
+													class="err"></span> Time1 :</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time1" class="input_cmbbx1" id="msg">
-														<option selected="selected" value="">--Select--</option>
-														<option value="00-01" id="time">00-01</option>
-														<option value="01-02" id="time">01-02</option>
-														<option value="02-03" id="time">02-03</option>
-														<option value="03-04" id="time">03-04</option>
-														<option value="04-05" id="time">04-05</option>
-														<option value="05-06" id="time">05-06</option>
-														<option value="06-07" id="time">06-07</option>
-														<option value="07-08" id="time">07-08</option>
-														<option value="08-09" id="time">08-09</option>
-														<option value="09-10" id="time">09-10</option>
-														<option value="10-11" id="time">10-11</option>
-														<option value="11-12" id="time">11-12</option>
-														<option value="12-13" id="time">12-13</option>
-														<option value="13-14" id="time">13-14</option>
-														<option value="14-15" id="time">14-15</option>
-														<option value="15-16" id="time">15-16</option>
-														<option value="16-17" id="time">16-17</option>
-														<option value="17-18" id="time">17-18</option>
-														<option value="18-19" id="time">18-19</option>
-														<option value="19-20" id="time">19-20</option>
-														<option value="21-22" id="time">21-22</option>
-														<option value="22-23" id="time">22-23</option>
-														<option value="23-00" id="time">23-00</option>
-														
-															
-												</select><span>     Hours</span><br/>
+											<option value="null" selected="selected">--Select--</option>
+											<option value="01" >1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											</select>
+									<select name="time1_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
+								   </select><br/>
 																								
 												<font color="Red" size="+1"><span
 														id="spnedu"><form:errors
@@ -368,72 +374,59 @@ function empty()
 											</tr>
                                                <tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Time2:</td>
+													class="err"></span> Time2 :</td>
 												<td valign="top" align="left" class="input_txt">
-												<select name="time2" class="input_cmbbx1" id="msg">
-														<option selected="selected" value="">--Select--</option>
-														<option value="00-01" id="time">00-01</option>
-														<option value="01-02" id="time">01-02</option>
-														<option value="02-03" id="time">02-03</option>
-														<option value="03-04" id="time">03-04</option>
-														<option value="04-05" id="time">04-05</option>
-														<option value="05-06" id="time">05-06</option>
-														<option value="06-07" id="time">06-07</option>
-														<option value="07-08" id="time">07-08</option>
-														<option value="08-09" id="time">08-09</option>
-														<option value="09-10" id="time">09-10</option>
-														<option value="10-11" id="time">10-11</option>
-														<option value="11-12" id="time">11-12</option>
-														<option value="12-13" id="time">12-13</option>
-														<option value="13-14" id="time">13-14</option>
-														<option value="14-15" id="time">14-15</option>
-														<option value="15-16" id="time">15-16</option>
-														<option value="16-17" id="time">16-17</option>
-														<option value="17-18" id="time">17-18</option>
-														<option value="18-19" id="time">18-19</option>
-														<option value="19-20" id="time">19-20</option>
-														<option value="21-22" id="time">21-22</option>
-														<option value="22-23" id="time">22-23</option>
-														<option value="23-00" id="time">23-00</option>
+												<select name="time2" class="input_cmbbx1" id="msg">														
+											<option value="null" selected="selected">--Select--</option>
+											<option value="01" >1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											</select>
+									<select name="time2_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
+								   </select>
 														
-															
-												</select><span>     Hours</span><br/>
+														
+														
+														
+														<br/>
 																							<font color="Red" size="+1"><span
 														id="spnedu"><form:errors
 																path="participant.time2"></form:errors> </span></font></td>
 											</tr>
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Time3:</td>
+													class="err"></span> Time3 :</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time3" class="input_cmbbx1" id="msg">
-														<option selected="selected" value="">--Select--</option>
-															<option value="00-01" id="time">00-01</option>
-														<option value="01-02" id="time">01-02</option>
-														<option value="02-03" id="time">02-03</option>
-														<option value="03-04" id="time">03-04</option>
-														<option value="04-05" id="time">04-05</option>
-														<option value="05-06" id="time">05-06</option>
-														<option value="06-07" id="time">06-07</option>
-														<option value="07-08" id="time">07-08</option>
-														<option value="08-09" id="time">08-09</option>
-														<option value="09-10" id="time">09-10</option>
-														<option value="10-11" id="time">10-11</option>
-														<option value="11-12" id="time">11-12</option>
-														<option value="12-13" id="time">12-13</option>
-														<option value="13-14" id="time">13-14</option>
-														<option value="14-15" id="time">14-15</option>
-														<option value="15-16" id="time">15-16</option>
-														<option value="16-17" id="time">16-17</option>
-														<option value="17-18" id="time">17-18</option>
-														<option value="18-19" id="time">18-19</option>
-														<option value="19-20" id="time">19-20</option>
-														<option value="21-22" id="time">21-22</option>
-														<option value="22-23" id="time">22-23</option>
-														<option value="23-00" id="time">23-00</option>
-														
-															
-												</select><span>     Hours</span><br/>																					
+														<option value="null" selected="selected">--Select--</option>
+											<option value="01" >1&nbsp;</option>
+											<option value="02">2&nbsp;</option>
+											<option value="03">3&nbsp;</option>
+											<option value="04">4&nbsp;</option>
+											<option value="05">5&nbsp;</option>
+											<option value="06">6&nbsp;</option>
+											<option value="07">7&nbsp;</option>
+											<option value="08">8&nbsp;</option>
+											<option value="09">9&nbsp;</option>
+											<option value="10">10&nbsp;</option>
+											<option value="11">11&nbsp;</option>
+											<option value="12">12&nbsp;</option>
+											</select>
+									<select name="time3_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="AM">AM&nbsp;</option>
+											<option value="PM">PM&nbsp;</option>
+								   </select><br/>																					
 												<font color="Red" size="+1"><span
 														id="spnedu"><form:errors
 																path="participant.time3"></form:errors> </span></font></td>
@@ -444,9 +437,7 @@ function empty()
 											</tr>
 <tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
-													class="err">*</span> Provider Name
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													class="err">*</span> Provider Name :</td>
 												<td valign="top" align="left" class="input_txt">
 												<select onchange="doAjaxPost()" name="Provider_name" id="Provider_name"  class="input_cmbbx1"> <option value="null">--Select--</option>
 														<c:forEach
@@ -465,8 +456,7 @@ function empty()
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err">*</span> Select
-													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Group :</td>
 												<td valign="top" align="left" class="input_txt">
 												<%-- <select
 													name="group_name" multiple="multiple">
@@ -556,7 +546,7 @@ function empty()
 													class="err"></span> <%--  Age :<c:forEach begin="1" end="100" var="i">
                                  <option value="${i}" <c:if test ="${participantsDetails.age == i}">select</c:if>>${i}</option>
                                                        </c:forEach>   --%>
-													Age:</td>
+													Age :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="age" class="input_cmbbx1">
 														<option value="" <c:if test="${participants.age=='Below 12'}"><c:out value="selected"/></c:if>>Below 12</option>
@@ -583,19 +573,21 @@ function empty()
 													type="text" class="input_txtbx1" id="city"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="city" value="${participants.city}" /></br> <font
-													color="Red" size="+1"><span id="spncity"><form:errors
-																path="participant.city"></form:errors> </span></font></td>
+													color="Red" size="+1"><span id="spncity">
+												
+													<form:errors path="participant.city"></form:errors> </span></font></td>
 											</tr>
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
-														<option selected="selected" value="">--Select--</option>
-														 <option value="School" <c:if test="${participants.education=='School'}"><c:out value="selected"/></c:if>>School</option>
+			<option value="null" <c:if test="${participants.education=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+			<option value="Did not complete High School" <c:if test="${participants.education=='Did not complete High School'}"><c:out value="selected"/></c:if>>Did not complete High School</option>
+			<option value="High School or GED" <c:if test="${participants.education=='High School or GED'}"><c:out value="selected"/></c:if>>High School or GED</option>
 			<option value="Some College" <c:if test="${participants.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
-			<option value="Professional Degree" <c:if test="${participants.education=='Professional Degree'}"><c:out value="selected"/></c:if>>Professional Degree</option>
-			<option value="Master Degree" <c:if test="${participants.education=='Master Degree'}"><c:out value="selected"/></c:if>>Master Degree</option>
+			<option value="Undergraduate Degree" <c:if test="${participants.education=='Undergraduate Degree'}"><c:out value="selected"/></c:if>>Undergraduate Degree</option>
+			<option value="Postgraduate Degree" <c:if test="${participants.education=='Postgraduate Degree'}"><c:out value="selected"/></c:if>>Postgraduate Degree</option>
 												</select> <br /> <font color="Red" size="+1"><span
 														id="spnedu"><form:errors
 																path="participant.education"></form:errors> </span></font></td>
@@ -604,8 +596,7 @@ function empty()
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err"></span> Medical
-													Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Details :</td>
 												<td valign="top" align="left" class="input_txt"><textarea
 														class="input_txtbx1" id="det"
 														onmouseover="showTooltip('tooltip_id','inp_id3');"
@@ -631,107 +622,92 @@ function empty()
 
                                        <tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Time1:</td>
+													class="err"></span> Time1 :</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time1" class="input_cmbbx1" id="msg">
-												<option value="null" selected>--Select--</option> 
-					  <option value="00-01" <c:if test="${participants.time1=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
-                   <option value="01-02"  <c:if test="${participants.time1=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
-				   <option value="02-03" <c:if test="${participants.time1=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
-				   <option value="03-04" <c:if test="${participants.time1=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
-				   <option value="04-05" <c:if test="${participants.time1=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
-				   <option value="05-06" <c:if test="${participants.time1=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
-				   <option value="06-07" <c:if test="${participants.time1=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
-				   <option value="07-08"  <c:if test="${participants.time1=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
-					<option value="08-09" <c:if test="${participants.time1=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
-					<option value="09-10" <c:if test="${participants.time1=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
-					<option value="10-11"  <c:if test="${participants.time1=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
-					<option value="11-12" <c:if test="${participants.time1=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
-					<option value="12-13"  <c:if test="${participants.time1=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
-					<option value="13-14" <c:if test="${participants.time1=='13-14'}"><c:out value="selected"/></c:if>>13-14</option>
-				    <option value="14-15" <c:if test="${participants.time1=='14-15'}"><c:out value="selected"/></c:if>>14-15</option>
-				  <option value="15-16" <c:if test="${participants.time1=='15-16'}"><c:out value="selected"/></c:if>>15-16</option>
-				<option value="16-17"  <c:if test="${participants.time1=='16-17'}"><c:out value="selected"/></c:if>>16-17</option>
-				<option value="17-18" <c:if test="${participants.time1=='17-18'}"><c:out value="selected"/></c:if>>17-18</option>
-			    <option value="18-19" <c:if test="${participants.time1=='18-19'}"><c:out value="selected"/></c:if>>18-19</option>
-				<option value="19-20" <c:if test="${participants.time1=='19-20'}"><c:out value="selected"/></c:if>>19-20</option>
-				<option value="20-21"  <c:if test="${participants.time1=='20-21'}"><c:out value="selected"/></c:if>>20-21</option>
-				<option value="21-22"  <c:if test="${participants.time1=='21-22'}"><c:out value="selected"/></c:if>>21-22</option>
-				<option value="22-23" <c:if test="${participants.time1=='22-23'}"><c:out value="selected"/></c:if>>22-23</option>
-				<option value="23-00" <c:if test="${participants.time1=='23-00'}"><c:out value="selected"/></c:if>>23-00</option>
-                   
+												<option value="null"  <c:if test="${participants.time1=='null'}"><c:out value="selected"/></c:if>>--Select--</option> 
+					  <option value="01" <c:if test="${participants.time1=='01'}"><c:out value="selected"/></c:if>>1</option>
+                   <option value="02"  <c:if test="${participants.time1=='02'}"><c:out value="selected"/></c:if>>2</option>
+				   <option value="03" <c:if test="${participants.time1=='03'}"><c:out value="selected"/></c:if>>3</option>
+				   <option value="04" <c:if test="${participants.time1=='04'}"><c:out value="selected"/></c:if>>4</option>
+				   <option value="05" <c:if test="${participants.time1=='05'}"><c:out value="selected"/></c:if>>5</option>
+				   <option value="06" <c:if test="${participants.time1=='06'}"><c:out value="selected"/></c:if>>6</option>
+				   <option value="07" <c:if test="${participants.time1=='07'}"><c:out value="selected"/></c:if>>7</option>
+				   <option value="08"  <c:if test="${participants.time1=='08'}"><c:out value="selected"/></c:if>>8</option>
+					<option value="09" <c:if test="${participants.time1=='09'}"><c:out value="selected"/></c:if>>9</option>
+				 <option value="10" <c:if test="${participants.time1=='10'}"><c:out value="selected"/></c:if>>10</option>
+					<option value="11"  <c:if test="${participants.time1=='11'}"><c:out value="selected"/></c:if>>11</option>
+					<option value="12" <c:if test="${participants.time1=='12'}"><c:out value="selected"/></c:if>>12</option>					
 															
-												</select><span>     Hours</span><br/>
+												</select>
+												
+												<select name="time1_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="AM" <c:if test="${participants.time1_am_pm=='AM'}"><c:out value="selected"/></c:if>>AM&nbsp;</option>
+											<option value="PM" <c:if test="${participants.time1_am_pm=='PM'}"><c:out value="selected"/></c:if>>PM&nbsp;</option>
+								   </select>				
+												
+												
+												
+												
+												
+												
+												<br/>
 												</td>
 											</tr>
                                                <tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Time2:</td>
+													class="err"></span> Time2 :</td>
 												<td valign="top" align="left" class="input_txt" >
 												<select name="time2" class="input_cmbbx1" id="msg"">
-												<option value="null" selected>--Select--</option> 
-                   <option value="00-01" <c:if test="${participants.time2=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
-                   <option value="01-02"  <c:if test="${participants.time2=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
-				   <option value="02-03" <c:if test="${participants.time2=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
-				   <option value="03-04" <c:if test="${participants.time2=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
-				   <option value="04-05" <c:if test="${participants.time2=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
-				   <option value="05-06" <c:if test="${participants.time2=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
-				   <option value="06-07" <c:if test="${participants.time2=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
-				   <option value="07-08"  <c:if test="${participants.time2=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
-					<option value="08-09" <c:if test="${participants.time2=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
-					<option value="09-10" <c:if test="${participants.time2=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
-					<option value="10-11"  <c:if test="${participants.time2=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
-					<option value="11-12" <c:if test="${participants.time2=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
-					<option value="12-13"  <c:if test="${participants.time2=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
-					<option value="13-14" <c:if test="${participants.time2=='13-14'}"><c:out value="selected"/></c:if>>13-14</option>
-				    <option value="14-15" <c:if test="${participants.time2=='14-15'}"><c:out value="selected"/></c:if>>14-15</option>
-				  <option value="15-16" <c:if test="${participants.time2=='15-16'}"><c:out value="selected"/></c:if>>15-16</option>
-				<option value="16-17"  <c:if test="${participants.time2=='16-17'}"><c:out value="selected"/></c:if>>16-17</option>
-				<option value="17-18" <c:if test="${participants.time2=='17-18'}"><c:out value="selected"/></c:if>>17-18</option>
-			    <option value="18-19" <c:if test="${participants.time2=='18-19'}"><c:out value="selected"/></c:if>>18-19</option>
-				<option value="19-20" <c:if test="${participants.time2=='19-20'}"><c:out value="selected"/></c:if>>19-20</option>
-				<option value="20-21"  <c:if test="${participants.time2=='20-21'}"><c:out value="selected"/></c:if>>20-21</option>
-				<option value="21-22"  <c:if test="${participants.time2=='21-22'}"><c:out value="selected"/></c:if>>21-22</option>
-				<option value="22-23" <c:if test="${participants.time2=='22-23'}"><c:out value="selected"/></c:if>>22-23</option>
-				<option value="23-00" <c:if test="${participants.time2=='23-00'}"><c:out value="selected"/></c:if>>23-00</option>
-                   										
-												</select><span>     Hours</span><br/>
+												<option value="null"  <c:if test="${participants.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option> 
+                    <option value="01" <c:if test="${participants.time2=='01'}"><c:out value="selected"/></c:if>>1</option>
+                   <option value="02"  <c:if test="${participants.time2=='02'}"><c:out value="selected"/></c:if>>2</option>
+				   <option value="03" <c:if test="${participants.time2=='03'}"><c:out value="selected"/></c:if>>3</option>
+				   <option value="04" <c:if test="${participants.time2=='04'}"><c:out value="selected"/></c:if>>4</option>
+				   <option value="05" <c:if test="${participants.time2=='05'}"><c:out value="selected"/></c:if>>5</option>
+				   <option value="06" <c:if test="${participants.time2=='06'}"><c:out value="selected"/></c:if>>6</option>
+				   <option value="07" <c:if test="${participants.time2=='07'}"><c:out value="selected"/></c:if>>7</option>
+				   <option value="08"  <c:if test="${participants.time2=='08'}"><c:out value="selected"/></c:if>>8</option>
+					<option value="09" <c:if test="${participants.time2=='09'}"><c:out value="selected"/></c:if>>9</option>
+				 <option value="10" <c:if test="${participants.time2=='10'}"><c:out value="selected"/></c:if>>10</option>
+					<option value="11"  <c:if test="${participants.time2=='11'}"><c:out value="selected"/></c:if>>11</option>
+					<option value="12" <c:if test="${participants.time2=='12'}"><c:out value="selected"/></c:if>>12</option>					
+															
+												</select>
+												
+												<select name="time2_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="AM" <c:if test="${participants.time2_am_pm=='AM'}"><c:out value="selected"/></c:if>>AM&nbsp;</option>
+											<option value="PM" <c:if test="${participants.time2_am_pm=='PM'}"><c:out value="selected"/></c:if>>PM&nbsp;</option>
+								   </select>
+					<br/>
 												</td>
 											</tr>
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> Time3:</td>
+													class="err"></span> Time3 :</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time3" class="input_cmbbx1" id="msg">
-												<option value="null" selected>--Select--</option> 
-														<option value="00-01" <c:if test="${participants.time3=='00-01'}"><c:out value="selected"/></c:if>>00-01</option>
-                   <option value="01-02"  <c:if test="${participants.time3=='01-02'}"><c:out value="selected"/></c:if>>01-02</option>
-				   <option value="02-03" <c:if test="${participants.time3=='02-03'}"><c:out value="selected"/></c:if>>02-03</option>
-				   <option value="03-04" <c:if test="${participants.time3=='03-04'}"><c:out value="selected"/></c:if>>03-04</option>
-				   <option value="04-05" <c:if test="${participants.time3=='04-05'}"><c:out value="selected"/></c:if>>04-05</option>
-				   <option value="05-06" <c:if test="${participants.time3=='05-06'}"><c:out value="selected"/></c:if>>05-06</option>
-				   <option value="06-07" <c:if test="${participants.time3=='06-07'}"><c:out value="selected"/></c:if>>06-07</option>
-				   <option value="07-08"  <c:if test="${participants.time3=='07-08'}"><c:out value="selected"/></c:if>>07-08</option>
-					<option value="08-09" <c:if test="${participants.time3=='08-09'}"><c:out value="selected"/></c:if>>08-09</option>
-					<option value="09-10" <c:if test="${participants.time3=='09-10'}"><c:out value="selected"/></c:if>>09-10</option>
-					<option value="10-11"  <c:if test="${participants.time3=='10-11'}"><c:out value="selected"/></c:if>>10-11</option>
-					<option value="11-12" <c:if test="${participants.time3=='11-12'}"><c:out value="selected"/></c:if>>11-12</option>
-					<option value="12-13"  <c:if test="${participants.time3=='12-13'}"><c:out value="selected"/></c:if>>12-13</option>
-					<option value="13-14" <c:if test="${participants.time3=='13-14'}"><c:out value="selected"/></c:if>>13-14</option>
-				    <option value="14-15" <c:if test="${participants.time3=='14-15'}"><c:out value="selected"/></c:if>>14-15</option>
-				  <option value="15-16" <c:if test="${participants.time3=='15-16'}"><c:out value="selected"/></c:if>>15-16</option>
-				<option value="16-17"  <c:if test="${participants.time3=='16-17'}"><c:out value="selected"/></c:if>>16-17</option>
-				<option value="17-18" <c:if test="${participants.time3=='17-18'}"><c:out value="selected"/></c:if>>17-18</option>
-			    <option value="18-19" <c:if test="${participants.time3=='18-19'}"><c:out value="selected"/></c:if>>18-19</option>
-				<option value="19-20" <c:if test="${participants.time3=='19-20'}"><c:out value="selected"/></c:if>>19-20</option>
-				<option value="20-21"  <c:if test="${participants.time3=='20-21'}"><c:out value="selected"/></c:if>>20-21</option>
-				<option value="21-22"  <c:if test="${participants.time3=='21-22'}"><c:out value="selected"/></c:if>>21-22</option>
-				<option value="22-23" <c:if test="${participants.time3=='22-23'}"><c:out value="selected"/></c:if>>22-23</option>
-				<option value="23-00" <c:if test="${participants.time3=='23-00'}"><c:out value="selected"/></c:if>>23-00</option>
-                   	
-                   
+												<option value="null"  <c:if test="${participants.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option> 
+														 <option value="01" <c:if test="${participants.time3=='01'}"><c:out value="selected"/></c:if>>1</option>
+                   <option value="02"  <c:if test="${participants.time3=='02'}"><c:out value="selected"/></c:if>>2</option>
+				   <option value="03" <c:if test="${participants.time3=='03'}"><c:out value="selected"/></c:if>>3</option>
+				   <option value="04" <c:if test="${participants.time3=='04'}"><c:out value="selected"/></c:if>>4</option>
+				   <option value="05" <c:if test="${participants.time3=='05'}"><c:out value="selected"/></c:if>>5</option>
+				   <option value="06" <c:if test="${participants.time3=='06'}"><c:out value="selected"/></c:if>>6</option>
+				   <option value="07" <c:if test="${participants.time3=='07'}"><c:out value="selected"/></c:if>>7</option>
+				   <option value="08"  <c:if test="${participants.time3=='08'}"><c:out value="selected"/></c:if>>8</option>
+					<option value="09" <c:if test="${participants.time3=='09'}"><c:out value="selected"/></c:if>>9</option>
+				 <option value="10" <c:if test="${participants.time3=='10'}"><c:out value="selected"/></c:if>>10</option>
+					<option value="11"  <c:if test="${participants.time3=='11'}"><c:out value="selected"/></c:if>>11</option>
+					<option value="12" <c:if test="${participants.time3=='12'}"><c:out value="selected"/></c:if>>12</option>					
 															
-												</select><span>     Hours</span><br/>
+												</select>
+												
+												<select name="time3_am_pm" class="input_cmbbx1" style="width:50px;">
+											<option value="AM" <c:if test="${participants.time3_am_pm=='AM'}"><c:out value="selected"/></c:if>>AM&nbsp;</option>
+											<option value="PM" <c:if test="${participants.time3_am_pm=='PM'}"><c:out value="selected"/></c:if>>PM&nbsp;</option>
+								   </select>
+					<br/>
 												</td>
 											</tr>
 											
@@ -740,9 +716,7 @@ function empty()
 											</tr>
 <tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
-													class="err">*</span> Provider Name
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													class="err">*</span> Provider Name :</td>
 												<td valign="top" align="left" class="input_txt">
 												<select onchange="doAjaxPost()" id="Provider_name"	name="Provider_name" class="input_cmbbx1">
 													<option value="null">--Select--</option>
@@ -765,8 +739,7 @@ function empty()
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err">*</span> Select
-													Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													:</td>
+													Group :</td>
 												<td valign="top" align="left" class="input_txt">
 												<%-- <select
 													name="group_name" multiple>
