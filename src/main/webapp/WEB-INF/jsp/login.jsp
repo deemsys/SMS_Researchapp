@@ -45,7 +45,7 @@ function validate(form)
 }
 </script>
 <body onload='document.f.j_username.focus();'>
-	<h3>Login with Username and Password (Custom Page)</h3>
+	
 
 	
 	<script type="text/javascript">
