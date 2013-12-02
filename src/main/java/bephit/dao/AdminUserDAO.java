@@ -463,7 +463,7 @@ public class AdminUserDAO {
 			
 			if(resultSet.next())
 				Desc=Desc+resultSet.getString(1);
-			statement.execute("delete from admin_log_table where admin_id='"+adminuser+"'");
+			statement.execute("delete from admin_log_table where admin_id='"+admin_id+"'");
 			flag=1;
 		} 
 		catch (Exception ex) 
