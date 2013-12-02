@@ -5,15 +5,6 @@
 
 <link type='text/css' href='resources/css/confirm.css' rel='stylesheet' media='screen' />
 
-
-
-
-
-
-
-
-
-
 <form name="grid" onSubmit="return validate(this)" action="deleteSelectedadminuser" method="POST">
 	<div id="right_content">
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
@@ -50,38 +41,42 @@
 									<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="chkAll"></td>
 	                  				<td valign="top" align="left" width="16%">Name</td>
 	                  				<td valign="top" align="left" width="20%">Mobile</td>
-	                  				<td valign="top" align="left" width="10%">E-Mail</td>
+	                  				<td valign="top" align="left" width="24%">E-Mail</td>
 	                  				
 									<td valign="top" align="left" width="24%">Action</td>
+									<td valign="top" align="left" width="24%">Status</td>
 								</tr>
 								<c:forEach items="${adminuserForm.adminuser}" var="adminuser" varStatus="status">
 							       		<tr class="row1">
 							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="${adminuser.admin_id}" name="chkUser"></td>
 							       		  	<td valign="top" align="left"  width="10%"><a href="admindetails?id=${adminuser.admin_id}">${adminuser.admin_username}</a></td>
 											<td valign="top" align="left" width="15%">${adminuser.admin_email}</td>
-											<td valign="top" align="left" width="10%">${adminuser.admin_mobile}</td>
+											<td valign="top" align="left" width="15%">${adminuser.admin_mobile}</td>
 											
-											<td>
+											<td valign="top" align="left" width="15%">
 											
 											<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editadminuser?id=${adminuser.admin_id}"/>" style="padding-right:10px;">Edit</a>
-									     	
-									     	<c:choose>
+									    
+										 	<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a  href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a>
+										 	</td>
+										 	<td valign="top" align="left" width="15%">
+										 	<c:choose>
 									     	<c:when test="${adminuser.status==0}">
-									     	<a href="viewparticipants" title=""><img src="resources/images/icons/icon_approve.png" alt="Active" /></a><a href="#"  style="padding-right:20px;" onclick="myActive(${adminuser.admin_id},1)">Activate</a>
+									     	<a href="viewparticipants" title=""><img src="resources/images/icons/icon_approve.png" alt="Active" /></a><a href="#"  style="padding-right:20px;" onclick="myActive(${adminuser.admin_id},1,${currentpage })">Activate</a>
 										 	</c:when>
 										 	<c:when test="${adminuser.status==1}">
-										 	<a href="viewparticipants" title=""><img src="resources/images/icons/icon_unapprove.png" alt="Suspend" /></a><a href="#" style="padding-right:10px;" onclick="myActive(${adminuser.admin_id},0)">Suspend</a>
+										 	<a href="viewparticipants" title=""><img src="resources/images/icons/icon_unapprove.png" alt="Suspend" /></a><a href="#" style="padding-right:10px;" onclick="myActive(${adminuser.admin_id},0,${currentpage })">Suspend</a>
 										 	</c:when>										 	
 										 	</c:choose>
 										 	
 										 	
 										 	
-										 	<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a  href="<c:out value="deleteadminuser?id=${adminuser.admin_id}"/>"  style="padding-right:10px;" onclick="return confirmation()">Remove</a>
-												
-									
-										 	
 										 	
 										 	</td>
+										 	
+										 	
+										 	
+										 	
 									</tr>
 							    	</c:forEach>
 							    	<form action="viewadminuser_page" method="GET">
@@ -205,7 +200,7 @@ function myFunction(str) {
 	}
 }
 
-function myActive(adminid,sta) {
+function myActive(adminid,sta,page) {
 
 	
 	if(sta==1)
@@ -218,7 +213,7 @@ function myActive(adminid,sta) {
 	}
 	if (answer){
 // 		alert("?do=activeuser&userid="+str+"&status="+sta);
-		window.location = "permission?id="+adminid+"&status="+sta;
+		window.location = "permission?id="+adminid+"&status="+sta+"&page="+page;
 	}
 	else{
 // 		alert("Thanks for sticking around!")
