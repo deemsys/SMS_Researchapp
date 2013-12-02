@@ -3,6 +3,7 @@ package bephit.model;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class AdminUser
@@ -22,7 +23,7 @@ public class AdminUser
 	private String admin_email;
 	
 	@NotEmpty
-	@Pattern(regexp="(\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}))",message="Not a valid Mobile number")
+	@Length(max=10,min=10,message="Mobile number is not valid. Should be of length 10.")
 	private String admin_mobile;
 
 	private String date;
