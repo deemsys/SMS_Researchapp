@@ -200,7 +200,7 @@ public class AdminUserController
 		for(String id:SelectedIDs)
 		{
 		System.out.println(id);
-		adminuserDAO.deleteAdminUser(principal.getName(),id);
+		adminuserDAO.deleteAdminUser(id,principal.getName());
 		}
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
