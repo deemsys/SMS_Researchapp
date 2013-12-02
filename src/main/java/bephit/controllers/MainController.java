@@ -1291,6 +1291,11 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	        model.addAttribute("participantGroupForm", participantGroupForm);
 	        model.addAttribute("menu","participants");
 	        model.addAttribute("success","true");
+	        
+	        AdminActivityForm adminActivityForm = new AdminActivityForm();
+	        adminActivityForm.setAdminActivity(activityDAO.getAdminActivity());
+	        model.addAttribute("adminActivityForm","adminActivityForm");
+	        activityDAO.setAdminActivity(principal.getName(),"Updated Participants "+participant.getFname());
 	       /* if (result.hasErrors())
 			{
 				ParticipantsDetailsForm participantsDetailsForm1 = new ParticipantsDetailsForm();
