@@ -129,16 +129,16 @@
 				            </li>
 				                <li>
 				            	<a href="#" class="<c:choose>
-								<c:when test="${menu=='password settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu7">
-				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Message Settings</span>
+								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu7">
+				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Settings</span>
 				            	</a>
 				            </li>
-				            <li>
+				           <%--  <li>
 				            	<a href="#" class="<c:choose>
 								<c:when test="${menu=='settings'}">select</c:when><c:otherwise>unselect</c:otherwise></c:choose>" rel="ddsubmenu8">
 				            		<span><img src="<c:url value="/resources/images/icon_07.png" />" alt="" style="padding:5px 5px 0 0;" />Settings</span>
 				            	</a>
-				            </li>
+				            </li> --%>
 				            
 				            
 				            	 
@@ -252,15 +252,15 @@
 						</ul>
 						<ul id="ddsubmenu7" class="ddsubmenustyle">
 						
-							<li><a href="participantsettings">Settings</a></li>					
-													 
+							<li><a href="participantsettings">Message Settings</a></li>					
+							<li><a href="changepassword">Change My Password</a></li>							 
 						</ul>
 						
-						<ul id="ddsubmenu8" class="ddsubmenustyle">
+						<!-- <ul id="ddsubmenu8" class="ddsubmenustyle">
 						
-							<li><a href="changepassword">Change My Password</a></li>					
+											
 													 
-						</ul>
+						</ul> -->
 						 
 						
 						
