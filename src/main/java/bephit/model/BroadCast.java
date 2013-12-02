@@ -15,8 +15,9 @@ public class BroadCast {
 	@NotEmpty
 	private String group_id;
 	
-
+    @NotEmpty
 	private String days_weeks;
+    
 	
 	@NotEmpty
 	private String frequency;
