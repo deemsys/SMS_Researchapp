@@ -107,7 +107,7 @@ public class MainDAO {
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
 	    	 //System.out.println(dateFormat.format(date));
-	    	String cmd="UPDATE participants_table SET message ='"+participant.getmessage()+"' WHERE participants_id='"+participants_id+"'";
+	    	String cmd="UPDATE participants_table SET message ='"+participant.getMessage()+"' WHERE participants_id='"+participants_id+"'";
 	    	
 	    	String Desc="Update participant ";
 	    	
@@ -342,10 +342,10 @@ public class MainDAO {
 			Date date = new Date();
 			System.out.println("providername"+participant.getProvider_name());
 			// System.out.println(dateFormat.format(date));
-			String cmd = "INSERT INTO `participants_table` (`fname`,`username`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
+			String cmd = "INSERT INTO `participants_table` (`fname`,`username`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time1_am_pm`,`time2`,`time2_am_pm`,`time3`,`time3_am_pm`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
 					+ participant.getFname()					
 					+"','"
-					+participant.getusername()
+					+participant.getUsername()
 					+ "','"
 					+ participant.getMobile_num()
 					+ "','"
@@ -359,9 +359,15 @@ public class MainDAO {
 					+ "','"
 					+ participant.getTime1()
 					+ "','"
+					+participant.getTime1_am_pm()
+					+ "','"
 					+participant.getTime2()
 					+"','"
+					+participant.getTime2_am_pm()
+					+"','"
 					+participant.getTime3()
+					+"','"
+					+participant.getTime3_am_pm()
 					+"','"
 					+providername
 					+"','"
@@ -396,7 +402,7 @@ public class MainDAO {
 			 //end generate random password			
 			
 			//insert into role table
-			String cmd_login="insert into login(username,password,email_id,role,status) values('"+participant.getusername()+"','"+pw+"','"+participant.getEmail_id()+"',0,1)";
+			String cmd_login="insert into login(username,password,email_id,role,status) values('"+participant.getUsername()+"','"+pw+"','"+participant.getEmail_id()+"',0,1)";
 			
 			/*statement.execute(cmd);*/
 			statement.execute(cmd_login);
@@ -417,7 +423,7 @@ public class MainDAO {
 			//send mail password
 			logger.info("--Before Sending--"); //Logger Test
 		    //Email Test
-		    emailSender.password_sendEmail(participant.getEmail_id(),"learnguild@gmail.com","Breast Cancer Research App Registration",participant.getFname(),participant.getusername(),pw);
+		    emailSender.password_sendEmail(participant.getEmail_id(),"learnguild@gmail.com","Breast Cancer Research App Registration",participant.getFname(),participant.getUsername(),pw);
 		    
 		    logger.info("--After Sent--");
 		    
@@ -552,7 +558,7 @@ public class MainDAO {
 			String cmd = "INSERT INTO `participants_table` (`fname`,`username`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
 					+ participant.getFname()
 					+ "','"
-					+participant.getusername()
+					+participant.getUsername()
 					+"','"
 					+ participant.getMobile_num()
 					+ "','"
@@ -709,8 +715,8 @@ public class MainDAO {
 		}
 	    	
 	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+Providername+"','"+IP.getHostAddress()+"','"+dateFormat.format(date)+"','"+Desc+"','"+Providername+"')";
-	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
-	    	String cmd_login="UPDATE login SET email_id='"+participant.getEmail_id()+"' where username= '"+participant.getusername()+"'";
+	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getUsername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time1_am_pm='"+participant.getTime1_am_pm()+"',time2='"+participant.getTime2()+"',time2_am_pm='"+participant.getTime2_am_pm()+"',time3='"+participant.getTime3()+"',time3_am_pm='"+participant.getTime3_am_pm()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
+	    	String cmd_login="UPDATE login SET email_id='"+participant.getEmail_id()+"' where username= '"+participant.getUsername()+"'";
 	    			System.out.println(cmd);
 	    	System.out.println(cmd_activity);
 			
@@ -834,8 +840,9 @@ public class MainDAO {
 								.getString("city"), resultSet
 								.getString("education"),resultSet
 								.getString("medical_details"), resultSet
-								.getString("time1"), resultSet.getString("time2"),
-								resultSet.getString("time3"),
+								.getString("time1"),resultSet.getString("time1_am_pm"),
+								resultSet.getString("time2"),resultSet.getString("time2_am_pm"),
+								resultSet.getString("time3"),resultSet.getString("time3_am_pm"),
 								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
@@ -954,8 +961,8 @@ public class MainDAO {
 								.getString("city"), resultSet
 								.getString("education"),resultSet
 								.getString("medical_details"),resultSet
-								.getString("time1"), resultSet.getString("time2"),
-								resultSet.getString("time3"),
+								.getString("time1"), resultSet.getString("time1_am_pm"),resultSet.getString("time2"),
+								resultSet.getString("time2_am_pm"),resultSet.getString("time3"),resultSet.getString("time3_am_pm"),
 								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
@@ -1126,8 +1133,10 @@ public class MainDAO {
 								.getString("city"), resultSet
 								.getString("education"),resultSet
 								.getString("medical_details"),resultSet
-								.getString("time1"), resultSet.getString("time2"),
+								.getString("time1"),resultSet.getString("time1_am_pm"), resultSet.getString("time2"),
+								resultSet.getString("time2_am_pm"),
 								resultSet.getString("time3"),
+								resultSet.getString("time3_am_pm"),
 								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
@@ -1174,8 +1183,11 @@ public class MainDAO {
 								.getString("city"), resultSet
 								.getString("education"),resultSet
 								.getString("medical_details"),resultSet
-								.getString("time1"), resultSet.getString("time2"),
+								.getString("time1"),resultSet.getString("time1_am_pm"), 
+								resultSet.getString("time2"),
+								resultSet.getString("time2_am_pm"),
 								resultSet.getString("time3"),
+								resultSet.getString("time3_am_pm"),
 								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
@@ -1263,8 +1275,11 @@ public class MainDAO {
 								.getString("city"), resultSet
 								.getString("education"),resultSet
 								.getString("medical_details"),resultSet
-								.getString("time1"), resultSet.getString("time2"),
+								.getString("time1"),resultSet.getString("time1_am_pm"), 
+								resultSet.getString("time2"),
+								resultSet.getString("time2_am_pm"),
 								resultSet.getString("time3"),
+								resultSet.getString("time3_am_pm"),
 								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
@@ -1320,8 +1335,12 @@ public class MainDAO {
 								.getString("city"), resultSet
 								.getString("education"),resultSet
 								.getString("medical_details"),resultSet
-								.getString("time1"), resultSet.getString("time2"),
+								.getString("time1"), 
+								resultSet.getString("time1_am_pm"),
+								resultSet.getString("time2"),
+								resultSet.getString("time2_am_pm"),
 								resultSet.getString("time3"),
+								resultSet.getString("time3_am_pm"),
 								resultSet.getString("Provider_name"),
 								resultSet.getString("group_name"), resultSet
 								.getString("age"), resultSet
