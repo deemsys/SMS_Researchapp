@@ -636,6 +636,16 @@ public class MainDAO {
 	    try{
 	    	 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    	 Date date = new Date();
+	    	 
+	    	 InetAddress IP=InetAddress.getByName("127.0.0.1");
+				try {
+					IP = InetAddress.getLocalHost();
+					//System.out.println("IP of my system is := "+IP.getHostAddress());
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	 
 	    	 //System.out.println(dateFormat.format(date));
 //Generate random password
 			 
@@ -698,7 +708,7 @@ public class MainDAO {
 			Providername=providername;
 		}
 	    	
-	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+Providername+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+Providername+"')";
+	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+Providername+"','"+IP.getHostAddress()+"','"+dateFormat.format(date)+"','"+Desc+"','"+Providername+"')";
 	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getusername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time2='"+participant.getTime2()+"',time3='"+participant.getTime3()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
 	    	String cmd_login="UPDATE login SET email_id='"+participant.getEmail_id()+"' where username= '"+participant.getusername()+"'";
 	    			System.out.println(cmd);
@@ -1029,6 +1039,16 @@ public class MainDAO {
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
+			
+			 InetAddress IP=InetAddress.getByName("127.0.0.1");
+				try {
+					IP = InetAddress.getLocalHost();
+					//System.out.println("IP of my system is := "+IP.getHostAddress());
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 			String cmd_getparticipant_name = "select fname from participants_table where participants_id='"
 					+ participant_id + "'";
 			String Desc = "Delete participant ";
@@ -1040,11 +1060,8 @@ public class MainDAO {
 			statement
 					.execute("delete from participants_table where participants_id='"
 							+ participant_id + "'");
-			cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"
-					+ admin
-					+ "','127.0.0.1','"
-					+ dateFormat.format(date)
-					+ "','" + Desc + "','"+userName+"')";
+			cmd_activity = "insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin+"','"+IP.getHostAddress()+"','"+dateFormat.format(date)+"','"+Desc+"','"+userName+"')";
+					
 			statement.execute(cmd_activity);
 			flag = 1;
 
