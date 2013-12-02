@@ -779,7 +779,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	@RequestMapping(value="/showaddparticipantgroups", method=RequestMethod.GET)
 	public String showAddParticipantGroups(HttpSession session,HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {		
 	
-		session.invalidate();		
+		session.removeAttribute("group");		
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);        
