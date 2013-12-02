@@ -4,7 +4,12 @@
 <script type="text/javascript" src="js/ajaxpaging.js"></script>
 <script src="resources/js/jquery_checkbox.js" type="text/javascript"></script>
 <div id="right_content">
-	
+	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+				     <tr><td colspan="7" valign="top" align="left" style="padding:5px 0 10px 0;">
+					<div class="del_div">
+						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" /></label></p>
+	          		</div>
+				</td></tr></table>
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
       		
 			<tr>
@@ -51,12 +56,7 @@
 							</table>
 						</div>
 						 <form name="grid" onSubmit="return validate(this)" action="deleteSelectedparticipants" method="POST">
-				        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-				     <tr><td colspan="7" valign="top" align="left" style="padding:5px 0 10px 0;">
-					<div class="del_div">
-						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" /></label></p>
-	          		</div>
-				</td></tr></table>
+				        
 				<table cellpadding="0" cellspacing="0" border="0" width="100%">
 							<tr class="title">
 								

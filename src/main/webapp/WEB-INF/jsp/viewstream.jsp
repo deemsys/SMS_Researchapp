@@ -10,7 +10,7 @@
 			<tr>
         		<td valign="top" align="left" style="padding:5px 0 10px 0;">
         			<div class="del_div">
-						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1"  /></label></p>
+						<p><label style="padding: 0pt 20px 0pt 0pt;"><a><input  type="submit" name="delete" value="" class="icon1"  /></a></label></p>
 					</div>
 				</td>
 		   	</tr>

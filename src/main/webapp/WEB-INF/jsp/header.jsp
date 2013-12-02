@@ -209,13 +209,13 @@
 							
 						  <li><a href="viewstream">View Stream</a></li>
 							<li><a href="broadcast">Send Stream</a></li>
-						<li><a href="viewreports">Report</a></li>
+						<li><a href="viewreports">Reports</a></li>
             		</ul>
 						<ul id="ddsubmenu2" class="ddsubmenustyle">
 					
-					 <li><a href="showaddparticipants">Add Participants</a></li>
+					 <li><a href="showaddparticipants">Add Participant</a></li>
 							
-						    <li><a href="viewparticipants">View participants</a></li>
+						    <li><a href="viewparticipants">View Participants</a></li>
 						    
 						</ul>
 						
@@ -228,7 +228,7 @@
 				         </ul>
 						<ul id="ddsubmenu4" class="ddsubmenustyle">
 						
-							<li><a href="textmsgsettings">Text Message API settings</a></li>
+							<li><a href="textmsgsettings">Text Message API Settings</a></li>
 							
 						
 							<!-- <li><a href="addmailtemplate">Mail Templates</a></li>
