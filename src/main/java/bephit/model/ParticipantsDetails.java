@@ -1,6 +1,7 @@
 package bephit.model;
 
 
+import javax.validation.GroupSequence;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
@@ -12,6 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
+@GroupSequence({ParticipantsDetails.class})
 public class ParticipantsDetails {
 	private String participants_id;
 	
@@ -24,13 +26,12 @@ public class ParticipantsDetails {
 	private String username;
 	
 	@NotEmpty
-	@Length(max=10,min=10,message="Mobile number is not valid. Should be of length 10.")
+	@Length(max=10,min=10,message="Mobile number is not valid. Should be of length 10.",groups=ParticipantsDetails.class)
 	private String mobile_num;
 
 	private String gender;
 	
 	
-	@Pattern(regexp="^\\d{5}(?:[-\\s]\\d{4})?$",message="Not a valid Zip code")
 	private String city;
 	
 	
@@ -41,11 +42,17 @@ public class ParticipantsDetails {
 
 	private String time1;
 	
+	private String time1_am_pm;
+	
 	
 	private String time2;
 	
+	private String time2_am_pm;
+	
 
 	private String time3;
+	
+	private String time3_am_pm;
 	
 	
 	private String Provider_name;
@@ -65,14 +72,16 @@ public class ParticipantsDetails {
 	
 	private String created_by;
 	private String message;
-	
-	
+	public ParticipantsDetails() {
+		super();
+	}
 	public ParticipantsDetails(String participants_id, String fname,
 			String username, String mobile_num, String gender, String city,
 			String education, String medical_details, String time1,
-			String time2, String time3, String provider_name,
-			String group_name, String age, String date_of_join,
-			String email_id, String created_by, String message) {
+			String time1_am_pm, String time2, String time2_am_pm, String time3,
+			String time3_am_pm, String provider_name, String group_name,
+			String age, String date_of_join, String email_id,
+			String created_by, String message) {
 		super();
 		this.participants_id = participants_id;
 		this.fname = fname;
@@ -83,9 +92,12 @@ public class ParticipantsDetails {
 		this.education = education;
 		this.medical_details = medical_details;
 		this.time1 = time1;
+		this.time1_am_pm = time1_am_pm;
 		this.time2 = time2;
+		this.time2_am_pm = time2_am_pm;
 		this.time3 = time3;
-		this.Provider_name = provider_name;
+		this.time3_am_pm = time3_am_pm;
+		Provider_name = provider_name;
 		this.group_name = group_name;
 		this.age = age;
 		this.date_of_join = date_of_join;
@@ -93,29 +105,6 @@ public class ParticipantsDetails {
 		this.created_by = created_by;
 		this.message = message;
 	}
-
-	
-	public ParticipantsDetails() {
-    }
- 
- 
-    public String getmessage() {
-    	if(message==null)    	 
-    		return "0";    	 
-    	else
-    	return message;
-    	 
-    }
-    public void setmessage(String message) {
-		this.message = message;
-	}
-    public String getusername() {
-		return username;
-	}
-	public void setusername(String username) {
-		this.username = username;
-	}
-    
 	public String getParticipants_id() {
 		return participants_id;
 	}
@@ -127,7 +116,13 @@ public class ParticipantsDetails {
 	}
 	public void setFname(String fname) {
 		this.fname = fname;
-	}	
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public String getMobile_num() {
 		return mobile_num;
 	}
@@ -152,29 +147,54 @@ public class ParticipantsDetails {
 	public void setEducation(String education) {
 		this.education = education;
 	}
-	
 	public String getMedical_details() {
 		return medical_details;
 	}
-	
-	public String getProvider_name() {
-		return Provider_name;
-	}
-
-	public void setProvider_name(String provider_name) {
-		this.Provider_name = provider_name;
-	}
-
 	public void setMedical_details(String medical_details) {
 		this.medical_details = medical_details;
 	}
-	/*public String getProvider_name(){
+	public String getTime1() {
+		return time1;
+	}
+	public void setTime1(String time1) {
+		this.time1 = time1;
+	}
+	public String getTime1_am_pm() {
+		return time1_am_pm;
+	}
+	public void setTime1_am_pm(String time1_am_pm) {
+		this.time1_am_pm = time1_am_pm;
+	}
+	public String getTime2() {
+		return time2;
+	}
+	public void setTime2(String time2) {
+		this.time2 = time2;
+	}
+	public String getTime2_am_pm() {
+		return time2_am_pm;
+	}
+	public void setTime2_am_pm(String time2_am_pm) {
+		this.time2_am_pm = time2_am_pm;
+	}
+	public String getTime3() {
+		return time3;
+	}
+	public void setTime3(String time3) {
+		this.time3 = time3;
+	}
+	public String getTime3_am_pm() {
+		return time3_am_pm;
+	}
+	public void setTime3_am_pm(String time3_am_pm) {
+		this.time3_am_pm = time3_am_pm;
+	}
+	public String getProvider_name() {
 		return Provider_name;
 	}
-	public void setProvider_name(String Provider_name)
-	{
-	this.Provider_name=Provider_name;	
-	}*/
+	public void setProvider_name(String provider_name) {
+		Provider_name = provider_name;
+	}
 	public String getGroup_name() {
 		return group_name;
 	}
@@ -205,29 +225,15 @@ public class ParticipantsDetails {
 	public void setCreated_by(String created_by) {
 		this.created_by = created_by;
 	}
-
-	public String getTime1() {
-		return time1;
+	public String getMessage() {
+		return message;
 	}
-
-	public void setTime1(String time1) {
-		this.time1 = time1;
+	public void setMessage(String message) {
+		this.message = message;
 	}
-
-	public String getTime2() {
-		return time2;
-	}
-
-	public void setTime2(String time2) {
-		this.time2 = time2;
-	}
-
-	public String getTime3() {
-		return time3;
-	}
-
-	public void setTime3(String time3) {
-		this.time3 = time3;
-	}
-
+	
+	
+	
+	
+	
 }
