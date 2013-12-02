@@ -42,7 +42,7 @@
 			                   <option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
 			                   </c:forEach>
 			                 </select><span class="err"><form:errors path="participant.groupname"></form:errors></span></td>
-							    <td align="left" valign="middle" width="5%">&nbsp;&nbsp;City:</td>
+							    <td align="left" valign="middle" width="5%">&nbsp;&nbsp;Zipcode:</td>
 							    <td align="left" valign="middle" width="15%"><input type="text" name="city" id="city" class="input_txtbx1"></td>
 							     <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Find"></td>
 						<!-- 	      <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Clear"></td>
@@ -64,7 +64,7 @@
          						<td valign="top" align="left" width="10%">First&nbsp;Name</td>
 					         	<td valign="top" align="left" width="15%">Mobile Number</td>
 					         		<td valign="top" align="left" width="10%">Provider Name</td>
-					         	<td valign="top" align="left" width="10%">City</td>
+					         	<td valign="top" align="left" width="10%">Zipcode</td>
 								<td valign="top" align="left" width="10%">Age</td>
           						<td valign="top" align="left" width="8%">Time1</td>
           						<td valign="top" align="left" width="8%">Time2</td>

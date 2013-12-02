@@ -73,7 +73,7 @@
                   
                   
                 </tr><tr class="row1">
-                  <td width="15%" valign="middle" align="left" > City </td>
+                  <td width="15%" valign="middle" align="left" > Zipcode </td>
                     <td width="1%" valign="middle" align="left" >  :</td>
                   <td width="84%" valign="top" align="left" >${participantsDetails.city}</td>
                 </tr>

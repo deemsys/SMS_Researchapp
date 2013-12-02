@@ -30,6 +30,7 @@ public class ParticipantsDetails {
 	private String gender;
 	
 	
+	@Pattern(regexp="^\\d{5}(?:[-\\s]\\d{4})?$",message="Not a valid Zip code")
 	private String city;
 	
 	

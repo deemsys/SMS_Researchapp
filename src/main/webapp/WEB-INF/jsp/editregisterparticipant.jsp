@@ -37,6 +37,21 @@ $("#mno").keyup(function() {
 }).keydown(function() {
     oldValue = $(this).val();
 })
+$("#city").keyup(function() {
+	$("#spncity").html('');
+	var intRegex = /^\d+$/;
+	if(intRegex.test($(this).val())||$(this).val()=='') 
+	{
+		var $in = $(this).val();		 
+	}
+	else if($(this).val()!='')
+		{
+		
+		$("#spncity").html('Kindly give numbers only!!');
+		}
+}).keydown(function() {
+    oldValue = $(this).val();
+})
 });
 </script>
 	
@@ -191,7 +206,7 @@ else
 				<td valign="top" align="left">
 					<div>
 						<div class="headings altheading">
-							<h2>Register Participants</h2>
+							<h2>Edit Register Participant</h2>
 						</div>
 						
 						<c:choose>
@@ -320,7 +335,7 @@ else
 
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> City :</td>
+													class="err"></span>Zipcode :</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="city"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
@@ -771,7 +786,7 @@ else
 
 											<tr class="row1">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> City :</td>
+													class="err"></span> Zipcode:</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="city"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"

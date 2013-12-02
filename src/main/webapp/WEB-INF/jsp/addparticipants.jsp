@@ -32,6 +32,21 @@ $("#mno").keyup(function() {
 }).keydown(function() {
     oldValue = $(this).val();
 })
+$("#city").keyup(function() {
+	$("#spncity").html('');
+	var intRegex = /^\d+$/;
+	if(intRegex.test($(this).val())||$(this).val()=='') 
+	{
+		var $in = $(this).val();		 
+	}
+	else if($(this).val()!='')
+		{
+		
+		$("#spncity").html('Kindly give numbers only!!');
+		}
+}).keydown(function() {
+    oldValue = $(this).val();
+})
 });
 </script>
 
@@ -180,7 +195,7 @@ return true;
 
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
-													class="err"></span> City :</td>
+													class="err"></span> Zipcode:</td>
 												<td valign="top" align="left" class="input_txt"><input
 													type="text" class="input_txtbx1" id="city"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
@@ -437,7 +452,7 @@ return true;
                 </tr>
 		
                 <tr class="row2">
-                  <td valign="middle" align="left" class="input_txt"><span class="err"></span> City :</td>
+                  <td valign="middle" align="left" class="input_txt"><span class="err"></span>Zipcode:</td>
                   <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.city}" name="city"/></br><font color="Red" size="+1"><span class="err"><form:errors path="participant.city"></form:errors></span> </font></td>
                 </tr>
 		 <tr class="row1">
