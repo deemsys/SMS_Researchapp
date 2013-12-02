@@ -41,16 +41,21 @@ public class AdminUserController
 		session.setAttribute("admin",adminuser);
 		if (result.hasErrors())
 		{
+			
 		   model.addAttribute("menu","adminuser");
 			 return "addadminuser";
 		}
-		System.out.println("Add AdminUser");
-		model.put("success", "true");
+		session.removeAttribute("admin");
+		
+		AdminUserForm adminuserForm = new AdminUserForm();
+		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
+        model.addAttribute("adminuserForm", adminuserForm);	
 		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		adminuserDAO.setAdminUser(adminuser,principal.getName());
-		session.removeAttribute("admin");
+		
+        model.addAttribute("success","true");
 		model.addAttribute("menu","adminuser");
-		return "addadminuser";
+		return "viewadminuser";
 	}
 	
 	@RequestMapping(value="/addadminuser", method=RequestMethod.GET)
@@ -178,15 +183,24 @@ public class AdminUserController
 	
 	
 	@RequestMapping(value="/permission", method=RequestMethod.GET)
-	public void permitadminuser(HttpServletRequest request,HttpServletResponse response,@RequestParam("id") String admin_id,@RequestParam("status") String status,ModelMap model) throws IOException 
+	public String permitadminuser(HttpServletRequest request,HttpServletResponse response,@RequestParam("id") String admin_id,@RequestParam("status") String status,@RequestParam("page") int page,ModelMap model) throws IOException 
 	{	
 		AdminUserForm adminuserForm = new AdminUserForm();
-		adminuserForm.setAdminuser(adminuserDAO.getAdminUser(admin_id));
+		   adminuserDAO.setPermission_adminUser(admin_id,status); 	
+adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
+		
+	   	model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 5));
+	    model.addAttribute("adminuserForm", adminuserForm);	
+	   	model.addAttribute("noofrows",adminuserForm.getAdminuser().size());   
+        model.addAttribute("currentpage",page);
+        model.addAttribute("menu","adminuser");
+        model.addAttribute("button","viewall");  
         model.addAttribute("adminuserForm",adminuserForm);
         model.addAttribute("menu","adminuser");
+       /* model.addAttribute("currentpage",page);*/
         System.out.println(request.getRequestURL());
-        adminuserDAO.setPermission_adminUser(admin_id,status);        
-        response.sendRedirect("viewadminuser");
+            
+        return "viewadminuser";
 	}
 	
 	
