@@ -245,10 +245,10 @@ button.ui-button::-moz-focus-inner {
 	top: 1px;
 }
 .ui-datepicker .ui-datepicker-prev {
-	left: 2px;
+	left: 2px;background:url("../images/left_arrow.png") center no-repeat;
 }
 .ui-datepicker .ui-datepicker-next {
-	right: 2px;
+	right: 2px;background:url("../images/right_arrow.png") center no-repeat;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
 	left: 1px;
