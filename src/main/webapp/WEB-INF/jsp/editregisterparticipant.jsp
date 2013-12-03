@@ -877,7 +877,7 @@ else
 												<p>Participant Joined Groups</p>
 												<select id="group_names" name="group_name"
 													multiple="multiple" class="input_cmbbx1">
-														<c:forEach items="${group}" var="group2"
+														<c:forEach items="${groupnames}" var="group2"
 															varStatus="status">
 
 															<option value="${group2}" selected>${group2}</option>

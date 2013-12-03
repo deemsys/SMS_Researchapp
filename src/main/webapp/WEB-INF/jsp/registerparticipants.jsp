@@ -751,7 +751,7 @@ function empty()
 
 												</select> --%>
 												
-												<div id="info" style="color: green;"><select class="input_cmbbx1" multiple="multiple" name="group_name" id="group_name" value="${groups}">
+												<div id="info" style="color: green;"><select class="input_cmbbx1" multiple="multiple" name="group_name" id="group_name">
 												
 												<c:forEach items="${groups}"
 															var="group" varStatus="status">
