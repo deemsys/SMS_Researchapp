@@ -256,12 +256,10 @@
 							<li><a href="changepassword">Change My Password</a></li>							 
 						</ul>
 						
-						<!-- <ul id="ddsubmenu8" class="ddsubmenustyle">
-						
-											
+						<ul id="ddsubmenu8" class="ddsubmenustyle">			
 													 
-						</ul> -->
-						 
+							<li><a href="changepassword">Change My Password</a></li>	
+						  </ul>
 						
 						
 						<!-- end participant submenu -->
