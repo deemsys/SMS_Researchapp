@@ -52,8 +52,7 @@ public class AdminUserController
         model.addAttribute("adminuserForm", adminuserForm);	
 		model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		adminuserDAO.setAdminUser(adminuser,principal.getName());
-		
-        model.addAttribute("success","true");
+	    model.addAttribute("success","true");
 		model.addAttribute("menu","adminuser");
 		return "viewadminuser";
 	}
@@ -68,13 +67,11 @@ public class AdminUserController
 		  model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));
 		return "addadminuser";
 	}
-	
-	
-	
+
 	@RequestMapping(value="/viewadminuser",method=RequestMethod.GET)
 	public String viewadminusers(HttpServletRequest request,ModelMap model)
 	{
-		model.addAttribute("success","false");
+		
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm", adminuserForm);	
@@ -85,6 +82,7 @@ public class AdminUserController
 	    adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(1));
 			model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 5));	 
 	        model.addAttribute("button","viewall");
+	        model.addAttribute("success","false");
 	        model.addAttribute("currentpage",1);
 		return "viewadminuser";
 	}
