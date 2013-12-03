@@ -210,7 +210,7 @@ $("#days_weeks").keyup(function() {
 									<td valign="top" align="left" id="daystext">
 										<input type="text" name="days_weeks"
 										id="days_weeks" class="input_txtbx1" value=""><span style="margin-left:10px;color:red;" id="info3"></span></br> <span
-										class="err"><form:errors path="broadCast.start_date"></form:errors></span>
+										class="err"><form:errors path="broadCast.days_weeks"></form:errors></span>
 									</td>
 									</td>
 								</tr>
