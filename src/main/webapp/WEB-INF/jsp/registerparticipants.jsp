@@ -226,11 +226,11 @@ function empty()
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Mobile No :</td>
-												<td valign="top" align="left" class="input_txt"><input
+												<td valign="top" align="left" class="input_txt"><input min="10" maxlength="10"
 													type="text" class="input_txtbx1" id="mno"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');"
-													value="${mobile_num}" name="mobile_num" max="10" min="" size="10"/></br> 
+													value="${mobile_num}" name="mobile_num"/></br> 
 												<c:if test="${mobile_exists ==true}">
 													<font
 													color="Red" size="+1"><span id="spnmno"></span>Mobile name already exists </font>
@@ -520,7 +520,7 @@ function empty()
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Mobile No :</td>
 												<td valign="top" align="left" class="input_txt"><input
-													type="text" class="input_txtbx1" id="mno"
+													type="text" class="input_txtbx1" id="mno" min="10" maxlength="10"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');"
 													name="mobile_num" value="${participants.mobile_num}" /></br> <font

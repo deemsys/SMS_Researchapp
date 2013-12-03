@@ -138,7 +138,7 @@ return true;
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Mobile No :</td>
 												<td valign="top" align="left" class="input_txt"><input
-													type="text" class="input_txtbx1" id="mno"
+													type="text" class="input_txtbx1" min="10" maxlength="10" id="mno"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');"
 													value="${mobile_num}" name="mobile_num" /></br> <font
@@ -392,7 +392,7 @@ return true;
                 </tr> 
 		<tr class="row2">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Mobile No :</td>
-                  <td valign="top" align="left" class="input_txt"><input type="text" id="mno" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.mobile_num}" name="mobile_num" /></br><font color="Red" size="+1"><span class="err"><c:if test="${mobile_exists ==true}"> <font color="Red" size="+1"><span id="spnmno"></span>Mobile Number already exists </font>	<br/></c:if><font color="Red" size="+1"><span id="spnmno"><form:errors path="participant.mobile_num"></form:errors></span> </font></td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" min="10" maxlength="10" id="mno" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${addparticipants.mobile_num}" name="mobile_num" /></br><font color="Red" size="+1"><span class="err"><c:if test="${mobile_exists ==true}"> <font color="Red" size="+1"><span id="spnmno"></span>Mobile Number already exists </font>	<br/></c:if><font color="Red" size="+1"><span id="spnmno"><form:errors path="participant.mobile_num"></form:errors></span> </font></td>
                 </tr> 
 		<tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Email-Id :</td>

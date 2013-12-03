@@ -248,7 +248,7 @@ else
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Mobile No :</td>
 												<td valign="top" align="left" class="input_txt"><input
-													type="text" class="input_txtbx1" id="mno"
+													type="text" min="10" maxlength="10" class="input_txtbx1" id="mno"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="mobile_num"
 													value="${participantsDetails.mobile_num}" /></br> <c:if test="${mobile_exists ==true}">
@@ -598,7 +598,7 @@ else
 												<td valign="middle" align="left" class="input_txt"><span
 													class="err">*</span> Mobile No :</td>
 												<td valign="top" align="left" class="input_txt"><input
-													type="text" class="input_txtbx1" id="mno"
+													type="text" class="input_txtbx1" id="mno" min="10" maxlength="10"
 													onmouseover="showTooltip('tooltip_id','inp_id3');"
 													onmouseout="hideTooltip('tooltip_id');" name="mobile_num"
 													value="${participants.mobile_num}" /></br> <c:if test="${mobile_exists ==true}">
