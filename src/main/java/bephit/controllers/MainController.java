@@ -553,6 +553,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 			BindingResult result,ModelMap model) {
 		
 		String providername=participant.getProvider_name();
+				
 		System.out.println("providername"+participant.getProvider_name());
 		session.setAttribute("participants",participant);
 		model.addAttribute("provider",participant.getProvider_name());
@@ -1066,7 +1067,9 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		
 		if (result.hasErrors())
 		{
-
+			String[] groupnames=request.getParameterValues("group_name");
+			System.out.println("groupnames:::::::"+groupnames);
+			model.addAttribute("groupnames", groupnames);
 			        
 			if(email_count==0 && mobile_count==0)
 			{
@@ -1187,11 +1190,14 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		System.out.println("Email count-------------------------"+email_count);
 		if (result.hasErrors())
 		{
-			
+			String[] groupnames=request.getParameterValues("group_name");
+			System.out.println("groupnames:::::::"+groupnames);
+			model.addAttribute("groupnames", groupnames);
 			System.out.println("if email count: "+email_count);
 			System.out.println("mobile: "+mobile_count);
 			ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
-			participantGroupForm.setParticipantGroups(partDAO.getGroups());        
+			participantGroupForm.setParticipantGroups(partDAO.getGroups()); 
+			
 			
 			if(email_count==0 && mobile_count==0 )
 			{
