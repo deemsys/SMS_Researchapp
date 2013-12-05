@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import bephit.model.*;
 
 @Controller
 public class MessageStreamController {
+	protected static Logger logger = org.slf4j.LoggerFactory.getLogger("Insert into log table");
 
 	@Autowired
 	StreamDetailsDAO streamDAO;
@@ -36,6 +38,7 @@ public class MessageStreamController {
 
 	@RequestMapping(value = "/createstream", method = RequestMethod.GET)
 	public String createstream(ModelMap model) {
+		
 		String StreamID = streamDAO.getMaxStreamID();
 		model.addAttribute("currentstream", StreamID);
 		 model.addAttribute("menu","message");
@@ -57,7 +60,7 @@ public class MessageStreamController {
 		
 		else
 		{
-			System.out.println("insert stream id"+streamdetails.getStreamId());
+			
 		     String[] Messages = new String[1000];
 		      Messages = request.getParameterValues("message[]");
 		  streamDAO.insertNewstream(streamdetails, principal.getName(), Messages);
@@ -100,7 +103,6 @@ public class MessageStreamController {
 		messages=streamDAO.getMessages(streamId);
 		model.addAttribute("streamForm", streamForm);
 		model.addAttribute("messages",messages);
-		System.out.println("messages:"+messages);
 		 model.addAttribute("menu","message");
         return "edit_stream";
 	}
@@ -113,9 +115,7 @@ public class MessageStreamController {
 	 
 	{
 		
-		System.out.println("stream idddddddd"+streamDetails.getStreamId());
 		List<String> sample=streamDAO.getMessageid(streamDetails.getStreamId());
-		System.out.println(sample);
 		streamDAO.deleltemessageid(sample);
 		String[] Messages = new String[100];
 		Messages = request.getParameterValues("message[]");	
@@ -183,16 +183,12 @@ public class MessageStreamController {
 		SelectedIDs=request.getParameterValues("chkUser");
 		for(String id:SelectedIDs)
 		{
-		System.out.println(id);
-		streamDAO.deletestream(id,principal.getName());
-		
+		streamDAO.deletestream(id,principal.getName());		
 		}
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 		streamForm.setStreamDetails(streamDAO.getStream());
 		model.addAttribute("streamForm", streamForm);
-		
-	
-        model.addAttribute("menu","message");
+	     model.addAttribute("menu","message");
 		return "viewstream";
 		
 	}	

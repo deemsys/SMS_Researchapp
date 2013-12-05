@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,7 @@ import bephit.model.Response;;
 
 public class ResponseDAO {
 	private DataSource dataSource;
+	protected static Logger logger=org.slf4j.LoggerFactory.getLogger("logs");
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -40,17 +42,17 @@ public class ResponseDAO {
 		{
 			resultSet = statement.
 					executeQuery("select * from weekly_logs where participant_id='"+participant_id+"' and status=1");
-			System.out.println("select * from weekly_logs");
+			logger.info("select * from weekly_logs");
 			while (resultSet.next()) {
 				
 						response.add(new Response(resultSet.getString("log_id"), resultSet.getString("participant_id"),resultSet.getString("week"),resultSet.getString("date_time"), resultSet.getString("continous"), resultSet.getString("count"),resultSet.getString("status")));
 			
 		                  }
-			System.out.println(response);
+		
 		} 
 		catch (Exception ex) 
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);

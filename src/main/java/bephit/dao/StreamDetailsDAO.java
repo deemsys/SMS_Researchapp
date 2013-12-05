@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,6 +25,7 @@ import bephit.model.StreamDetails;
 public class StreamDetailsDAO
 {
 	private DataSource dataSource;
+	protected static Logger logger=org.slf4j.LoggerFactory.getLogger("logs");
 	 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -93,15 +95,16 @@ public class StreamDetailsDAO
 	String stream_id="";
 	for(String message :Messages)
 	{		
-	System.out.println(message);	
+	
 	cmd_mess="insert into message_stream(stream_id,stream_message,msg_count) values('"+streamdetails.getStreamId()+"','"+message+"','"+count+"')";
 	count++;
 	statement.execute(cmd_mess);
+	logger.info(cmd_mess);
 	}
 	String cmd="insert into stream values('"+streamdetails.getStreamId()+"','"+admin_id+"','"+streamdetails.getStreamName()+"','"+streamdetails.getTextingcontacts()+"','"+streamdetails.getDescription()+"','"+(count-1)+"','"+userName+"')";
 	
 	
-	System.out.println(cmd);
+	logger.info(cmd);
 	statement.execute(cmd);
 	
 	
@@ -109,7 +112,7 @@ public class StreamDetailsDAO
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -142,28 +145,29 @@ public class StreamDetailsDAO
 		{
 						 
 			String cmd_mess="";
-			System.out.println("insert sample"+sample);
+			//System.out.println("insert sample"+sample);
 			int count=1;
 			for(String message :sample)
 			{		
-			System.out.println(message);	
+				
 			cmd_mess="insert into message_stream(stream_id,stream_message,msg_count) values('"+streamdetails.getStreamId()+"','"+message+"','"+count+"')";
 			count++;
 			statement.execute(cmd_mess);
+			logger.info("cmd_mess");
 			}
 			String cmd="UPDATE stream SET stream_name='"+streamdetails.getStreamName()+"',textingcontacts='"+streamdetails.getTextingcontacts()+"',stream_description='"+streamdetails.getDescription()+"',message_count='"+(count-1)+"' where stream_id='"+streamdetails.getStreamId()+"';";
-			System.out.println("update stream"+cmd);
+			logger.info(cmd);
 			statement.executeUpdate(cmd);
 		
 			
 			
 			flag=1;
 						
-		System.out.println("insertmessage cmd_mess"+cmd_mess);
+		
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -196,21 +200,20 @@ public class StreamDetailsDAO
 		{
 						 
 			String cmd_mess="";
-			System.out.println("insert sample"+sample);
+		
 			int count=1;
 			for(String message :sample)
 			{		
-			System.out.println(message);	
 			cmd_mess="delete from message_stream where message_id='"+message+"'";
 			count++;
 			statement.execute(cmd_mess);
 			}
 			flag=1;
-			System.out.println("deletemessage cmd_mess"+cmd_mess);
+			logger.info(cmd_mess);
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -257,7 +260,7 @@ public class StreamDetailsDAO
 	       cmd="select * from stream";
 	    	else
 	    		cmd="select * from stream where created_by='"+userName+"'";
-	    	System.out.println(cmd);
+	    	logger.info(cmd);
 			resultSet=statement.executeQuery(cmd);
 			while(resultSet.next()){
 				stream.add(new StreamDetails(resultSet.getString("stream_id"),
@@ -269,7 +272,7 @@ public class StreamDetailsDAO
 			}
 			
 	    }catch(Exception e){
-	     System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -312,7 +315,7 @@ public class StreamDetailsDAO
 	        {
 	        	cmd="select * from stream where stream_id='"+stream_id+"' and created_by='"+userName+"'";
 	        }
-	        	System.out.println(cmd);
+	        logger.info(cmd);
 			resultSet=statement.executeQuery(cmd);
 			while(resultSet.next()){
 				stream.add(new StreamDetails(resultSet.getString("stream_id"),resultSet.getString("admin_name")
@@ -323,7 +326,7 @@ public class StreamDetailsDAO
 			}
 			
 	    }catch(Exception e){
-	     System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -352,7 +355,7 @@ public class StreamDetailsDAO
 	        
 	       cmd="select message_id,stream_id,stream_message from message_stream where stream_id='"+stream_id+"'";
 	    
-	    	System.out.println(cmd);
+	       logger.info(cmd);
 			resultSet=statement.executeQuery(cmd);
 			int i=0;
 			while(resultSet.next())
@@ -362,7 +365,7 @@ public class StreamDetailsDAO
 			}
 			
 	    }catch(Exception e){
-	     System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -392,7 +395,7 @@ public class StreamDetailsDAO
 	        
 	       cmd="select message_id,stream_id,stream_message from message_stream where stream_id='"+messageid+"'";
 	    
-	    	System.out.println(cmd);
+	       logger.info(cmd);
 			resultSet=statement.executeQuery(cmd);
 			int i=0;
 			while(resultSet.next())
@@ -400,10 +403,10 @@ public class StreamDetailsDAO
 				strlist.add(i,resultSet.getString("stream_message"));
 			    i++;
 			}
-			System.out.println("strlist"+strlist);
+			
 			
 	    }catch(Exception e){
-	     System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -433,7 +436,7 @@ public class StreamDetailsDAO
 	        
 	       cmd="select message_id,stream_id,stream_message from message_stream where stream_id='"+stream_id+"'";
 	    
-	    	System.out.println(cmd);
+	       logger.info(cmd);
 			resultSet=statement.executeQuery(cmd);
 			int i=0;
 			while(resultSet.next())
@@ -441,10 +444,10 @@ public class StreamDetailsDAO
 				strlist.add(i,resultSet.getString("message_id"));
 			    i++;
 			}
-			System.out.println("strlist"+strlist);
+			
 			
 	    }catch(Exception e){
-	     System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -489,7 +492,7 @@ public class StreamDetailsDAO
 			statement.execute("delete from message_stream where stream_id='"+stream_id+"'");
 			String Desc="Deleted Stream" +streamname;
 			String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin+"','"+IP.getHostAddress()+"','"+dateFormat.format(date)+"','"+Desc+"','"+admin+"')";
-			System.out.println(cmd_activity);
+			logger.info(cmd_activity);
 			statement.execute(cmd_activity);
 			 
 			flag=1;
@@ -499,7 +502,7 @@ public class StreamDetailsDAO
 			
 	    }
 			catch(Exception e){
-	    	System.out.println(e.toString());
+				logger.info(e.toString());
 	    	flag=0;
 	    	releaseResultSet(resultSet);
 	    	releaseStatement(statement);
@@ -548,7 +551,7 @@ public class StreamDetailsDAO
 				else
 					cmd = "select * from stream where created_by='"+userName+"' limit " + offset + ","+ limit+"" ;
 							
-				System.out.println(cmd);
+			logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {
 				stream.add(new StreamDetails(resultSet.getString("stream_id"),
@@ -595,7 +598,7 @@ public class StreamDetailsDAO
 				cmd = "select count(*) as noofrecords from stream";
 				else
 					cmd = "select count(*) as noofrecords from stream where created_by='"+userName+"'";
-			System.out.println(cmd);
+			logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())
 				noofRecords = resultSet.getInt("noofrecords");

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,7 @@ import bephit.model.*;
 @SessionAttributes({"currentuser","admin"})
 public class AdminUserController
 {
+	protected static Logger logger=org.slf4j.LoggerFactory.getLogger("logs");
 	@Autowired
 	AdminUserDAO adminuserDAO;
 	
@@ -166,7 +168,6 @@ public class AdminUserController
 		}
 		
 		int status=adminuserDAO.updateAdminUser(adminuser,principal.getName());
-		System.out.println(status);
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getAdminUser());
         model.addAttribute("adminuserForm",adminuserForm);
@@ -196,7 +197,7 @@ adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
         model.addAttribute("adminuserForm",adminuserForm);
         model.addAttribute("menu","adminuser");
        /* model.addAttribute("currentpage",page);*/
-        System.out.println(request.getRequestURL());
+       
             
         return "viewadminuser";
 	}
@@ -210,8 +211,7 @@ adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
 		String[] SelectedIDs=new String[100];
 		SelectedIDs=request.getParameterValues("chkUser");
 		for(String id:SelectedIDs)
-		{
-		System.out.println(id);
+		{		
 		adminuserDAO.deleteAdminUser(id,principal.getName());
 		}
 		AdminUserForm adminuserForm = new AdminUserForm();
@@ -292,27 +292,24 @@ adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
 		int mobile_count=adminuserDAO.checkmobile(adminuser.getAdmin_mobile());
 		int user_count=adminuserDAO.checkuser(adminuser.getAdmin_username());
 		if (result.hasErrors())
-		{
+		{		
 			
-			System.out.println("if email count: "+email_count);
-			System.out.println(+user_count);
-			System.out.println("mobile: "+mobile_count);
 			
 			if(email_count==0)
 			{
-				System.out.println("email exists");
+				logger.info("email exists");
 				model.addAttribute("email_exist","true");
 				
 			}
 			if(mobile_count==0)
 			{ 
-				System.out.println("mobile exists");
+				logger.info("mobile exists");
 				model.addAttribute("mobile_exists","true");
 							
 			}
 			if(user_count==0)
 			{
-				System.out.println("user exists");
+				logger.info("user exists");
 				model.addAttribute("user_exists","true");
 							
 			}
@@ -322,13 +319,10 @@ adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
 		
 		else			
 		{
-			System.out.println("else email count: "+email_count);
-			System.out.println(+user_count);
-			System.out.println("else mobile: "+mobile_count);
-			
+						
 			if(email_count==0)
 			{
-				System.out.println("email exists");
+				logger.info("email exists");
 				model.addAttribute("email_exist","true");
 				model.addAttribute("adminuser", adminuser);
 				flag=1;
@@ -336,7 +330,7 @@ adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
 			}
 			if(mobile_count==0)
 			{ 
-				System.out.println("mobile exists");
+				logger.info("mobile exists");
 				model.addAttribute("mobile_exists","true");
 				model.addAttribute("adminuser", adminuser);
 				flag=1;
@@ -344,7 +338,7 @@ adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
 			}
 			if(user_count==0)
 			{
-				System.out.println("user exists");
+				logger.info("user exists");
 				model.addAttribute("user_exists","true");
 				model.addAttribute("adminuser", adminuser);
 				flag=1;

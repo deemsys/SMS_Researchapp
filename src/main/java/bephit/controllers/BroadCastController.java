@@ -16,6 +16,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -48,6 +49,7 @@ import bephit.model.UserProfile;
 
 @Controller
 public class BroadCastController {
+	protected static Logger logger=org.slf4j.LoggerFactory.getLogger("logs");
 
 	@Autowired
 	BroadCastDAO broadDAO;
@@ -72,7 +74,6 @@ public class BroadCastController {
 	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
 	public String sendstream(ModelMap model) {
 		String BroadID = broadDAO.getMaxBroadCastID();
-		System.out.println(BroadID);
 		model.addAttribute("currentbroad", BroadID);
 		
 		StreamDetailsForm streamForm = new StreamDetailsForm();
@@ -89,7 +90,7 @@ public class BroadCastController {
 	@RequestMapping(value = "/message_status", method = RequestMethod.GET)
 	public String show_message_status(HttpServletRequest request,HttpServletResponse response,@RequestParam("id") String broad_id,ModelMap model) throws IOException  {
 		String BroadID = broadDAO.getMaxBroadCastID();
-		System.out.println(BroadID);
+		
 		model.addAttribute("currentbroad", BroadID);
 		
 		MessageStatusForm messageForm=new MessageStatusForm();
@@ -111,8 +112,7 @@ public class BroadCastController {
         {
         	//System.out.println(result.getFieldError("group_id"));
         	String BroadID = broadDAO.getMaxBroadCastID();
-    		System.out.println(BroadID);
-    		model.addAttribute("currentbroad", BroadID);
+    			model.addAttribute("currentbroad", BroadID);
     		StreamDetailsForm streamForm = new StreamDetailsForm();
     		streamForm.setStreamDetails(streamDAO.getStream());
     		model.addAttribute("streamForm", streamForm);	
@@ -125,7 +125,7 @@ public class BroadCastController {
         else
         	
         {
-            System.out.println("insert broad id" +broadCast.getBroad_id());
+            
         	 broadDAO.insertNewBroadCast(broadCast);  
         	 messageLog.updateMessagelog();
         	 model.addAttribute("success", "true");  
@@ -159,7 +159,7 @@ public class BroadCastController {
 		model.addAttribute("broadCastReportsForm",broadCastReportsForm);
        
         model.addAttribute("menu","message");
-        System.out.println(request.getRequestURL());
+       
         broadDAO.setenable_messaging(broad_id,enable);        
         response.sendRedirect("viewreports");
 	}
@@ -217,9 +217,9 @@ public class BroadCastController {
 	@RequestMapping(value="/sendstream_ajax",method=RequestMethod.POST)
 	public @ResponseBody String addUser1(HttpSession session,HttpServletRequest request,@ModelAttribute(value="broadcast")BroadCast broad, BindingResult result,ModelMap model ){
       
-		System.out.println("caught");
+		logger.info("caught");
 		String sample=request.getParameter("stream_id");
-		System.out.println("stream_id"+sample);		
+				
 		List<StreamDetails> stream_list = new ArrayList<StreamDetails>(); 
 		String returnText="";		
 		stream_list=streamDAO.getStream(sample);
@@ -247,9 +247,6 @@ public class BroadCastController {
 	
     int diff=((Integer.parseInt(day)-selected_date.getDayOfWeek())+7)%7;
     
-    System.out.println("Selected day:"+selected_date.getDayOfWeek());
-    System.out.println("Day:"+day);
-    System.out.println("Date difference:"+diff);
     
     returnText=selected_date.plusDays(diff).toLocalDate().toString("MM/dd/yyyy");
 	return "Message will start sending on "+returnText;
@@ -264,7 +261,6 @@ public class BroadCastController {
 		String sample=request.getParameter("stream_id");
 		int days_weeks=Integer.parseInt(request.getParameter("no_of_days"));
 		int frequency=Integer.parseInt(request.getParameter("frequency"));
-		System.out.println("stream_id"+sample);		
 		List<StreamDetails> stream_list = new ArrayList<StreamDetails>(); 
 		String returnText="";		
 		stream_list=streamDAO.getStream(sample);

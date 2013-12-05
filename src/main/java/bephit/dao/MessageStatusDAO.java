@@ -65,7 +65,7 @@ public class MessageStatusDAO {
 			} 
 		catch (Exception ex) 
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -111,13 +111,13 @@ public class MessageStatusDAO {
 					+ "','"
 					+ dateFormat.format(date)
 					+ "')";
-			System.out.println(cmd);
+			logger.info(cmd);
 			statement.executeUpdate(cmd);
-			System.out.println("insertcmd"+cmd);
+		
 			
 		} catch (Exception e) {
 			
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseStatement(statement);
 			releaseConnection(con);
 			
