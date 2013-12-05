@@ -190,7 +190,7 @@ public class BroadCastController {
 	    model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
 	     model.addAttribute("noofrows",broadCastReportsForm.getBroadCastReports().size());       
 	    broadCastReportsForm.setBroadCastReports(broadDAO.getlimitedbroadcast(1));
-			model.addAttribute("noofpages",(int) Math.ceil(broadDAO.getnoofbroadcast() * 1.0 / 5));	 
+			model.addAttribute("noofpages",(int) Math.ceil(broadDAO.getnoofbroadcast() * 1.0 / 20));	 
 	        model.addAttribute("button","viewall");
 	        model.addAttribute("currentpage",1);
 		model.addAttribute("menu","message");
@@ -202,7 +202,7 @@ public class BroadCastController {
 		
 		BroadCastReportsForm broadCastReportsForm=new BroadCastReportsForm();
 		broadCastReportsForm.setBroadCastReports(broadDAO.getlimitedbroadcast(page));
-	   	model.addAttribute("noofpages",(int) Math.ceil(broadDAO.getnoofbroadcast() * 1.0 / 5));
+	   	model.addAttribute("noofpages",(int) Math.ceil(broadDAO.getnoofbroadcast() * 1.0 / 20));
 	   	model.addAttribute("broadCastReportsForm",broadCastReportsForm);
 	   	model.addAttribute("noofrows",broadCastReportsForm.getBroadCastReports().size());   
         model.addAttribute("currentpage",page);

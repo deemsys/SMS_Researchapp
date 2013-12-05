@@ -63,7 +63,7 @@
                  <tr class="row1">  
                                
                   <td valign="top" align="right"><input type="submit" value="Update Provider" class="submit_btn2"></td>
-                   <td valign="top" align="left"><a href="welcome" class="submit_btn1" style="color:white;text-decoration: none; font-size:14px;">Cancel</a></td>
+                   <td valign="top" align="left"><a href="viewadminuser" class="submit_btn1" style="color:white;text-decoration: none; font-size:14px;">Cancel</a></td>
                <td width="22%"></td>
                 </tr>
               </table>

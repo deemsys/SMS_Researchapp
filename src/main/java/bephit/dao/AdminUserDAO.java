@@ -352,7 +352,7 @@ public class AdminUserDAO {
 		try
 		{
 			resultSet = statement.
-					executeQuery("select * from admin_log_table");
+					executeQuery("select * from admin_log_table order by admin_firstname asc");
 			while (resultSet.next()) {
 				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
 						resultSet.getString("admin_firstname"),
@@ -556,11 +556,11 @@ public class AdminUserDAO {
 		try {
 
 			String cmd;
-			int offset = 5 * (page - 1);
-			int limit = 5;
+			int offset = 20 * (page - 1);
+			int limit = 20;
 			
 				
-					cmd = "select * from admin_log_table limit " + offset + ","+ limit+"" ;
+					cmd = "select * from admin_log_table order by admin_firstname asc limit " + offset + ","+ limit+"" ;
 							
 				System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);

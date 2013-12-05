@@ -35,7 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; 
  
 @Controller
-@SessionAttributes({"currentuser","role","participants","provider","addparticipants","groups","group","editregister"})
+@SessionAttributes({"currentuser","role","participants","provider","addparticipants","groups","group","editregister","mobile","groupsearch","zipcode","group_select"})
 public class MainController {
 	
 	@Autowired  
@@ -93,7 +93,7 @@ public class MainController {
         model.addAttribute("currentpage",1);      
         model.addAttribute("noofrows",participantsDetailsForm1.getParticipantsDetails().size());       
         participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
-		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));	 
+		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 20));	 
         model.addAttribute("menu","dashboard");
         model.addAttribute("success","false");
         model.addAttribute("button","viewall");
@@ -422,7 +422,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		
 		session.setAttribute("addparticipants", participant);
 		
-		
+		model.addAttribute("groupnames",participant.getGroup_name());
 		model.addAttribute("email_exist","false");		
 		model.addAttribute("mobile_exists","false");
 		
@@ -553,7 +553,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 			BindingResult result,ModelMap model) {
 		
 		String providername=participant.getProvider_name();
-				
+		session.setAttribute("group_select", participant.getGroup_name());		
 		System.out.println("providername"+participant.getProvider_name());
 		session.setAttribute("participants",participant);
 		model.addAttribute("provider",participant.getProvider_name());
@@ -700,8 +700,11 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	
 		
 	@RequestMapping(value="/viewparticipants", method=RequestMethod.GET)
-	public String viewParticipants(HttpServletRequest request,ModelMap model, Principal principal) {
+	public String viewParticipants(HttpServletRequest request,HttpSession session,ModelMap model, Principal principal) {
 		model.addAttribute("success","false");
+		session.removeAttribute("mobile");
+		session.removeAttribute("groupsearch");
+		session.removeAttribute("city");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
@@ -712,7 +715,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
         model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
         model.addAttribute("noofrows",participantsDetailsForm.getParticipantsDetails().size());       
         participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(1));
-		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));	 
+		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 20));	 
         model.addAttribute("button","viewall");
         model.addAttribute("currentpage",1);
 		return "viewparticipants";
@@ -845,7 +848,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
          model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
          model.addAttribute("noofrows",participantGroupForm.getParticipantGroups().size());       
          participantGroupForm.setParticipantGroups(partDAO.getlimitedParticipants_group(1));
- 		model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 5));
+ 		model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 /20));
  		
          model.addAttribute("button","viewall");
          model.addAttribute("currentpage",1);
@@ -858,13 +861,14 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		}
 	}
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.GET)
-	public String AddParticipantGroups(HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {
+	public String AddParticipantGroups(HttpSession session,HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {
 		model.addAttribute("success","false");
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);
 		//partDAO.setParticipantGroup(pgroups);
         model.addAttribute("menu","groups");
+        session.removeAttribute("group");
 		return "addparticipantgroups";
 	}
 	
@@ -882,7 +886,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
         model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
         model.addAttribute("noofrows",participantGroupForm.getParticipantGroups().size());       
         participantGroupForm.setParticipantGroups(partDAO.getlimitedParticipants_group(1));
-		model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 5));
+		model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 20));
 		
         model.addAttribute("button","viewall");
         model.addAttribute("currentpage",1);
@@ -1002,8 +1006,11 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 	}
 	
 	@RequestMapping(value="/findParticipant",method=RequestMethod.GET)
-	public String findparticipant(HttpServletRequest request,@RequestParam("mobile") String mobile,@RequestParam("groupname") String groupname,@RequestParam("city") String city,ModelMap model)
+	public String findparticipant(HttpServletRequest request,HttpSession session,@RequestParam("mobile") String mobile,@RequestParam("groupname") String groupname,@RequestParam("city") String city,ModelMap model)
 	{
+		session.setAttribute("mobile", mobile);
+		session.setAttribute("groupsearch", groupname);
+		session.setAttribute("zipcode",city);
 		if(mobile==""&&groupname==""&&city=="")
 		{
 			ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
@@ -1405,8 +1412,11 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		
 	    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(page));
-		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));
+		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 20));
 	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+	    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
         model.addAttribute("noofrows",mainDAO.getParticipants().size());
         model.addAttribute("currentpage",page);
         model.addAttribute("menu","dashboard");
@@ -1422,8 +1432,13 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		
 	    ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getlimitedParticipants(page));
-		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 5));
+		model.addAttribute("noofpages",(int) Math.ceil(mainDAO.getnoofParticipants() * 1.0 / 20));
 	    model.addAttribute("participantsDetailsForm", participantsDetailsForm);
+	    
+	    ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
+		participantGroupForm.setParticipantGroups(partDAO.getGroups());
+        model.addAttribute("participantGroupForm", participantGroupForm);
+       
         model.addAttribute("noofrows",mainDAO.getParticipants().size());
         model.addAttribute("currentpage",page);
         model.addAttribute("menu","participants");
@@ -1438,7 +1453,7 @@ public String saveSettings(HttpServletRequest request,@ModelAttribute("textMsgSe
 		
 	    ParticipantsGroupForm participantGroupForm=new ParticipantsGroupForm();
 	    participantGroupForm.setParticipantGroups(partDAO.getlimitedParticipants_group(page));
-	   	model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 5));
+	   	model.addAttribute("noofpages",(int) Math.ceil(partDAO.getnoofParticipants_group() * 1.0 / 20));
 	    model.addAttribute("participantGroupForm", participantGroupForm); 
         model.addAttribute("noofrows",partDAO.getGroups().size());
         model.addAttribute("currentpage",page);

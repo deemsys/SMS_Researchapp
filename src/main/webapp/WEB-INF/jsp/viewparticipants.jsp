@@ -6,9 +6,9 @@
 <div id="right_content">
 	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
 				     <tr><td colspan="7" valign="top" align="left" style="padding:5px 0 10px 0;">
-					<div class="del_div">
+					<!-- <div class="del_div">
 						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" /></label></p>
-	          		</div>
+	          		</div> -->
 				</td></tr></table>
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
       		
@@ -38,20 +38,20 @@
 							<form action="findParticipant" method="GET">
 							  <tr>
 							    <td align="left" valign="middle" width="10%">Mobile No:</td>
-							    <td align="left" valign="middle" width="15%"><input type="text" name="mobile" class="input_txtbx1" id="mobile"></td>
+							      <td align="left" valign="middle" width="15%"><input type="text" name="mobile" class="input_txtbx1" id="mobile" value="${mobile }"></td>
 							     <td align="left" valign="middle" width="10%">&nbsp;&nbsp;Group Name:</td>
 							    <td align="left" valign="middle" width="15%">
 							    <select name="groupname">
 							    <option value = "">Select Groups</option>
 			                  <c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
-			                   <option value="${participantGroups.group_name}">${participantGroups.group_name}</option>
+			                   <option value="${participantGroups.group_name}" <c:if test="${participantGroups.group_name==groupsearch}"><c:out value="selected"/></c:if>>${participantGroups.group_name}</option>
 			                   </c:forEach>
 			                 </select><span class="err"><form:errors path="participant.groupname"></form:errors></span></td>
 							    <td align="left" valign="middle" width="5%">&nbsp;&nbsp;Zipcode:</td>
-							    <td align="left" valign="middle" width="15%"><input type="text" name="city" id="city" class="input_txtbx1"></td>
+							    <td align="left" valign="middle" width="15%"><input type="text" name="city" value="${city }" id="city" class="input_txtbx1"></td>
 							     <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Find"></td>
-						<!-- 	      <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Clear"></td>
-						 -->	  </tr>
+							      <td align="center" valign="middle" width="20%"><a href="viewparticipants"><input type="button" class="submit_btn" value="Clear"></a></td>
+							  </tr>
 							  </form>
 							</table>
 						</div>
@@ -74,18 +74,19 @@
 				
 		
         					</tr>
+        					<% int i=1; %>
         					<c:if test="${fn:length(participantsDetailsForm.participantsDetails) gt 0}">
         					<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
-        				       					<tr class="row1">
+        				       					<tr class="row<%=i%>">
 							       		<td valign="center" align="center" width="5%"><input type="checkbox" value="${participantsDetails.participants_id}" name="chkUser"></td>
 					     		     	<td valign="top" align="left"  width="10%"><a href="participantdetails?id=${participantsDetails.participants_id}&back=viewparticipant">${participantsDetails.fname}</a></td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.provider_name}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="8%">${participantsDetails.time1}</td>
-											<td valign="top" align="left" width="8%">${participantsDetails.time2}</td>
-											<td valign="top" align="left" width="8%">${participantsDetails.time3}</td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time1} ${participantsDetails.time1_am_pm }</td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time2} ${participantsDetails.time2_am_pm }</td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time3} ${participantsDetails.time3_am_pm }</td>
 											<td valign="top" align="left" width="25%">
 											<%-- <c:if test="${currentuser.adminuser[0].editparticipant==1}"> --%>
 												<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editparticipant?id=${participantsDetails.participants_id}"/>" style="padding-right:10px;">Edit</a>
@@ -94,7 +95,9 @@
 											<a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipants?id=${participantsDetails.participants_id}"/>" onclick="return confirmation()">Remove</a>
 										<%-- 	</c:if> --%>
 											</td>
-								</tr>
+								</tr><% if(i==1) i=2;
+								else
+								i=1;%>
 							    	</c:forEach>
 							    	</c:if>
 							    <c:if test="${fn:length(participantsDetailsForm.participantsDetails) == 0}">	
@@ -102,16 +105,21 @@
 							    	<td colspan="7" width="100%"><center><b>No Participants Found!!!</b></center></td>
 							    	</tr>
 							    	</c:if>
-							    	</table>
+							    	
 							    	
 							    	
 							    	</div>
 							    	
-							    	</form>
+							    	
 							    	<form action="viewparticipants_page" method="GET">
 							    	<table cellpadding="0" cellspacing="0" border="0" width="98%"
 			class="margin_table">
-							    	<tr><td colspan="7">  <div class="extrabottom">
+							    	<tr >
+							    	<td align="left"><div class="extrabottom">
+							    		<a><input  type="submit" name="delete"  value="Remove All"  class="submit_btn1" /></a></div>
+					</td>
+							    	
+							    	<td colspan="6">  <div class="extrabottom">
               <ul class="pagination">
          <%--      <% int i=1;int j=0;%> 
               
@@ -149,13 +157,13 @@
                 
 							    	
 					</table>
-					</form>		
+					</form>	</form>	
 					</td>
 					</tr>
 				    	
 					</table>		    	
 							    	
-							    	
+						</table>	    	
 							  
 						
 	

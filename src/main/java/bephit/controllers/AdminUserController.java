@@ -80,7 +80,7 @@ public class AdminUserController
             
 	     model.addAttribute("noofrows",adminuserForm.getAdminuser().size());       
 	    adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(1));
-			model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 5));	 
+			model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 20));	 
 	        model.addAttribute("button","viewall");
 	        model.addAttribute("success","false");
 	        model.addAttribute("currentpage",1);
@@ -93,7 +93,7 @@ public class AdminUserController
 		AdminUserForm adminuserForm = new AdminUserForm();
 		adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
 		
-	   	model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 5));
+	   	model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 20));
 	    model.addAttribute("adminuserForm", adminuserForm);	
 	   	model.addAttribute("noofrows",adminuserForm.getAdminuser().size());   
         model.addAttribute("currentpage",page);
@@ -187,7 +187,7 @@ public class AdminUserController
 		   adminuserDAO.setPermission_adminUser(admin_id,status); 	
 adminuserForm.setAdminuser(adminuserDAO.getlimitedadminuser(page));
 		
-	   	model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 5));
+	   	model.addAttribute("noofpages",(int) Math.ceil(adminuserDAO.getnoofadminuser() * 1.0 / 20));
 	    model.addAttribute("adminuserForm", adminuserForm);	
 	   	model.addAttribute("noofrows",adminuserForm.getAdminuser().size());   
         model.addAttribute("currentpage",page);

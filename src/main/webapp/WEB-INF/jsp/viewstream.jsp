@@ -9,9 +9,9 @@
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
 			<tr>
         		<td valign="top" align="left" style="padding:5px 0 10px 0;">
-        			<div class="del_div">
+        			<!-- <div class="del_div">
 						<p><label style="padding: 0pt 20px 0pt 0pt;"><a><input  type="submit" name="delete" value="" class="icon1"  /></a></label></p>
-					</div>
+					</div> -->
 				</td>
 		   	</tr>
 			<tr>
@@ -46,10 +46,11 @@
 
 
                 </tr>
-         
+         <%int i=1;
+         %>
 		<c:forEach items="${streamForm.streamDetails}" var="streamDetails" varStatus="status">
         					
-		<tr class="row1">
+		<tr class="row<%=i%>">
 		<td valign="center" align="left" width="5%"><input type="checkbox" value="${streamDetails.streamId}" name="chkUser"></td>
         <td valign="top" align="left" width="10%"><a href="streamdetails?id=${streamDetails.streamId}">${streamDetails.streamId}</a></td>
 		<td valign="top" align="left" width="15%">${streamDetails.streamName}</td>
@@ -65,12 +66,20 @@
 	    <a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deletestream?id=${streamDetails.streamId}"/>" onclick="return confirmation()">Remove</a>
 	  
     </tr>
+    <%if(i==1) i=2;
+    else
+    i=1;%>
 		</c:forEach>
 		
 		<form action="viewstream_page" method="GET">
 	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
-			
-							    	<tr><td colspan="7">  <div class="extrabottom">
+		
+							    	<tr >
+							    	<td align="left"><div class="extrabottom">
+							    		<a><input  type="submit" name="delete"  value="Remove All"  class="submit_btn1" /></a></div>
+					</td>
+							    	
+							    	<td colspan="6">  <div class="extrabottom">
               <ul class="pagination">
          <%--      <% int i=1;int j=0;%> 
               

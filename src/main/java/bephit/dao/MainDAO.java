@@ -824,9 +824,9 @@ public class MainDAO {
 			String cmd;
 			String role_admin="ROLE_ADMIN";
 			if(userName.equals("superadmin"))
-				cmd="select * from participants_table";
+				cmd="select * from participants_table order by fname asc";
 				else
-			    cmd="select * from participants_table where Provider_name='"+userName+"'";
+			    cmd="select * from participants_table where Provider_name='"+userName+"' order by fname asc";
 				
 			resultSet = statement
 					.executeQuery(cmd);
@@ -943,12 +943,12 @@ public class MainDAO {
 		try {
 
 			String cmd;
-			int offset = 5 * (page - 1);
-			int limit = 5;
+			int offset = 20 * (page - 1);
+			int limit = 20;
 			if(userName.equals("superadmin"))
-				   cmd="select * from participants_table  limit " + offset + ","+ limit+"" ;
+				   cmd="select * from participants_table  order by fname asc limit " + offset + ","+ limit+"" ;
 				else
-					cmd = "select * from participants_table where provider_name='"+userName+"' limit " + offset + ","+ limit+"" ;
+					cmd = "select * from participants_table where provider_name='"+userName+"'  order by fname asc limit " + offset + ","+ limit+"" ;
 							
 				System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
@@ -1112,7 +1112,9 @@ public class MainDAO {
 		List<ParticipantsDetails> participants = new ArrayList<ParticipantsDetails>();
 		try {
 			
-			String cmd;
+			String cmd="";
+			if(!mobile.equals("")&&!groupname.equals("")&&!city.equals(""))
+			{
 			if(userName.equals("superadmin"))
 			cmd = "select * from participants_table where mobile_num='"
 					+ mobile + "' or group_name like '%" + groupname + "%' or city='"
@@ -1121,7 +1123,55 @@ public class MainDAO {
 				cmd = "select * from participants_table where mobile_num='"
 				+ mobile + "' or group_name like '%" + groupname + "%' or city='"
 				+ city + "' having Provider_name='"+userName+"'";
-	
+			}
+			if(mobile.equals("")&&!groupname.equals("")&&city.equals(""))
+			{
+				if(userName.equals("superadmin"))
+					cmd = "select * from participants_table where group_name like '%" + groupname + "%'";
+					else
+						cmd = "select * from participants_table where group_name like '%" + groupname + "%' having Provider_name='"+userName+"'";
+			
+			}
+			if(!mobile.equals("")&&groupname.equals("")&&city.equals(""))
+			{
+				if(userName.equals("superadmin"))
+					cmd = "select * from participants_table where mobile_num='"+mobile+"'";
+					else
+						cmd = "select * from participants_table where mobile_num='"+mobile+"' having Provider_name='"+userName+"'";
+			
+			}
+			if(mobile.equals("")&&groupname.equals("")&&!city.equals(""))
+			{
+				if(userName.equals("superadmin"))
+					cmd = "select * from participants_table where city='"+city+"'";
+					else
+						cmd = "select * from participants_table where city='"+city+"' having Provider_name='"+userName+"'";
+			
+			}
+			if(mobile.equals("")&&!groupname.equals("")&&!city.equals(""))
+			{
+				if(userName.equals("superadmin"))
+					cmd = "select * from participants_table where city='"+city+"' or group_name like '%" + groupname + "%'";
+					else
+						cmd = "select * from participants_table where city='"+city+"' or group_name like '%" + groupname + "%' having Provider_name='"+userName+"'";
+			
+			}
+			if(!mobile.equals("")&&groupname.equals("")&&!city.equals(""))
+			{
+				if(userName.equals("superadmin"))
+					cmd = "select * from participants_table where city='"+city+"' or mobile_num='"+mobile+"'";
+					else
+						cmd = "select * from participants_table where city='"+city+"' or mobile_num='"+mobile+"' having Provider_name='"+userName+"'";
+			
+			}
+			if(!mobile.equals("")&&!groupname.equals("")&&city.equals(""))
+			{
+				if(userName.equals("superadmin"))
+					cmd = "select * from participants_table where group_name like '%" + groupname + "%' or mobile_num='"+mobile+"'";
+					else
+						cmd = "select * from participants_table where group_name like '%" + groupname + "%' or mobile_num='"+mobile+"' having Provider_name='"+userName+"'";
+			
+			}			
 			resultSet = statement.executeQuery(cmd);
 			System.out.println(cmd);
 			while (resultSet.next()) {

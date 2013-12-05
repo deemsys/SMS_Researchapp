@@ -541,8 +541,8 @@ public class StreamDetailsDAO
 		try {
 
 			String cmd;
-			int offset = 5 * (page - 1);
-			int limit = 5;
+			int offset = 20 * (page - 1);
+			int limit = 20;
 			if(userName.equals("superadmin"))
 				   cmd= "select * from stream limit " + offset + ","+ limit+"" ;
 				else

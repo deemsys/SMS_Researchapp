@@ -8,9 +8,9 @@
 	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
     	<tr>
 			<td valign="top" align="left" style="padding:5px 0 10px 0;">
-				<div class="del_div">
+			<!-- 	<div class="del_div">
 					<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1" /></label></p>
-          		</div>
+          		</div> -->
 			</td>
 		</tr>
 		<tr>
@@ -42,16 +42,18 @@
 	            	<div class="contentbox">
 	            		<table cellpadding="0" cellspacing="0" border="0" width="100%">
 	                		<tr class="title">
-								<td valign="center" align="left" width="5%"><input type="checkbox" onclick="selectall(this.form)" value="" name="chkAll"></td>
+								<td valign="center" align="left" width="5%" style="padding-left:200px;"><input type="checkbox" onclick="selectall(this.form)" value="" name="chkAll"></td>
 	                  			<td valign="top" align="left" width="10%">Group&nbsp;Name</td>
-	                  			<td valign="top" align="left" width="15%">Description</td>
+	                  			<td valign="top" align="left" width="25%">Description</td>
 	                  			<td valign="top" align="left" width="25%">Action</td>
 	                		</tr>
+	                		<%int i=1; %>
 	                		<c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
-							       		<tr class="row1">
-							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="${participantGroups.group_id}" name="chkUser"></td>
+	                		
+							       		<tr class="row<%=i %>">
+							       		<td valign="center" align="left" width="5%" style="padding-left:200px;"><input type="checkbox" value="${participantGroups.group_id}" name="chkUser"></td>
 							       		     	<td valign="top" align="left"  width="10%"><a href="groupdetails?id=${participantGroups.group_id}">${participantGroups.group_name}</a></td>
-											<td valign="top" align="left" width="15%">${participantGroups.group_decs}</td>
+											<td valign="top" align="left" width="25%">${participantGroups.group_decs}</td>
 											<%-- <td valign="top" align="left" width="10%">${participantGroups.local_dojfrom}</td>
 											<td valign="top" align="left" width="10%">${participantGroups.local_dojto}</td>
 											<td valign="top" align="left" width="15%">${participantGroups.local_educations}</td> --%>
@@ -59,19 +61,22 @@
 											<td><a href="#" title=""><img src="resources/images/icons/icon_delete.png" alt="Delete" /></a><a href="<c:out value="deleteparticipantgroup?id=${participantGroups.group_id}"/>" style="padding-right:10px;"  onclick="return confirmation();">Remove</a></td>
 						<%-- 					<td valign="top" align="left" width="15%">${participantsDetails.date_of_join}</td>
 							 --%>			</tr>
+							 <%if(i==1) i=2;
+							 else i=1;%>
 							    	</c:forEach>
 							    	</table>
-							    	</div>
-							    	</div>
-							    	</td>
-							    	</tr>
-							    	</table>
-							    	</form>
 							    	
-							    	<form action="viewparticipantgroup_page" method="GET">
+							    	
+							    	
+							    	<form action="viewparticipantgroup_page" method="GET"> 
 							    	<table cellpadding="0" cellspacing="0" border="0" width="98%"
 			class="margin_table">
-							    	<tr><td colspan="7">  <div class="extrabottom">
+							    	<tr >
+							    	<td align="center" width="20%"><div class="extrabottom">
+							    		<a><input  type="submit" name="delete"  value="Remove All"  class="submit_btn1" /></a></div>
+					</td>
+							    	
+							    	<td colspan="6">  <div class="extrabottom">
               <ul class="pagination">
          <%--      <% int i=1;int j=0;%> 
               
@@ -110,7 +115,11 @@
 							    	
 			</table>
 			</form>
-							    	
+				</form>	</div>
+							    	</div>
+							    	</td>
+							    	</tr>
+							    	</table>		    	
 							    	
 							    	
 							    	
@@ -119,7 +128,7 @@
 <script>
 function confirmation() {
 
-	var answer = confirm("Are You Sure Want To Delete Group")
+	var answer = confirm("Are You Sure? You Want To Delete Group?")
 	if (answer){
 		return true;
 	}
@@ -186,7 +195,7 @@ if (hasChecked == false)
 alert("Please select at least one.");
 return false;
 }
-var result=confirm("Are you sure?You want to delete the User(s)?");
+var result=confirm("Are you sure?You want to delete the Group(s)?");
 if(result)
 	{
 return true;

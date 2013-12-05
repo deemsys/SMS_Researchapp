@@ -21,7 +21,7 @@ public class ParticipantsDetails {
 	@NotEmpty
 	private String fname;
 	
-		
+		 
 	@NotEmpty
 	private String username;
 	

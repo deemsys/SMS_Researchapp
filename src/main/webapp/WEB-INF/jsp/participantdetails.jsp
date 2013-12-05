@@ -18,13 +18,10 @@
           <%--    <c:set value="${participantsDetailsForm.participantsDetails}" var="participantsDetails"/>
           --%>    <c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
               
-              <h2>Participants Details&nbsp;&nbsp;&nbsp;<span><a href="viewresponse?id=${participantsDetails.participants_id}">View Responses</a></span></h2></c:forEach>
+              <h2>Participants Details&nbsp;&nbsp;&nbsp;<%-- <span style="padding:5px;width:100px;border:solid 1px #eaeaea;background-color:#eaeaea; "><a href="viewresponse?id=${participantsDetails.participants_id}">View Responses</a></span> --%></h2></c:forEach>
             </div>
             <div class="contentbox">
-              <table cellpadding="0" cellspacing="0" border="0" width="100%">
-            
-            
-            
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">        
    <%--            <c:forEach items="${currentuser.participantsDetails}" var="currentuser" varStatus="status">
    --%>          <%--  <tr class="row2">
                   <td width="15%" valign="middle" align="left" > Current User: </td>
@@ -108,10 +105,7 @@
                   <td width="84%" valign="top" align="left" >${participantsDetails.date_of_join}</td>
                 </tr>   
               <tr class="row1">  
-              <td width="15%" valign="middle" align="left" ></td>
-              <td width="5%" valign="middle" align="left" >
-             
-              
+                <td width="15%" valign="middle" align="right" >              
               <c:choose> 
               <c:when test="${menu=='dashboard'}">
                <a style="text-decoration: none;" class="paging_select" href="welcome"><input type="button" onclick="goBack()" value="Back" class="submit_btn"/></a>
@@ -120,8 +114,13 @@
                  <a style="text-decoration: none;" class="paging_select" href="viewparticipants"><input type="button" onclick="goBack()" value="Back" class="submit_btn"/></a>
             
               </c:otherwise>
-              </c:choose>
+              </c:choose></td>
+                <td width="1%" valign="middle" align="left" ></td>
+              <td width="42%" valign="middle" align="left" >
+              <span><a  style="text-decoration: none;" class="paging_select" href="viewresponse?id=${participantsDetails.participants_id}"><input type="button" value="View Responses" class="submit_btn2"></a></span>
               </td>
+           
+           
               </tr>
              
            </c:forEach>

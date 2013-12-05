@@ -234,8 +234,8 @@ $("#city").keyup(function() {
                   <td valign="middle" align="left" class="input_txt"> Education :</td>
                   <td valign="top" align="left" class="input_txt"><select name="education" class="input_cmbbx1">
                     <option value="null" <c:if test="${participantsDetails.education=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
-			<option value="Did not complete High School" <c:if test="${participantsDetails.education=='Did not complete High School'}"><c:out value="selected"/></c:if>>Did not complete High School</option>
-			<option value="High School or GED" <c:if test="${participantsDetails.education=='High School or GED'}"><c:out value="selected"/></c:if>>High School or GED</option>
+			<option value="DSchool" <c:if test="${participantsDetails.education=='Did not complete High School'}"><c:out value="selected"/></c:if>>Did not complete High School</option>
+			<option value="HSchool" <c:if test="${participantsDetails.education=='High School or GED'}"><c:out value="selected"/></c:if>>High School or GED</option>
 			<option value="Some College" <c:if test="${participantsDetails.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
 			<option value="Undergraduate Degree" <c:if test="${participantsDetails.education=='Undergraduate Degree'}"><c:out value="selected"/></c:if>>Undergraduate Degree</option>
 			<option value="Postgraduate Degree" <c:if test="${participantsDetails.education=='Postgraduate Degree'}"><c:out value="selected"/></c:if>>Postgraduate Degree</option>
@@ -317,7 +317,7 @@ $("#city").keyup(function() {
 												<td valign="top" align="left" class="input_txt">
 												<select name="time3" class="input_cmbbx1" id="msg">
 														
-                   <option 
+                   <option value="null"
 					<c:if test="${participantsDetails.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 					<option value="01"  <c:if test="${participantsDetails.time3=='01'}"><c:out value="selected"/></c:if>>1</option>
 					<option value="02"  <c:if test="${participantsDetails.time3=='02'}"><c:out value="selected"/></c:if>>2</option>
@@ -350,7 +350,7 @@ $("#city").keyup(function() {
 				
 				<td><p class="quck-txt">Group</p></td></tr>
 
-<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
+<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<!-- <a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a> --></p></td></tr>
                 
                 
                 
@@ -571,7 +571,7 @@ $("#city").keyup(function() {
 													 Time3:</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time3" class="input_cmbbx1" id="msg">
-														<option  <c:if test="${addparticipants.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>								
+														<option value="null"  <c:if test="${addparticipants.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>								
 				 <option value="01" <c:if test="${addparticipants.time3=='01'}"><c:out value="selected"/></c:if>>1</option>
                    <option value="02"  <c:if test="${addparticipants.time3=='02'}"><c:out value="selected"/></c:if>>2</option>
 				   <option value="03" <c:if test="${addparticipants.time3=='03'}"><c:out value="selected"/></c:if>>3</option>
@@ -598,7 +598,7 @@ $("#city").keyup(function() {
 				
 				<td><p class="quck-txt">Group</p></td></tr>
 
-<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
+<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<!-- <a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a> --></p></td></tr>
                 
                 
                 

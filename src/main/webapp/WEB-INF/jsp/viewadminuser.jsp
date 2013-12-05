@@ -10,9 +10,9 @@
     	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
 			<tr>
         		<td valign="top" align="left" style="padding:5px 0 10px 0;">
-        			<div class="del_div">
+        			<!-- <div class="del_div">
 						<p><label style="padding: 0pt 20px 0pt 0pt;"><input type="submit" name="delete" value="" class="icon1"  /></label></p>
-					</div>
+					</div> -->
 				</td>
 		   	</tr>
 			<tr>
@@ -46,10 +46,11 @@
 									<td valign="top" align="left" width="24%">Action</td>
 									<td valign="top" align="left" width="24%">Status</td>
 								</tr>
+								<%int i=1; %>
 								<c:forEach items="${adminuserForm.adminuser}" var="adminuser" varStatus="status">
-							       		<tr class="row1">
+							       		<tr class="row<%=i%>">
 							       		<td valign="center" align="left" width="5%"><input type="checkbox" value="${adminuser.admin_id}" name="chkUser"></td>
-							       		  	<td valign="top" align="left"  width="10%"><a href="admindetails?id=${adminuser.admin_id}">${adminuser.admin_username}</a></td>
+							       		  	<td valign="top" align="left"  width="10%"><a href="admindetails?id=${adminuser.admin_id}">${adminuser.admin_firstname}</a></td>
 											<td valign="top" align="left" width="15%">${adminuser.admin_email}</td>
 											<td valign="top" align="left" width="15%">${adminuser.admin_mobile}</td>
 											
@@ -77,12 +78,18 @@
 										 	
 										 	
 										 	
-									</tr>
+									</tr><%if(i==1) i=2;
+									else
+									i=1;%>
 							    	</c:forEach>
 							    	<form action="viewadminuser_page" method="GET">
 	<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
-			
-							    	<tr><td colspan="7">  <div class="extrabottom">
+				<tr >
+							    	<td align="left"><div class="extrabottom">
+							    		<a><input  type="submit" name="delete"  value="Remove All"  class="submit_btn1" /></a></div>
+					</td>
+							    	
+							    	<td colspan="6">  <div class="extrabottom">
               <ul class="pagination">
          <%--      <% int i=1;int j=0;%> 
               
@@ -135,23 +142,7 @@
 							    	
 							    	
 							    	
-							    	
-							    	
-							    	
-							    	
-							    	
-							    	
-							</table>
-													
-						</div>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</div>
-	
-</form>
-
+		
 <script type="text/javascript">
 
 function validate()
@@ -172,7 +163,7 @@ if (hasChecked == false)
 alert("Please select at least one.");
 return false;
 }
-var result=confirm("Are you sure.You want to delete the User(s)?");
+var result=confirm("Are you sure.You want to delete the Provider(s)?");
 if(result)
 	{
 return true;
@@ -191,7 +182,7 @@ else
 
 function myFunction(str) {
 
-	var answer = confirm("Are you sure want to delete this User?")
+	var answer = confirm("Are you sure want to delete this Providers?")
 	if (answer){
 		window.location = "?do=deleteuser&userid="+str;
 	}
@@ -205,11 +196,11 @@ function myActive(adminid,sta,page) {
 	
 	if(sta==1)
 	{
-		var answer = confirm("Are you sure want to Active this User?");
+		var answer = confirm("Are you sure want to Active this Provider?");
 	}
 	else
 	{
-		var answer = confirm("Are you sure want to Suspend this User?");
+		var answer = confirm("Are you sure want to Suspend this Provider?");
 	}
 	if (answer){
 // 		alert("?do=activeuser&userid="+str+"&status="+sta);
@@ -245,7 +236,7 @@ slvals = null;
 <script language="javascript">
 
 function confirmation() {
-	var answer = confirm("Are you Sure You Want to Delete this user ?");
+	var answer = confirm("Are you Sure You Want to Delete this Provider ?");
 	if (answer){
 		return true;
 	}

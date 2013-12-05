@@ -10,10 +10,9 @@
 		<intercept-url pattern="/editadminuser*" access="ROLE_ADMIN" />
 		<intercept-url pattern="/welcome*" access="ROLE_USER" />
 		<form-login login-page="/login" default-target-url="/welcome"
-			authentication-failure-url="/loginfailed" />
+			authentication-failure-url="/loginfailed" always-use-default-target="true"/>
 		<logout logout-success-url="/logout" />
 		  <session-management invalid-session-url="/logout" />
-	 
 	</http>
 	
 	 

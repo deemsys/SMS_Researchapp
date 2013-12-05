@@ -73,7 +73,7 @@
                 </tr>
               <tr class="row1">
               
-              <td colspan="2" width="50%" valign="middle" align="right" > <a style="text-decoration: none;" class="paging_select" href="welcome"><input type="button" value="Back" class="submit_btn" "/></a>
+              <td colspan="2" width="50%" valign="middle" align="right" > <!-- <a style="text-decoration: none;" class="paging_select" href="welcome"> --><input type="button" value="Back" onclick="goBack()" class="submit_btn"/><!-- </a> -->
               </td>
               </tr>
              

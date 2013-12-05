@@ -85,7 +85,7 @@ public class MessageStreamController {
 	       model.addAttribute("currentuser",request.getSession().getAttribute("currentuser"));      
 	     model.addAttribute("noofrows",streamForm.getStreamDetails().size());       
 	    streamForm.setStreamDetails(streamDAO.getlimitedstream(1));
-			model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 5));	 
+			model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 20));	 
 	        model.addAttribute("button","viewall");
 	        model.addAttribute("currentpage",1);
 		return "viewstream";
@@ -202,7 +202,7 @@ public class MessageStreamController {
 		
 		StreamDetailsForm streamForm = new StreamDetailsForm();
 	    streamForm.setStreamDetails(streamDAO.getlimitedstream(page));
-	   	model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 5));
+	   	model.addAttribute("noofpages",(int) Math.ceil(streamDAO.getnoofstream() * 1.0 / 20));
 	   	model.addAttribute("streamForm", streamForm);
 	   	model.addAttribute("noofrows",streamForm.getStreamDetails().size());   
         model.addAttribute("currentpage",page);

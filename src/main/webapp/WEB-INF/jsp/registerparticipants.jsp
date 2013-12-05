@@ -1,12 +1,14 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
             response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Cache-Control", "no-store");
             response.setDateHeader("Expires", 0);
             response.setHeader("Pragma", "no-cache");
 %>
+<title>:: Medical SMS::</title>
 <link rel="stylesheet" url="resources/js/jquery.js" />
 <script src="/BePhitResearchApp/resources/js/jquery.js"></script>
 <script>
@@ -433,7 +435,7 @@ function empty()
 											</tr>
 											
 											<tr>
-												<td><p class="quck-txt">Provider</p></td>
+												<td><p class="quck-txt">Provider & Groups</p></td>
 											</tr>
 <tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
@@ -450,9 +452,9 @@ function empty()
 												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.Provider_name"></form:errors> </span></font></td>
 											</tr>
-											<tr>
+										<!-- 	<tr>
 												<td><p class="quck-txt">Group</p></td>
-											</tr>											
+											</tr>		 -->									
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err">*</span> Select
@@ -474,8 +476,8 @@ function empty()
 												 </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
-										</table>
-										<div>Note:	To Select Multiple Groups use ctrl+click</div>	
+										</table><br/>
+										<div color:#3D3D5C;><br/>Note:	To Select Multiple Groups use ctrl+click</div>	
 									</td>
 								</tr>
 								<tr class="row1" width="1000">
@@ -712,7 +714,7 @@ function empty()
 											</tr>
 											
 											<tr>
-												<td><p class="quck-txt">Provider</p></td>
+												<td><p class="quck-txt">Provider & Groups</p></td>
 											</tr>
 <tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
@@ -733,9 +735,9 @@ function empty()
 												</c:if> </span></font>
 												 </td>
 											</tr>
-											<tr>
+											<!-- <tr>
 												<td><p class="quck-txt">Group</p></td>
-											</tr>											
+											</tr>		 -->									
 											<tr class="row2">
 												<td valign="top" align="left" class="input_txt"><span
 													class="err">*</span> Select
@@ -755,7 +757,7 @@ function empty()
 												
 												<c:forEach items="${groups}"
 															var="group" varStatus="status">
-															<option value="${group}">${group}</option>
+															<option value="${group}" <c:if test="${fn:contains(group_select,group)}"><c:out value="selected"/></c:if>>${group}</option>
 														</c:forEach>
 												
 												

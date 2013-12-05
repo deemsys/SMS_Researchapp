@@ -41,21 +41,25 @@
 									<!-- <td valign="top" align="left" width="15%">Education</td> -->
 									<td valign="top" align="left" width="10%">Date Of Join</td>
 								</tr>
-								
+								<% int i=1; %>
 
 								<!-- Display Admin Userd here  Suresh--> 
 									<c:forEach items="${participantsDetailsForm.participantsDetails}" var="participantsDetails" varStatus="status">
-							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
+							       		<tr class="row<%=i %>" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
 								          <td valign="top" align="left"  width="10%"> <a href="participantdetails?id=${participantsDetails.participants_id}&back=dashboard">${participantsDetails.fname}</a></td>
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="15%">${participantsDetails.provider_name}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time1}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time2}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time3}</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time1} ${participantsDetails.time1_am_pm }</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time2} ${participantsDetails.time2_am_pm }</td>
+											<td valign="top" align="left" width="10%">${participantsDetails.time3} ${participantsDetails.time3_am_pm }</td>
 										<%-- 	<td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
 											<td valign="top" align="left" width="10%">${participantsDetails.date_of_join}</td>
 										</tr>
+										<%if(i==1)
+											i=2;
+											else
+											i=1;%>
 							    	</c:forEach>
 						    	
 <tr><td colspan="7">  <div class="extrabottom">

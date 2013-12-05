@@ -35,15 +35,19 @@
 	                  			<td valign="top" align="left" width="15%">Activity</td>
 	                  			<td valign="top" align="left" width="20%">Done By</td>
 	                		</tr>
-	                	
+	                	<%int i=1; %>
 	                	 
 	                	<c:forEach items="${adminactivityForm.adminActivity}" var="adminActivity" varStatus="status"> 	
-	                		<tr class="row1">
+	                		<tr class="row<%=i%>">
 	                  			<td valign="top" align="center" width="15%">${adminActivity.admin_date_time}</td>
 	                  			<td valign="top" align="left" width="15%">&nbsp;&nbsp;&nbsp;&nbsp;${adminActivity.ip_address}</td>
 	                  			<td valign="top" align="left" width="15%">${adminActivity.admin_desc}</td>
 	                		<td valign="top" align="left" width="20%">${adminActivity.done_by}</td>
 	                		</tr>
+	                		<%if(i==1)
+	                			i=2;
+	                			else
+	                			i=1;%>
 	                	</c:forEach>	
 	                		
 	                	</table>

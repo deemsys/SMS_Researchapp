@@ -10,7 +10,7 @@
 			<tr>
 				<td valign="top" align="left"><div>
 						<div class="headings altheading">
-							<h2>Participant Responses</h2>
+							<h2>Participant Weekly Responses</h2>
 						</div>
 						<div class="contentbox">
 						<table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table" id="su" >
@@ -30,25 +30,27 @@
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">
 				
 								<tr class="title">
-									<td valign="top" align="left" width="10%">Response id</td>
-									<td valign="top" align="left" width="15%">Week</td>
-									<td valign="top" align="left" width="15%">Date&Time</td>
-									<td valign="top" align="left" width="10%">Status</td>
+									<td valign="top" align="left" width="10%">Response No</td>
+									<td valign="top" align="left" width="15%">Week No</td>
+									<td valign="top" align="left" width="15%">Date & Time of Submission</td>
+									<!-- <td valign="top" align="left" width="10%">Status</td> -->
 									<td valign="top" align="left" width="10%">Action</td>
 							</tr>
 								
-
+<%int i=1; %>
 								<!-- Display Admin Userd here  Suresh--> 
 									<c:forEach items="${responseForm.response}" var="response" varStatus="status">
+									
 							       		<tr class="row1" onmouseover="mouse_event(this,"row_hover");" onmouseout="mouse_event(this,"row1");">
-								          <td valign="top" align="left"  width="10%"> ${response.log_id}</td>
+								          <td valign="top" align="left"  width="10%"><%=i%></td>
 											<td valign="top" align="left" width="15%">${response.week}</td>
 											<td valign="top" align="left" width="15%">${response.date_time}</td>
-											<td valign="top" align="left" width="10%">${response.status}</td>
+										<%-- 	<td valign="top" align="left" width="10%">${response.status}</td> --%>
 											<td valign="top" align="left"  width="10%"><a href="viewanswers?id=${response.log_id}">View Details</a></td>
 										<%--<td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
 										
 										</tr>
+										<%i++; %>
 							    	</c:forEach>
 						    	
 <tr><td colspan="7">  <div class="extrabottom">
@@ -79,7 +81,7 @@
                   <li class="page"><a href="viewall" class="paging_select">ViewAll</a></li>
              </c:when>
                 <c:otherwise>
-                  <li class="page"><a href="welcome" class="paging_select">Back</a></li>
+                  <li class="page"><input type="button" onclick="goBack()" class="submit_btn" value="Back" /></li>
               </c:otherwise>
               
               </c:choose>
@@ -103,4 +105,11 @@
 							</table>
 							</form>
 						</div>
+						<script>
+function goBack()
+  {
+  window.history.back();
+  }
+</script>
 <jsp:include page="footer.jsp"></jsp:include>
+

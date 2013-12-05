@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="header.jsp"></jsp:include>
 <link rel="stylesheet" url="resources/js/jquery.js" />
 <script src="/BePhitResearchApp/resources/js/jquery.js"></script>
@@ -210,9 +211,9 @@ return true;
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
 														<option selected="selected" value="null">--Select--</option>
-														<option value="School" id="edu">Did not complete High School</option>
-														<option value="School" id="edu">High School or GED</option>
-														<option value="Some Collage" id="edu">Some
+														<option value="DSchool" id="edu">Did not complete High School</option>
+														<option value="HSchool" id="edu">High School or GED</option>
+														<option value="Some College" id="edu">Some
 															College</option>
 														<option value="Professional Degree" id="edu">Undergraduate Degree</option>
 														<option value="Master Degree" id="edu">Post-graduate Degree</option>
@@ -331,11 +332,11 @@ return true;
 											</tr>
 											<tr class="row1">
 												<td colspan="2"><p
-														style="line-height: 18px; padding: 1px 0pt; text-align: justify">
+														style="line-height: 18px; padding: 1px 0pt; text-align: justify;color:#3D3D5C;">
 														Group is the internal classification for the better
-														understanding of Participant's Demographics.<a
+														understanding of Participant's Demographics.<!-- <a
 															href="addparticipantgroups"
-															onclick="javascript:CreateGroup()">[Create New Group]</a>
+															onclick="javascript:CreateGroup()">[Create New Group]</a> -->
 													</p></td>
 											</tr>
 											<tr><td><input type="hidden" id="Provider_name" name="Provider_name" value="<sec:authentication property="principal.username"/>"/></tr>
@@ -356,7 +357,7 @@ return true;
 												</select> </br> <font color="Red" size="+1"><span id="spngrp"><form:errors
 																path="participant.group_name"></form:errors> </span></font></td>
 											</tr>
-										</table>	<div>Note:	To Select Multiple Groups use ctrl+click</div>	
+										</table>	<div style="color:	#3D3D5C;">Note:<br/>1.	To Select Multiple Groups use ctrl+click<br/>2. You can create new groups from groups menu</div>	
 									</td>
 								</tr></table>
 								
@@ -372,6 +373,7 @@ return true;
 										
 								</tr>
 							</table>
+							
 							</c:when>
 							<c:otherwise>
 							 <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -546,8 +548,7 @@ return true;
                 <tr><td><input type="hidden" id="Provider_name" name="Provider_name" value="<sec:authentication property="principal.username" />"></tr>
 
 <tr><td><p class="quck-txt">Group</p></td></tr>
-
-<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify"><span class="err">*</span>Group is the internal classification for the better understanding of Participant's Demographics.<a href="addparticipantgroups" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
+<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify; color:#3D3D5C;" >Group is the internal classification for the better understanding of Participant's Demographics.<!-- <a href="addparticipantgroups" onclick="javascript:CreateGroup()">[Create New Group]</a> --></p></td></tr>
 
 
 
@@ -556,8 +557,10 @@ return true;
                   <td valign="top" align="left" class="input_txt">
                   <select name="group_name" multiple="multiple" class="input_cmbbx1" id="group_name">
                   <c:forEach items="${participantGroupForm.participantGroups}" var="participantGroups" varStatus="status">
-			                   <option value="${participantGroups.group_name}" <c:if test="${addparticipants.group_name==participantGroups.group_name}"><c:out value="selected"/></c:if>>${participantGroups.group_name}</option>
-			                   </c:forEach>
+			                 
+			        <option value="${participantGroups.group_name}" <c:if test="${fn:contains(groupnames,participantGroups.group_name)}"><c:out value="selected"/></c:if>>${participantGroups.group_name}</option>
+			      
+			      </c:forEach>
                   
                   </select>
                   
@@ -566,7 +569,7 @@ return true;
 																path="participant.group_name"></form:errors> </span></font></td>
                 </tr>            
  </table>
- <div>Note:	To Select Multiple Groups use ctrl+click</div>	
+ <div style="color:	#3D3D5C;">Note:<br/>1. To Select Multiple Groups use ctrl+click<br/>2. You can create new groups from groups menu</div>	
 
                   </td>
                 </tr></table>

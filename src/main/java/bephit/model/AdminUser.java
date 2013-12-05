@@ -1,11 +1,13 @@
 package bephit.model;
 
+import javax.validation.GroupSequence;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@GroupSequence({AdminUser.class})
 public class AdminUser
 {
 	@NotEmpty
@@ -23,7 +25,7 @@ public class AdminUser
 	private String admin_email;
 	
 	@NotEmpty
-	@Length(max=10,min=10,message="Mobile number is not valid. Should be of length 10.")
+	@Length(max=10,min=10,message="Mobile number is not valid. Should be of length 10.",groups=AdminUser.class)
 	private String admin_mobile;
 
 	private String date;

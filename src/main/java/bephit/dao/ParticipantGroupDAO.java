@@ -585,12 +585,12 @@ public class ParticipantGroupDAO {
 		try {
 
 			String cmd;
-			int offset = 5 * (page - 1);
-			int limit = 5;
+			int offset = 20 * (page - 1);
+			int limit = 20;
 			if(userName.equals("superadmin"))
-				cmd="select * from participant_group_table limit " + offset + ","+ limit+"";
+				cmd="select * from participant_group_table  order by group_name asc limit " + offset + ","+ limit+"";
 			else
-			cmd = "select * from participant_group_table where created_by='"+userName+"' limit " + offset + ","+ limit+"" ;
+			cmd = "select * from participant_group_table where created_by='"+userName+"' order by group_name asc limit " + offset + ","+ limit+" " ;
 			System.out.println(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {

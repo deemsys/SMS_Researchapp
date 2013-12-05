@@ -91,7 +91,7 @@ $("#textingcontacts").keyup(function() {
 		 <td valign="top"><div style="float:center; padding:0px 0px 0px 400px;"><input type="submit" value="Save Stream" class="submit_btn1" onclick="return validate()"/> </div></td>
                
                <td valign="top" align="left" style="padding-left:30px;"><input type="reset" value="Reset" class="submit_btn1"/> </td>
-               <td valign="top" align="left" style="padding-left:30px;"><a href="welcome" class="submit_btn1" style="color:white;text-decoration: none; font-size:14px;">Cancel</a> </td>
+               <td valign="top" align="left" style="padding-left:30px;"><a href="viewstream" class="submit_btn1" style="color:white;text-decoration: none; font-size:14px;">Cancel</a> </td>
                 </tr>
               </table>
             

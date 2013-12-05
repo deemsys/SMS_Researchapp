@@ -10,6 +10,7 @@
 
 
 <head>
+<title>:: Medical SMS ::</title>
 </head>
 <script src="/BePhitResearchApp/resources/js/jquery.js"></script>
 <script type="text/javascript">
