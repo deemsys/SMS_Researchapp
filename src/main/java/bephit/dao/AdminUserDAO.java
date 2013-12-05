@@ -357,9 +357,9 @@ public class AdminUserDAO {
 				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
 						resultSet.getString("admin_firstname"),
 						resultSet.getString("admin_username"),
-						resultSet.getString("admin_password"), 
-						resultSet.getString("admin_mobile"),
+						resultSet.getString("admin_password"), 						
 						resultSet.getString("admin_email"), 
+						resultSet.getString("admin_mobile"),
 						resultSet.getString("date"),
 						 resultSet.getString("status")
 								));

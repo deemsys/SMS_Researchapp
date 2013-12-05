@@ -1,6 +1,10 @@
 package bephit.dao;
 
 import java.sql.Connection;
+
+import org.jboss.logging.LoggerProvider;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,12 +19,16 @@ import javax.sql.DataSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+//import ch.qos.logback.classic.Logger;
+
 import bephit.forms.ParticipantsGroupForm;
 import bephit.model.ParticipantGroups;
 import bephit.model.ParticipantsDetails;
 import bephit.model.UserProfile;
 
 public class ParticipantGroupDAO {
+	protected static Logger logger = org.slf4j.LoggerFactory.getLogger("Insert into log table");
+
 	private DataSource dataSource;
 	 
 		public void setDataSource(DataSource dataSource) {
@@ -45,7 +53,8 @@ public class ParticipantGroupDAO {
 		    	int enabled=1;
 		    	int updateemail=1;
 		      String cmd_groupslist="select * from participant_group_table where created_by='"+providername+"'";
-	          System.out.println(cmd_groupslist);
+	       
+	          logger.info(cmd_groupslist);
 				resultSet=statement.executeQuery(cmd_groupslist);
 	          while(resultSet.next())
 	          {
@@ -53,12 +62,12 @@ public class ParticipantGroupDAO {
 	          participantgroup.add(resultSet.getString("group_name"));
 	          
 	          }
-	          System.out.println("participant"+participantgroup);
+	         
 	           
 				flag=1;
 		 }
 		    catch(Exception e){
-		    	System.out.println(e.toString());
+		    	logger.info(e.toString());
 		    	releaseStatement(statement);
 		    	releaseConnection(con);
 		    	flag=0;
@@ -93,7 +102,7 @@ public class ParticipantGroupDAO {
 		    	int enabled=1;
 		    	int updateemail=1;
 		      String cmd_groupslist="select * from participant_group where participant_id='"+participantid+"'";
-	          System.out.println(cmd_groupslist);
+		      logger.info(cmd_groupslist);		      
 				resultSet=statement.executeQuery(cmd_groupslist);
 	          while(resultSet.next())
 	          {
@@ -101,12 +110,13 @@ public class ParticipantGroupDAO {
 	          participantgroup.add(resultSet.getString("group_name"));
 	          
 	          }
-	          System.out.println("participant group"+participantgroup);
+	         
 	           
 				flag=1;
 		 }
 		    catch(Exception e){
-		    	System.out.println(e.toString());
+		    	logger.info(e.toString());
+		    	
 		    	releaseStatement(statement);
 		    	releaseConnection(con);
 		    	flag=0;
@@ -147,14 +157,14 @@ public class ParticipantGroupDAO {
 	    	
 	    	//String cmd="INSERT INTO users(`FULLNAME`,`USERNAME`,`PASSWORD`,`ENABLED`,`EMAIL`,`PROFILE_IMAGE`,`UPDATEBYEMAIL`) VALUES('"+user.getFullName()+"','"+user.getUsername()+"','"+user.getPassword()+"','"+enabled+"','"+user.getEmail()+"','empty','"+updateemail+"')";
           String cmd_pgroups="INSERT INTO `participant_group_table`(`group_name`,`group_decs`,created_by) VALUES('"+pgroups.getgroup_name()+"','"+pgroups.getgroup_decs()+"','"+userName1+"')";
-          System.out.println(cmd_pgroups);
-			statement.execute(cmd_pgroups);
+          logger.info(cmd_pgroups);
+		  statement.execute(cmd_pgroups);
 			
 			String Desc="added Groups"+pgroups.getgroup_name();
 			flag=1;
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -195,13 +205,13 @@ public class ParticipantGroupDAO {
 	    	 //System.out.println(dateFormat.format(date));
 	    	//String cmd="INSERT INTO users(`FULLNAME`,`USERNAME`,`PASSWORD`,`ENABLED`,`EMAIL`,`PROFILE_IMAGE`,`UPDATEBYEMAIL`) VALUES('"+user.getFullName()+"','"+user.getUsername()+"','"+user.getPassword()+"','"+enabled+"','"+user.getEmail()+"','empty','"+updateemail+"')";
           String cmd_pgroups="delete from participant_group_table where group_id='"+group_id+"'";
-          System.out.println(cmd_pgroups);
+         logger.info(cmd_pgroups);
 			statement.execute(cmd_pgroups);
 			/*String Desc="Deleted Groups"+pgroups.getgroup_name();*/
 			flag=1;
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -252,8 +262,8 @@ public class ParticipantGroupDAO {
 	      cmd_groupslist="Select * from `participant_group_table`";
           else
         	    cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"'";
-            
-          System.out.println(cmd_groupslist);
+       
+          logger.info(cmd_groupslist);
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
           {
@@ -265,7 +275,7 @@ public class ParticipantGroupDAO {
 			flag=1;
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -314,7 +324,8 @@ public class ParticipantGroupDAO {
          /* else
         	    cmd_groupslist="Select * from `participant_group_table`";
             */
-          System.out.println(cmd_groupslist);
+	      logger.info(cmd_groupslist);
+          
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
           {
@@ -326,7 +337,7 @@ public class ParticipantGroupDAO {
 			flag=1;
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());	    	
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -368,8 +379,8 @@ public class ParticipantGroupDAO {
 	    	String cmd_groupslist="";
         
         	    cmd_groupslist="Select * from `participant_group_table` where created_by='"+provider+"'";
-            
-          System.out.println(cmd_groupslist);
+            logger.info(cmd_groupslist);
+         
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
           {
@@ -381,7 +392,7 @@ public class ParticipantGroupDAO {
 			flag=1;
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());	    	
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -435,7 +446,8 @@ public class ParticipantGroupDAO {
 	   cmd_groupslist="Select * from `participant_group_table` where created_by='"+userName+"' and group_id='"+id+"'";
  
  }
-          System.out.println(cmd_groupslist);
+ logger.info(cmd_groupslist);
+         
 			resultSet=statement.executeQuery(cmd_groupslist);
           while(resultSet.next())
           {
@@ -447,7 +459,8 @@ public class ParticipantGroupDAO {
 			flag=1;
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    logger.info(e.toString());
+	    	
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -492,10 +505,13 @@ public class ParticipantGroupDAO {
 	    	  	  cmd_groupslist="Select count(*) as counting from `participant_group_table` where group_name='"+pgroups+"'";
 	  	    else
 	    	      cmd_groupslist="Select count(*) as counting from `participant_group_table` where group_name='"+pgroups+"'";
-	      resultSet=statement.executeQuery(cmd_groupslist);
+	      
+	    	logger.info( cmd_groupslist);
+	    	resultSet=statement.executeQuery(cmd_groupslist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
-          System.out.println(count);
+          
+       
           if(count>0)
           {
         	  return 0;
@@ -506,7 +522,7 @@ public class ParticipantGroupDAO {
           }
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	       	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -538,17 +554,19 @@ public class ParticipantGroupDAO {
 		   
 	     //String cmd_group="select group_name from `participant_group_table` where group_id='"+group_id+"'";
 	          //System.out.println(cmd_group);
+		
 	          resultSet=statement.executeQuery("select group_name from participant_group_table where group_id='"+group_id+"'");
 	          if(resultSet.next())
 	          {
-	        groupname=resultSet.getString("group_name");
-	         System.out.println(groupname);
+	         groupname=resultSet.getString("group_name");
+	       
 	          }
-	          System.out.println(groupname);
+	          logger.info(groupname);
+	          
 	           
 	}
 	   catch(Exception e){
-	   	System.out.println(e.toString());
+		   logger.info(e.toString());
 	   	releaseStatement(statement);
 	   	releaseConnection(con);
 	   
@@ -591,7 +609,7 @@ public class ParticipantGroupDAO {
 				cmd="select * from participant_group_table  order by group_name asc limit " + offset + ","+ limit+"";
 			else
 			cmd = "select * from participant_group_table where created_by='"+userName+"' order by group_name asc limit " + offset + ","+ limit+" " ;
-			System.out.println(cmd);
+			logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {
 				  participantgroup.add(new ParticipantGroups(resultSet.getString("group_id"),resultSet.getString("group_name"),resultSet.getString("group_decs"),resultSet.getString("created_by")));
@@ -635,8 +653,7 @@ public class ParticipantGroupDAO {
 			cmd = "select count(*) as noofrecords from participant_group_table";
 			else
 				cmd = "select count(*) as noofrecords from participant_group_table where created_by='"+userName+"'";
-				
-			System.out.println(cmd);
+			logger.info(cmd);			
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())
 				noofRecords = resultSet.getInt("noofrecords");
