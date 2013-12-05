@@ -50,10 +50,9 @@
 											<td valign="top" align="left" width="15%">${participantsDetails.mobile_num}</td>
 											<td valign="top" align="left" width="15%">${participantsDetails.provider_name}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time1} ${participantsDetails.time1_am_pm }</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time2} ${participantsDetails.time2_am_pm }</td>
-											<td valign="top" align="left" width="10%">${participantsDetails.time3} ${participantsDetails.time3_am_pm }</td>
-										<%-- 	<td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
+											<td valign="top" align="left" width="8%">${participantsDetails.time1}<c:if test="${participantsDetails.time1 ne 'null'}"><c:out value="${participantsDetails.time1_am_pm }"></c:out></c:if></td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time2}<c:if test="${participantsDetails.time2 ne 'null'}"><c:out value="${participantsDetails.time2_am_pm }"></c:out></c:if></td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time3} <c:if test="${participantsDetails.time3 ne 'null'}"><c:out value="${participantsDetails.time3_am_pm }"></c:out></c:if></td>		<%-- 	<td valign="top" align="left" width="15%">${participantsDetails.education}</td> --%>
 											<td valign="top" align="left" width="10%">${participantsDetails.date_of_join}</td>
 										</tr>
 										<%if(i==1)

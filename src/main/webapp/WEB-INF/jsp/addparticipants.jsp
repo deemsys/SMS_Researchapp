@@ -210,9 +210,9 @@ return true;
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
-														<option selected="selected" value="null">--Select--</option>
-														<option value="DSchool" id="edu">Did not complete High School</option>
-														<option value="HSchool" id="edu">High School or GED</option>
+														<option selected="selected" value="">--Select--</option>
+														<option value="Did not complete High School" id="edu">Did not complete High School</option>
+														<option value="High School or GED" id="edu">High School or GED</option>
 														<option value="Some College" id="edu">Some
 															College</option>
 														<option value="Professional Degree" id="edu">Undergraduate Degree</option>
@@ -432,7 +432,7 @@ return true;
 		 <tr class="row1">
                   <td valign="middle" align="left" class="input_txt"><span class="err"></span> Education :</td>
                   <td valign="top" align="left" class="input_txt"><select name="education" class="input_cmbbx1">
-                          <option value="null" <c:if test="${addparticipants.education=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+                          <option value="" <c:if test="${addparticipants.education==''}"><c:out value="selected"/></c:if>>--Select--</option>
 			<option value="Did not complete High School" <c:if test="${addparticipants.education=='Did not complete High School'}"><c:out value="selected"/></c:if>>Did not complete High School</option>
 			<option value="High School or GED" <c:if test="${addparticipants.education=='High School or GED'}"><c:out value="selected"/></c:if>>High School or GED</option>
 			<option value="Some College" <c:if test="${addparticipants.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
@@ -463,7 +463,7 @@ return true;
 													class="err"></span> Time1 :</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time1" class="input_cmbbx1" id="msg">
-												<option  <c:if test="${addparticipants.time1=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+												<option value="null" <c:if test="${addparticipants.time1=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 												
 					  <option value="01" <c:if test="${addparticipants.time1=='01'}"><c:out value="selected"/></c:if>>1</option>
                    <option value="02"  <c:if test="${addparticipants.time1=='02'}"><c:out value="selected"/></c:if>>2</option>
@@ -493,7 +493,7 @@ return true;
 													class="err"></span> Time2 :</td>
 												<td valign="top" align="left" class="input_txt" >
 												<select name="time2" class="input_cmbbx1" id="msg"">
-													<option  <c:if test="${addparticipants.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+													<option value="null" <c:if test="${addparticipants.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
                     <option value="01" <c:if test="${addparticipants.time2=='01'}"><c:out value="selected"/></c:if>>1</option>
                    <option value="02"  <c:if test="${addparticipants.time2=='02'}"><c:out value="selected"/></c:if>>2</option>
 				   <option value="03" <c:if test="${addparticipants.time2=='03'}"><c:out value="selected"/></c:if>>3</option>
@@ -520,7 +520,7 @@ return true;
 													class="err"></span> Time3 :</td>
 												<td valign="top" align="left" class="input_txt">
 												<select name="time3" class="input_cmbbx1" id="msg">
-				<option  <c:if test="${addparticipants.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>								
+				<option value="null" <c:if test="${addparticipants.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>								
 				 <option value="01" <c:if test="${addparticipants.time3=='01'}"><c:out value="selected"/></c:if>>1</option>
                    <option value="02"  <c:if test="${addparticipants.time3=='02'}"><c:out value="selected"/></c:if>>2</option>
 				   <option value="03" <c:if test="${addparticipants.time3=='03'}"><c:out value="selected"/></c:if>>3</option>

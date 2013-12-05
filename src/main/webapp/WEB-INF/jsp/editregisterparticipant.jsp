@@ -350,7 +350,7 @@ else
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
-														<option value="null" <c:if test="${participantsDetails.education=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+														<option value="" <c:if test="${participantsDetails.education==''}"><c:out value="selected"/></c:if>>--Select--</option>
 			<option value="Did not complete High School" <c:if test="${participantsDetails.education=='Did not complete High School'}"><c:out value="selected"/></c:if>>Did not complete High School</option>
 			<option value="High School or GED" <c:if test="${participantsDetails.education=='High School or GED'}"><c:out value="selected"/></c:if>>High School or GED</option>
 			<option value="Some College" <c:if test="${participantsDetails.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
@@ -387,12 +387,12 @@ else
 											<tr>
 												<td><p class="quck-txt">Preferred&nbsp;Timings</p></td>
 											</tr>
-
+                                  </br>
 											<tr class="row2">
 												<td valign="middle" align="left" class="input_txt">Time1 :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time1" class="input_cmbbx1" id="msg">
-													<option <c:if test="${participantsDetails.time1=='null'}"><c:out value="selected"/></c:if>> --Select--</option>
+													<option value="null" <c:if test="${participantsDetails.time1=='null'}"><c:out value="selected"/></c:if>> --Select--</option>
 														  <option value="01" <c:if test="${participantsDetails.time1=='01'}"><c:out value="selected"/></c:if>>1</option>
                    <option value="02"  <c:if test="${participantsDetails.time1=='02'}"><c:out value="selected"/></c:if>>2</option>
 				   <option value="03" <c:if test="${participantsDetails.time1=='03'}"><c:out value="selected"/></c:if>>3</option>
@@ -419,7 +419,7 @@ else
 												<td valign="middle" align="left" class="input_txt"> Time2 :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time2" class="input_cmbbx1" id="msg">
-													<option	<c:if test="${participantsDetails.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+													<option value="null" <c:if test="${participantsDetails.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 														
 													 <option value="01" <c:if test="${participants.time2=='01'}"><c:out value="selected"/></c:if>>1</option>
                    <option value="02"  <c:if test="${participantsDetails.time2=='02'}"><c:out value="selected"/></c:if>>2</option>
@@ -446,7 +446,7 @@ else
 												<td valign="middle" align="left" class="input_txt"> Time3 :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time3" class="input_cmbbx1" id="msg">
-		<option 
+		<option value="null"
 					<c:if test="${participantsDetails.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 					<option value="01"  <c:if test="${participantsDetails.time3=='01'}"><c:out value="selected"/></c:if>>1</option>
 					<option value="02"  <c:if test="${participantsDetails.time3=='02'}"><c:out value="selected"/></c:if>>2</option>
@@ -701,7 +701,7 @@ else
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
-														<option value="null" <c:if test="${participants.education=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+														<option value="" <c:if test="${participants.education==''}"><c:out value="selected"/></c:if>>--Select--</option>
 			<option value="Did not complete High School" <c:if test="${participants.education=='Did not complete High School'}"><c:out value="selected"/></c:if>>Did not complete High School</option>
 			<option value="High School or GED" <c:if test="${participants.education=='High School or GED'}"><c:out value="selected"/></c:if>>High School or GED</option>
 			<option value="Some College" <c:if test="${participants.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>
@@ -743,7 +743,7 @@ else
 												<td valign="middle" align="left" class="input_txt">Time1 :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time1" class="input_cmbbx1" id="msg">
-													<option <c:if test="${participants.time1=='null'}"><c:out value="selected"/></c:if>> --Select--</option>
+													<option value="null" <c:if test="${participants.time1=='null'}"><c:out value="selected"/></c:if>> --Select--</option>
 														 <option value="01" <c:if test="${participants.time1=='01'}"><c:out value="selected"/></c:if>>1</option>
                    <option value="02"  <c:if test="${participants.time1=='02'}"><c:out value="selected"/></c:if>>2</option>
 				   <option value="03" <c:if test="${participants.time1=='03'}"><c:out value="selected"/></c:if>>3</option>
@@ -767,7 +767,7 @@ else
 												<td valign="middle" align="left" class="input_txt"> Time2 :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time2" class="input_cmbbx1" id="msg">
-													<option	<c:if test="${participants.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+													<option	value="null" <c:if test="${participants.time2=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 														 <option value="01" <c:if test="${participants.time2=='01'}"><c:out value="selected"/></c:if>>1</option>
                    <option value="02"  <c:if test="${participants.time2=='02'}"><c:out value="selected"/></c:if>>2</option>
 				   <option value="03" <c:if test="${participants.time2=='03'}"><c:out value="selected"/></c:if>>3</option>
@@ -792,7 +792,7 @@ else
 												<td valign="middle" align="left" class="input_txt"> Time3 :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="time3" class="input_cmbbx1" id="msg">
-													<option 
+													<option value="null"
 															<c:if test="${participants.time3=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
 														 <option value="02"  <c:if test="${participants.time3=='02'}"><c:out value="selected"/></c:if>>2</option>
 				   <option value="03" <c:if test="${participants.time3=='03'}"><c:out value="selected"/></c:if>>3</option>

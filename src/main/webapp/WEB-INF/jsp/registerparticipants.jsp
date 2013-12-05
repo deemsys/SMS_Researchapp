@@ -307,7 +307,7 @@ function empty()
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
-														<option selected="selected" value="null">--Select--</option>
+														<option selected="selected" value="">--Select--</option>
 														<option value="School" id="edu">Did not complete High School</option>
 														<option value="School" id="edu">High School or GED</option>
 														<option value="Some Collage" id="edu">Some
@@ -584,7 +584,7 @@ function empty()
 													class="err"></span> Education :</td>
 												<td valign="top" align="left" class="input_txt"><select
 													name="education" class="input_cmbbx1">
-			<option value="null" <c:if test="${participants.education=='null'}"><c:out value="selected"/></c:if>>--Select--</option>
+			<option <c:if test="${participants.education==''}"><c:out value="selected"/></c:if>>--Select--</option>
 			<option value="Did not complete High School" <c:if test="${participants.education=='Did not complete High School'}"><c:out value="selected"/></c:if>>Did not complete High School</option>
 			<option value="High School or GED" <c:if test="${participants.education=='High School or GED'}"><c:out value="selected"/></c:if>>High School or GED</option>
 			<option value="Some College" <c:if test="${participants.education=='Some College'}"><c:out value="selected"/></c:if> >Some College</option>

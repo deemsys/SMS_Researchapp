@@ -71,7 +71,7 @@
 	            </div>
 	            <div class="contentbox">
 	            <c:choose>
-	            <c:when test="${empty group}">
+	            <c:when test="${empty participantgroup}">
 	              <table cellpadding="0" cellspacing="0" border="0" width="100%">
 	                
 	                <tr class="row1">
@@ -98,11 +98,11 @@
 	                <table cellpadding="0" cellspacing="0" border="0" width="100%">
 	                 <tr class="row1">
 	                  <td valign="middle" align="right" class="input_txt" width=30% ><span class="err">*</span> Group Name :</td>
-	                  <td valign="top" align="left" class="input_txt" width=70%><input type="text" name="group_name" class="input_txtbx" style="width:200px;"  id="group_name" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${group.group_name}"/><br/><span class="err"> <c:if test="${Group_exists==true}"><c:out value="Group Name already exist"/></c:if><form:errors path="pgroups.group_name"></form:errors> </span></td>
+	                  <td valign="top" align="left" class="input_txt" width=70%><input type="text" name="group_name" class="input_txtbx" style="width:200px;"  id="group_name" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="${participantgroup.group_name}"/><br/><span class="err"> <c:if test="${Group_exists==true}"><c:out value="Group Name already exist"/></c:if><form:errors path="pgroups.group_name"></form:errors> </span></td>
 	                </tr>
 	               <tr class="row1">
 	                  <td valign="middle" align="right" class="input_txt" width="30%"><span class="err">*</span> Group Description :</td>
-	                  <td valign="top" align="left" class="input_txt" width="70%"><textarea style="width:200px; height:100px;" name="group_decs" id="group_decs" class="input_txtbx" style="width: 301px; height: 109px;">${group.group_decs}</textarea></br><span class="err"><form:errors path="pgroups.group_decs"></form:errors></span></td>
+	                  <td valign="top" align="left" class="input_txt" width="70%"><textarea style="width:200px; height:100px;" name="group_decs" id="group_decs" class="input_txtbx" style="width: 301px; height: 109px;">${participantgroup.group_decs}</textarea></br><span class="err"><form:errors path="pgroups.group_decs"></form:errors></span></td>
 	                </tr>
 	                
 	                </table>

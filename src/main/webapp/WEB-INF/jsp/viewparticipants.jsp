@@ -48,7 +48,7 @@
 			                   </c:forEach>
 			                 </select><span class="err"><form:errors path="participant.groupname"></form:errors></span></td>
 							    <td align="left" valign="middle" width="5%">&nbsp;&nbsp;Zipcode:</td>
-							    <td align="left" valign="middle" width="15%"><input type="text" name="city" value="${city }" id="city" class="input_txtbx1"></td>
+							    <td align="left" valign="middle" width="15%"><input type="text" name="city" value="${zipcode}" id="city" class="input_txtbx1"></td>
 							     <td align="center" valign="middle" width="20%"><input type="submit" class="submit_btn" value="Find"></td>
 							      <td align="center" valign="middle" width="20%"><a href="viewparticipants"><input type="button" class="submit_btn" value="Clear"></a></td>
 							  </tr>
@@ -84,9 +84,9 @@
 											<td valign="top" align="left" width="10%">${participantsDetails.provider_name}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.city}</td>
 											<td valign="top" align="left" width="10%">${participantsDetails.age}</td>
-											<td valign="top" align="left" width="8%">${participantsDetails.time1} ${participantsDetails.time1_am_pm }</td>
-											<td valign="top" align="left" width="8%">${participantsDetails.time2} ${participantsDetails.time2_am_pm }</td>
-											<td valign="top" align="left" width="8%">${participantsDetails.time3} ${participantsDetails.time3_am_pm }</td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time1}<c:if test="${participantsDetails.time1 ne 'null'}"><c:out value="${participantsDetails.time1_am_pm }"></c:out></c:if></td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time2}<c:if test="${participantsDetails.time2 ne 'null'}"><c:out value="${participantsDetails.time2_am_pm }"></c:out></c:if></td>
+											<td valign="top" align="left" width="8%">${participantsDetails.time3} <c:if test="${participantsDetails.time3 ne 'null'}"><c:out value="${participantsDetails.time3_am_pm }"></c:out></c:if></td>
 											<td valign="top" align="left" width="25%">
 											<%-- <c:if test="${currentuser.adminuser[0].editparticipant==1}"> --%>
 												<a href="#" title="" ><img src="resources/images/icons/icon_edit.png" alt="Edit" /></a><a href="<c:out value="editparticipant?id=${participantsDetails.participants_id}"/>" style="padding-right:10px;">Edit</a>

@@ -40,8 +40,8 @@
 	                			<tr class="title">
 									<td valign="center" align="left" width="5%"><input type="checkbox" value="" name="chkAll"></td>
 	                  				<td valign="top" align="left" width="16%">Name</td>
-	                  				<td valign="top" align="left" width="20%">Mobile</td>
-	                  				<td valign="top" align="left" width="24%">E-Mail</td>
+	                  				<td valign="top" align="left" width="20%">E-Mail</td>
+	                  				<td valign="top" align="left" width="24%">Mobile</td>
 	                  				
 									<td valign="top" align="left" width="24%">Action</td>
 									<td valign="top" align="left" width="24%">Status</td>

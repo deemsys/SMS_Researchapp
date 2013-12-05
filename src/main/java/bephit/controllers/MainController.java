@@ -35,7 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; 
  
 @Controller
-@SessionAttributes({"currentuser","role","participants","provider","addparticipants","groups","group","editregister","mobile","groupsearch","zipcode","group_select"})
+@SessionAttributes({"currentuser","role","participants","provider","addparticipants","groups","group","editregister","mobile","groupsearch","zipcode","group_select","participantgroup"})
 public class MainController {
 	
 	@Autowired  
@@ -704,7 +704,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 		model.addAttribute("success","false");
 		session.removeAttribute("mobile");
 		session.removeAttribute("groupsearch");
-		session.removeAttribute("city");
+		session.removeAttribute("zipcode");
 		ParticipantsDetailsForm participantsDetailsForm = new ParticipantsDetailsForm();
 		participantsDetailsForm.setParticipantsDetails(mainDAO.getParticipants());
         model.addAttribute("participantsDetailsForm", participantsDetailsForm);
@@ -783,7 +783,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	@RequestMapping(value="/showaddparticipantgroups", method=RequestMethod.GET)
 	public String showAddParticipantGroups(HttpSession session,HttpServletRequest request,ParticipantGroups pgroups,ModelMap model) {		
 	
-		session.removeAttribute("group");		
+		session.removeAttribute("participantgroup");		
 		ParticipantsGroupForm participantGroupForm = new ParticipantsGroupForm();
 		participantGroupForm.setParticipantGroups(partDAO.getGroups());
         model.addAttribute("participantGroupForm", participantGroupForm);        
@@ -797,7 +797,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
 	@RequestMapping(value="/addparticipantgroups", method=RequestMethod.POST)
 	public String NewParticipantGroups(HttpSession session,HttpServletRequest request,@ModelAttribute("pgroups") @Valid ParticipantGroups pgroups,
 			BindingResult result,ModelMap model,Principal principal) {
-		session.setAttribute("group",pgroups);		
+		session.setAttribute("participantgroup",pgroups);		
 		model.addAttribute("Group_exists","false");
 		System.out.println("group"+pgroups.getgroup_name());
 		System.out.println("admin name"+principal.getName());
@@ -868,7 +868,7 @@ public String showRegisterParticipants(HttpSession session,HttpServletRequest re
         model.addAttribute("participantGroupForm", participantGroupForm);
 		//partDAO.setParticipantGroup(pgroups);
         model.addAttribute("menu","groups");
-        session.removeAttribute("group");
+        session.removeAttribute("participantgroup");
 		return "addparticipantgroups";
 	}
 	
