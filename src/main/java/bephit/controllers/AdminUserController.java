@@ -116,7 +116,8 @@ public class AdminUserController
        
         model.addAttribute("menu","adminuser");
         model.addAttribute("button","close");
-	      
+        model.addAttribute("currentpage",1);
+model.addAttribute("noofpages",1);
 	        model.addAttribute("menu","adminuser");
 	        model.addAttribute("success","false");
 	        model.addAttribute("button","close");

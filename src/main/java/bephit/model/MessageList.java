@@ -18,8 +18,12 @@ public class MessageList {
 	private String username;
 	private String mobile_num;
 	private String time1;
+	private String time1_am_pm;
 	private String time2;
+	private String time2_am_pm;
 	private String time3;
+	private String time3_am_pm;
+	
 	private String message_count;	
 	private String textingcontacts;	
 	private String days_weeks;
@@ -41,7 +45,7 @@ public class MessageList {
 
 
 
-
+	
 	public MessageList(String broad_id, String stream_id, String group_id,
 			String frequency, String startdate,
 			String provider_first_message_time,
@@ -49,8 +53,10 @@ public class MessageList {
 			String provider_third_message_time, String provider_first_am_pm,
 			String provider_second_am_pm, String provider_third_am_pm,
 			String provider_week_message_day, String participant_id,
-			String username, String mobile_num, String time1, String time2,
-			String time3, String message_count, String textingcontacts,String days_weeks) {
+			String username, String mobile_num, String time1,
+			String time1_am_pm, String time2, String time2_am_pm, String time3,
+			String time3_am_pm, String message_count, String textingcontacts,
+			String days_weeks) {
 		super();
 		this.broad_id = broad_id;
 		this.stream_id = stream_id;
@@ -68,15 +74,63 @@ public class MessageList {
 		this.username = username;
 		this.mobile_num = mobile_num;
 		this.time1 = time1;
+		this.time1_am_pm = time1_am_pm;
 		this.time2 = time2;
+		this.time2_am_pm = time2_am_pm;
 		this.time3 = time3;
+		this.time3_am_pm = time3_am_pm;
 		this.message_count = message_count;
 		this.textingcontacts = textingcontacts;
-		this.days_weeks=days_weeks;
+		this.days_weeks = days_weeks;
 	}
-	
-	
-	
+
+
+
+
+
+	public String getTime1_am_pm() {
+		return time1_am_pm;
+	}
+
+
+
+
+
+	public void setTime1_am_pm(String time1_am_pm) {
+		this.time1_am_pm = time1_am_pm;
+	}
+
+
+
+
+
+	public String getTime2_am_pm() {
+		return time2_am_pm;
+	}
+
+
+
+
+
+	public void setTime2_am_pm(String time2_am_pm) {
+		this.time2_am_pm = time2_am_pm;
+	}
+
+
+
+
+
+	public String getTime3_am_pm() {
+		return time3_am_pm;
+	}
+
+
+
+
+
+	public void setTime3_am_pm(String time3_am_pm) {
+		this.time3_am_pm = time3_am_pm;
+	}
 	
 	
 	public String getMessage_count() {
