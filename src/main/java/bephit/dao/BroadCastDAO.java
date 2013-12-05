@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -35,6 +36,7 @@ import bephit.model.StreamDetails;
 
 public class BroadCastDAO {
 	private DataSource dataSource;
+	protected static Logger logger=org.slf4j.LoggerFactory.getLogger("Insert into log table");
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -59,13 +61,14 @@ public class BroadCastDAO {
 			if (resultSet.next()) {
 
 				br_id = Integer.parseInt(resultSet.getString("max_id"));
-				System.out.println(br_id);
+				//System.out.println(br_id);
 				br_id = br_id + 1;
 				brid = Integer.toString(br_id);
-				System.out.println(brid);
+				
 			}
 
 		} catch (Exception e) {
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -127,12 +130,12 @@ public class BroadCastDAO {
 					+ broadCast.getTstream_time_am_pm()
 					+"','"					
 					+ broadCast.getStream_week_day() + "','0','"+userName+"')";
-			System.out.println(cmd);
+			logger.info(cmd);
 			statement.execute(cmd);
 			
 			flag = 1;
 		} catch (Exception ex) {
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -174,7 +177,7 @@ public class BroadCastDAO {
 			repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.days_weeks,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"'";
 			
 			resultSet=statement.executeQuery(repotscmd);
-			System.out.println(repotscmd);
+			logger.info(repotscmd);
 			while (resultSet.next()) {
 				reportList.add(new BroadCastReports(resultSet
 						.getString("broad_id"),resultSet
@@ -189,7 +192,7 @@ public class BroadCastDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -198,7 +201,7 @@ public class BroadCastDAO {
 			releaseStatement(statement);
 			releaseConnection(con);
 		}
-		System.out.println(reportList);
+	
 		return reportList;
 
 	}
@@ -230,7 +233,7 @@ public class BroadCastDAO {
 			else 			
 			    cmd = "select * from broad_cast_table where created_by='"+userName+"'";
 
-			System.out.println(cmd);
+			logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next())
 			{
@@ -249,7 +252,7 @@ public class BroadCastDAO {
 			
 
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -278,14 +281,14 @@ public class BroadCastDAO {
 	String cmd_update_enable="Update broad_cast_table set enable="+enable+" where broad_id='"+broad_id+"'";
 	statement.executeUpdate(cmd_update_enable);
 	
-	System.out.println(cmd_update_enable);
+	logger.info(cmd_update_enable);
 	
 	
 	
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -328,7 +331,7 @@ public class BroadCastDAO {
 				repotscmd = "select b.broad_id,str.stream_name,pg.group_name,b.days_weeks,b.frequency,str.message_count,b.start_date,b.status,b.enable from broad_cast_table as b join stream as str on str.stream_id=b.stream_id join participant_group_table as pg on b.group_id=pg.group_id where b.created_by='"+userName+"' limit " + offset + ","+ limit+"";
 			
 			resultSet=statement.executeQuery(repotscmd);
-			System.out.println(repotscmd);
+			logger.info(repotscmd);
 
 			while (resultSet.next()) {
 				reportList.add(new BroadCastReports(resultSet
@@ -342,6 +345,7 @@ public class BroadCastDAO {
 								.getString("message_count"),resultSet.getString("enable")));
 			}
 		} catch (Exception e) {
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -378,12 +382,13 @@ public class BroadCastDAO {
 				cmd="select count(*) as noofrecords from broad_cast_table";
 			else
 					cmd = "select count(*) as noofrecords from broad_cast_table where created_by='"+userName+"'";
-			System.out.println(cmd);
+			logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())
 				noofRecords = resultSet.getInt("noofrecords");
 
 		} catch (Exception e) {
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);

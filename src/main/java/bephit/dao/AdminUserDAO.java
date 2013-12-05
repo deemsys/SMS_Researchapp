@@ -80,8 +80,8 @@ public class AdminUserDAO {
 		          int index = (int)(RANDOM.nextDouble()*letters.length());
 		          pw += letters.substring(index, index+1);
 		      }
-		       
-			System.out.println("Password:"+pw);
+		     
+			//System.out.println("Password:"+pw);
 			 
 			 
 			 
@@ -91,11 +91,10 @@ public class AdminUserDAO {
 			 
 			 
 			 
-			 
 	String cmd="INSERT INTO admin_log_table(admin_firstname,admin_username,admin_password,admin_mobile,admin_email,date,status) VALUES('"+adminuser.getAdmin_firstname()+"','"+adminuser.getAdmin_username()+"','"+pw+"','"+adminuser.getAdmin_mobile()+"','"+adminuser.getAdmin_email()+"','"+dateFormat.format(date)+"',0)";
 	String cmd_login="insert into login(username,password,email_id,role,status) values('"+adminuser.getAdmin_username()+"','"+pw+"','"+adminuser.getAdmin_email()+"',1,0)";
 	String cmd_getid="SELECT LAST_INSERT_ID() as lastid";
-	System.out.println(cmd);
+	logger.info(cmd);	
 	statement.execute(cmd);
 	statement.execute(cmd_login);
 	/*String Desc="added adminuser";*/
@@ -108,11 +107,11 @@ public class AdminUserDAO {
 	statement.execute(cmd_role);	
 	//Send password
 	
-	System.out.println(adminuser.getAdmin_email());
-	System.out.println("fname:"+adminuser.getAdmin_firstname());
-	System.out.println("uname:"+adminuser.getAdmin_username());
+	//System.out.println(adminuser.getAdmin_email());
+	//System.out.println("fname:"+adminuser.getAdmin_firstname());
+	//System.out.println("uname:"+adminuser.getAdmin_username());
 	//System.out.println("password:"+adminuser.getAdmin_password());
-	System.out.println("password:"+pw);
+	//System.out.println("password:"+pw);
 	
 	logger.info("--Before Sending--"); //Logger Test
     //Email Test
@@ -133,7 +132,8 @@ public class AdminUserDAO {
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
+			//System.out.println(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -169,20 +169,19 @@ public class AdminUserDAO {
 	resultSet=statement.executeQuery(cmd_getusername);
 	
 	resultSet.next();
-	System.out.println();
+	
 	String cmd_update_status_login="Update login set status='"+Status+"' where username='"+resultSet.getString("admin_username")+"'";
 	statement.execute(cmd_update_status_login);
 	
-	
-	
-	System.out.println(cmd);
+	logger.info(cmd);
+
 	statement.executeUpdate(cmd);
 	
 	
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -218,7 +217,7 @@ public class AdminUserDAO {
           resultSet=statement.executeQuery(cmd_emaillist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
-          System.out.println(count);
+         
           if(count>0)
           {
         	  return 0;
@@ -229,7 +228,7 @@ public class AdminUserDAO {
           }
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -265,8 +264,7 @@ public class AdminUserDAO {
           resultSet=statement.executeQuery(cmd_mobilelist);
           resultSet.next();
           int counts=Integer.parseInt(resultSet.getString("counting"));
-          System.out.println(counts);
-          if(counts>0)
+            if(counts>0)
           {
         	  return 0;
           }
@@ -276,7 +274,7 @@ public class AdminUserDAO {
           }
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	   logger.info(e.toString());	    	
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -311,7 +309,6 @@ public class AdminUserDAO {
           resultSet=statement.executeQuery(cmd_userlist);
           resultSet.next();
           int counts=Integer.parseInt(resultSet.getString("counting"));
-          System.out.println(counts);
           if(counts>0)
           {
         	  return 0;
@@ -322,7 +319,7 @@ public class AdminUserDAO {
           }
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -368,7 +365,7 @@ public class AdminUserDAO {
 		} 
 		catch (Exception ex) 
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -407,7 +404,7 @@ public class AdminUserDAO {
 			resultSet = statement.
 					executeQuery("select * from admin_log_table where admin_id='"+admin_id+"'");
 			
-			System.out.println("select * from admin_log_table where admin_id='"+admin_id+"'");
+			logger.info("select * from admin_log_table where admin_id='"+admin_id+"'");
 			while (resultSet.next()) {
 				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
 						resultSet.getString("admin_firstname"),
@@ -423,7 +420,7 @@ public class AdminUserDAO {
 		} 
 		catch (Exception ex) 
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -468,7 +465,7 @@ public class AdminUserDAO {
 		} 
 		catch (Exception ex) 
 		{
-			System.out.println("user"+ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -507,7 +504,7 @@ public class AdminUserDAO {
 			resultSet = statement.
 					executeQuery("select * from admin_log_table where admin_username='"+admin_username+"'");
 			
-			System.out.println("select * from admin_log_table where admin_username='"+admin_username+"'");
+			logger.info("select * from admin_log_table where admin_username='"+admin_username+"'");
 			while (resultSet.next()) {
 				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
 						resultSet.getString("admin_firstname"),
@@ -524,7 +521,7 @@ public class AdminUserDAO {
 		} 
 		catch (Exception ex) 
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -562,7 +559,7 @@ public class AdminUserDAO {
 				
 					cmd = "select * from admin_log_table order by admin_firstname asc limit " + offset + ","+ limit+"" ;
 							
-				System.out.println(cmd);
+				logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {
 				adminuser.add(new AdminUser(resultSet.getString("admin_id"),
@@ -577,6 +574,7 @@ public class AdminUserDAO {
 								));
 			}
 		} catch (Exception e) {
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -606,12 +604,13 @@ public class AdminUserDAO {
 			String cmd;
 			
 					cmd = "select count(*) as noofrecords from admin_log_table";
-			System.out.println(cmd);
+					logger.info(cmd);			
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())
 				noofRecords = resultSet.getInt("noofrecords");
 
 		} catch (Exception e) {
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -654,7 +653,8 @@ public class AdminUserDAO {
 			String cmd="UPDATE admin_log_table SET admin_firstname='"+adminuser.getAdmin_firstname()+"',admin_username= '"+adminuser.getAdmin_username()+"',admin_password='"+adminuser.getAdmin_password()+"' ,admin_email='"+adminuser.getAdmin_email()+"' ,admin_mobile='"+adminuser.getAdmin_mobile()+"' where admin_id='"+adminuser.getAdmin_id()+"'";
 			
 			statement.execute(cmd);
-            System.out.println(cmd); 
+			logger.info(cmd);
+           
             /*String Desc="Update adminuser";
             String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+userName+"')";
             System.out.println(cmd_activity);
@@ -664,8 +664,8 @@ public class AdminUserDAO {
 		} 
 		catch (Exception ex) 
 		{
-			System.out.println(ex.toString());
-			releaseResultSet(resultSet);
+			logger.info(ex.toString());
+						releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;

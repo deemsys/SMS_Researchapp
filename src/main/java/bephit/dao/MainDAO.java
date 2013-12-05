@@ -70,7 +70,7 @@ public class MainDAO {
 				}
 			
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -115,15 +115,15 @@ public class MainDAO {
 	    	
 	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"','"+userName+"')";
 	    	    	
-	    	System.out.println("update message"+cmd);
-	    	System.out.println(cmd_activity);
+	    	logger.info("update message"+cmd);
+	    	logger.info(cmd_activity);
 			
 	    	statement.execute(cmd);
 			statement.execute(cmd_activity);
 			flag=1;
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -160,7 +160,7 @@ public class MainDAO {
           resultSet=statement.executeQuery(cmd_userlist);
           resultSet.next();
           int counts=Integer.parseInt(resultSet.getString("counting"));
-          System.out.println(counts);
+       
           if(counts>0)
           {
         	  return 0;
@@ -171,7 +171,7 @@ public class MainDAO {
           }
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -208,11 +208,11 @@ public class MainDAO {
 	       	     cmd_emaillist="Select count(*) as counting from participants_table where email_id='"+admin_email+"'";
 	      else if(from==1)
 	    	  cmd_emaillist="Select count(*) as counting from participants_table where email_id='"+admin_email+"' and participants_id!='"+participantid+"'";
-	 	     System.out.println(cmd_emaillist);	  
+	      logger.info(cmd_emaillist);	  
           resultSet=statement.executeQuery(cmd_emaillist);
           resultSet.next();
           int count=Integer.parseInt(resultSet.getString("counting"));
-          System.out.println("emailcount"+count);
+         // System.out.println("emailcount"+count);
          if(count>0)
           {
         	  return 0;
@@ -239,7 +239,7 @@ public class MainDAO {
           
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -277,7 +277,7 @@ public class MainDAO {
           resultSet=statement.executeQuery(cmd_mobilelist);
           resultSet.next();
           int counts=Integer.parseInt(resultSet.getString("counting"));
-          System.out.println(counts);
+        
           if(counts>0)
           {
         	  return 0;
@@ -288,7 +288,7 @@ public class MainDAO {
           }
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -340,7 +340,7 @@ public class MainDAO {
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
-			System.out.println("providername"+participant.getProvider_name());
+			//System.out.println("providername"+participant.getProvider_name());
 			// System.out.println(dateFormat.format(date));
 			String cmd = "INSERT INTO `participants_table` (`fname`,`username`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time1_am_pm`,`time2`,`time2_am_pm`,`time3`,`time3_am_pm`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
 					+ participant.getFname()					
@@ -377,7 +377,7 @@ public class MainDAO {
 					+ "','"
 					+ dateFormat.format(date)
 					+ "','" + participant.getEmail_id() + "','"+participant.getProvider_name()+"')";
-			System.out.println(cmd);
+			logger.info(cmd);
 			statement.execute(cmd);
 		
 			
@@ -393,7 +393,7 @@ public class MainDAO {
 		          int index = (int)(RANDOM.nextDouble()*letters.length());
 		          pw += letters.substring(index, index+1);
 		      }
-		    System.out.println("Password:"+pw);
+		  //  System.out.println("Password:"+pw);
 		    
 		    
 			 
@@ -407,14 +407,14 @@ public class MainDAO {
 			/*statement.execute(cmd);*/
 			statement.execute(cmd_login);
 			String cmd_getid="SELECT LAST_INSERT_ID() as lastid";
-			System.out.println(cmd);
+			logger.info(cmd_login);
 			/*String Desc="added adminuser"+admin_id;
 			String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc) values('"+admin_id+"','127.0.0.1','"+dateFormat.format(date)+"','"+Desc+"')";
 			System.out.println(cmd_activity);
 			*/resultSet=statement.executeQuery(cmd_getid);
 			resultSet.next();
 			int lastinsertedid=Integer.parseInt(resultSet.getString("lastid"));
-			System.out.println(lastinsertedid);
+		
 			String cmd_role="insert into user_roles(user_id,authority) values('"+lastinsertedid+"','ROLE_USER')";
 			statement.execute(cmd_role);	
 			//end insert
@@ -440,8 +440,7 @@ public class MainDAO {
 				
 			}	
 			
-			
-			System.out.println("insertcmd"+cmd);
+			logger.info("insertcmd"+cmd);
 			
 			resultSet= statement.executeQuery("select  max(participants_id) as participant from participants_table;");
 			String participants="";
@@ -455,7 +454,7 @@ public class MainDAO {
 				{
 				participants=resultSet.getString("participant");
 				}
-			System.out.println("participants........."+participants);			
+			//System.out.println("participants........."+participants);			
 			List<String> strlist = new ArrayList<String>();
 			List<String> strlist1 = new ArrayList<String>();
 					
@@ -470,16 +469,13 @@ public class MainDAO {
 						i++;
 					}
 				}
-		 int count=groups.length;
-		 System.out.println("count"+count);
-		
-			System.out.println("group_id"+strlist);
-			System.out.println("group_name"+strlist1);
+		 int count=groups.length;		
 		for(int i=0;i<count;i++)
 		{	
 			String cmd_mess="insert into participant_group(group_id,group_name,participant_id) values('"+strlist.get(i)+"','"+strlist1.get(i)+"','"+participants+"')";
 			statement.execute(cmd_mess);
-			System.out.println("cmd_mess"+cmd_mess);
+			logger.info(cmd_mess);
+			//System.out.println("cmd_mess"+cmd_mess);
 	     }			
 			/*
 			 * String cmd_getparticipantname=
@@ -514,7 +510,7 @@ public class MainDAO {
 		
 		}
 		catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseStatement(statement);
 			releaseConnection(con);
 			flag = 0;
@@ -553,7 +549,7 @@ public class MainDAO {
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
-			System.out.println("providername"+participant.getProvider_name());
+			
 			// System.out.println(dateFormat.format(date));
 			String cmd = "INSERT INTO `participants_table` (`fname`,`username`,`mobile_num`,`gender`,`city`,`education`,`medical_details`,`time1`,`time2`,`time3`,`Provider_name`,`group_name`,`age`,`date_of_join`,`email_id`,`created_by`) VALUES ('"
 					+ participant.getFname()
@@ -584,9 +580,9 @@ public class MainDAO {
 					+ "','"
 					+ dateFormat.format(date)
 					+ "','" + participant.getEmail_id() + "','"+userName+"')";
-			System.out.println(cmd);
+			logger.info(cmd);
 			statement.executeUpdate(cmd);
-			System.out.println("insertcmd"+cmd);
+			
 			
 			/*
 			 * String cmd_getparticipantname=
@@ -601,14 +597,14 @@ public class MainDAO {
 					+ "','127.0.0.1','"
 					+ dateFormat.format(date)
 					+ "','" + Desc + "','"+userName+"')";
-			System.out.println(cmd_activity);
+			 logger.info(cmd_activity);
 			statement.execute(cmd_activity);
 			flag = 1;
 			
 			
 		} catch (Exception e) {
 			
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseStatement(statement);
 			releaseConnection(con);
 			flag = 0;
@@ -664,7 +660,7 @@ public class MainDAO {
 		          int index = (int)(RANDOM.nextDouble()*letters.length());
 		          pw += letters.substring(index, index+1);
 		      }
-		    System.out.println("Password:"+pw);
+		   
 		    
 		    
 			 
@@ -688,15 +684,12 @@ public class MainDAO {
 					}
 				}
 		 int count=groups.length;
-		 System.out.println("count"+count);
-		
-			System.out.println("group_id"+strlist);
-			System.out.println("group_name"+strlist1);
+		 
 		for(int i=0;i<count;i++)
 		{	
 			String cmd_mess="insert into participant_group(group_id,group_name,participant_id) values('"+strlist.get(i)+"','"+strlist1.get(i)+"','"+participants_id+"')";
 			statement.execute(cmd_mess);
-			System.out.println("cmd_mess"+cmd_mess);
+			logger.info("cmd_mess"+cmd_mess);
 	     }
 		String Providername="";
 		if(from==1)
@@ -717,19 +710,19 @@ public class MainDAO {
 	    	String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+Providername+"','"+IP.getHostAddress()+"','"+dateFormat.format(date)+"','"+Desc+"','"+Providername+"')";
 	    	String cmd="UPDATE participants_table SET fname ='"+participant.getFname()+"',username ='"+participant.getUsername()+"',mobile_num ='"+participant.getMobile_num()+"',gender ='"+participant.getGender()+"'  ,city ='"+participant.getCity()+"' ,education = '"+participant.getEducation()+"',medical_details = '"+participant.getMedical_details()+"',time1='"+participant.getTime1()+"',time1_am_pm='"+participant.getTime1_am_pm()+"',time2='"+participant.getTime2()+"',time2_am_pm='"+participant.getTime2_am_pm()+"',time3='"+participant.getTime3()+"',time3_am_pm='"+participant.getTime3_am_pm()+"',Provider_name ='"+Providername+"',group_name = '"+participant.getGroup_name()+"',age = '"+participant.getAge()+"',date_of_join = '"+dateFormat.format(date)+"',email_id = '"+participant.getEmail_id()+"' WHERE participants_id='"+participants_id+"';";    	
 	    	String cmd_login="UPDATE login SET email_id='"+participant.getEmail_id()+"' where username= '"+participant.getUsername()+"'";
-	    			System.out.println(cmd);
-	    	System.out.println(cmd_activity);
+	    	logger.info(cmd);
+	    	logger.info(cmd_activity);
 			
 	    	statement.execute(cmd);
 			statement.execute(cmd_activity);
 			
 			statement.execute(cmd);
 			statement.execute(cmd_login);
-			System.out.println(cmd_login);
+			logger.info(cmd_login);
 			flag=1;
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -754,7 +747,7 @@ public class MainDAO {
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
-		  System.out.println(((UserDetails) principal).getAuthorities());
+		  //System.out.println(((UserDetails) principal).getAuthorities());
 		}
 		String userName = userDetails.getUsername();	
 		//give full permission to superadmin
@@ -774,14 +767,14 @@ public class MainDAO {
 				
 			resultSet = statement
 					.executeQuery(cmd);
-			System.out.print("username"+userName);
+			
 			if(resultSet.next()) {
 				name=resultSet.getString("Provider_name");
 								
 			}
-			System.out.println("name"+name);
+		
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -804,7 +797,7 @@ public class MainDAO {
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
 		  userDetails = (UserDetails) principal;
-		  System.out.println(((UserDetails) principal).getAuthorities());
+		  //System.out.println(((UserDetails) principal).getAuthorities());
 		}
 		String userName = userDetails.getUsername();
 		
@@ -830,7 +823,7 @@ public class MainDAO {
 				
 			resultSet = statement
 					.executeQuery(cmd);
-			System.out.print("username" +userName);
+			//System.out.print("username" +userName);
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet
@@ -851,7 +844,7 @@ public class MainDAO {
 								.getString("created_by"),resultSet.getString("message")));
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -882,13 +875,13 @@ public class MainDAO {
             String cmd;
             
 			cmd = "select * from login where email_id='"+email+"'";
-			System.out.println(cmd);
+			logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if(resultSet.next()) {
 
 				//------------------------------------------------------------------------//
 				
-				System.out.println(email);
+				
 				logger.info("--Before Sending--"); //Logger Test
 		        //Email Test
 		        emailSender.password_sendEmail(email, "learnguild.com", "Forgot Password",resultSet.getString("username"),resultSet.getString("username"),resultSet.getString("password"));
@@ -905,7 +898,7 @@ public class MainDAO {
 				
 			}
 		} catch (Exception e) {
-			System.out.println("email:"+e.toString());
+			logger.info("email:"+e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -950,7 +943,7 @@ public class MainDAO {
 				else
 					cmd = "select * from participants_table where provider_name='"+userName+"'  order by fname asc limit " + offset + ","+ limit+"" ;
 							
-				System.out.println(cmd);
+			logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
@@ -1008,7 +1001,7 @@ public class MainDAO {
 				cmd = "select count(*) as noofrecords from participants_table";
 				else
 					cmd = "select count(*) as noofrecords from participants_table where provider_name='"+userName+"'";
-			System.out.println(cmd);
+			logger.info(cmd);
 			resultSet = statement.executeQuery(cmd);
 			if (resultSet.next())
 				noofRecords = resultSet.getInt("noofrecords");
@@ -1073,7 +1066,7 @@ public class MainDAO {
 			flag = 1;
 
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			flag = 0;
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
@@ -1173,7 +1166,7 @@ public class MainDAO {
 			
 			}			
 			resultSet = statement.executeQuery(cmd);
-			System.out.println(cmd);
+			logger.info(cmd);
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet
@@ -1195,7 +1188,7 @@ public class MainDAO {
 								.getString("created_by"),resultSet.getString("message")));
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -1223,7 +1216,7 @@ public class MainDAO {
 			String cmd = "select * from participants_table where participants_id='"
 					+ participants_id + "'";
 			resultSet = statement.executeQuery(cmd);
-			System.out.println(cmd);
+			logger.info(cmd);
 			while (resultSet.next()) {
 				participants.add(new ParticipantsDetails(resultSet
 						.getString("participants_id"), resultSet
@@ -1247,7 +1240,7 @@ public class MainDAO {
 				
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -1277,7 +1270,7 @@ public class MainDAO {
 				String cmd = "select Provider_name from participants_table where participants_id='"
 						+ participantid + "'";
 				resultSet = statement.executeQuery(cmd);
-				System.out.println(cmd);
+				logger.info(cmd);
 			if (resultSet.next()) {
 					
 								participants=resultSet.getString("Provider_name");
@@ -1285,7 +1278,7 @@ public class MainDAO {
 					
 				}
 			} catch (Exception e) {
-				System.out.println(e.toString());
+				logger.info(e.toString());
 				releaseResultSet(resultSet);
 				releaseStatement(statement);
 				releaseConnection(con);
@@ -1314,7 +1307,7 @@ public class MainDAO {
 		try {
 			String cmd = "select * from participants_table";
 			resultSet = statement.executeQuery(cmd);
-			System.out.println(cmd);
+			logger.info(cmd);
 			while (resultSet.next()) {
 				ParticipantsDetails p = (new ParticipantsDetails(
 						resultSet
@@ -1347,7 +1340,7 @@ public class MainDAO {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -1374,7 +1367,7 @@ public class MainDAO {
 			String cmd = "select * from participants_table where group_name="
 					+ grname;
 			resultSet = statement.executeQuery(cmd);
-			System.out.println(cmd);
+			logger.info(cmd);
 			while (resultSet.next()) {
 				ParticipantsDetails p = (new ParticipantsDetails(
 						resultSet
@@ -1400,7 +1393,7 @@ public class MainDAO {
 				participants.add(p);
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -1463,11 +1456,11 @@ public class MainDAO {
 	    	resultSet.next();
 	    	role=Integer.parseInt(resultSet.getString("role"));
 	    	flag=1;
-	    	System.out.println(role);
+	    	//System.out.println(role);
 	    	 
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -1510,11 +1503,11 @@ public class MainDAO {
 	    	resultSet.next();
 	    	p_id=resultSet.getString("participants_id");
 	    	flag=1;
-	    	System.out.println(p_id);
+	    	//System.out.println(p_id);
 	    	 
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -1556,7 +1549,7 @@ public class MainDAO {
 	    	 resultSet=statement.executeQuery(cmd_userlist);
 	          resultSet.next();
 	          int count=Integer.parseInt(resultSet.getString("counting"));
-	          System.out.println(count);
+	         // System.out.println(count);
 	         if(count>0)
 	          {
 	        	  return 0;
@@ -1567,7 +1560,7 @@ public class MainDAO {
 	          }
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;
@@ -1606,7 +1599,7 @@ public class MainDAO {
 	    	resultSet=statement.executeQuery(cmd_mobilelist);
 	          resultSet.next();
 	          int count=Integer.parseInt(resultSet.getString("counting"));
-	          System.out.println(count);
+	          //System.out.println(count);
 	         if(count>0)
 	          {
 	        	  return 0;
@@ -1617,7 +1610,7 @@ public class MainDAO {
 	          }
 	 }
 	    catch(Exception e){
-	    	System.out.println(e.toString());
+	    	logger.info(e.toString());
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
 	    	flag=0;

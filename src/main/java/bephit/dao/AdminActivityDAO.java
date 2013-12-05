@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -23,6 +24,7 @@ import bephit.model.ParticipantGroups;
 import bephit.model.ParticipantsDetails;
 
 public class AdminActivityDAO {
+	protected static Logger logger = org.slf4j.LoggerFactory.getLogger("Insert into log table");
 	private DataSource dataSource;
 
 	public void setDataSource(DataSource dataSource) {
@@ -54,7 +56,7 @@ public class AdminActivityDAO {
 		{
 			resultSet = statement.
 					executeQuery("select * from admin_log_activity_table");
-			System.out.println("select * from admin_log_activity_table");
+			logger.info("select * from admin_log_activity_table");
 			while (resultSet.next()) {
 				adminactivity.add(new AdminActivity(resultSet.getString("log_id")
 						,resultSet.getString("admin_id")
@@ -65,11 +67,11 @@ public class AdminActivityDAO {
 						));
 			
 		                  }
-			System.out.println(adminactivity);
+			
 		} 
 		catch (Exception ex) 
 		{
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 	    	releaseStatement(statement);
 	    	releaseConnection(con);
@@ -118,12 +120,12 @@ public class AdminActivityDAO {
 		
 			
 			String cmd_activity="insert into admin_log_activity_table(admin_id,ip_address,admin_date_time,admin_desc,done_by) values('"+admin_id+"','"+IP.getHostAddress()+"','"+dateFormat.format(date)+"','"+Desc+"','"+admin_id+"')";
-			System.out.println(cmd_activity);
+			logger.info(cmd_activity);
 			statement.execute(cmd_activity);
 			
 			flag = 1;
 		} catch (Exception ex) {
-			System.out.println(ex.toString());
+			logger.info(ex.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);

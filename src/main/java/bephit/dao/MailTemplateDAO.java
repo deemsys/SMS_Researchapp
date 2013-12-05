@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +19,8 @@ import bephit.model.UpdatePwd;
 
 public class MailTemplateDAO {
 	private DataSource dataSource;
+	protected static Logger logger=org.slf4j.LoggerFactory.getLogger("logs");
+			
 
 	
 	
@@ -62,11 +65,12 @@ public class MailTemplateDAO {
 					+ mailTemplateDetails.getPassword()
 					+ "','"
 					+ mailTemplateDetails.getMessage() + "')";
-			System.out.println(cmd);
+			
+			logger.info(cmd);
 			statement.execute(cmd);
 			flag = 1;
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -111,7 +115,7 @@ public class MailTemplateDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.info(e.toString());
 			releaseResultSet(resultSet);
 			releaseStatement(statement);
 			releaseConnection(con);
@@ -163,7 +167,7 @@ public String getCurrentPwd(){
 	  userDetails = (UserDetails) principal;
 	}
 	String userName = userDetails.getUsername();
-	System.out.println(userName);
+	
 	try {
 		con = dataSource.getConnection();
 		statement = con.createStatement();
@@ -177,10 +181,10 @@ public String getCurrentPwd(){
 		resultSet.next();
 		
 	userpwd=resultSet.getString("password");
-	System.out.println(userpwd);
+	
 	}
 	catch (Exception e) {
-		System.out.println(e.toString());
+		logger.info(e.toString());
 		releaseResultSet(resultSet);
     	releaseStatement(statement);
     	releaseConnection(con);
@@ -213,12 +217,12 @@ public int updateoldPwd(UpdatePwd updatePwds){
 	try {
 		String cmd="update admin_log_table set admin_password='" + updatePwds.getNew_pwd() + "' where admin_username ='" + userName + "' ";
 		String cmd_login="update login set password='" + updatePwds.getNew_pwd() + "' where username='"+userName+"'";
-		System.out.println(cmd);
+		logger.info(cmd);
 		statement.execute(cmd);
 		statement.execute(cmd_login);
 		flag=1;
 	} catch (Exception e) {
-		System.out.println(e.toString());
+		logger.info(e.toString());
 		releaseStatement(statement);
 		releaseConnection(con);
 		flag = 0;
@@ -245,11 +249,11 @@ public int updateMsgSettings(TextMsgSettings tMsgSettings){
 	}
 	try {
 		String cmd="update text_msg_api set account_sid='" + tMsgSettings.getAccount_sid() + "', auth_token='" + tMsgSettings.getAuth_token() + "', mob_num='" + tMsgSettings.getMob_num() +"';";
-	System.out.println(cmd);
+		logger.info(cmd);
 	statement.execute(cmd);
 flag=1;
 	} catch (Exception e) {
-		System.out.println(e.toString());
+		logger.info(e.toString());
 		releaseStatement(statement);
 		releaseConnection(con);
 		flag = 0;
